@@ -21,6 +21,6 @@ Use Python 3.12 from this directory. The current projection core has no third-pa
 python -B -m unittest discover -s workbench_v2/tests -v
 ```
 
-The test data is invented. Keep `config/` credentials and `data/` student material out of logs and version control. This folder is currently not a Git checkout; `.gitignore` protects a future repository import but does not itself make local files private.
+The test data is invented. Keep `config/` credentials and `data/` student material out of logs and version control. This folder is a local Git repository with no remote. Only a curated text baseline and vetted context were committed; legacy files remain visibly untracked, and `.gitignore` is not a confidentiality boundary.
 
 `workbench_v2/lms_read_adapter.py` now checks an explicit occurrence binding, a bounded DayRecord read, and an optional course-key relation using invented-data tests. Live joins remain unverified. Continue backend research with narrow, source-reviewed direct reads through an authorized ephemeral `ganga.lms.session.LmsSession`; use Browser for web UI questions, Computer Use for native Windows UI, and normal file tools for workspace edits. Preserve unknown app and delivery states until their selected-student read contracts are verified. Review a reversible Main-tab batch with the instructor before applying it; save any DayRecord fields only after teacher review and exact readback. The instructor performs the final Kakao send.

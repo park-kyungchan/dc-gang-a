@@ -10,7 +10,7 @@
 
 - Use Windows Python 3.12 from this project root. `workbench_v2` and its tests use only the standard library; no virtual environment or package installation is needed for that slice.
 - The safe local gate is `python -B -m unittest discover -s workbench_v2/tests -v`. It uses invented records and has no network, Sheet, or LMS effect.
-- `python -B harness/desktop_gate.py` is the broader local environment gate. Its pass state is limited to the local checks it names; Desktop app association, live LMS reads, production Sheet effects, and teacher acceptance require separate evidence.
+- `python -B harness/desktop_gate.py --profile core` is the broader local gate and works in a clean managed worktree without optional dependencies. Use `--profile live` only when that checkout has its own installed and locked LMS reader environment. Neither profile proves Desktop app association, an authenticated LMS read, production Sheet effects, or teacher acceptance.
 - The former session-file client, MCP server, smoke check, pipeline test, and manual-session probe were retired on 2026-09-27. Do not restore or run a saved-cookie workflow or use blanket test discovery as an environment check.
 - Never read or print credential contents from `config/`, credential stores, or raw student data from `data/`. Do not add them to Git, logs, prompts, or broad tool output.
 

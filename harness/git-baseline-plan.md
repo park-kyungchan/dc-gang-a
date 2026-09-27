@@ -2,6 +2,8 @@
 
 The owner authorized a local Git repository on 2026-09-27. This baseline is local only: no remote, push, publication, or academy/Sheet/SPT/VPS effect.
 
+The first curated commit is `6ddb1385b4166210c029e7d1c41bf6abebf25878` (34 text files). The second is `2d51ac7be2d956d676ceb425a92aaf4fd750b8c6` (24 vetted context files). The Codex app then reported `isGitRepository=true` for this saved project and created a clean managed worktree at `C:/Users/packr/.codex/worktrees/main-sheet-v2/강의하는아이들_대치점`. That worktree starts at the second commit with a detached HEAD and excludes the ignored credential/student directories.
+
 ## Proposed first commit
 
 Stage only the following reviewed paths, 34 text files totaling about 292 KB at the 2026-09-27 staged preflight:
@@ -20,6 +22,6 @@ The existing canonical backend map includes CRLF files and one Markdown hard-lin
 
 - `config/`, `data/`, `.venv/`, generated caches, and root `1.png` are ignored.
 - `docs/cartography.md` contains mixed student examples and is ignored.
-- Other `docs/`, `src/`, `tests/`, `research/`, and older handoffs remain unstaged and visibly untracked until separately reviewed. Do not hide those sources merely to make `git status` look clean. The sibling automation and SPT repositories remain separate.
+- The second commit added the separately hash-verified remote structural copy, GCP/prototype records, and two dated handoffs. Remaining `docs/`, `src/`, and `research/lms_day_record_structure_probe.py` files stay visibly untracked because they contain stale or broken legacy assumptions; do not hide them merely to make `git status` look clean. The obsolete `.agents` hook was removed. The sibling automation and SPT repositories remain separate.
 
-The first commit records only the curated baseline. App registration of the repository, review pane behavior, managed worktree creation, and native local-environment actions need separate readback; a `.git` directory alone does not prove those app features are active.
+App recognition and managed worktree creation have exact readback. Review-pane behavior and native local-environment actions have not been verified or configured.

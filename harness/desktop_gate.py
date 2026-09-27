@@ -6,6 +6,7 @@ It never opens credentials, student data, an academy session, or a remote host.
 
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import re
@@ -29,17 +30,20 @@ RETIRED = (
     "research/lms_index_probe.py",
     "config/session.json",
 )
-REQUIRED_LOCAL_CHECKS = (
+CORE_REQUIRED_CHECKS = (
     "python_3_12", "workspace", "context_links", "retired_session_workflow",
-    "synthetic_workbench", "harness_policy_tests", "backend_map", "academy_source_contract",
-    "academy_live_import", "live_dependency_lock", "transition_pack",
-    "spt_checkout",
+    "synthetic_workbench", "harness_policy_tests", "backend_map",
+    "academy_source_contract", "transition_pack", "spt_checkout",
 )
+LIVE_REQUIRED_CHECKS = CORE_REQUIRED_CHECKS + (
+    "academy_live_import", "live_dependency_lock",
+)
+REQUIRED_CHECKS_BY_PROFILE = {"core": CORE_REQUIRED_CHECKS, "live": LIVE_REQUIRED_CHECKS}
 
 
-def failed_required(checks: dict[str, object]) -> list[str]:
+def failed_required(checks: dict[str, object], profile: str = "core") -> list[str]:
     """A drift or unavailable required check is a failed local gate."""
-    return [name for name in REQUIRED_LOCAL_CHECKS
+    return [name for name in REQUIRED_CHECKS_BY_PROFILE[profile]
             if not isinstance(checks.get(name), dict)
             or checks[name].get("status") != "pass"]
 
@@ -65,6 +69,10 @@ def run(*argv: str, cwd: Path = ROOT) -> dict[str, object]:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--profile", choices=tuple(REQUIRED_CHECKS_BY_PROFILE),
+                        default="core", help="core works in a clean worktree; live requires project dependencies")
+    args = parser.parse_args()
     checks: dict[str, object] = {}
     checks["python_3_12"] = {
         "status": "pass" if sys.version_info[:2] == (3, 12) else "fail",
@@ -161,11 +169,12 @@ def main() -> int:
         "status": "configured" if "GANGA_JSESSIONID" in os.environ else "not_configured",
         "detail": "presence only; value never read or printed",
     }
-    failed_local = failed_required(checks)
+    failed_local = failed_required(checks, args.profile)
     report = {
         "generated_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "scope": "local read-only Desktop gate",
         "local_workspace_gate": {
+            "profile": args.profile,
             "status": "pass" if not failed_local else "fail",
             "failed_checks": failed_local,
         },
