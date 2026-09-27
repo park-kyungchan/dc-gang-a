@@ -1,0 +1,454 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-09-27 05:16:11 UTC",
+  "spreadsheet_id": "1R8DoOOo5yg3M1hgHPA0Vuqp3Ng-K5bQgxdiy5dEeXOg",
+  "title": "대치강아 학생진도현황",
+  "target_sheet": {
+    "id": 1754681846,
+    "title": "박경찬"
+  },
+  "modified_time": "2026-09-27T05:05:18.152Z",
+  "tab_count": 43,
+  "hidden_tab_count": 13,
+  "allocated_cells": 904467,
+  "tabs": [
+    {
+      "id": 1992125022,
+      "title": "박경찬_BACKUP_20260925",
+      "hidden": false,
+      "rows": 72,
+      "columns": 16,
+      "frozen_rows": 2,
+      "frozen_columns": 0
+    },
+    {
+      "id": 923904507,
+      "title": "박경찬_02_학생진도",
+      "hidden": true,
+      "rows": 300,
+      "columns": 21,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 504451255,
+      "title": "[시안1] Apple_주간타임블록",
+      "hidden": false,
+      "rows": 38,
+      "columns": 16,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 1347174485,
+      "title": "[시안2] Google_모던매트릭스",
+      "hidden": false,
+      "rows": 38,
+      "columns": 16,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 46564598,
+      "title": "[시안3] 교습소_고밀도타임테이블",
+      "hidden": false,
+      "rows": 38,
+      "columns": 16,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 869277162,
+      "title": "Form Responses 1",
+      "hidden": false,
+      "rows": 1001,
+      "columns": 27,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 1286837363,
+      "title": "한다솜",
+      "hidden": false,
+      "rows": 1030,
+      "columns": 29,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 0,
+      "title": "김예원",
+      "hidden": false,
+      "rows": 1014,
+      "columns": 33,
+      "frozen_rows": 3,
+      "frozen_columns": 3
+    },
+    {
+      "id": 1202938137,
+      "title": "이연지",
+      "hidden": false,
+      "rows": 1014,
+      "columns": 33,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 1754681846,
+      "title": "박경찬",
+      "hidden": false,
+      "rows": 72,
+      "columns": 16,
+      "frozen_rows": 2,
+      "frozen_columns": 0
+    },
+    {
+      "id": 2106663529,
+      "title": "DB_원생_SYNC",
+      "hidden": false,
+      "rows": 1000,
+      "columns": 26,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 476314843,
+      "title": "DB_수업로그_SYNC",
+      "hidden": false,
+      "rows": 1000,
+      "columns": 26,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 2005345892,
+      "title": "DB_학생현황_캐시",
+      "hidden": false,
+      "rows": 1000,
+      "columns": 26,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 1257062427,
+      "title": "DB_강사_피드백",
+      "hidden": false,
+      "rows": 1000,
+      "columns": 26,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 945937184,
+      "title": "전태휘",
+      "hidden": false,
+      "rows": 1003,
+      "columns": 29,
+      "frozen_rows": 2,
+      "frozen_columns": 0
+    },
+    {
+      "id": 1768953399,
+      "title": "염학열",
+      "hidden": false,
+      "rows": 1007,
+      "columns": 29,
+      "frozen_rows": 3,
+      "frozen_columns": 3
+    },
+    {
+      "id": 433768923,
+      "title": "김도후",
+      "hidden": false,
+      "rows": 1013,
+      "columns": 29,
+      "frozen_rows": 0,
+      "frozen_columns": 3
+    },
+    {
+      "id": 1969340456,
+      "title": "추승진",
+      "hidden": false,
+      "rows": 976,
+      "columns": 29,
+      "frozen_rows": 3,
+      "frozen_columns": 3
+    },
+    {
+      "id": 255269214,
+      "title": "송이슬",
+      "hidden": false,
+      "rows": 1002,
+      "columns": 29,
+      "frozen_rows": 0,
+      "frozen_columns": 3
+    },
+    {
+      "id": 1222849718,
+      "title": "김휘경",
+      "hidden": false,
+      "rows": 989,
+      "columns": 33,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 372930900,
+      "title": "퇴원생 명단",
+      "hidden": false,
+      "rows": 869,
+      "columns": 25,
+      "frozen_rows": 3,
+      "frozen_columns": 0
+    },
+    {
+      "id": 1912876474,
+      "title": "퇴원 그래프",
+      "hidden": false,
+      "rows": 1115,
+      "columns": 43,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 1139688060,
+      "title": "Pogress Report",
+      "hidden": false,
+      "rows": 998,
+      "columns": 26,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 64547353,
+      "title": "New Progress Report",
+      "hidden": false,
+      "rows": 999,
+      "columns": 26,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 2104473731,
+      "title": "Copy of Pogress Report",
+      "hidden": false,
+      "rows": 996,
+      "columns": 35,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 1418840197,
+      "title": "박경찬_00_홈",
+      "hidden": true,
+      "rows": 170,
+      "columns": 16,
+      "frozen_rows": 5,
+      "frozen_columns": 0
+    },
+    {
+      "id": 551659399,
+      "title": "박경찬_01_오늘수업",
+      "hidden": true,
+      "rows": 200,
+      "columns": 21,
+      "frozen_rows": 9,
+      "frozen_columns": 4
+    },
+    {
+      "id": 766216829,
+      "title": "박경찬_03_캘린더보강",
+      "hidden": true,
+      "rows": 140,
+      "columns": 18,
+      "frozen_rows": 4,
+      "frozen_columns": 0
+    },
+    {
+      "id": 649816441,
+      "title": "박경찬_DB_수업",
+      "hidden": true,
+      "rows": 1000,
+      "columns": 12,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 497558914,
+      "title": "박경찬_DB_출결",
+      "hidden": true,
+      "rows": 2000,
+      "columns": 14,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 1422680518,
+      "title": "박경찬_DB_학습",
+      "hidden": true,
+      "rows": 5000,
+      "columns": 16,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 681731475,
+      "title": "박경찬_DB_보강",
+      "hidden": true,
+      "rows": 1000,
+      "columns": 15,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 146854949,
+      "title": "박경찬_DB_이력",
+      "hidden": true,
+      "rows": 5000,
+      "columns": 14,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 203000901,
+      "title": "박경찬_DB_교재",
+      "hidden": true,
+      "rows": 100,
+      "columns": 12,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 203000902,
+      "title": "박경찬_DB_단원",
+      "hidden": true,
+      "rows": 500,
+      "columns": 11,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 203000903,
+      "title": "박경찬_DB_배정",
+      "hidden": true,
+      "rows": 300,
+      "columns": 10,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 203000904,
+      "title": "박경찬_DB_트래커",
+      "hidden": true,
+      "rows": 5000,
+      "columns": 13,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 388341901,
+      "title": "DB_실무체크리스트",
+      "hidden": false,
+      "rows": 1000,
+      "columns": 26,
+      "frozen_rows": 1,
+      "frozen_columns": 0
+    },
+    {
+      "id": 623815441,
+      "title": "[샘플1] 보강_월간캘린더",
+      "hidden": false,
+      "rows": 60,
+      "columns": 16,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 1393112027,
+      "title": "[샘플2] 보강_주간타임테이블",
+      "hidden": false,
+      "rows": 60,
+      "columns": 16,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 1022937147,
+      "title": "[샘플3] 보강_원생별어젠다",
+      "hidden": false,
+      "rows": 60,
+      "columns": 16,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 960975918,
+      "title": "박경찬_DB_문항",
+      "hidden": false,
+      "rows": 1000,
+      "columns": 13,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    },
+    {
+      "id": 1651563591,
+      "title": "박경찬_문항관제",
+      "hidden": false,
+      "rows": 60,
+      "columns": 18,
+      "frozen_rows": 0,
+      "frozen_columns": 0
+    }
+  ],
+  "main_active_area": {
+    "range": "A1:P72",
+    "formula_cells": 110,
+    "literal_cells": 357,
+    "validation_cells": [
+      "I5",
+      "I8",
+      "P40",
+      "P41",
+      "P42",
+      "P43",
+      "P44",
+      "P45",
+      "P50",
+      "P51",
+      "P52",
+      "P53",
+      "P54",
+      "P59",
+      "P60",
+      "P61",
+      "P62",
+      "P63"
+    ],
+    "formula_reference_counts": {
+      "DB_학생현황_캐시": 58,
+      "DB_원생_SYNC": 94,
+      "DB_수업로그_SYNC": 110
+    }
+  },
+  "sharing": {
+    "anyone_writer_observed": true,
+    "individual_writer_count": 16,
+    "bot_file_writer_observed": true,
+    "main_sheet_protection": {
+      "protected_range_id": 1054892822,
+      "sheet_wide": true,
+      "warning_only": false,
+      "bot_listed_as_editor": true,
+      "packr_listed_as_editor": true,
+      "bot_requesting_user_can_edit": true,
+      "editor_user_count": 3,
+      "actual_cell_write_tested": false,
+      "verified_with": "keyless service-account Sheets API metadata read"
+    }
+  },
+  "notes": [
+    "This is structural metadata only; no student cell values are included.",
+    "Protected or hidden ranges are not confidentiality boundaries.",
+    "Refresh before modifying the live spreadsheet."
+  ]
+}

@@ -1,0 +1,4 @@
+# Optional live LMS probe dependency, kept separate from the stdlib projection core.
+# The companion automation repository declares the same core dependencies.
+scrapling[fetchers]>=0.4.11
+lxml>=5.0

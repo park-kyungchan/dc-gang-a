@@ -1,0 +1,32 @@
+# Park assignment and material: bounded live read
+
+Observed 2026-09-27 using the user-supplied academy session in process memory. This is a read-only investigation of Park Gyeongchan's instructor workspace. No cookie, student name, student ID, response body, or individual record was saved. No `AjaxUpdate*`, `udt*`, course-state change, print, report send, or other mutation was called.
+
+## Result and evidence grade
+
+| Claim | Result | Evidence grade and limit |
+| --- | --- | --- |
+| Instructor identity | The authenticated landing page displayed Park Gyeongchan. | `live-structure`; the user session was validated by page content, not HTTP 200 alone. |
+| 2026-09-21 DayRecord scope | Four selectable group values; group row counts were 0, 1, 2, 0. Three unique source student keys were present. | `live-value` aggregate. These are historical lesson rows, not a complete current instructor roster. |
+| Selected-student course join | All three DayRecord students produced `StudyCourse` rows whose displayed student name and source student key matched in memory. Five course rows matched; their displayed class was Park Gyeongchan. | `live-value` join for those three only. Name alone was not treated as a stable join. |
+| Course periods covering 2026-09-21 | Two matched course rows covered the date: `(22개정) 초5-2 가우스 1권`, source version `ver.1` (school grade `초3`), and `(22개정) 초5-2 가우스 2권`, source version `ver.1` (school grade `초4`). | `live-value` for the two matched rows and their displayed date ranges. The course label supplies curriculum revision, material grade/semester, and volume. `ver.1` is a source course version; it does **not** prove a printed-book edition. |
+| Third DayRecord student | A matching course row existed, but none of that student's displayed course periods covered 2026-09-21. | `live-value` negative within the returned `StudyCourse` rows. The lesson's actual assigned book remains `unknown`; a course outside its displayed period is not proof of the day's assignment. |
+| Current complete Park roster | **Unverified.** | The local `ganga.lms.reader.read_roster` contract did not return a complete roster on the current site. Do not treat the one default/test row or zero filtered matches as Park's roster. |
+
+The two `초5-2` Gauss labels are **course/material level**. `초3` and `초4` are the students' displayed **school grades**. These are separate fields in the Main Sheet model and must not be collapsed. The two course rows establish a dated longitudinal course association, not the exact required pre-study sections or proof of video, handwritten work, submission, or automatic grading for that lesson. The existing Gauss sample must be matched by revision, semester, volume, and section before using its section names as a checklist.
+
+## Exact read contracts used
+
+1. `POST /servlet/controller.cct.tutor.DayRecordServlet` with `p_process=Main`, `std_ymd=20260921`, and one selected `grp_seq` at a time. The default date response exposed four group options. Each selected group response was parsed in memory for row keys and the selected student name. Source parser: `ganga/lms/reader.py:269-432`; effect classification: [course-delivery.md](course-delivery.md).
+2. `GET /servlet/controller.coursemanage.CourseManageServlet?reqCmd=StudyCourse` exposed a `POST` search form. Current `onSearch()` JavaScript requires a class or student name and constructs `reqCmd=StudyCourse`, `clg_no`, `cls_no`, and `student_name`; the selected-student calls submitted that same search operation, with current form context. The response table headers were `학년`, `학반`, `이름`, `학습기간 / 학습과정`, `버전`, `상태`. A returned row was accepted only when its displayed name and embedded source student key both matched the DayRecord row. The historical sanitized [source map](../remote-2026-09-27/shared-llm-wiki/concepts/academy-source-system-structure-map.md) describes `StudyCourse` as the student-course management surface and separates its `student_pri_no`, `course_key`, `user_course_key`, and mutable status. Only the search operation was used.
+3. `GET /servlet/controller.coursemanage.CourseManageServlet?reqCmd=StudySchedule` was checked for current structure only. Its `POST` form uses `grade_no`, `cls_no`, `student_no`, `course`, and `p_user_course_key`; its `StudentGetList`/`CourseGetList` dependent requests still lack a verified current effect/scope contract. No selected-student schedule search or update was called.
+
+## Roster coverage blocker
+
+The older `read_roster()` implementation submits `UserSearchServlet` with `p_process=Main`, `grp_no=2`, blank grade/class/status fields, and `p_pageno`. In the current live response, `Main` rendered a default table with one test-style row and no meaningful pagination; the parser's one-row result is therefore **not** a branch count or Park count. The page's current `onSearch(pageNum)` uses `p_process=Search`, sets `p_tut_no` from its own JavaScript context, and submits grade/class/status/login filters. Replaying the observed search fields with `grade_no=0`, `cls_no=0`, `status=1`, `p_login_status=-1`, page 1, and page-provided tutor context still returned the test-style row. A blank-filter search returned no table rows. This does not establish whether the cause is a missing parameter, changed server behavior, or a scope rule.
+
+The current Park roster count, grade distribution, pages expected/read, and match rate between current roster and the three 2026-09-21 DayRecord students remain **unknown**. Do not run `Roster.by_teacher()` on that incomplete result or materialize branch-wide student data. A future roster adapter needs the exact current browser submit contract, explicit page-count or continuation behavior, and an independently checked Park filter before its output can drive the Main Sheet.
+
+## Main Sheet implication
+
+For the first 2026-09-21 workflow, the selected-student card can show school grade separately from dated assigned course/material, with these two Gauss labels as verified source facts and the third student's lesson book as `unknown`. The preparation checklist must obtain lesson-specific expected sections and app submission/grading evidence from separate verified sources; a longitudinal course row cannot answer those questions. Show source timestamp and a link to the official course screen. Do not present the current Park roster as complete until the roster query and pagination are repaired.

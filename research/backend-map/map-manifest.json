@@ -1,0 +1,101 @@
+{
+  "schema_version": 2,
+  "generated_utc": "2026-09-27T07:43:18Z",
+  "scope": "Park Gyeongchan instructor workspace structural map, dated live evidence, and Main Sheet UX proposal; no student values",
+  "remote_source_commit": "e91b4d7d9f48013469cf823bec5693e5276c01e5",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 18870,
+      "sha256": "2aa132e55c697e71915eb909f8de1f815f99f0e2319d5f7a01563e41fa9b93b2",
+      "evidence_scope": "Scope index, use procedure, evidence limits, and operational boundaries."
+    },
+    {
+      "path": "app-live.md",
+      "bytes": 17055,
+      "sha256": "8879af286f6c8e48e03ead2471042a268218c217be4cf52ce3721554bc3dd5ad",
+      "evidence_scope": "Thirteen bounded live teacher-site route shells and static form inspection; selected-student joins and native-app states unknown."
+    },
+    {
+      "path": "app-read-contracts.md",
+      "evidence_scope": "Current source and prior-live review of student-level app/preclass reads; no selected-student submission, grading, video, or stable join verified.",
+      "bytes": 7342,
+      "sha256": "a558f9951741a900ac7023645b98522c03e056f13f49a074433010394e795d62"
+    },
+    {
+      "path": "app-static.md",
+      "bytes": 17616,
+      "sha256": "d63b607032d5091c1618d2268d0a6716f340c901f197e22dec99815fdaafd32b",
+      "evidence_scope": "Source-level app-adjacent route declarations and operation risks; not live native-app proof."
+    },
+    {
+      "path": "assignment-live.md",
+      "bytes": 6486,
+      "sha256": "a52d3d8c9e4cd48699f486742d336c586baaa731942bba6ed7ca381e9abb9a15",
+      "evidence_scope": "Bounded 2026-09-21 course-period joins for two of three DayRecord students; complete current Park roster unverified."
+    },
+    {
+      "path": "course-delivery.md",
+      "bytes": 12715,
+      "sha256": "4155fd5f4e19744d113d194f85ff7ed89cf9faf1588eac73f3230e0a3806f0cd",
+      "evidence_scope": "Dated course, DayRecord, report-preview, and Kakao send-screen evidence; no send, exact delivered text, or receipt verified."
+    },
+    {
+      "path": "learning-assessment.md",
+      "bytes": 23092,
+      "sha256": "e1f91bcdbf28aa8637611e889a7270b0d7006573d7cbdc187d69d0e37ecd7ec0",
+      "evidence_scope": "Learning and assessment source map with operation-specific unknowns and effect boundaries."
+    },
+    {
+      "path": "lifecycle-entities.md",
+      "bytes": 17912,
+      "sha256": "43cf5665656b26143f1f91af80960f650f591f21927293f39b5ca646395a65e9",
+      "evidence_scope": "Static lifecycle and entity synthesis; proposed joins remain subject to current field-level verification."
+    },
+    {
+      "path": "main-sheet-ux-proposal.md",
+      "bytes": 14251,
+      "sha256": "e423d0d82eedebde7236639244d66919e3eb38352fa71d018ffefa18d51c53f1",
+      "evidence_scope": "Evidence-backed design proposal; not owner acceptance or implementation."
+    },
+    {
+      "path": "preclass-evidence.md",
+      "bytes": 13618,
+      "sha256": "15bc48a4587b92f154a3958ce64cdb5e0f80c1459be7c45f08e0c97bb6299bc6",
+      "evidence_scope": "Owner workflow, training and sample evidence, and unverified lesson-specific app/preparation contracts."
+    },
+    {
+      "path": "route-registry.json",
+      "bytes": 31773,
+      "sha256": "2e5403cea6ae59e0569cc91de7721a5ac16784759cc1e3a7a868bbb24a3dcee4",
+      "evidence_scope": "Fifty-one operation entries across live, static, source-only, and historical evidence."
+    },
+    {
+      "path": "sheet-topology.json",
+      "bytes": 9722,
+      "sha256": "28870e45695667abfec2e1b3ef17a5382e71ca6b7f5ba1437efe9fc156c333cb",
+      "evidence_scope": "Bounded 2026-09-27 Sheets metadata/topology and protection observations; no cell-write acceptance."
+    }
+  ],
+  "remote_copy_manifest": "../remote-2026-09-27/manifest.json",
+  "remote_copy_manifest_sha256": "a76a1d9389900adde4164a5d530672720af4500019b1bf53686d2bbb827ef0c5",
+  "remote_inventory_sha256": "aef8033dfd957f9a9a475da06d8d0b42e15bc14124f5ce04709a408a8648eeb4",
+  "evidence_summary": {
+    "route_registry_entries": 51,
+    "route_registry_by_evidence_grade": {
+      "historical-effect": 2,
+      "historical-read": 2,
+      "historical-read-plus-live-structure": 2,
+      "live-route": 4,
+      "live-static-js": 10,
+      "live-structure": 17,
+      "source": 14
+    },
+    "bounded_teacher_site_routes": 13,
+    "assignment_live": "Course-period rows matched two of three 2026-09-21 DayRecord students; the third lesson-specific course and complete current Park roster remain unknown.",
+    "preclass": "Workflow and training/sample evidence support checklist candidates only; lesson-specific preparation, app submission, auto-grade, correction, and video-watch states remain unverified.",
+    "parent_delivery": "A current report preview and read-only Kakao send screen were observed; no send/cancel was invoked, and exact parent-delivered text plus an independent receipt remain unverified.",
+    "native_app": "No native-app API contract, student submission/grading records, or stable app-to-LMS join has been verified."
+  },
+  "note": "Hashes cover the 12 canonical files listed above. This manifest excludes itself and files outside research/backend-map. Evidence summaries are bounded to the dated sources cited by each map file."
+}

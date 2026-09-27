@@ -1,0 +1,984 @@
+{
+  "schema_version": "1.0",
+  "as_of": "2026-09-27",
+  "scope": "Park Gyeongchan instructor workbench; operation-level map, no student values",
+  "evidence_legend": {
+    "source": "source declaration only",
+    "live-route": "fixed route responded",
+    "live-structure": "fixed route and form structure observed",
+    "live-static-js": "page JS/form inspected without invoking action",
+    "historical-read": "dated exact read effect, not current validation",
+    "historical-read-plus-live-structure": "historical read effect and current form structure, no current query",
+    "historical-effect": "dated classified mutation; no current call"
+  },
+  "entries": [
+    {
+      "id": "course_menu",
+      "route_template": "/servlet/controller.tutor.TutorMenuIndexServlet?p_process=CourseManageIndex",
+      "operation": "CourseManageIndex",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-route",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [],
+      "safe_to_probe": true,
+      "reason": "Fixed instructor menu shell; no row coverage.",
+      "source_refs": [
+        "course-delivery.md:17"
+      ]
+    },
+    {
+      "id": "course_schedule",
+      "route_template": "/servlet/controller.cct.tutor.CourseScheduleServlet?p_process=Main",
+      "operation": "Main",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-route",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "date",
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed calendar shell; row keys are historical.",
+      "source_refs": [
+        "course-delivery.md:18"
+      ]
+    },
+    {
+      "id": "course_group",
+      "route_template": "/servlet/controller.cct.tutor.CourseGroupServlet?p_process=Main",
+      "operation": "Main",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-route",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "grp_seq"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed roster shell; do not follow assignment controls.",
+      "source_refs": [
+        "course-delivery.md:19"
+      ]
+    },
+    {
+      "id": "attendance_history",
+      "route_template": "/servlet/controller.cct.tutor.AttendanceServlet?p_process=Main",
+      "operation": "Main",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-route",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "stu_pri_no",
+        "course_seq",
+        "date"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed history shell; selected-student join unverified.",
+      "source_refs": [
+        "course-delivery.md:20"
+      ]
+    },
+    {
+      "id": "day_record_read",
+      "route_template": "/servlet/controller.cct.tutor.DayRecordServlet",
+      "operation": "Main",
+      "http_method": "POST",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "std_ymd",
+        "grp_seq",
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "safe_to_probe": false,
+      "reason": "Read POST but date/group selection exposes student rows; require exact Park lesson scope.",
+      "source_refs": [
+        "course-delivery.md:22"
+      ]
+    },
+    {
+      "id": "day_record_udtprg",
+      "route_template": "/servlet/controller.cct.tutor.DayRecordServlet?reqCmd=udtPrg",
+      "operation": "udtPrg",
+      "http_method": "GET",
+      "semantic_effect": "write",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "safe_to_probe": false,
+      "reason": "Mutating GET for progress; reviewed save and exact readback required.",
+      "source_refs": [
+        "course-delivery.md:23"
+      ]
+    },
+    {
+      "id": "day_record_udthw",
+      "route_template": "/servlet/controller.cct.tutor.DayRecordServlet?reqCmd=udtHw",
+      "operation": "udtHw",
+      "http_method": "GET",
+      "semantic_effect": "write",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "safe_to_probe": false,
+      "reason": "Mutating GET for homework; reviewed save and exact readback required.",
+      "source_refs": [
+        "course-delivery.md:23"
+      ]
+    },
+    {
+      "id": "day_record_udtmemo",
+      "route_template": "/servlet/controller.cct.tutor.DayRecordServlet?reqCmd=udtMemo",
+      "operation": "udtMemo",
+      "http_method": "GET",
+      "semantic_effect": "write",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "safe_to_probe": false,
+      "reason": "Mutating GET for memo; reviewed save and exact readback required.",
+      "source_refs": [
+        "course-delivery.md:23"
+      ]
+    },
+    {
+      "id": "day_record_udtstumemo",
+      "route_template": "/servlet/controller.cct.tutor.DayRecordServlet?reqCmd=udtStuMemo",
+      "operation": "udtStuMemo",
+      "http_method": "GET",
+      "semantic_effect": "write",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [],
+      "safe_to_probe": false,
+      "reason": "Mutating GET for persistent memo; its target key set differs from ordinary DayRecord and needs separate review/readback.",
+      "source_refs": [
+        "course-delivery.md:23"
+      ]
+    },
+    {
+      "id": "day_record_udtattn",
+      "route_template": "/servlet/controller.cct.tutor.DayRecordServlet?reqCmd=udtAttn",
+      "operation": "udtAttn",
+      "http_method": "GET",
+      "semantic_effect": "write",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "safe_to_probe": false,
+      "reason": "Mutating GET for attendance; reviewed save and exact readback required.",
+      "source_refs": [
+        "course-delivery.md:23"
+      ]
+    },
+    {
+      "id": "course_common_setdailytest",
+      "route_template": "/servlet/controller.cct.common.CourseCommonServlet?reqCmd=SetDailyTest",
+      "operation": "SetDailyTest",
+      "http_method": "POST",
+      "semantic_effect": "write",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "safe_to_probe": false,
+      "reason": "Mutating POST for daily_test; current wire target and readback need verification.",
+      "source_refs": [
+        "course-delivery.md:23"
+      ]
+    },
+    {
+      "id": "course_common_sethomeworkrate",
+      "route_template": "/servlet/controller.cct.common.CourseCommonServlet?reqCmd=SetHomeWorkRate",
+      "operation": "SetHomeWorkRate",
+      "http_method": "POST",
+      "semantic_effect": "write",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "safe_to_probe": false,
+      "reason": "Mutating POST for homework_rate; current wire target and readback need verification.",
+      "source_refs": [
+        "course-delivery.md:23"
+      ]
+    },
+    {
+      "id": "course_common_setcoursedata",
+      "route_template": "/servlet/controller.cct.common.CourseCommonServlet?reqCmd=SetCourseData",
+      "operation": "SetCourseData",
+      "http_method": "POST",
+      "semantic_effect": "write",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "safe_to_probe": false,
+      "reason": "Mutating POST for unit_selection; current wire target and readback need verification.",
+      "source_refs": [
+        "course-delivery.md:23"
+      ]
+    },
+    {
+      "id": "daily_report_preview",
+      "route_template": "/servlet/controller.cct.common.CourseCommonServlet?reqCmd=DailyReport",
+      "operation": "DailyReport",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "report_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "safe_to_probe": false,
+      "reason": "Parameterized report preview; not immutable delivered text.",
+      "source_refs": [
+        "course-delivery.md:24"
+      ]
+    },
+    {
+      "id": "alimtalk_send_screen",
+      "route_template": "/alimtalk/send_studyreport_alimtalk.jsp",
+      "operation": "open_send_studyreport",
+      "http_method": "GET",
+      "semantic_effect": "open_send_screen",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "all_report_seq_list",
+        "target_report_seq_list",
+        "report_date"
+      ],
+      "safe_to_probe": false,
+      "reason": "Opening does not send; target-filled URL needs exact report selection.",
+      "source_refs": [
+        "course-delivery.md:26"
+      ]
+    },
+    {
+      "id": "alimtalk_send",
+      "route_template": "/servlet/controller.appui.alimtalk.AlimtalkServlet?p_process=sendMultiStudyReport",
+      "operation": "sendMultiStudyReport",
+      "http_method": "POST",
+      "semantic_effect": "send",
+      "evidence_grade": "live-static-js",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "target_report_seq_list",
+        "report_date"
+      ],
+      "safe_to_probe": false,
+      "reason": "Final parent send remains instructor action; request and receipt unverified.",
+      "source_refs": [
+        "course-delivery.md:27"
+      ]
+    },
+    {
+      "id": "alimtalk_cancel",
+      "route_template": "/servlet/controller.appui.alimtalk.AlimtalkServlet?p_process=cancelAlimtalk",
+      "operation": "cancelAlimtalk",
+      "http_method": "POST",
+      "semantic_effect": "write",
+      "evidence_grade": "live-static-js",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "report_seq"
+      ],
+      "safe_to_probe": false,
+      "reason": "Cancellation changes delivery state; exact request unverified.",
+      "source_refs": [
+        "course-delivery.md:27"
+      ]
+    },
+    {
+      "id": "alimtalk_history",
+      "route_template": "/servlet/controller.appui.alimtalk.AlimtalkServlet?p_process=AlimtalkList",
+      "operation": "AlimtalkList",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "student_name",
+        "report_seq"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed history shell only; rendered states and receipt joins not verified.",
+      "source_refs": [
+        "course-delivery.md:28"
+      ]
+    },
+    {
+      "id": "study_menu",
+      "route_template": "/servlet/controller.tutor.TutorMenuIndexServlet?p_process=CourseMainIndex",
+      "operation": "CourseMainIndex",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [],
+      "safe_to_probe": true,
+      "reason": "Fixed instructor learning menu.",
+      "source_refs": [
+        "app-live.md:9"
+      ]
+    },
+    {
+      "id": "prestudy_waiting",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet?reqCmd=WebUnPreStudy",
+      "operation": "WebUnPreStudy",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "g_clg_no",
+        "g_pri_no",
+        "student_name"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed page shell only; search/detail controls need separate review.",
+      "source_refs": [
+        "app-live.md:10"
+      ]
+    },
+    {
+      "id": "prestudy_completed",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet?reqCmd=WebCtPreStudy",
+      "operation": "WebCtPreStudy",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "g_clg_no",
+        "g_pri_no",
+        "student_name"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed page shell only; search/detail controls need separate review.",
+      "source_refs": [
+        "app-live.md:11"
+      ]
+    },
+    {
+      "id": "prestudy_summary",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet?reqCmd=TeacherPrestudySummary",
+      "operation": "TeacherPrestudySummary",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "start_date",
+        "end_date",
+        "view_type"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed page shell only; search/detail controls need separate review.",
+      "source_refs": [
+        "app-live.md:12"
+      ]
+    },
+    {
+      "id": "dtzt_result",
+      "route_template": "/servlet/controller.dailyzerotest.DailyZeroTestServlet?reqCmd=DailyZeroTestResult",
+      "operation": "DailyZeroTestResult",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "sort_date",
+        "stu_name"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed page shell only; search/detail controls need separate review.",
+      "source_refs": [
+        "app-live.md:13"
+      ]
+    },
+    {
+      "id": "study_schedule",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet?reqCmd=StudySchedule",
+      "operation": "StudySchedule",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "grade_no",
+        "cls_no",
+        "student_no",
+        "course",
+        "p_user_course_key"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed page shell only; search/detail controls need separate review.",
+      "source_refs": [
+        "app-live.md:14"
+      ]
+    },
+    {
+      "id": "study_progress",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet?reqCmd=StudyPro",
+      "operation": "StudyPro",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "course_key",
+        "g_course_key",
+        "grade_no"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed page shell only; search/detail controls need separate review.",
+      "source_refs": [
+        "app-live.md:16"
+      ]
+    },
+    {
+      "id": "study_overview",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet?reqCmd=StudyMain",
+      "operation": "StudyMain",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "g_clg_no",
+        "g_start_date",
+        "g_end_date",
+        "student_no"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed page shell only; search/detail controls need separate review.",
+      "source_refs": [
+        "app-live.md:17"
+      ]
+    },
+    {
+      "id": "study_course",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet?reqCmd=StudyCourse",
+      "operation": "StudyCourse",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "grade_no",
+        "cls_no",
+        "student_name"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed page shell only; search/detail controls need separate review.",
+      "source_refs": [
+        "app-live.md:18"
+      ]
+    },
+    {
+      "id": "dtzt_list",
+      "route_template": "/servlet/controller.dailyzerotest.DailyZeroTestServlet?reqCmd=DailyZeroTestMain",
+      "operation": "DailyZeroTestMain",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "evalgubun"
+      ],
+      "safe_to_probe": false,
+      "reason": "Historical fixed list route; current response not included in app live set.",
+      "source_refs": [
+        "learning-assessment.md:28",
+        "../remote-2026-09-27/shared-llm-wiki/concepts/academy-source-system-structure-map.md:196"
+      ]
+    },
+    {
+      "id": "smartbook_menu",
+      "route_template": "/servlet/controller.tutor.TutorMenuIndexServlet?p_process=SmartBookMainIndex",
+      "operation": "SmartBookMainIndex",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [],
+      "safe_to_probe": true,
+      "reason": "Fixed Smartbook menu shell.",
+      "source_refs": [
+        "app-live.md:15"
+      ]
+    },
+    {
+      "id": "workbook_catalog",
+      "route_template": "/servlet/controller.tutor.wb.WorkbookManageServlet?p_process=Main",
+      "operation": "Main",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "workbook_no",
+        "book_code"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed catalog shell only; may include branch-wide materials.",
+      "source_refs": [
+        "app-live.md:20"
+      ]
+    },
+    {
+      "id": "smartbook_result",
+      "route_template": "/servlet/controller.tutor.wb.WbTeachList1Servlet?p_process=SmartBookResultMain",
+      "operation": "SmartBookResultMain",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "book_code",
+        "clg_no",
+        "cls_no",
+        "stu_no",
+        "wb_list",
+        "sort_date"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed result shell; no student completion join yet.",
+      "source_refs": [
+        "app-live.md:21"
+      ]
+    },
+    {
+      "id": "textbook_main",
+      "route_template": "/servlet/controller.coursemanage.TextBookManageServlet?reqCmd=getTextBookMain",
+      "operation": "getTextBookMain",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "student_name"
+      ],
+      "safe_to_probe": true,
+      "reason": "Fixed entry shell only; generation controls excluded.",
+      "source_refs": [
+        "app-live.md:19"
+      ]
+    },
+    {
+      "id": "fa_student_results",
+      "route_template": "/servlet/controller.tutor.base.TestPageListServlet?p_process=UserByMain&ass_no={ass_no}",
+      "operation": "UserByMain",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "ass_no",
+        "stu_pri_no",
+        "p_no",
+        "testing_no"
+      ],
+      "safe_to_probe": false,
+      "reason": "Parameterized FA/NA/DA student results; ownership and attempt join unverified.",
+      "source_refs": [
+        "learning-assessment.md:29",
+        "learning-assessment.md:43"
+      ]
+    },
+    {
+      "id": "test_pool",
+      "route_template": "/servlet/controller.tutor.etest.TestPoolServlet?reqCmd=Main",
+      "operation": "Main",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "p_no",
+        "author"
+      ],
+      "safe_to_probe": false,
+      "reason": "Branch-wide paper catalog; no Park/student filter verified.",
+      "source_refs": [
+        "learning-assessment.md:30"
+      ]
+    },
+    {
+      "id": "item_metadata",
+      "route_template": "/servlet/controller.common.TestPageShowExServlet?p_process=GetLectureList&lecture_list={lecture_keys}",
+      "operation": "GetLectureList",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "lecture_key"
+      ],
+      "safe_to_probe": false,
+      "reason": "Code-declared item metadata read; requires verified item keys and no student answer disclosure.",
+      "source_refs": [
+        "learning-assessment.md:32",
+        "app-static.md:23-24"
+      ]
+    },
+    {
+      "id": "video_lookup",
+      "route_template": "/servlet/controller.first.RegAppCommandServlet",
+      "operation": "getVideoLecture",
+      "http_method": "POST",
+      "semantic_effect": "unknown",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "lecture_key"
+      ],
+      "safe_to_probe": false,
+      "reason": "Intended lecture metadata read, but live effect and app entitlement unverified.",
+      "source_refs": [
+        "learning-assessment.md:33",
+        "app-static.md:24"
+      ]
+    },
+    {
+      "id": "app_registration",
+      "route_template": "/servlet/controller.first.RegAppServlet",
+      "operation": "unknown",
+      "http_method": null,
+      "semantic_effect": "unknown",
+      "evidence_grade": "source",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [],
+      "safe_to_probe": false,
+      "reason": "Registration/session synchronization may mutate; no read operation contract.",
+      "source_refs": [
+        "app-static.md:19"
+      ]
+    },
+    {
+      "id": "prestudy_waiting_search",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet?reqCmd=WebUnPreStudy",
+      "operation": "WebUnPreStudy",
+      "http_method": "POST",
+      "semantic_effect": "unknown",
+      "evidence_grade": "live-static-js",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "g_clg_no",
+        "g_mem_type",
+        "g_pri_no",
+        "student_name"
+      ],
+      "safe_to_probe": false,
+      "reason": "Current form differs from historically verified StudentNameSearch; never transferred read effect.",
+      "source_refs": [
+        "app-live.md:51",
+        "../remote-2026-09-27/shared-llm-wiki/concepts/academy-source-system-structure-map.md:140"
+      ]
+    },
+    {
+      "id": "prestudy_completed_search",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet?reqCmd=WebCtPreStudy",
+      "operation": "WebCtPreStudy",
+      "http_method": "POST",
+      "semantic_effect": "unknown",
+      "evidence_grade": "live-static-js",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "g_clg_no",
+        "g_mem_type",
+        "g_pri_no",
+        "student_name"
+      ],
+      "safe_to_probe": false,
+      "reason": "Current form differs from historically verified StudentNameSearch.",
+      "source_refs": [
+        "app-live.md:51",
+        "../remote-2026-09-27/shared-llm-wiki/concepts/academy-source-system-structure-map.md:140"
+      ]
+    },
+    {
+      "id": "prestudy_historical_search",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet",
+      "operation": "StudentNameSearch",
+      "http_method": "POST",
+      "semantic_effect": "read",
+      "evidence_grade": "historical-read",
+      "evidence_date": "2026-08-26",
+      "join_key_names": [
+        "student_name"
+      ],
+      "safe_to_probe": false,
+      "reason": "Historical exact read; current page uses different command.",
+      "source_refs": [
+        "../remote-2026-09-27/shared-llm-wiki/concepts/academy-source-system-structure-map.md:140",
+        "app-live.md:51"
+      ]
+    },
+    {
+      "id": "dtzt_result_search",
+      "route_template": "/servlet/controller.dailyzerotest.DailyZeroTestServlet?reqCmd=DtResultSearch",
+      "operation": "DtResultSearch",
+      "http_method": "POST",
+      "semantic_effect": "read",
+      "evidence_grade": "historical-read-plus-live-structure",
+      "evidence_date": "2026-08-26",
+      "join_key_names": [
+        "sort_date",
+        "stu_name"
+      ],
+      "safe_to_probe": false,
+      "reason": "Historically read-only; current form exists but Park-only scope and current effect untested.",
+      "source_refs": [
+        "../remote-2026-09-27/shared-llm-wiki/concepts/academy-source-system-structure-map.md:67",
+        "app-live.md:52"
+      ]
+    },
+    {
+      "id": "dtzt_list_search",
+      "route_template": "/servlet/controller.dailyzerotest.DailyZeroTestServlet",
+      "operation": "DailyZeroTestSeach",
+      "http_method": "POST",
+      "semantic_effect": "read",
+      "evidence_grade": "historical-read",
+      "evidence_date": "2026-08-26",
+      "join_key_names": [
+        "evalgubun",
+        "frm_cl1",
+        "frm_cl2",
+        "frm_cl3"
+      ],
+      "safe_to_probe": false,
+      "reason": "Historical list query, distinct from result search; current target untested.",
+      "source_refs": [
+        "../remote-2026-09-27/shared-llm-wiki/concepts/academy-source-system-structure-map.md:196"
+      ]
+    },
+    {
+      "id": "textbook_progress_search",
+      "route_template": "/servlet/controller.coursemanage.TextBookManageServlet?reqCmd=getTextBookProgress",
+      "operation": "getTextBookProgress",
+      "http_method": "POST",
+      "semantic_effect": "read",
+      "evidence_grade": "historical-read-plus-live-structure",
+      "evidence_date": "2026-08-26",
+      "join_key_names": [
+        "student_name"
+      ],
+      "safe_to_probe": false,
+      "reason": "Historically read-only and current form mapped; no unique Park student filter.",
+      "source_refs": [
+        "../remote-2026-09-27/shared-llm-wiki/concepts/academy-source-system-structure-map.md:158",
+        "app-live.md:53"
+      ]
+    },
+    {
+      "id": "study_main_search",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet",
+      "operation": "StudyMainSearch",
+      "http_method": null,
+      "semantic_effect": "unknown",
+      "evidence_grade": "live-static-js",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "clg_no",
+        "tutor_pri_no",
+        "student_pri_no",
+        "start_date",
+        "end_date"
+      ],
+      "safe_to_probe": false,
+      "reason": "Candidate JS token/parameters only; method, current effect or Park scope not fully established.",
+      "source_refs": [
+        "app-live.md:40",
+        "app-static.md:50-76"
+      ]
+    },
+    {
+      "id": "study_day_student_list",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet",
+      "operation": "GetDayOfStudentList",
+      "http_method": null,
+      "semantic_effect": "unknown",
+      "evidence_grade": "live-static-js",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "clg_no",
+        "tutor_pri_no",
+        "start_date",
+        "end_date"
+      ],
+      "safe_to_probe": false,
+      "reason": "Candidate JS token/parameters only; method, current effect or Park scope not fully established.",
+      "source_refs": [
+        "app-live.md:40",
+        "app-static.md:50-76"
+      ]
+    },
+    {
+      "id": "course_get_list",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet",
+      "operation": "CourseGetList",
+      "http_method": null,
+      "semantic_effect": "unknown",
+      "evidence_grade": "live-static-js",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "grade_no",
+        "cls_no",
+        "student_no"
+      ],
+      "safe_to_probe": false,
+      "reason": "Candidate JS token/parameters only; method, current effect or Park scope not fully established.",
+      "source_refs": [
+        "app-live.md:38",
+        "app-static.md:50-76"
+      ]
+    },
+    {
+      "id": "student_get_list",
+      "route_template": "UserSearchServlet",
+      "operation": "StudentGetList",
+      "http_method": null,
+      "semantic_effect": "unknown",
+      "evidence_grade": "live-static-js",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "grade_no",
+        "cls_no"
+      ],
+      "safe_to_probe": false,
+      "reason": "Candidate JS token/parameters only; method, current effect or Park scope not fully established.",
+      "source_refs": [
+        "app-live.md:38",
+        "app-static.md:50-76"
+      ]
+    },
+    {
+      "id": "pro_course_get_list",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet",
+      "operation": "ProCourseGetList",
+      "http_method": null,
+      "semantic_effect": "unknown",
+      "evidence_grade": "live-static-js",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "grade_no",
+        "course_key"
+      ],
+      "safe_to_probe": false,
+      "reason": "Candidate JS token/parameters only; method, current effect or Park scope not fully established.",
+      "source_refs": [
+        "app-live.md:39",
+        "app-static.md:50-76"
+      ]
+    },
+    {
+      "id": "smartbook_result_search",
+      "route_template": "/servlet/controller.tutor.wb.WbTeachList1Servlet",
+      "operation": "SmartBookResultSearch",
+      "http_method": null,
+      "semantic_effect": "unknown",
+      "evidence_grade": "live-static-js",
+      "evidence_date": "2026-09-27",
+      "join_key_names": [
+        "book_code",
+        "clg_no",
+        "cls_no",
+        "stu_no",
+        "wb_list",
+        "sort_date"
+      ],
+      "safe_to_probe": false,
+      "reason": "Candidate JS token/parameters only; method, current effect or Park scope not fully established.",
+      "source_refs": [
+        "app-live.md:41",
+        "app-static.md:50-76"
+      ]
+    },
+    {
+      "id": "prestudy_comment",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet",
+      "operation": "WebSetPreStudyComment",
+      "http_method": "POST",
+      "semantic_effect": "write",
+      "evidence_grade": "historical-effect",
+      "evidence_date": "2026-08-26",
+      "join_key_names": [
+        "prestudy_key",
+        "comment",
+        "recipient"
+      ],
+      "safe_to_probe": false,
+      "reason": "Comment commit triggers native student/parent push sequence; exact servlet path needs recheck.",
+      "source_refs": [
+        "../remote-2026-09-27/shared-llm-wiki/concepts/academy-source-system-structure-map.md:142"
+      ]
+    },
+    {
+      "id": "similar_paper_create",
+      "route_template": "native:Typeset.createResultPaper",
+      "operation": "incorrect.create",
+      "http_method": null,
+      "semantic_effect": "write",
+      "evidence_grade": "historical-effect",
+      "evidence_date": "2026-08-26",
+      "join_key_names": [
+        "testing_no"
+      ],
+      "safe_to_probe": false,
+      "reason": "Creates an incorrect/clinic paper; not a read probe.",
+      "source_refs": [
+        "../remote-2026-09-27/shared-llm-wiki/concepts/academy-source-system-structure-map.md:160",
+        "learning-assessment.md:34"
+      ]
+    }
+  ]
+}

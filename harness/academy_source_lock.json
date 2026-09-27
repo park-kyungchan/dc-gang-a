@@ -1,0 +1,10 @@
+{
+  "as_of": "2026-09-27",
+  "companion_repo": "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점_자동화",
+  "observed_head": "e3d138bd9190f7fc5de3288b8bd790edaf207b00",
+  "files": {
+    "ganga/lms/session.py": "5A4EE772D37365DF9390D64B942DDA4B93A0B4E3A98FFF92B0E299DA9C4DD368",
+    "ganga/lms/reader.py": "6BC2DF5395018CA162C87251BE9358D4A8E6ED056A5D1056DD13CDD41A1FF58F",
+    "ganga/lms/endpoints.py": "376DF9E63C30591B94311E2EA19625E14D81E654357D66D59F3E1CDB52D9576A"
+  }
+}

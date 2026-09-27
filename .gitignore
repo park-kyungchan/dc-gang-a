@@ -1,0 +1,15 @@
+# Local credentials and student material
+config/
+data/
+docs/cartography.md
+1.png
+
+# Local Python environments and generated files
+.venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local probes and exports
+*.log
+*.sqlite3
