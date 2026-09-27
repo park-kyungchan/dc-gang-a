@@ -1,0 +1,221 @@
+{
+    "observed_utc":  "2026-09-27T04:13:17Z",
+    "host":  "srv1873899",
+    "verified_mount":  "/docker/hermes-agent-2q3y/data -\u003e /opt/data (hermes-agent container)",
+    "scope":  "Nonprivate structural source only; copied read-only through host-key-checked SCP",
+    "entries":  [
+                    {
+                        "remote_path":  "/docker/hermes-agent-2q3y/data/gang-a/README.md",
+                        "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\gang-a\\README.md",
+                        "relative_path":  "gang-a/README.md",
+                        "remote_bytes":  3662,
+                        "local_bytes":  3662,
+                        "remote_sha256":  "2d94d8f398a9194025fca26884e9415cd13f3f22ba598f1e3990fb181a0fa880",
+                        "local_sha256":  "2d94d8f398a9194025fca26884e9415cd13f3f22ba598f1e3990fb181a0fa880",
+                        "rationale":  "Project purpose and source boundaries"
+                    },
+                    {
+                        "remote_path":  "/docker/hermes-agent-2q3y/data/gang-a/docs/LMS_SITEMAP.md",
+                        "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\gang-a\\docs\\LMS_SITEMAP.md",
+                        "relative_path":  "gang-a/docs/LMS_SITEMAP.md",
+                        "remote_bytes":  12889,
+                        "local_bytes":  12889,
+                        "remote_sha256":  "c5e14599d46a092a2a3ccc969009dcdabb001a256605d9f4f5c54916ca195204",
+                        "local_sha256":  "c5e14599d46a092a2a3ccc969009dcdabb001a256605d9f4f5c54916ca195204",
+                        "rationale":  "Documented LMS menus and endpoint map"
+                    },
+                    {
+                        "remote_path":  "/docker/hermes-agent-2q3y/data/gang-a/docs/강사_실무운영_핸드북.md",
+                        "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\gang-a\\docs\\강사_실무운영_핸드북.md",
+                        "relative_path":  "gang-a/docs/강사_실무운영_핸드북.md",
+                        "remote_bytes":  7478,
+                        "local_bytes":  7478,
+                        "remote_sha256":  "e77f075523c76dddb00f70be6f4d1a2325cf2d761052d1c1e8157a4e226824c0",
+                        "local_sha256":  "e77f075523c76dddb00f70be6f4d1a2325cf2d761052d1c1e8157a4e226824c0",
+                        "rationale":  "Instructor lifecycle and operational checklist"
+                    },
+                    {
+                        "remote_path":  "/docker/hermes-agent-2q3y/data/gang-a/docs/대치점_자동화_매뉴얼.md",
+                        "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\gang-a\\docs\\대치점_자동화_매뉴얼.md",
+                        "relative_path":  "gang-a/docs/대치점_자동화_매뉴얼.md",
+                        "remote_bytes":  4372,
+                        "local_bytes":  4372,
+                        "remote_sha256":  "fefd748fac046d370c7c577c3affe6b0b94a64d13e614e77922824be25814035",
+                        "local_sha256":  "fefd748fac046d370c7c577c3affe6b0b94a64d13e614e77922824be25814035",
+                        "rationale":  "Legacy integration module map and claimed capabilities"
+                    },
+                    {
+                        "remote_path":  "/docker/hermes-agent-2q3y/data/gang-a/docs/가우스과정_지식베이스_인덱스.md",
+                        "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\gang-a\\docs\\가우스과정_지식베이스_인덱스.md",
+                        "relative_path":  "gang-a/docs/가우스과정_지식베이스_인덱스.md",
+                        "remote_bytes":  23267,
+                        "local_bytes":  23267,
+                        "remote_sha256":  "d926aa12f4dd09229fb48b1d64e681e13b6a85de0cd61a679657be2b77c74761",
+                        "local_sha256":  "d926aa12f4dd09229fb48b1d64e681e13b6a85de0cd61a679657be2b77c74761",
+                        "rationale":  "Training source index for curriculum and instructor workflows"
+                    },
+                    {
+                        "remote_path":  "/docker/hermes-agent-2q3y/data/gang-a/core/day_record_sync.py",
+                        "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\gang-a\\core\\day_record_sync.py",
+                        "relative_path":  "gang-a/core/day_record_sync.py",
+                        "remote_bytes":  8738,
+                        "local_bytes":  8738,
+                        "remote_sha256":  "a0df4e9c410fdeabb25358b80297bf61663afd41b7f71f84b36eed3bba57b4ee",
+                        "local_sha256":  "a0df4e9c410fdeabb25358b80297bf61663afd41b7f71f84b36eed3bba57b4ee",
+                        "rationale":  "Legacy DayRecord field mapping and mutating request evidence"
+                    },
+                    {
+                        "remote_path":  "/docker/hermes-agent-2q3y/data/gang-a/core/student_db.py",
+                        "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\gang-a\\core\\student_db.py",
+                        "relative_path":  "gang-a/core/student_db.py",
+                        "remote_bytes":  7625,
+                        "local_bytes":  7625,
+                        "remote_sha256":  "7a48f74c198774ca57ffc2786d309c0ec1618c68532f3a8ad507fddb51af9e51",
+                        "local_sha256":  "7a48f74c198774ca57ffc2786d309c0ec1618c68532f3a8ad507fddb51af9e51",
+                        "rationale":  "Student-isolated local DB schema only; no DB contents"
+                    },
+                    {
+                        "remote_path":  "/docker/hermes-agent-2q3y/data/gang-a/core/curriculum_db.py",
+                        "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\gang-a\\core\\curriculum_db.py",
+                        "relative_path":  "gang-a/core/curriculum_db.py",
+                        "remote_bytes":  8900,
+                        "local_bytes":  8900,
+                        "remote_sha256":  "ca97da11b8c28935f171dd6c387a52771f6f36801c48d1883783079c612b6a3b",
+                        "local_sha256":  "ca97da11b8c28935f171dd6c387a52771f6f36801c48d1883783079c612b6a3b",
+                        "rationale":  "Curriculum and submission schema only; no DB contents"
+                    },
+                    {
+                        "remote_path":  "/docker/hermes-agent-2q3y/data/gang-a/core/llm_report_generator.py",
+                        "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\gang-a\\core\\llm_report_generator.py",
+                        "relative_path":  "gang-a/core/llm_report_generator.py",
+                        "remote_bytes":  4533,
+                        "local_bytes":  4533,
+                        "remote_sha256":  "fbb89a8886a0f163366acd102f8015f56f668c8f679037126d24bb147b750972",
+                        "local_sha256":  "fbb89a8886a0f163366acd102f8015f56f668c8f679037126d24bb147b750972",
+                        "rationale":  "Draft-to-DayRecord payload field map with synthetic example"
+                    },
+                    {
+                        "remote_path":  "/docker/hermes-agent-2q3y/data/gang-a/tests/test_day_record_adversarial.py",
+                        "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\gang-a\\tests\\test_day_record_adversarial.py",
+                        "relative_path":  "gang-a/tests/test_day_record_adversarial.py",
+                        "remote_bytes":  3562,
+                        "local_bytes":  3562,
+                        "remote_sha256":  "2aa7486cfa2d83f8291d1d587b16f2d2bad15b8d68c754aeb13050a1f4c8fb9a",
+                        "local_sha256":  "2aa7486cfa2d83f8291d1d587b16f2d2bad15b8d68c754aeb13050a1f4c8fb9a",
+                        "rationale":  "Scope of existing payload tests and verification gaps"
+                    },
+                    {
+                        "remote_path":  "/docker/hermes-agent-2q3y/data/gang-a/main.py",
+                        "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\gang-a\\main.py",
+                        "relative_path":  "gang-a/main.py",
+                        "remote_bytes":  12706,
+                        "local_bytes":  12706,
+                        "remote_sha256":  "aee3b411d5519fcbf3e3e837ca83ef0346f14368149347f6e1eb549755e809a1",
+                        "local_sha256":  "aee3b411d5519fcbf3e3e837ca83ef0346f14368149347f6e1eb549755e809a1",
+                        "rationale":  "Legacy CLI menu and workflow map; source only, never executed"
+                    },
+                    {
+                        "remote_path":  "/docker/hermes-agent-2q3y/data/gang-a/core/lecture_cache.py",
+                        "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\gang-a\\core\\lecture_cache.py",
+                        "relative_path":  "gang-a/core/lecture_cache.py",
+                        "remote_bytes":  2473,
+                        "local_bytes":  2473,
+                        "remote_sha256":  "058f4964dd94c08e52041ebef0bc7c30474db2499c849ec291c12c5880291f72",
+                        "local_sha256":  "058f4964dd94c08e52041ebef0bc7c30474db2499c849ec291c12c5880291f72",
+                        "rationale":  "Lecture metadata and local cache schema boundary; source only"
+                    },
+                    {
+                        "remote_path":  "/docker/hermes-agent-2q3y/data/shared-llm-wiki/concepts/academy-source-system-structure-map.md",
+                        "container_path":  "/opt/data/shared-llm-wiki/concepts/academy-source-system-structure-map.md",
+                        "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\shared-llm-wiki\\concepts\\academy-source-system-structure-map.md",
+                        "relative_path":  "shared-llm-wiki/concepts/academy-source-system-structure-map.md",
+                        "remote_bytes":  37537,
+                        "local_bytes":  37537,
+                        "remote_sha256":  "c2a1dac2dc6f0d078d58a3865395cb1c41f2aac04ee65cc85912eda53b3a9286",
+                        "local_sha256":  "c2a1dac2dc6f0d078d58a3865395cb1c41f2aac04ee65cc85912eda53b3a9286",
+                        "rationale":  "Sanitized site/app source system routes, field/effect boundaries, and unresolved identity joins; as_of 2026-08-26"
+                    }
+                ],
+    "exclusions":  [
+                       "gang-a/data/**: real student records, SQLite contents, snapshots, and generated artifacts",
+                       "gang-a/config/** and all credential/session stores: credentials and live session material",
+                       "강의하는_아이들/**: reports and exports may contain actual student-level records",
+                       "gang-a/index.html and large prototype/report HTML: generated or embedded content may include student-level data",
+                       "gang-a/docs/transcripts/** and docs/quizzes/**: educational content not needed for this bounded structural transfer",
+                       "Unrelated Hermes workspaces, runtime state, memories, and service data",
+                       "gang-a/core/engine.py: contains a hardcoded session cookie value; original deliberately not copied",
+                       "gang-a/core UI and generated dashboard builders: can pull actual student records into output and are not needed for the bounded backend schema/workflow map",
+                       "gang-a/scripts/**: ad hoc live LMS/CDN probes and asset downloads, not durable instructor schema",
+                       "gang-a/tests/test_symbolic_math.py and test_boundary_clipping.py: math/PDF pipeline tests outside instructor/LMS workflow",
+                       "/opt/data/workspaces/spt/docs/classroom-product-direction.md original: real-use observation section and links to protected evidence; only sanitized structural extraction retained",
+                       "Protected academy source snapshots, SPT private evidence, and all student-app raw values: outside this transfer"
+                   ],
+    "caveats":  [
+                    "Documentation is dated and may be stale; no live LMS endpoint or row was queried",
+                    "core/day_record_sync.py contains GET requests that mutate DayRecord fields; GET is not a safe read-only indicator",
+                    "Legacy sync reports HTTP 200 as OK without exact-target field readback",
+                    "Existing test_day_record_adversarial.py tests payload bounds and encoding only, not authorization, save readback, or parent delivery",
+                    "main.py contains an interactive session-update flow but no session value in the copied source; it was not run",
+                    "The remote tree inventory covers 128 files outside .git, data, and config; copying is intentionally selective",
+                    "Shared Wiki map is explicitly sanitized but dated as_of 2026-08-26; current site/app behavior was not revalidated",
+                    "The student app native command bridges documented in the Wiki do not establish direct app backend access or a complete content/item schema"
+                ],
+    "source_git_commit":  "e91b4d7d9f48013469cf823bec5693e5276c01e5",
+    "source_git_status":  "clean at inventory time",
+    "tree_category_inventory":  [
+                                    {
+                                        "path":  "gang-a/(root)",
+                                        "count":  12,
+                                        "bytes":  9820408
+                                    },
+                                    {
+                                        "path":  "gang-a/core",
+                                        "count":  36,
+                                        "bytes":  637713
+                                    },
+                                    {
+                                        "path":  "gang-a/docs",
+                                        "count":  49,
+                                        "bytes":  909205
+                                    },
+                                    {
+                                        "path":  "gang-a/scripts",
+                                        "count":  28,
+                                        "bytes":  31819
+                                    },
+                                    {
+                                        "path":  "gang-a/tests",
+                                        "count":  3,
+                                        "bytes":  35650
+                                    }
+                                ],
+    "docs_category_inventory":  [
+                                    {
+                                        "path":  "gang-a/docs/(top-level)",
+                                        "count":  4,
+                                        "bytes":  48006
+                                    },
+                                    {
+                                        "path":  "gang-a/docs/transcripts",
+                                        "count":  22,
+                                        "bytes":  758501
+                                    },
+                                    {
+                                        "path":  "gang-a/docs/quizzes",
+                                        "count":  23,
+                                        "bytes":  102698
+                                    }
+                                ],
+    "derived_entries":  [
+                            {
+                                "local_path":  "C:\\Users\\packr\\Desktop\\강의하는아이들_대치점\\research\\remote-2026-09-27\\summaries\\workspaces\\spt\\classroom-product-direction-structural.md",
+                                "local_sha256":  "81942dc00432940d1c28d47575b024c972a4e7cedbdf10742112555391d6bc56",
+                                "source_container_path":  "/opt/data/workspaces/spt/docs/classroom-product-direction.md",
+                                "source_remote_path":  "/docker/hermes-agent-2q3y/data/workspaces/spt/docs/classroom-product-direction.md",
+                                "source_remote_bytes":  28577,
+                                "source_remote_sha256":  "de4c051c996e284fe18ffb2965acc79429c87a0fca697a54ae6e866f6bf257f5",
+                                "method":  "Sanitized structural extraction from selected sections; real-use observation section omitted",
+                                "rationale":  "Original mixes product direction with real student-use observations"
+                            }
+                        ]
+}
