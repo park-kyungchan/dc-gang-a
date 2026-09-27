@@ -2,7 +2,7 @@
 
 The owner authorized a local Git repository on 2026-09-27. This baseline is local only: no remote, push, publication, or academy/Sheet/SPT/VPS effect.
 
-The first curated commit is `6ddb1385b4166210c029e7d1c41bf6abebf25878` (34 text files). The second is `2d51ac7be2d956d676ceb425a92aaf4fd750b8c6` (24 vetted context files). The Codex app then reported `isGitRepository=true` for this saved project and created a clean managed worktree at `C:/Users/packr/.codex/worktrees/main-sheet-v2/강의하는아이들_대치점`. That worktree starts at the second commit with a detached HEAD and excludes the ignored credential/student directories.
+The first curated commit is `6ddb1385b4166210c029e7d1c41bf6abebf25878` (34 text files). The second is `2d51ac7be2d956d676ceb425a92aaf4fd750b8c6` (24 vetted context files). The environment fix is `7dce930a923315af692552201f1ca9a40f53931f`. The Codex app then reported `isGitRepository=true` for this saved project and created a managed worktree at `C:/Users/packr/.codex/worktrees/main-sheet-v2/강의하는아이들_대치점`. It was moved from its initial detached HEAD to local branch `codex/main-sheet-v2` at the environment fix, and the first isolated feature commit is `e42e258aa49befd69940521708f7e82df89c4b5b`. The worktree excludes the ignored credential/student directories.
 
 ## Proposed first commit
 
