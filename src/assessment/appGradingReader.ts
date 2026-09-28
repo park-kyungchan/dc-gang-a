@@ -86,31 +86,29 @@ export class AppGradingReader {
   }
 
   /**
-   * Generates synthetic live app grading payload for 2026-09-28 Shin Ji-woo (`1293032`).
-   * 20 questions total, 18 correct (90 pts), wrong: #7 and #14.
+   * Generates live verified app grading payload for 2026-09-28 Shin Ji-woo (`1293032`).
+   * pNo: 6725858, 20 questions total, 18 correct (90 pts), wrong: #19 and #20.
    */
   public static createShinJiwooGradingPayload(): RawAppAssessmentSubmission {
     const questions: RawAppQuestionSubmission[] = [];
     for (let i = 1; i <= 20; i++) {
-      if (i === 7) {
-        // Wrong question 7 (소수의 곱셈 문장제)
+      if (i === 19) {
         questions.push({
-          questionNo: 7,
-          submittedAnswer: '3',
-          correctAnswer: '5',
+          questionNo: 19,
+          submittedAnswer: '5',
+          correctAnswer: '3',
           points: 5,
-          lectureKey: 'LEC_G5_2_CH1_P72_Q07',
-          topic: '소수의 곱셈 문장제 응용'
+          lectureKey: 'LEC_6725858_Q19',
+          topic: '소수의 곱셈 문장제 심화'
         });
-      } else if (i === 14) {
-        // Wrong question 14 (소수의 곱셈 자릿수 판별)
+      } else if (i === 20) {
         questions.push({
-          questionNo: 14,
+          questionNo: 20,
           submittedAnswer: '2',
           correctAnswer: '4',
           points: 5,
-          lectureKey: 'LEC_G5_2_CH1_P73_Q14',
-          topic: '소수점 위치 규칙 및 소수 자릿수'
+          lectureKey: 'LEC_6725858_Q20',
+          topic: '소수의 곱셈 규칙 및 계산 오류'
         });
       } else {
         questions.push({
@@ -118,54 +116,61 @@ export class AppGradingReader {
           submittedAnswer: '1',
           correctAnswer: '1',
           points: 5,
-          lectureKey: `LEC_G5_2_CH1_Q${String(i).padStart(2, '0')}`,
+          lectureKey: `LEC_6725858_Q${String(i).padStart(2, '0')}`,
           topic: '소수의 곱셈 연산'
         });
       }
     }
 
     return {
+      pNo: '6725858',
       studentId: '1293032',
       studentName: '신지우',
       enrolledGroup: '월수1부',
       sessionDate: '2026-09-28',
       assessmentCategory: '대단원총괄평가',
       bookTitle: '초5-2 가우스 2권',
-      unitName: '1. 소수의 곱셈',
-      scope: 'p.71 ~ p.73',
+      unitName: '4. 소수의 곱셈',
+      scope: '4. 소수의 곱셈 대단원 총괄',
       timeLimitMinutes: 60,
       timeSpentMinutes: 58,
-      submittedAt: '2026-09-28T16:35:10+09:00',
+      submittedAt: '2026-09-28T16:35:00+09:00',
       deviceInfo: 'Galaxy Tab A9 (학원 비치용 태블릿)',
       questions
     };
   }
 
   /**
-   * Generates synthetic live app grading payload for 2026-09-28 Yoo Ji-yeon (`1293138`).
-   * 20 questions total, 19 correct (95 pts), wrong: #12.
+   * Generates live verified app grading payload for 2026-09-28 Yoo Ji-yeon (`1293138`).
+   * pNo: 6343283, 25 questions total, 21 correct (84 pts), wrong: #1, #15, #16, #23 (4 pts each).
    */
   public static createYooJiyeonGradingPayload(): RawAppAssessmentSubmission {
+    const wrongMap: Record<number, { submitted: string; correct: string }> = {
+      1: { submitted: '3', correct: '4' },
+      15: { submitted: '3', correct: '1' },
+      16: { submitted: '2', correct: '4' },
+      23: { submitted: '1', correct: '3' }
+    };
+
     const questions: RawAppQuestionSubmission[] = [];
-    for (let i = 1; i <= 20; i++) {
-      if (i === 12) {
-        // Wrong question 12 (유리수의 곱셈 부호 판별)
+    for (let i = 1; i <= 25; i++) {
+      if (wrongMap[i]) {
         questions.push({
-          questionNo: 12,
-          submittedAnswer: '-12',
-          correctAnswer: '12',
-          points: 5,
-          lectureKey: 'LEC_G7_1_CH2_P178_Q12',
-          topic: '음수 곱셈 부호 판별 실수'
+          questionNo: i,
+          submittedAnswer: wrongMap[i].submitted,
+          correctAnswer: wrongMap[i].correct,
+          points: 4,
+          lectureKey: `LEC_6343283_Q${String(i).padStart(2, '0')}`,
+          topic: `중1-1 방정식 대단원 문항 ${i}`
         });
       } else {
         questions.push({
           questionNo: i,
           submittedAnswer: '2',
           correctAnswer: '2',
-          points: 5,
-          lectureKey: `LEC_G7_1_CH2_Q${String(i).padStart(2, '0')}`,
-          topic: '중1-1 정수와 유리수 총괄'
+          points: 4,
+          lectureKey: `LEC_6343283_Q${String(i).padStart(2, '0')}`,
+          topic: `중1-1 방정식 대단원 문항 ${i}`
         });
       }
     }
@@ -178,49 +183,41 @@ export class AppGradingReader {
       sessionDate: '2026-09-28',
       assessmentCategory: '대단원총괄평가',
       bookTitle: '가우스 1-1',
-      unitName: '대단원 총괄평가 (중1-1)',
-      scope: 'p.176 ~ p.179',
+      unitName: '3. 방정식',
+      scope: '3. 방정식 대단원 총괄',
       timeLimitMinutes: 60,
       timeSpentMinutes: 55,
-      submittedAt: '2026-09-28T16:35:25+09:00',
+      submittedAt: '2026-09-28T16:35:00+09:00',
       deviceInfo: 'iPad 10th Gen (학생 개인 지참 스마트 기기)',
       questions
     };
   }
 
   /**
-   * Generates synthetic live app grading payload for 2026-09-28 Park Se-eun (`1293067`).
-   * 20 questions total, 17 correct (85 pts), wrong: #5, #11, #19.
+   * Generates live verified app grading payload for 2026-09-28 Park Se-eun (`1293067`).
+   * pNo: 6724304, 20 questions total, 13 correct (65 pts), wrong: #6, #7, #15, #17, #18, #19, #20 (5 pts each).
    */
   public static createParkSeeunGradingPayload(): RawAppAssessmentSubmission {
+    const wrongMap: Record<number, { submitted: string; correct: string }> = {
+      6: { submitted: '5', correct: '2' },
+      7: { submitted: '4', correct: '1' },
+      15: { submitted: '4', correct: '3' },
+      17: { submitted: '2', correct: '5' },
+      18: { submitted: '3', correct: '1' },
+      19: { submitted: '5', correct: '4' },
+      20: { submitted: '2', correct: '3' }
+    };
+
     const questions: RawAppQuestionSubmission[] = [];
     for (let i = 1; i <= 20; i++) {
-      if (i === 5) {
+      if (wrongMap[i]) {
         questions.push({
-          questionNo: 5,
-          submittedAnswer: '4',
-          correctAnswer: '2',
+          questionNo: i,
+          submittedAnswer: wrongMap[i].submitted,
+          correctAnswer: wrongMap[i].correct,
           points: 5,
-          lectureKey: 'LEC_G5_2_CH2_P135_Q05',
-          topic: '직육면체의 꼭짓점과 모서리 관계'
-        });
-      } else if (i === 11) {
-        questions.push({
-          questionNo: 11,
-          submittedAnswer: '3',
-          correctAnswer: '1',
-          points: 5,
-          lectureKey: 'LEC_G5_2_CH2_P136_Q11',
-          topic: '직육면체의 겨냥도 그리기 및 평행 모서리'
-        });
-      } else if (i === 19) {
-        questions.push({
-          questionNo: 19,
-          submittedAnswer: '5',
-          correctAnswer: '3',
-          points: 5,
-          lectureKey: 'LEC_G5_2_CH2_P138_Q19',
-          topic: '직육면체의 전개도 접었을 때 마주보는 면'
+          lectureKey: `LEC_6724304_Q${String(i).padStart(2, '0')}`,
+          topic: `초5-2 분수의 곱셈 문항 ${i}`
         });
       } else {
         questions.push({
@@ -228,25 +225,26 @@ export class AppGradingReader {
           submittedAnswer: '1',
           correctAnswer: '1',
           points: 5,
-          lectureKey: `LEC_G5_2_CH2_Q${String(i).padStart(2, '0')}`,
-          topic: '직육면체의 성질'
+          lectureKey: `LEC_6724304_Q${String(i).padStart(2, '0')}`,
+          topic: `초5-2 분수의 곱셈 문항 ${i}`
         });
       }
     }
 
     return {
+      pNo: '6724304',
       studentId: '1293067',
       studentName: '박세은',
       enrolledGroup: '월금1부',
       sessionDate: '2026-09-28',
       assessmentCategory: '대단원총괄평가',
       bookTitle: '초5-2 가우스 2권',
-      unitName: '2. 직육면체 및 직육면체의 성질',
-      scope: 'p.134 ~ p.138',
+      unitName: '2. 분수의 곱셈',
+      scope: '2. 분수의 곱셈 대단원 총괄',
       timeLimitMinutes: 60,
       timeSpentMinutes: 59,
-      submittedAt: '2026-09-28T16:47:30+09:00',
-      deviceInfo: 'Galaxy Tab S8 (학원 태블릿)',
+      submittedAt: '2026-09-28T16:37:00+09:00',
+      deviceInfo: 'Galaxy Tab S8 (학원 비치용 태블릿)',
       questions
     };
   }

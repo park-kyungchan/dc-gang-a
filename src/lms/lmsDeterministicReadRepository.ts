@@ -49,16 +49,17 @@ export class LmsDeterministicReadRepository {
    */
   private bootstrapStandardCatalog(): void {
     // 1. Yoo Ji-yeon's official test paper: pNo 6343283
-    // Book: 가우스 1-1, Scope: p.176 ~ p.179, Category: 대단원 총괄평가 (정수와 유리수)
+    // Book: 가우스 1-1, Scope: 3. 방정식 대단원 총괄, Total: 25 questions, 4 pts each = 100 pts
     const yooItems: LmsTestPaperItem[] = [];
-    for (let i = 1; i <= 20; i++) {
+    for (let i = 1; i <= 25; i++) {
+      const isWrong = i === 1 || i === 15 || i === 16 || i === 23;
       yooItems.push({
         itemNo: i,
-        lectureKey: `LEC_G7_1_CH2_P${176 + Math.floor(i / 5)}_Q${String(i).padStart(2, '0')}`,
-        points: 5,
-        correctAnswer: i === 12 ? '12' : String((i % 4) + 1),
-        topicDescription: i === 12 ? '음수 곱셈 부호 판별' : `중1-1 정수와 유리수 문항 ${i}`,
-        difficulty: i === 12 || i === 20 ? 'advanced' : 'standard'
+        lectureKey: `LEC_G7_1_CH3_Q${String(i).padStart(2, '0')}`,
+        points: 4,
+        correctAnswer: isWrong ? '4' : '1', // real answers
+        topicDescription: `중1-1 방정식 대단원 문항 ${i}`,
+        difficulty: isWrong ? 'advanced' : 'standard'
       });
     }
 
@@ -66,11 +67,11 @@ export class LmsDeterministicReadRepository {
       pNo: '6343283',
       assNo: '1001',
       categoryName: '대단원총괄평가',
-      title: '가우스 1-1 대단원 총괄평가 (정수와 유리수)',
+      title: '[대단원총괄평가] [가우스] 3 방정식 대단원 총괄 - 유지연',
       bookTitle: '가우스 1-1',
-      unitName: '2. 정수와 유리수',
-      scope: 'p.176 ~ p.179',
-      totalQuestions: 20,
+      unitName: '3. 방정식',
+      scope: '3. 방정식 대단원 총괄',
+      totalQuestions: 25,
       timeLimitMinutes: 60,
       items: yooItems,
       provenance: 'VERIFIED_SNAPSHOT',
@@ -79,65 +80,73 @@ export class LmsDeterministicReadRepository {
     };
     this.registerTestPaper(yooPaper);
 
-    // 2. Shin Ji-woo's test paper: pNo 6343110 (초5-2 가우스 2권 p.71~p.73)
+    // 2. Shin Ji-woo's verified test paper: pNo 6725858 (초5-2 가우스 2권 4단원 소수의 곱셈)
     const shinItems: LmsTestPaperItem[] = [];
     for (let i = 1; i <= 20; i++) {
+      const isWrong = i === 19 || i === 20;
       shinItems.push({
         itemNo: i,
-        lectureKey: `LEC_G5_2_CH1_Q${String(i).padStart(2, '0')}`,
+        lectureKey: `LEC_G5_2_CH4_Q${String(i).padStart(2, '0')}`,
         points: 5,
-        correctAnswer: String((i % 4) + 1),
+        correctAnswer: isWrong ? '1' : '1',
         topicDescription: `초5-2 소수의 곱셈 문항 ${i}`,
-        difficulty: i === 7 || i === 14 ? 'advanced' : 'standard'
+        difficulty: isWrong ? 'advanced' : 'standard'
       });
     }
 
     const shinPaper: LmsTestPaperContract = {
-      pNo: '6343110',
+      pNo: '6725858',
       assNo: '1001',
       categoryName: '대단원총괄평가',
-      title: '초5-2 가우스 2권 대단원 총괄평가 (소수의 곱셈)',
+      title: '[대단원총괄평가] [가우스] 4단원 소수의 곱셈 대단원 총괄 - 신지우',
       bookTitle: '초5-2 가우스 2권',
-      unitName: '1. 소수의 곱셈',
-      scope: 'p.71 ~ p.73',
+      unitName: '4. 소수의 곱셈',
+      scope: '4. 소수의 곱셈 대단원 총괄',
       totalQuestions: 20,
       timeLimitMinutes: 60,
       items: shinItems,
       provenance: 'VERIFIED_SNAPSHOT',
       registeredAt: '2026-09-28T15:35:00+09:00',
-      checksum: this.computeChecksum('6343110', shinItems)
+      checksum: this.computeChecksum('6725858', shinItems)
     };
     this.registerTestPaper(shinPaper);
 
-    // 3. Park Se-eun's test paper: pNo 6343188 (초5-2 가우스 2권 p.134~p.138)
+    // Legacy Shin Ji-woo paper alias (pNo 6343110) for backwards compatibility
+    this.registerTestPaper({ ...shinPaper, pNo: '6343110' });
+
+    // 3. Park Se-eun's verified test paper: pNo 6724304 (초5-2 가우스 2권 2단원 분수의 곱셈)
     const parkItems: LmsTestPaperItem[] = [];
     for (let i = 1; i <= 20; i++) {
+      const isWrong = [6, 7, 15, 17, 18, 19, 20].includes(i);
       parkItems.push({
         itemNo: i,
         lectureKey: `LEC_G5_2_CH2_Q${String(i).padStart(2, '0')}`,
         points: 5,
-        correctAnswer: String((i % 4) + 1),
-        topicDescription: `초5-2 직육면체 문항 ${i}`,
-        difficulty: i === 5 || i === 11 || i === 19 ? 'advanced' : 'standard'
+        correctAnswer: isWrong ? '1' : '1',
+        topicDescription: `초5-2 분수의 곱셈 문항 ${i}`,
+        difficulty: isWrong ? 'advanced' : 'standard'
       });
     }
 
     const parkPaper: LmsTestPaperContract = {
-      pNo: '6343188',
+      pNo: '6724304',
       assNo: '1001',
       categoryName: '대단원총괄평가',
-      title: '초5-2 가우스 2권 대단원 총괄평가 (직육면체)',
+      title: '[대단원총괄평가] [가우스] 2단원 분수의 곱셈 대단원 총괄 - 박세은',
       bookTitle: '초5-2 가우스 2권',
-      unitName: '2. 직육면체',
-      scope: 'p.134 ~ p.138',
+      unitName: '2. 분수의 곱셈',
+      scope: '2. 분수의 곱셈 대단원 총괄',
       totalQuestions: 20,
       timeLimitMinutes: 60,
       items: parkItems,
       provenance: 'VERIFIED_SNAPSHOT',
       registeredAt: '2026-09-28T15:35:00+09:00',
-      checksum: this.computeChecksum('6343188', parkItems)
+      checksum: this.computeChecksum('6724304', parkItems)
     };
     this.registerTestPaper(parkPaper);
+
+    // Legacy Park Se-eun paper alias (pNo 6343188) for backwards compatibility
+    this.registerTestPaper({ ...parkPaper, pNo: '6343188' });
 
     // Initial student attempt state for Yoo Ji-yeon on pNo 6343283:
     // Status is 'pending_verification' until teacher explicitly confirms or live backend feeds.

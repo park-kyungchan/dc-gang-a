@@ -25,7 +25,7 @@ describe('Student Assessment Ledger & Individual DB Engine', () => {
       expect(record.correctCount).toBe(18);
       expect(record.wrongCount).toBe(2);
       expect(record.percentage).toBe(90.0);
-      expect(record.wrongItemNumbers).toEqual([7, 14]);
+      expect(record.wrongItemNumbers).toEqual([19, 20]);
       expect(record.status).toBe('graded');
       expect(record.submissionMethod).toBe('academy_app');
 
@@ -44,11 +44,12 @@ describe('Student Assessment Ledger & Individual DB Engine', () => {
       expect(record.studentId).toBe('1293138');
       expect(record.studentName).toBe('유지연');
       expect(record.bookTitle).toBe('가우스 1-1');
-      expect(record.scope).toBe('p.176 ~ p.179');
-      expect(record.score).toBe(95);
-      expect(record.correctCount).toBe(19);
-      expect(record.wrongCount).toBe(1);
-      expect(record.wrongItemNumbers).toEqual([12]);
+      expect(record.unitName).toBe('3. 방정식');
+      expect(record.score).toBe(84);
+      expect(record.totalQuestions).toBe(25);
+      expect(record.correctCount).toBe(21);
+      expect(record.wrongCount).toBe(4);
+      expect(record.wrongItemNumbers).toEqual([1, 15, 16, 23]);
       expect(record.status).toBe('graded');
 
       const history = ledger.getStudentHistory('1293138');
@@ -64,12 +65,12 @@ describe('Student Assessment Ledger & Individual DB Engine', () => {
       expect(record.studentId).toBe('1293067');
       expect(record.studentName).toBe('박세은');
       expect(record.bookTitle).toBe('초5-2 가우스 2권');
-      expect(record.scope).toBe('p.134 ~ p.138');
-      expect(record.score).toBe(85);
+      expect(record.unitName).toBe('2. 분수의 곱셈');
+      expect(record.score).toBe(65);
       expect(record.totalQuestions).toBe(20);
-      expect(record.correctCount).toBe(17);
-      expect(record.wrongCount).toBe(3);
-      expect(record.wrongItemNumbers).toEqual([5, 11, 19]);
+      expect(record.correctCount).toBe(13);
+      expect(record.wrongCount).toBe(7);
+      expect(record.wrongItemNumbers).toEqual([6, 7, 15, 17, 18, 19, 20]);
       expect(record.status).toBe('graded');
 
       const history = ledger.getStudentHistory('1293067');
@@ -144,7 +145,7 @@ describe('Student Assessment Ledger & Individual DB Engine', () => {
       expect(row[3]).toBe('초5-2 가우스 2권');
       expect(row[11]).toBe(90);          // Score
       expect(row[12]).toBe('90%');       // Percentage
-      expect(row[13]).toBe('7, 14');     // Wrong items
+      expect(row[13]).toBe('19, 20');    // Wrong items
     });
   });
 
@@ -159,10 +160,10 @@ describe('Student Assessment Ledger & Individual DB Engine', () => {
       expect(card.studentName).toBe('신지우');
       expect(card.statusBadge).toBe('🟢 채점완료');
       expect(card.scoreDisplay).toBe('90점 (18/20)');
-      expect(card.wrongItemsDisplay).toBe('7번, 14번');
-      expect(card.hoverNote).toContain('7번');
-      expect(card.hoverNote).toContain('14번');
-      expect(card.hoverNote).toContain('LEC_G5_2_CH1_P72_Q07');
+      expect(card.wrongItemsDisplay).toBe('19번, 20번');
+      expect(card.hoverNote).toContain('19번');
+      expect(card.hoverNote).toContain('20번');
+      expect(card.hoverNote).toContain('LEC_6725858_Q19');
       expect(card.hoverNote).toContain('Galaxy Tab A9');
     });
 
@@ -172,9 +173,9 @@ describe('Student Assessment Ledger & Individual DB Engine', () => {
 
       const card = MainSheetAssessmentProjector.projectCard(record);
       expect(card.studentName).toBe('유지연');
-      expect(card.statusBadge).toBe('🟢 채점완료');
-      expect(card.scoreDisplay).toBe('95점 (19/20)');
-      expect(card.wrongItemsDisplay).toBe('12번');
+      expect(card.statusBadge).toBe('🟡 풀이완료(채점중)');
+      expect(card.scoreDisplay).toBe('84점 (21/25)');
+      expect(card.wrongItemsDisplay).toBe('1번, 15번, 16번, 23번');
 
       // Test Sheets API updateCells payload builder
       const updateOp = MainSheetAssessmentProjector.buildUpdateMainSheetFrontCardRequest(1754681846, 10, card);
@@ -201,7 +202,7 @@ describe('Student Assessment Ledger & Individual DB Engine', () => {
       const updated = ledger.markAssessmentCorrectionsCompleted(
         '1293032',
         record.recordId,
-        '오답 7번, 14번 재풀이 확인 완료 및 p.68~70 배정'
+        '오답 19번, 20번 재풀이 확인 완료 및 p.68~70 배정'
       );
       expect(updated.status).toBe('clinic_completed');
       expect(ledger.verifyRecordIntegrity(updated)).toBe(true);

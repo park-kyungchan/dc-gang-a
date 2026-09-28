@@ -16,6 +16,7 @@ data/raw_sessions/**/OBSERVATION_TEMPLATE.md
 data/raw_sessions/**/*.log
 data/raw_sessions/**/*.csv
 data/raw_sessions/**/*.tmp
+data/sync_payloads/
 
 # Local Python environments and generated files
 .venv/
