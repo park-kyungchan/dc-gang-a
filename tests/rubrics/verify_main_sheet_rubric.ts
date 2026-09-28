@@ -170,6 +170,39 @@ if (trivialReasonAudit.valid) {
 }
 console.log('  PASS: Trivial/empty audit reason rejected.');
 
+console.log('\n--- [DIM-06: Student Individual DB Isolation & Longitudinal Ledger] ---');
+import { StudentAssessmentLedgerEngine } from '../../src/assessment/studentAssessmentLedger';
+import { AppGradingReader } from '../../src/assessment/appGradingReader';
+import { MainSheetAssessmentProjector } from '../../src/sheets/mainSheetAssessmentProjector';
+
+const ledgerEngine = new StudentAssessmentLedgerEngine();
+const rawShin = AppGradingReader.createShinJiwooGradingPayload();
+const recordShin = ledgerEngine.ingestAssessmentRecord(AppGradingReader.normalizeAppSubmission(rawShin));
+
+if (recordShin.score !== 90 || recordShin.percentage !== 90 || recordShin.wrongItemNumbers.length !== 2) {
+  throw new Error('FAIL: Shin Ji-woo assessment record calculation mismatch.');
+}
+console.log('  PASS: Shin Ji-woo individual DB record ingested (90점, 18/20, 오답 7, 14번).');
+
+const rawYoo = AppGradingReader.createYooJiyeonGradingPayload();
+const recordYoo = ledgerEngine.ingestAssessmentRecord(AppGradingReader.normalizeAppSubmission(rawYoo));
+if (recordYoo.score !== 95 || recordYoo.percentage !== 95 || recordYoo.wrongItemNumbers.length !== 1) {
+  throw new Error('FAIL: Yoo Ji-yeon assessment record calculation mismatch.');
+}
+console.log('  PASS: Yoo Ji-yeon individual DB record ingested (95점, 19/20, 오답 12번).');
+
+if (!ledgerEngine.verifyRecordIntegrity(recordShin) || !ledgerEngine.verifyRecordIntegrity(recordYoo)) {
+  throw new Error('FAIL: SHA-256 record integrity check failed.');
+}
+console.log('  PASS: SHA-256 tamper-proof ledger integrity verified.');
+
+console.log('\n--- [DIM-07: Main Sheet Projection Card & Sheets batchUpdate] ---');
+const cardShin = MainSheetAssessmentProjector.projectCard(recordShin);
+if (cardShin.statusBadge !== '🟢 채점완료' || !cardShin.hoverNote.includes('LEC_G5_2_CH1_P72_Q07')) {
+  throw new Error('FAIL: Main Sheet projection card or hover note mismatch.');
+}
+console.log('  PASS: Main Sheet card projected with 🟢 채점완료 and rich hover notes.');
+
 console.log('\n============================================================');
 console.log('🎉 ALL ADVERSARIAL RUBRIC TESTS PASSED CLEANLY (100/100)');
 console.log('Zero hard-fail blockers detected.');

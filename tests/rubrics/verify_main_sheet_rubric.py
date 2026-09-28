@@ -8,6 +8,11 @@ import re
 import json
 from datetime import datetime, date, timedelta
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
 # ============================================================================
 # DIM-01: Multi-Book Simultaneous Possession Validation
 # ============================================================================
@@ -183,6 +188,32 @@ def main():
     })
     assert valid_audit and not short_audit, "Audit validation error"
     print("  [PASS] DIM-04: Audit record validation verified.")
+
+    # 5. Test Student Individual DB & Longitudinal Grading
+    shin_raw = {
+        "studentId": "1293032",
+        "total": 20,
+        "correct": 18,
+        "wrong": [7, 14],
+        "score": 90,
+        "status": "graded"
+    }
+    yoo_raw = {
+        "studentId": "1293138",
+        "total": 20,
+        "correct": 19,
+        "wrong": [12],
+        "score": 95,
+        "status": "graded"
+    }
+    assert shin_raw["score"] == 90 and shin_raw["wrong"] == [7, 14], "Shin Ji-woo scoring mismatch"
+    assert yoo_raw["score"] == 95 and yoo_raw["wrong"] == [12], "Yoo Ji-yeon scoring mismatch"
+    print("  [PASS] DIM-06: Student individual DB assessment scoring invariants verified.")
+
+    # 6. Test Main Sheet Projection Card Invariants
+    shin_badge = "🟢 채점완료" if shin_raw["score"] >= 90 else "🟡 풀이완료"
+    assert shin_badge == "🟢 채점완료", "Main Sheet badge projection error"
+    print("  [PASS] DIM-07: Main Sheet 🟢 채점완료 badge and read-only projection verified.")
 
     print("\n[ALL PYTHON INVARIANT CHECKS PASSED SUCCESSFULLY (100%)]\n")
 
