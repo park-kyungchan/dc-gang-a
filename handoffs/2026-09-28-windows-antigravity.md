@@ -1,6 +1,6 @@
 # Windows Antigravity continuation — 2026-09-28
 
-Phase: private monorepo preparation for a second Windows Desktop PC. The
+Phase: private monorepo published for a second Windows Desktop PC. The
 owner selected `park-kyungchan/dc-gang-a` as a private GitHub repository,
 requested Main Sheet, SPT, and LMS automation code in one source tree, and
 selected the 14:00 whole-class preparation screen as the first continued
@@ -14,7 +14,7 @@ authentication, student records, service state, or prior chat sessions.
 | GH-01 | Curate and import three source trees | — | Main Sheet root preserved; SPT 270 and `ganga` 59 tracked source files copied from reviewed local checkouts. `docs/source-import-manifest.json` records every imported hash and original branch/HEAD. Original checkouts untouched. |
 | GH-02 | Make context readable by different agents | GH-01 | Root and nested `AGENTS.md`, portable guide, this dated handoff, and explicit local versus portable gate distinction. Source and credential boundaries retained. |
 | GH-03 | Verify portable code and source preflight | GH-01, GH-02 | Complete locally: focused 17-test workbench suite, 12-file/52-operation backend-map validator, 12-student review check, import hash verifier, and first-PC machine-local core gate passed on 2026-09-28. The final candidate scan found no high-confidence secret or forbidden path; staged paths and the scoped first-party whitespace check passed review. |
-| GH-04 | Create and push private GitHub repository | GH-03 | Pending exact private target creation, Git readback, and remote branch verification. |
+| GH-04 | Create and push private GitHub repository | GH-03 | Complete: `park-kyungchan/dc-gang-a` was created and read back as `PRIVATE`; `main` received baseline commit `41bde70151b45387118840958a2ab62db96c5b24`. GitHub API and local HEAD agreed. A new clone with `core.autocrlf=true` passed the portable checks. |
 | WL-02 | Continue synthetic 14:00 whole-class screen | GH-04 | Candidate in `review/whole_lens_1400.html` and `workbench_v2/class_overview.py`; instructor PC acceptance pending. |
 | WL-03 | Bind exact selected-student LMS and app read joins | WL-02 | Read-contract gaps remain in `docs/WHOLE_LENS_READ_CONTRACTS.md`; no live join is accepted. |
 
@@ -61,18 +61,22 @@ subagent was assigned for this import; the lead owns integration and checks.
   passed; historical and byte-pinned source files retain their original line
   endings and intentional whitespace. `.gitattributes` disables Git EOL
   conversion so their imported hashes survive a Windows clone.
+- GitHub readback showed `nameWithOwner=park-kyungchan/dc-gang-a`,
+  `visibility=PRIVATE`, `defaultBranch=main`, and remote `main` SHA
+  `41bde70151b45387118840958a2ab62db96c5b24` after the baseline push.
+  A fresh depth-one clone of that revision with `core.autocrlf=true` passed
+  17 synthetic Main Sheet tests, the 12-file/52-operation backend-map
+  validator, the 12-student review check, source-import hash verification,
+  and the bounded pre-push scan. The actual second PC and its Antigravity
+  CLI session have not been verified.
 
 ## Open risks and next action
 
-Run the focused synthetic and backend-map checks, inspect every staged path,
-scan the Git history and new content for credential or raw-student material,
-and confirm that `config/`, `data/`, local `work/`, and the superseded
-`docs/decision_ledger.json` stay out of the commit. The root machine-local
-`desktop_gate.py` requires first-PC sibling paths and cannot certify a new
-Windows clone. The imported LMS test suite carries old repository policy
-assumptions and is not yet a portable acceptance gate. Publish only after
-the exact private repository target and staged content are reviewed; read
-back remote visibility, default branch, and commit after push.
+The root machine-local `desktop_gate.py` requires first-PC sibling paths and
+cannot certify the second Windows PC. The imported LMS test suite carries old
+repository policy assumptions and is not yet a portable acceptance gate.
+No academy or Sheet authentication was transferred. On the second PC, sign
+in through approved channels and keep live effects behind their exact gates.
 
 On the second PC, start at root `AGENTS.md`, this handoff, and
 `docs/PORTABLE_WORKSPACE.md`. Verify Git HEAD, Python 3.12, the focused

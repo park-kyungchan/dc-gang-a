@@ -4,7 +4,7 @@ This repository holds the Main Sheet workbench, a source snapshot of SPT, and th
 
 ## Start on another Windows PC
 
-Clone the private repository, open its root in a coding agent, and read [AGENTS.md](AGENTS.md), the [portable workspace guide](docs/PORTABLE_WORKSPACE.md), and the [active handoff](handoffs/2026-09-28-windows-antigravity.md). Antigravity CLI reads root `AGENTS.md`; no model-specific conversation export is needed. Authentication, student records, and local runtime installations are not carried by Git.
+Clone the [private GitHub repository](https://github.com/park-kyungchan/dc-gang-a), open its root in a coding agent, and read [AGENTS.md](AGENTS.md), the [portable workspace guide](docs/PORTABLE_WORKSPACE.md), and the [active handoff](handoffs/2026-09-28-windows-antigravity.md). Antigravity CLI reads root `AGENTS.md`; no model-specific conversation export is needed. Authentication, student records, and local runtime installations are not carried by Git.
 
 ```powershell
 python --version

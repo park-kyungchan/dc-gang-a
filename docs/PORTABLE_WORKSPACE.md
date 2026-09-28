@@ -42,8 +42,15 @@ so the dated SHA-256 evidence is not changed by Git line-ending conversion.
 
 ## Fresh Windows checkout
 
-Use an authorized GitHub sign-in to clone the private repository. Start
-Antigravity CLI from the repository root so it loads root `AGENTS.md`; verify
+Use an authorized GitHub sign-in to clone the private repository:
+
+```powershell
+git clone https://github.com/park-kyungchan/dc-gang-a.git
+Set-Location .\dc-gang-a
+agy
+```
+
+Start Antigravity CLI from the repository root so it loads root `AGENTS.md`; verify
 the active context in the CLI before any write or live read. Authentication
 for GitHub is separate from academy, Google Sheet, SPT, and Tailscale access.
 Never copy a browser profile, session cookie, credential directory, student
@@ -70,6 +77,11 @@ make no academy, Sheet, or remote service request. The import verifier checks
 the original snapshot hashes; it will report drift after intentional edits
 to imported files. Record new revisions in the dated handoff rather than
 rewriting the original import provenance.
+
+The published `main` at baseline commit `41bde70151b45387118840958a2ab62db96c5b24`
+was cloned with Git EOL conversion enabled and passed the focused 17 tests,
+backend-map validation, 12-student review check, and import-hash verifier.
+This is a second checkout on the first PC, not a physical second-PC session.
 
 The original `harness/desktop_gate.py --profile core` requires the first PC's
 SPT checkout and Desktop transition package at fixed sibling paths. Its
