@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Whole-Lens · 14:00 교사 검토 시안</title>
+  <style>
+    :root { font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; color: #17263a; background: #f2f5f9; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    .top { padding: 25px 32px 22px; background: #142b47; color: #fff; }
+    .top h1 { margin: 5px 0 8px; font-size: 27px; letter-spacing: -.03em; }
+    .top p { margin: 0; color: #d5e2f0; line-height: 1.55; }
+    .eyebrow { color: #90dbcd; font-size: 12px; font-weight: 800; letter-spacing: .12em; }
+    .banner { margin: 18px 24px 0; padding: 14px 17px; border: 1px solid #d59d51; border-radius: 12px; background: #fff4df; color: #6b451a; font-weight: 700; }
+    main { padding: 18px 24px 32px; }
+    .toolbar { display: flex; gap: 16px; flex-wrap: wrap; align-items: end; margin-bottom: 18px; }
+    .toolbar label { display: grid; gap: 6px; font-size: 12px; font-weight: 800; color: #52647b; }
+    .toolbar input, .toolbar select { min-width: 155px; height: 38px; padding: 0 10px; border: 1px solid #bfccda; border-radius: 8px; background: white; color: #17263a; }
+    .toolbar .hint { margin-left: auto; padding-bottom: 5px; color: #52647b; font-size: 13px; }
+    .grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; align-items: start; }
+    .panel { min-width: 0; border: 1px solid #d7e0e9; border-radius: 14px; background: white; box-shadow: 0 4px 18px #142b470a; overflow: hidden; }
+    .panel-head { padding: 18px 20px; border-bottom: 1px solid #e5eaf0; }
+    .panel-head h2 { margin: 0 0 5px; font-size: 18px; }
+    .panel-head p { margin: 0; color: #5c6d81; font-size: 12px; line-height: 1.5; }
+    .metrics { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 16px; background: #f9fbfd; border-bottom: 1px solid #e5eaf0; }
+    .metric { padding: 7px 10px; border: 1px solid #dce5ee; border-radius: 8px; background: white; font-size: 12px; }
+    .metric strong { color: #173b63; }
+    .table-wrap { overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; min-width: 880px; }
+    th, td { padding: 12px 8px; text-align: left; border-bottom: 1px solid #edf0f4; font-size: 12px; vertical-align: middle; }
+    th { background: #f7f9fc; color: #52647b; white-space: nowrap; font-weight: 800; }
+    th:first-child, td:first-child { padding-left: 18px; }
+    tbody tr:hover { background: #f6fafc; }
+    tbody tr.selected { background: #eaf4f6; }
+    .student { border: 0; background: transparent; color: #126a78; font-weight: 800; padding: 3px 0; text-decoration: underline; text-underline-offset: 3px; }
+    .tag { display: inline-block; padding: 4px 7px; border-radius: 6px; background: #edf1f5; color: #485a70; font-weight: 700; white-space: nowrap; }
+    .unknown { display: inline-block; padding: 5px 7px; border-radius: 7px; background: #fff0d2; color: #805516; font-weight: 800; white-space: nowrap; }
+    .hold { color: #89531d; font-weight: 800; white-space: nowrap; }
+    .empty { padding: 28px 20px; color: #60738b; font-size: 14px; }
+    .detail { padding: 18px 20px 22px; }
+    .detail h3 { margin: 0 0 12px; font-size: 16px; }
+    .detail-note { padding: 10px 12px; border-radius: 9px; background: #eef4fa; color: #455b74; font-size: 12px; line-height: 1.55; }
+    .check { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 12px 0; border-bottom: 1px solid #e9eef3; }
+    .check strong { font-size: 13px; }
+    .check small { grid-column: 1 / -1; color: #6a7b8c; line-height: 1.45; }
+    .section-label { margin: 18px 0 6px; color: #52647b; font-size: 12px; font-weight: 800; letter-spacing: .04em; }
+    .questions { margin-top: 16px; padding: 16px 18px; background: #fff; border: 1px solid #d7e0e9; border-radius: 14px; }
+    .questions h2 { margin: 0 0 8px; font-size: 16px; }
+    .questions ol { margin: 0; padding-left: 20px; color: #435870; font-size: 13px; line-height: 1.75; }
+    @media (max-width: 1100px) { .grid { grid-template-columns: 1fr; } .toolbar .hint { margin-left: 0; width: 100%; } }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="eyebrow">WHOLE-LENS · WL-02 TEACHER REVIEW</div>
+    <h1>14:00 수업 전, 전체 학생을 먼저 확인</h1>
+    <p>날짜별 학생 범위를 보고 한 학생을 선택해 숙제·영상·채점·오답·교사 확인을 따로 판단하는 화면 시안입니다.</p>
+  </header>
+  <div class="banner" role="status">가상 학생 12명만 사용한 로컬 시안입니다. LMS·앱·Main Sheet와 연결되지 않았으며, 표시된 수는 실제 반 인원이나 증거 완전성을 뜻하지 않습니다.</div>
+  <main>
+    <div class="toolbar">
+      <label>수업 날짜 <input id="lesson-date" type="date" value="2099-01-14"></label>
+      <label>그룹 <select id="group-filter"><option value="all">전체 그룹</option><option value="A">가상 A</option><option value="B">가상 B</option></select></label>
+      <div class="hint">날짜 → 전체 학생 → 선택 학생. 다른 날짜나 그룹에서는 선택 정보가 자동으로 숨겨집니다.</div>
+    </div>
+    <div class="grid">
+      <section class="panel" aria-labelledby="overview-title">
+        <div class="panel-head"><h2 id="overview-title">전체 학생 준비 목록</h2><p>한 줄마다 범위와 증거 상태를 분리합니다. 확인되지 않은 연결은 완료로 계산하지 않습니다.</p></div>
+        <div class="metrics" id="metrics" aria-live="polite"></div>
+        <div class="table-wrap"><table><thead><tr><th>학생 / 그룹</th><th>숙제 범위</th><th>대응 영상 업로드</th><th>범위 내 풀이</th><th>앱 백엔드 채점</th><th>오답 영상·수정</th><th>교사 눈 확인</th><th>판단</th></tr></thead><tbody id="student-rows"></tbody></table></div>
+        <div class="empty" id="empty-state" hidden></div>
+      </section>
+      <section class="panel" aria-labelledby="detail-title">
+        <div class="panel-head"><h2 id="detail-title">선택 학생 판단</h2><p>같은 날짜·그룹·학생·수업 연결이 확인된 정보만 배치할 자리입니다.</p></div>
+        <div class="detail" id="selected-detail" aria-live="polite"></div>
+      </section>
+    </div>
+    <section class="questions" aria-labelledby="questions-title">
+      <h2 id="questions-title">교사 화면 검토 포인트</h2>
+      <ol>
+        <li>14:00에 모든 학생을 훑을 때 필요한 열과 순서가 맞는가?</li>
+        <li>숙제의 책·단원·쪽·문제 범위와 대응 영상의 원본 링크는 어디에 보여야 하는가?</li>
+        <li>오답의 수정 완료와 교사가 직접 눈으로 확인한 결과를 어떻게 구분할 것인가?</li>
+        <li>증거 누락·오래된 읽기·그룹 또는 페이지 미확인 상태가 충분히 눈에 띄는가?</li>
+      </ol>
+    </section>
+  </main>
+  <script src="whole_lens_1400.js"></script>
+</body>
+</html>

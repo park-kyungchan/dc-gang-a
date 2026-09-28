@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<title>강아 워크벤치</title>
+<style>
+  :root{
+    --bg:#f1f5f9; --card:#fff; --line:#cbd5e1; --text:#0f172a; --muted:#64748b;
+    --pri:#2563eb; --ok:#059669; --warn:#d97706; --danger:#dc2626;
+    --r:14px; --pad:14px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--bg:#0f1117;--card:#181b24;--line:#2b3040;--text:#e8eaf0;--muted:#9aa3b5;--pri:#60a5fa}
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR",sans-serif;
+    background:var(--bg);color:var(--text);padding-bottom:76px;
+    padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);
+  }
+  header{
+    position:sticky;top:0;z-index:20;background:var(--card);
+    border-bottom:1px solid var(--line);padding:10px var(--pad);
+    padding-top:calc(10px + env(safe-area-inset-top));
+    display:flex;align-items:center;gap:10px;
+  }
+  header h1{font-size:15px;font-weight:700;flex:1}
+  .badge{font-size:11px;padding:3px 8px;border-radius:999px;background:var(--bg);
+    border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+  .badge.live{color:var(--ok);border-color:currentColor}
+  .badge.warn{color:var(--warn);border-color:currentColor}
+  main{padding:var(--pad);display:grid;gap:12px;max-width:900px;margin:0 auto}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:var(--pad)}
+  .card h2{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:10px;
+    display:flex;align-items:center;gap:8px}
+  .card h2 .sp{flex:1}
+  input[type=search],input[type=text]{
+    width:100%;padding:12px 14px;font-size:16px;border:1px solid var(--line);
+    border-radius:12px;background:var(--bg);color:var(--text)}
+  input:focus{outline:2px solid var(--pri);outline-offset:-1px}
+  button{font:inherit;font-size:13px;padding:8px 12px;border:1px solid var(--line);
+    background:var(--card);color:var(--text);border-radius:10px;cursor:pointer}
+  button.pri{background:var(--pri);color:#fff;border-color:transparent}
+  button:active{transform:scale(.97)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .list{display:grid;gap:8px;margin-top:10px}
+  .item{border:1px solid var(--line);border-radius:12px;padding:11px 12px;
+    display:flex;gap:10px;align-items:flex-start;background:var(--bg)}
+  .item .m{flex:1;min-width:0}
+  .item .t{font-weight:600;font-size:14px;word-break:break-word}
+  .item .s{font-size:12px;color:var(--muted);margin-top:3px}
+  .pill{font-size:10px;padding:2px 7px;border-radius:999px;border:1px solid var(--line);
+    color:var(--muted);white-space:nowrap}
+  .pill.have{color:var(--ok);border-color:currentColor}
+  .empty{color:var(--muted);font-size:13px;padding:16px 0;text-align:center}
+  .stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px}
+  .stat div{background:var(--bg);border:1px solid var(--line);border-radius:10px;
+    padding:9px;text-align:center}
+  .stat b{display:block;font-size:18px}
+  .stat span{font-size:11px;color:var(--muted)}
+  nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:var(--card);
+    border-top:1px solid var(--line);display:flex;
+    padding-bottom:env(safe-area-inset-bottom)}
+  nav button{flex:1;border:0;border-radius:0;background:none;padding:12px 4px;
+    font-size:11px;color:var(--muted);display:grid;gap:3px;justify-items:center}
+  nav button.on{color:var(--pri);font-weight:700}
+  nav button i{font-style:normal;font-size:17px}
+  .tab{display:none}.tab.on{display:grid;gap:12px}
+  .note{font-size:12px;color:var(--muted);line-height:1.5}
+  .warn-box{border-left:3px solid var(--warn);padding-left:10px;font-size:12px;
+    color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>강아 워크벤치</h1>
+  <span class="badge" id="who">연결 중…</span>
+  <span class="badge" id="mode"></span>
+</header>
+
+<main>
+  <!-- 문항 -->
+  <section class="tab" id="tab-prob">
+    <div class="card">
+      <h2>문항 검색<span class="sp"></span><span class="badge" id="prob-meta"></span></h2>
+      <input type="search" id="pq" placeholder="강의번호 7자리 / 05번 / 이등변삼각형" autocomplete="off">
+      <div class="row" style="margin-top:9px" id="book-chips"></div>
+      <div class="list" id="prob-list"><div class="empty">검색어를 입력하세요</div></div>
+    </div>
+  </section>
+
+  <!-- 검색 -->
+  <section class="tab" id="tab-search">
+    <div class="card">
+      <h2>교재 자료 검색<span class="sp"></span><span class="badge" id="cat-meta"></span></h2>
+      <input type="search" id="q" placeholder="예) 초5 발전 정답, g8_gauss, 정오표" autocomplete="off">
+      <div class="row" style="margin-top:9px">
+        <button data-q="가우스">가우스</button>
+        <button data-q="발전">발전</button>
+        <button data-q="정답지">정답지</button>
+        <button data-q="정오표">정오표</button>
+        <button data-q="데일리">데일리</button>
+      </div>
+      <div class="list" id="cat-list"><div class="empty">검색어를 입력하세요</div></div>
+    </div>
+  </section>
+
+  <!-- 학생 -->
+  <section class="tab" id="tab-roster">
+    <div class="card">
+      <h2>학생 명단<span class="sp"></span>
+        <span class="badge" id="roster-meta"></span>
+        <button onclick="loadRoster(true)">새로고침</button>
+      </h2>
+      <div class="row" style="margin-bottom:9px">
+        <button id="btn-mine" class="pri" onclick="toggleMine()">내 담당만</button>
+      </div>
+      <input type="search" id="qs" placeholder="이름 / 아이디 / 학년 검색" autocomplete="off">
+      <div class="list" id="roster-list"><div class="empty">불러오는 중…</div></div>
+    </div>
+  </section>
+
+  <!-- 시험지 -->
+  <section class="tab" id="tab-exam">
+    <div class="card">
+      <h2>시험지 풀<span class="sp"></span>
+        <span class="badge" id="exam-meta"></span>
+        <button onclick="loadExam(true)">새로고침</button>
+      </h2>
+      <p class="note">다른 선생님이 만든 시험지도 보입니다. LMS 에서 <b>시험복사</b>로 재활용할 수 있습니다.</p>
+      <div class="list" id="exam-list"><div class="empty">불러오는 중…</div></div>
+    </div>
+  </section>
+
+  <!-- 오늘 -->
+  <section class="tab" id="tab-today">
+    <div class="card">
+      <h2>오늘 수업<span class="sp"></span><span class="badge" id="td-meta"></span></h2>
+      <div class="row">
+        <input type="date" id="td-date" style="flex:1;padding:10px;font-size:16px;
+          border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text)">
+        <button onclick="loadToday()">조회</button>
+      </div>
+      <div id="td-progress" style="margin-top:10px"></div>
+    </div>
+    <div class="card">
+      <h2>입력<span class="sp"></span><span class="badge">서버로 안 나감</span></h2>
+      <div class="row" id="td-students"></div>
+      <div class="row" style="margin-top:8px" id="td-fields"></div>
+      <input type="text" id="td-value" placeholder="값을 입력하고 저장" style="margin-top:8px">
+      <div class="row" style="margin-top:8px">
+        <button class="pri" onclick="saveQueue()">대기열에 저장</button>
+        <span class="note" id="td-hint"></span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>대기열<span class="sp"></span>
+        <span class="badge" id="q-meta"></span>
+        <button onclick="loadToday()">새로고침</button>
+      </h2>
+      <div class="list" id="q-list"></div>
+    </div>
+  </section>
+
+  <!-- 학생 -->
+  <section class="tab" id="tab-my">
+    <div class="card">
+      <h2>내 학생<span class="sp"></span>
+        <span class="badge" id="my-meta"></span>
+        <button onclick="loadMy()">새로고침</button>
+      </h2>
+      <div class="list" id="my-list"><div class="empty">불러오는 중…</div></div>
+    </div>
+  </section>
+
+  <!-- 거버넌스 -->
+  <section class="tab" id="tab-gov">
+    <div class="card">
+      <h2>승격 원장<span class="sp"></span><span class="badge" id="pol-meta"></span></h2>
+      <p class="note">서버 전송은 <b>자동</b> 단계라야 가능합니다. 한 단계씩만 올라갑니다.</p>
+      <div class="list" id="pol-list"><div class="empty">불러오는 중…</div></div>
+    </div>
+    <div class="card">
+      <h2>쓰기 게이트<span class="sp"></span><span class="badge" id="gate-meta"></span></h2>
+      <div class="list" id="gate-list"></div>
+    </div>
+    <div class="card">
+      <h2>감사 로그<span class="sp"></span>
+        <span class="badge" id="jr-meta"></span>
+        <button onclick="loadJournal()">새로고침</button>
+      </h2>
+      <p class="note">모든 전송 시도가 남습니다. 학생 실명·본문은 저장되지 않습니다.</p>
+      <div class="list" id="jr-list"></div>
+    </div>
+  </section>
+
+  <!-- 현황 -->
+  <section class="tab" id="tab-home">
+    <div class="card">
+      <h2>보유 자료</h2>
+      <div class="stat" id="stat"></div>
+    </div>
+    <div class="card">
+      <h2>담당 교재</h2>
+      <div class="list" id="books"></div>
+    </div>
+    <div class="card">
+      <h2>캐시 상태<span class="sp"></span>
+        <button onclick="clearCache()">전체 비우기</button>
+      </h2>
+      <p class="note">수업일지는 쓰기 대상이라 캐시하지 않고 항상 실시간으로 읽습니다.</p>
+      <div class="list" id="cache"></div>
+    </div>
+  </section>
+</main>
+
+<div id="modal" style="display:none;position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.55);
+     overflow:auto;padding:0" onclick="if(event.target===this)closeModal()">
+  <div style="background:var(--card);min-height:100%;max-width:900px;margin:0 auto">
+    <div style="position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--line);
+         padding:12px 14px;padding-top:calc(12px + env(safe-area-inset-top));display:flex;gap:10px;align-items:center">
+      <div style="flex:1;min-width:0" id="m-title"></div>
+      <button onclick="closeModal()">닫기</button>
+    </div>
+    <div style="padding:14px" id="m-body"></div>
+  </div>
+</div>
+
+<nav>
+  <button class="on" data-tab="today"><i>📋</i>오늘</button>
+  <button data-tab="prob"><i>📐</i>문항</button>
+  <button data-tab="my"><i>🎓</i>내학생</button>
+  <button data-tab="search"><i>📚</i>교재</button>
+  <button data-tab="gov"><i>🛡️</i>거버넌스</button>
+  <button data-tab="roster"><i>👥</i>명단</button>
+  <button data-tab="home"><i>⚙️</i>현황</button>
+</nav>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+async function api(path, opts) {
+  const r = await fetch(path, {credentials:'same-origin', ...opts});
+  if (!r.ok) throw new Error((await r.json().catch(()=>({}))).error || r.status);
+  return r.json();
+}
+function meta(el, m) {
+  if (!m) return;
+  el.textContent = m.age_label || '';
+  el.className = 'badge' + (m.from_cache ? (m.is_stale ? ' warn' : '') : ' live');
+}
+
+// ── 탭 ──
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('nav button').forEach(x => x.classList.toggle('on', x === b));
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.id === 'tab-' + b.dataset.tab));
+  if (b.dataset.tab === 'roster' && !rosterCache) loadRoster();
+  if (b.dataset.tab === 'exam' && !examCache) loadExam();
+  if (b.dataset.tab === 'home') loadStatus();\n  if (b.dataset.tab === 'today') loadToday();\n  if (b.dataset.tab === 'prob' && !books.length) loadBooks();\n  if (b.dataset.tab === 'my') loadMy();\n  if (b.dataset.tab === 'gov') loadGov();
+});
+
+// ── 상태 ──
+async function loadStatus() {
+  try {
+    const s = await api('/api/status');
+    $('#who').textContent = s.teacher.name ? s.teacher.name + ' 선생님' : '연결됨';
+    $('#who').className = 'badge live';
+    $('#mode').textContent = s.dry_run ? 'DRY-RUN' : '전송 ON';
+    $('#mode').className = 'badge ' + (s.dry_run ? '' : 'warn');
+    $('#stat').innerHTML = `
+      <div><b>${s.assets.count}</b><span>PDF</span></div>
+      <div><b>${s.assets.pages}</b><span>쪽</span></div>
+      <div><b>${s.assets.total_mb}</b><span>MB</span></div>
+      <div><b>${s.llm_available ? 'ON' : 'OFF'}</b><span>LLM</span></div>`;
+    $('#books').innerHTML = s.books.map(b =>
+      `<div class="item"><div class="m"><div class="t">${esc(b)}</div></div></div>`).join('');
+    $('#cache').innerHTML = s.cache.length
+      ? s.cache.map(c => `<div class="item"><div class="m">
+          <div class="t">${esc(c.key)}</div>
+          <div class="s">${esc(c.age_label)} · ${c.size_kb}KB</div></div>
+          <span class="pill${c.is_stale?'':' have'}">${c.is_stale ? '만료' : '유효'}</span></div>`).join('')
+      : '<div class="empty">캐시 없음</div>';
+  } catch (e) {
+    $('#who').textContent = '오류: ' + e.message;
+    $('#who').className = 'badge warn';
+  }
+}
+async function clearCache(){ await api('/api/cache/clear', {method:'POST'}); loadStatus(); }
+
+// ── 교재 검색 ──
+let catTimer;
+$('#q').oninput = () => { clearTimeout(catTimer); catTimer = setTimeout(searchCatalog, 220); };
+document.querySelectorAll('[data-q]').forEach(b => b.onclick = () => {
+  $('#q').value = b.dataset.q; searchCatalog();
+});
+async function searchCatalog() {
+  const q = $('#q').value.trim();
+  if (!q) { $('#cat-list').innerHTML = '<div class="empty">검색어를 입력하세요</div>'; return; }
+  $('#cat-list').innerHTML = '<div class="empty">검색 중…</div>';
+  try {
+    const r = await api('/api/answer-catalog?q=' + encodeURIComponent(q));
+    meta($('#cat-meta'), r.meta);
+    const have = new Set(r.data.cached_files || []);
+    const rows = r.data.sheets.slice(0, 60);
+    $('#cat-list').innerHTML = rows.length ? rows.map(s => {
+      const fn = s.url.split('/').pop();
+      const local = have.has(fn);
+      return `<div class="item"><div class="m">
+        <div class="t">${esc(s.grade)} ${esc(s.level)} · ${esc(s.kind)}</div>
+        <div class="s">${esc(s.column)} · ${esc(fn)}</div></div>
+        <a href="${local ? '/pdf/' + encodeURIComponent(fn) : esc(s.url)}" target="_blank" rel="noopener">
+          <span class="pill${local ? ' have' : ''}">${local ? '로컬' : '원격'}</span></a></div>`;
+    }).join('') + (r.data.sheets.length > 60 ? `<div class="empty">외 ${r.data.sheets.length-60}건</div>` : '')
+      : '<div class="empty">결과 없음</div>';
+  } catch (e) { $('#cat-list').innerHTML = '<div class="empty">오류: ' + esc(e.message) + '</div>'; }
+}
+
+// ── 학생 ──
+let rosterCache = null, mineOnly = false;
+async function loadRoster(force) {
+  $('#roster-list').innerHTML = '<div class="empty">불러오는 중…</div>';
+  try {
+    const r = await api('/api/roster?mine=' + mineOnly + (force ? '&force=true' : ''));
+    meta($('#roster-meta'), r.meta);
+    rosterCache = r.data.students;
+    if (r.data.warnings?.length) {
+      $('#roster-list').innerHTML = '<div class="warn-box">' +
+        r.data.warnings.map(esc).join('<br>') + '</div>';
+    }
+    renderRoster();
+  } catch (e) { $('#roster-list').innerHTML = '<div class="empty">오류: ' + esc(e.message) + '</div>'; }
+}
+function toggleMine(){ mineOnly = !mineOnly; $('#btn-mine').className = mineOnly ? 'pri' : ''; loadRoster(); }
+$('#qs').oninput = renderRoster;
+function renderRoster() {
+  if (!rosterCache) return;
+  const q = $('#qs').value.trim().toLowerCase();
+  const rows = rosterCache.filter(s => !q ||
+    (s.name + s.login_id + s.grade + s.homeroom).toLowerCase().includes(q));
+  $('#roster-list').innerHTML = rows.length
+    ? rows.slice(0, 200).map(s => `<div class="item"><div class="m">
+        <div class="t">${esc(s.name || s.login_id)}</div>
+        <div class="s">${esc(s.grade)} · 담당 ${esc(s.homeroom)} · ${esc(s.login_id)}</div>
+        </div><span class="pill">${esc(s.status)}</span></div>`).join('')
+    : '<div class="empty">결과 없음</div>';
+}
+
+// ── 시험지 ──
+let examCache = null;
+async function loadExam(force) {
+  $('#exam-list').innerHTML = '<div class="empty">불러오는 중…</div>';
+  try {
+    const r = await api('/api/exam-papers' + (force ? '?force=true' : ''));
+    meta($('#exam-meta'), r.meta);
+    examCache = r.data;
+    $('#exam-list').innerHTML = r.data.length ? r.data.map(p => `
+      <div class="item"><div class="m">
+        <div class="t">${esc(p.title || '(제목 없음)')}</div>
+        <div class="s">${esc(p.scope)}</div></div>
+        <span class="pill">${esc(p.kind_label)} ${esc(p.item_count)}문항</span></div>`).join('')
+      : '<div class="empty">결과 없음</div>';
+  } catch (e) { $('#exam-list').innerHTML = '<div class="empty">오류: ' + esc(e.message) + '</div>'; }
+}
+
+
+// ── 문항 검색 ──
+let pTimer, books = [];
+$('#pq').oninput = () => { clearTimeout(pTimer); pTimer = setTimeout(searchProblems, 240); };
+
+async function loadBooks() {
+  try {
+    const s = await api('/api/problems/stats');
+    books = s.books || [];
+    $('#book-chips').innerHTML =
+      `<button class="pri" data-book="">전체 ${s.total_problems}</button>` +
+      books.map(b => `<button data-book="${esc(b.book)}">${esc(b.book)} ${b.n}</button>`).join('');
+    $('#book-chips').querySelectorAll('button').forEach(b => b.onclick = () => {
+      $('#book-chips').querySelectorAll('button').forEach(x => x.className = x === b ? 'pri' : '');
+      curBook = b.dataset.book; searchProblems();
+    });
+  } catch (e) { $('#book-chips').innerHTML = '<span class="note">인덱스 없음</span>'; }
+}
+let curBook = '';
+
+async function searchProblems() {
+  const q = $('#pq').value.trim();
+  if (!q) { $('#prob-list').innerHTML = '<div class="empty">검색어를 입력하세요</div>'; return; }
+  $('#prob-list').innerHTML = '<div class="empty">검색 중…</div>';
+  try {
+    const r = await api(`/api/problems?q=${encodeURIComponent(q)}&book=${encodeURIComponent(curBook)}`);
+    $('#prob-meta').textContent = r.data.length + '건';
+    $('#prob-list').innerHTML = r.data.length ? r.data.map(p => `
+      <div class="item" onclick='openProblem(${JSON.stringify(p).replace(/'/g, "&#39;")})'>
+        <div class="m">
+          <div class="t">${p.book_page ? '교재 ' + p.book_page + '쪽 ' : ''}${esc(p.problem_no)}번
+            <span style="color:var(--pri)">${esc(p.answer || '서술형')}</span></div>
+          <div class="s">${esc(p.unit_name || p.book)} · #${esc(p.lecture_key)}</div>
+        </div><span class="pill">보기</span></div>`).join('')
+      : '<div class="empty">결과 없음</div>';
+  } catch (e) { $('#prob-list').innerHTML = '<div class="empty">오류: ' + esc(e.message) + '</div>'; }
+}
+
+function closeModal(){ $('#modal').style.display = 'none'; }
+
+async function openProblem(p) {
+  $('#modal').style.display = 'block';
+  $('#m-title').innerHTML = `<div class="t" style="font-weight:700">
+      ${p.book_page ? '교재 ' + p.book_page + '쪽 ' : ''}${esc(p.problem_no)}번 · 정답 ${esc(p.answer || '서술형')}</div>
+    <div class="s" style="font-size:12px;color:var(--muted)">${esc(p.unit_name || '')} · ${esc(p.book)}</div>`;
+  $('#m-body').innerHTML = `
+    <div class="card" style="margin-bottom:12px">
+      <h2>강의 #${esc(p.lecture_key)}</h2>
+      <div id="lec">확인 중…</div>
+      <div style="margin-top:10px;display:flex;gap:10px;align-items:center">
+        <img id="qr" width="120" height="120" alt="QR"
+             style="background:#fff;border-radius:8px;padding:4px">
+        <div class="note">폰 카메라로 찍으면 강의번호가 나옵니다.<br>
+          강아 앱의 <b>강의번호 입력</b>란에 넣으세요.</div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>해설 (정답지 ${p.pdf_page}쪽)</h2>
+      <img src="/api/page-image?pdf=${encodeURIComponent(p.source_pdf)}&page=${p.pdf_page}&dpi=150"
+           style="width:100%;border-radius:8px;border:1px solid var(--line)" loading="lazy">
+    </div>`;
+  $('#qr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=' +
+                 encodeURIComponent(p.lecture_key);
+  try {
+    const l = await api('/api/lecture/' + p.lecture_key);
+    $('#lec').innerHTML = l.playable
+      ? `<video src="${esc(l.url)}" controls playsinline style="width:100%;border-radius:8px"></video>`
+      : `<div class="warn-box">${esc(l.message)}</div>`;
+  } catch (e) { $('#lec').innerHTML = '<div class="warn-box">조회 실패: ' + esc(e.message) + '</div>'; }
+}
+
+
+// ── 내 학생 ──
+let myCache = null;
+async function loadMy() {
+  $('#my-list').innerHTML = '<div class="empty">불러오는 중…</div>';
+  try {
+    const r = await api('/api/students');
+    myCache = r.students;
+    $('#my-meta').textContent = r.count + '명';
+    $('#my-list').innerHTML = r.count ? r.students.map(s => `
+      <div class="item" onclick="openStudent('${esc(s.student_key)}')">
+        <div class="m">
+          <div class="t">${esc(s.name)} <span class="s">${esc(s.grade || '')}</span></div>
+          <div class="s">${esc(s.book_label)}</div>
+        </div>
+        <span class="pill${s.can_write ? ' have' : ''}">${s.can_write ? '전송가능' : '키없음'}</span>
+      </div>`).join('')
+      : '<div class="empty">등록된 학생이 없습니다<br><span class="note">ganga student --sync</span></div>';
+  } catch (e) { $('#my-list').innerHTML = '<div class="empty">오류: ' + esc(e.message) + '</div>'; }
+}
+
+async function openStudent(key) {
+  $('#modal').style.display = 'block';
+  $('#m-title').innerHTML = '<div class="t">불러오는 중…</div>';
+  $('#m-body').innerHTML = '';
+  try {
+    const d = await api('/api/students/' + encodeURIComponent(key));
+    const st = d.student;
+    $('#m-title').innerHTML = `<div class="t" style="font-weight:700">${esc(st.name)}</div>
+      <div class="s" style="font-size:12px;color:var(--muted)">${esc(st.book_label)} · ${esc(st.pace)} · 주 ${st.per_week}회</div>`;
+    const errs = Object.entries(d.errors.by_tag || {})
+      .map(([k, v]) => `${esc(k)} ${v}`).join(' · ') || '기록 없음';
+    $('#m-body').innerHTML = `
+      <div class="card" style="margin-bottom:12px">
+        <h2>진도</h2>
+        <div class="t">${esc(d.progress.summary)}</div>
+        ${(d.progress.warnings || []).map(w => `<div class="warn-box">${esc(w)}</div>`).join('')}
+        ${!st.can_write ? `<div class="warn-box" style="margin-top:8px">LMS 전송 불가 — 미확보: ${esc((st.missing_keys || []).join(', '))}</div>` : ''}
+      </div>
+      <div class="card" style="margin-bottom:12px">
+        <h2>오답 유형</h2>
+        <div class="s">${errs}</div>
+      </div>
+      <div class="card">
+        <h2>관찰 메모<span class="sp"></span><span class="badge">로컬 전용</span></h2>
+        <input type="text" id="obs-in" placeholder="수업 중 관찰한 것을 적으세요">
+        <div class="row" style="margin-top:8px">
+          <button class="pri" onclick="saveObs('${esc(key)}')">저장</button>
+          <span class="note">서버로 나가지 않습니다</span>
+        </div>
+        <div class="list" id="obs-list">${(d.observations || []).map(o =>
+          `<div class="item"><div class="m"><div class="s">[${esc(o.date)}]</div>
+           <div class="t" style="font-weight:400">${esc(o.text)}</div></div></div>`).join('')
+          || '<div class="empty">아직 없음</div>'}</div>
+      </div>`;
+  } catch (e) { $('#m-body').innerHTML = '<div class="empty">오류: ' + esc(e.message) + '</div>'; }
+}
+
+async function saveObs(key) {
+  const t = $('#obs-in').value.trim();
+  if (!t) return;
+  try {
+    await api(`/api/students/${encodeURIComponent(key)}/observation?text=${encodeURIComponent(t)}`,
+              {method: 'POST'});
+    openStudent(key);
+  } catch (e) { alert('저장 실패: ' + e.message); }
+}
+
+// ── 거버넌스 ──
+async function loadGov() {
+  try {
+    const p = await api('/api/policy');
+    $('#pol-meta').textContent = `수동 ${p.summary.manual} · 제안 ${p.summary.suggest} · 자동 ${p.summary.auto}`;
+    $('#pol-list').innerHTML = p.entries.map(e => {
+      const mark = {manual: '·', suggest: '◐', auto: '●'}[e.mode];
+      const [routine, fld] = e.key.split('.');
+      return `<div class="item"><div class="m">
+        <div class="t">${mark} ${esc(e.label)}</div>
+        <div class="s">${esc(e.key)} · ${esc(e.mode_label)}</div></div>
+        <div class="row">
+          <button onclick="changePolicy('${esc(routine)}','${esc(fld)}','promote')">▲</button>
+          <button onclick="changePolicy('${esc(routine)}','${esc(fld)}','demote')">▼</button>
+        </div></div>`;
+    }).join('');
+  } catch (e) { $('#pol-list').innerHTML = '<div class="empty">오류: ' + esc(e.message) + '</div>'; }
+
+  try {
+    const g = await api('/api/gates');
+    $('#gate-meta').textContent = g.gates.length + '단';
+    let cur = null, html = '';
+    for (const x of g.gates) {
+      if (x.stage !== cur) { cur = x.stage; html += `<div class="note" style="margin-top:6px"><b>${esc(cur)}</b></div>`; }
+      html += `<div class="item" style="padding:7px 10px"><div class="m">
+        <div class="t" style="font-size:13px">${esc(x.id)} ${esc(x.name)}</div></div>
+        <span class="pill">${esc(x.when)}</span></div>`;
+    }
+    $('#gate-list').innerHTML = html;
+  } catch (e) { $('#gate-list').innerHTML = '<div class="empty">오류</div>'; }
+
+  loadJournal();
+}
+
+async function changePolicy(routine, fld, action) {
+  try {
+    await api(`/api/policy/${routine}/${fld}?action=${action}`, {method: 'POST'});
+    loadGov();
+  } catch (e) { alert(e.message); }
+}
+
+async function loadJournal() {
+  try {
+    const j = await api('/api/journal');
+    $('#jr-meta').textContent = j.summary.total + '건';
+    $('#jr-list').innerHTML = j.entries.length ? j.entries.slice().reverse().map(r => {
+      const mark = {SENT: '→', BLOCKED: '✗', FAILED: '!', ERROR: '!'}[r.result] || '·';
+      return `<div class="item"><div class="m">
+        <div class="t">${mark} ${esc(r.op.key)}</div>
+        <div class="s">${esc(r.at.slice(0, 19))} · ${esc(r.result)}
+          ${r.blocked_at ? '· 차단 ' + esc(r.blocked_at) : ''}
+          ${r.approved_by ? '· 승인 ' + esc(r.approved_by) : ''}</div></div></div>`;
+    }).join('') : '<div class="empty">아직 서버에 쓴 적이 없습니다</div>';
+  } catch (e) { $('#jr-list').innerHTML = '<div class="empty">오류</div>'; }
+}
+
+
+// ── 오늘 (입력 + 검토 + 완결성) ──
+let tdStudent = null, tdField = 'attendance', tdFields = {};
+
+function todayDate() {
+  const el = $('#td-date');
+  if (!el.value) el.value = new Date().toISOString().slice(0, 10);
+  return el.value;
+}
+
+async function loadToday() {
+  const date = todayDate();
+  try {
+    if (!Object.keys(tdFields).length) tdFields = (await api('/api/queue/fields')).fields;
+    const [students, q, comp] = await Promise.all([
+      api('/api/students?registered=true'),
+      api('/api/queue?date=' + date),
+      api('/api/completeness?date=' + date),
+    ]);
+
+    $('#td-students').innerHTML = students.students.map(s =>
+      `<button data-sk="${esc(s.student_key)}" onclick="pickStudent('${esc(s.student_key)}')"
+        class="${tdStudent === s.student_key ? 'pri' : ''}">${esc(s.name)}</button>`).join('')
+      || '<span class="note">등록된 학생이 없습니다</span>';
+
+    $('#td-fields').innerHTML = Object.entries(tdFields).map(([k, f]) =>
+      `<button data-fk="${k}" onclick="pickField('${k}')"
+        class="${tdField === k ? 'pri' : ''}">${esc(f.label)}</button>`).join('');
+    updateHint();
+
+    $('#td-meta').textContent = comp.summary;
+    $('#td-progress').innerHTML = comp.rows.length ? comp.rows.map(r =>
+      `<div class="item" style="padding:8px 10px"><div class="m">
+        <div class="t">${esc(r.mark)} ${esc(r.student)}</div>
+        ${r.missing.length ? `<div class="s">미입력: ${esc(r.missing.join(', '))}</div>` : ''}
+        ${r.conflicts.length ? `<div class="s" style="color:var(--warn)">${esc(r.conflicts.join('; '))}</div>` : ''}
+      </div><span class="pill${r.complete ? ' have' : ''}">${r.complete ? '완료' : '미완'}</span></div>`
+    ).join('') : '<div class="empty">등록된 학생이 없습니다</div>';
+
+    $('#q-meta').textContent = `대기 ${q.summary.pending_review} · 검토 ${q.summary.pending_approval} · 승인 ${q.summary.ready}`;
+    $('#q-list').innerHTML = q.items.length ? q.items.map(it => `
+      <div class="item"><div class="m">
+        <div class="t">${esc(it.subject_name)} · ${esc(it.field_label)}</div>
+        <div class="s">${esc(it.value)} · ${esc(it.state_label)}
+          ${it.approved_by ? '· 승인 ' + esc(it.approved_by) : ''}</div></div>
+        <div class="row">${qButtons(it)}</div></div>`).join('')
+      : '<div class="empty">대기열이 비어 있습니다</div>';
+  } catch (e) { $('#q-list').innerHTML = '<div class="empty">오류: ' + esc(e.message) + '</div>'; }
+}
+
+function qButtons(it) {
+  if (it.status === 'draft') return `<button onclick="qAct(${it.id},'review')">검토</button>`;
+  if (it.status === 'reviewed') return `<button class="pri" onclick="qAct(${it.id},'approve')">승인</button>
+    <button onclick="qAct(${it.id},'discard')">버림</button>`;
+  if (it.status === 'approved') return `<button onclick="qAct(${it.id},'revoke')">철회</button>`;
+  return '';
+}
+
+function pickStudent(k) { tdStudent = k; loadToday(); }
+function pickField(k) { tdField = k; loadToday(); }
+
+function updateHint() {
+  const f = tdFields[tdField] || {};
+  const v = $('#td-value');
+  if (f.kind === 'choice') { v.placeholder = f.choices.join(' 또는 '); }
+  else if (f.kind === 'int') { v.placeholder = `${f.min}~${f.max} 사이 숫자`; }
+  else { v.placeholder = `길이 제한 없음 (화면 기준 ${f.soft_len})`; }
+  $('#td-hint').textContent = tdStudent ? '' : '학생을 먼저 고르세요';
+}
+
+async function saveQueue() {
+  if (!tdStudent) { alert('학생을 먼저 고르세요'); return; }
+  const val = $('#td-value').value.trim();
+  if (!val) return;
+  try {
+    const p = new URLSearchParams({date: todayDate(), field_name: tdField,
+                                   subject_key: tdStudent, value: val});
+    await api('/api/queue?' + p, {method: 'POST'});
+    $('#td-value').value = '';
+    loadToday();
+  } catch (e) { alert(e.message); }
+}
+
+async function qAct(id, action) {
+  try {
+    const by = action === 'approve' ? (prompt('승인자 이름', '박경찬') || '') : '';
+    if (action === 'approve' && !by.trim()) return;
+    await api(`/api/queue/${id}/${action}?by=${encodeURIComponent(by)}`, {method: 'POST'});
+    loadToday();
+  } catch (e) { alert(e.message); }
+}
+
+loadToday();
+loadBooks();
+loadStatus();
+</script>
+</body>
+</html>

@@ -25,3 +25,7 @@ The existing canonical backend map includes CRLF files and one Markdown hard-lin
 - The second commit added the separately hash-verified remote structural copy, GCP/prototype records, and two dated handoffs. Remaining `docs/`, `src/`, and `research/lms_day_record_structure_probe.py` files stay visibly untracked because they contain stale or broken legacy assumptions; do not hide them merely to make `git status` look clean. The obsolete `.agents` hook was removed. The sibling automation and SPT repositories remain separate.
 
 App recognition and managed worktree creation have exact readback. Review-pane behavior and native local-environment actions have not been verified or configured.
+
+## Later cleanup (2026-09-27)
+
+The exclusions above describe the first baseline, not a current retention requirement. The two unused `src/` utilities and the one-off DayRecord structure probe were retired after exact consumer and citation review. `docs/system_architecture.md` and `docs/endpoints.md` remain because the canonical backend map cites them as historical source evidence. See `docs/cleanup-evidence.md` for the bounded disposition.

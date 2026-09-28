@@ -32,3 +32,59 @@ The target project's `GEMINI.md:16-21,29-31` permits only state-neutral GET/HEAD
 3. Separately locate the lesson-specific Gauss assignment and the academy app's submission and automatic-grade read operations. Require source identifiers for course/edition/volume/unit/problem range, a submission or attempt ID, grading status and time, and a demonstrated join to the DayRecord student and 2026-09-21 occurrence. A course label, video score, paper catalog, or local SQLite row cannot substitute for this chain.
 
 Until these checks pass, the Main Sheet should show `unknown` independently for required assignment, video uploaded/analyzed, Gauss submitted/auto-graded, correction, and teacher review (`preclass-evidence.md:18-28`; `app-live.md:71`).
+
+## Whole-Lens source and DB re-review — 2026-09-27
+
+Three bounded, independent source reviews revisited pre-study, app grading and
+correction, and the available database schemas. Those reviews made no live
+academy request, DB connection, credential read, or student-value read. The companion
+automation checkout was observed at HEAD `e3d138bd9190f7fc5de3288b8bd790edaf207b00`;
+its existing dirty files were left intact.
+
+- The current waiting/completed pre-study forms submit `POST` with their own
+  `WebUnPreStudy`/`WebCtPreStudy` operations and
+  `g_clg_no,g_mem_type,g_pri_no,student_name`. Their effects and selected
+  student/date/lesson scope remain unknown (`app-live.md:49-51,69`). The
+  historical `StudentNameSearch` read cannot be substituted. The
+  `TeacherPrestudySummary` shell has date fields but no classified submitted
+  search or selected-student result schema (`app-live.md:12`).
+- The historical sanitized source map describes a `WebPreStudy` detail keyed
+  by `prestudy_key` with student, instructor, course, small-unit, version,
+  status, score, video path/date, and comment concepts. The exact deployed
+  field names, HTTP method/effect, ownership, pagination and relation to one
+  DayRecord occurrence were not reverified. Registry entry
+  `prestudy_historical_detail` records this **unsafe-to-probe candidate**
+  without promoting it to a current read (`../remote-2026-09-27/shared-llm-wiki/concepts/academy-source-system-structure-map.md:140`).
+- The copied Gang-A `core/curriculum_db.py:13-19,25-89` and
+  `core/student_db.py:4,14-62` declare local SQLite paths and submission,
+  answer, lecture, profile, and problem-log tables for the teacher tool.
+  They are **not** the academy's production app/LMS database. The copied
+  inventory explicitly says no live backend schema was inspected
+  (`../remote-2026-09-27/inventory.md:7,29,36`). The shared-DB claim in
+  `../../docs/system_architecture.md:4-22` remains an architectural claim,
+  not introspection or an app protocol trace (`app-static.md:9-10`).
+
+The current source set exposes no approved direct production-DB schema/read
+interface. Further DB-level verification needs an owner-provided read-only
+schema/interface or a source-reviewed current read contract. Do not inspect
+local `data/`, copy authentication, infer app rows from local SQLite, or invoke
+the current unknown-effect POSTs. The 14:00 checklist remains `unknown` for
+all selected-student video, attempt, grade, and correction facts.
+
+The Lead also restored the bundled Codex **in-app Browser** connection. It had
+no open tab at the start of this pass. A fixed `GET WebUnPreStudy` navigation
+rendered an empty body; the site home redirected to `/c_login.jsp` with login
+inputs. This is an unauthenticated UI-state check only, not a selected-student
+read or a new classification of the search/detail operations. The login tab was
+shown for the owner to authenticate manually. No session value was inspected.
+
+After the owner manually signed in, the same fixed `GET WebUnPreStudy` page
+rendered two forms and one table, with no password input. The bounded form-name
+read confirmed `reqCmd`, `g_clg_no`, `g_mem_type`, `g_pri_no`, and
+`student_name` among the fields already recorded in `app-live.md`. In-app
+Browser CDP observed the fixed document response as HTTP 200 and no XHR on
+that page reload; only host, path, status, and resource-type counts were
+emitted. This refreshes the **page-shell** evidence, not the current POST
+search effect, selected-student rows, upload status, app grading, or database
+schema. No search form was submitted and no raw response or session value was
+retained.

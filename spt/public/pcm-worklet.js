@@ -1,0 +1,6 @@
+class SPTPCM extends AudioWorkletProcessor {
+ constructor(){super();this.ratio=sampleRate/16000;this.phase=0;this.sum=0;this.count=0;this.samples=[];this.paused=false;this.port.onmessage=e=>{const command=typeof e.data==='string'?e.data:e.data.command;if(command==='flush'||command==='pause'){this.flush();if(command==='pause')this.paused=true;}if(command==='resume')this.paused=false;if(e.data.ack)this.port.postMessage({ack:e.data.ack});};}
+ flush(){if(!this.samples.length)return;const b=new ArrayBuffer(this.samples.length*2),v=new DataView(b);let energy=0;this.samples.forEach((x,i)=>{const s=Math.max(-1,Math.min(1,x));v.setInt16(i*2,s<0?s*32768:s*32767,true);energy+=s*s;});this.port.postMessage({pcm:b,level:Math.sqrt(energy/this.samples.length)},[b]);this.samples=[];}
+ process(inputs){if(this.paused)return true;const channels=inputs[0];if(!channels?.length)return true;const input=channels[0];for(let i=0;i<input.length;i++){let x=0;for(const c of channels)x+=c[i]||0;x/=channels.length;this.sum+=x;this.count++;this.phase++;if(this.phase>=this.ratio){this.samples.push(this.sum/this.count);this.sum=0;this.count=0;this.phase-=this.ratio;}if(this.samples.length>=4096)this.flush();}return true;}
+}
+registerProcessor('spt-pcm',SPTPCM);

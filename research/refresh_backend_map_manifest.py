@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -11,7 +12,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent / "backend-map"
 MANIFEST = ROOT / "map-manifest.json"
 NEW_SCOPE = (
-    "Current source and prior-live review of student-level app/preclass reads; "
+    "Current source and prior-live review of student-level app/preclass reads, "
+    "including a historical pre-study detail candidate and local-versus-production DB boundary; "
     "no selected-student submission, grading, video, or stable join verified."
 )
 
@@ -27,6 +29,10 @@ def main() -> None:
         "path": "app-read-contracts.md",
         "evidence_scope": NEW_SCOPE,
     }
+    files["route-registry.json"]["evidence_scope"] = (
+        "Operation entries across live, static, source-only, and historical evidence; "
+        "the pre-study detail entry is an unsafe-to-probe historical candidate."
+    )
     for name, item in files.items():
         path = ROOT / name
         if not path.is_file() or path.resolve().parent != ROOT.resolve():
@@ -35,6 +41,12 @@ def main() -> None:
         item["bytes"] = len(data)
         item["sha256"] = hashlib.sha256(data).hexdigest()
     manifest["files"] = [files[name] for name in sorted(files)]
+    registry = json.loads((ROOT / "route-registry.json").read_text(encoding="utf-8"))
+    entries = registry if isinstance(registry, list) else registry["entries"]
+    manifest["evidence_summary"]["route_registry_entries"] = len(entries)
+    manifest["evidence_summary"]["route_registry_by_evidence_grade"] = dict(
+        sorted(Counter(entry["evidence_grade"] for entry in entries).items())
+    )
     manifest["generated_utc"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     manifest["note"] = (
         f"Hashes cover the {len(files)} canonical files listed above. "

@@ -1,0 +1,19 @@
+# Authentication and real academy/student material
+.env
+.env.*
+config/
+data/
+.pw-profile/
+*.cookie
+*.session
+
+# Local and generated outputs
+.git.backup/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+reports/
+*.log

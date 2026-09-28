@@ -13,3 +13,16 @@ docs/cartography.md
 # Local probes and exports
 *.log
 *.sqlite3
+
+# Machine-local Codex settings and verification receipts
+/.codex/
+/work/
+
+# Historical ledger contains student identifiers and superseded instructions
+/docs/decision_ledger.json
+
+# Monorepo source imports never include local records or authentication
+/lms-automation/data/
+/lms-automation/config/
+/lms-automation/.git.backup/
+/spt/.openai/hosting.json

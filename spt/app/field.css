@@ -1,0 +1,258 @@
+/* FIELD: the class is the surface; a selected student opens into that space.
+   Presentation only. Activities, confirmation, recording and outbox keep their contracts. */
+:root {
+  --background:#f8f6ed;--foreground:#222221;--card:#fffdf5;--card-foreground:#222221;
+  --popover:#fffdf5;--popover-foreground:#222221;--primary:#222221;--primary-foreground:#fffdf5;
+  --secondary:#e7e3cd;--secondary-foreground:#444035;--muted:#efecdf;--muted-foreground:#655f50;
+  --accent:#e9def6;--accent-foreground:#56349a;--destructive:#a33344;--border:#c8c2ae;--input:#9b927c;--ring:#6240a5;
+  --radius:.5rem;--sidebar:#efecdf;--sidebar-foreground:#222221;--sidebar-primary:#6240a5;
+  --sidebar-accent:#e7e3cd;--sidebar-border:#c8c2ae;--sidebar-ring:#6240a5;
+  --ink:var(--foreground);--ink-secondary:#655f50;--surface:#fffdf5;--surface-soft:#f8f6ed;
+  --warning:#77510d;--warning-bg:#f8e5af;--danger:#a33344;--danger-bg:#ffecef;
+  --success:#355b45;--success-bg:#e8eee0;--field:#f1ed83;--field-muted:#e5e2c7;--field-quiet:#eeebdc;
+  --field-purple:#6240a5;--field-purple-soft:#e9def6;--field-ink:#222221;
+  --glass:#f0e9f8f2;--glass-edge:#ffffff;--glass-line:#baabcb;
+  --shadow-float:0 6px 24px #34234420;--shadow-dialog:0 24px 72px #22222129;
+  --motion-press:110ms;--motion-state:240ms;--motion-enter:360ms;--ease-out:cubic-bezier(.22,.8,.25,1);
+  color-scheme:light;
+}
+body{background:var(--background);color:var(--ink);font-size:1rem;line-height:1.6;font-family:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Noto Sans KR",-apple-system,BlinkMacSystemFont,sans-serif}
+button,input,textarea,select{font-family:inherit}
+button{border-radius:8px;font-weight:500;transition:background var(--motion-state) var(--ease-out),color var(--motion-state) var(--ease-out),transform var(--motion-press) var(--ease-out)}
+button:active:not(:disabled){transform:scale(.975)}
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--ring);outline-offset:3px}
+button[aria-pressed=true]{background:var(--field-purple-soft);color:var(--field-purple);border-color:#af9bc7}
+input,textarea,select{font-size:1rem;border-radius:6px;background:var(--surface);color:var(--ink)}
+::placeholder{color:var(--ink-secondary)}
+.hint,small{font-size:.875rem;color:var(--ink-secondary)}
+.field-shell [hidden]{display:none!important}
+.field-shell{background:var(--background);padding-bottom:calc(var(--recorder-space) + 56px)}
+.field-shell .topbar{min-height:64px;background:var(--background);color:var(--ink);box-shadow:none;border-bottom:1px solid var(--border);padding:calc(10px + env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-right,0px),calc((100vw - 1400px)/2)) 10px max(24px,env(safe-area-inset-left,0px),calc((100vw - 1400px)/2))}
+.field-shell .brand{font-size:1.625rem;letter-spacing:-.07em;gap:8px;font-weight:700}
+.field-shell .brand>svg{color:var(--field-purple);width:24px;height:24px}
+.field-shell .top-actions{gap:16px}
+.field-shell .top-actions a,.field-shell .icon-button{color:var(--ink)}
+.field-shell .private{color:var(--ink-secondary);font-size:.75rem}
+.field-shell .icon-button:hover{background:var(--secondary)}
+.field-shell main{max-width:1400px;padding:18px max(24px,env(safe-area-inset-right,0px)) 0 max(24px,env(safe-area-inset-left,0px))}
+.field-shell .work-heading{gap:16px;margin-bottom:12px}
+.field-shell .work-heading>div{display:flex;align-items:baseline;gap:15px;flex-wrap:wrap}
+.field-shell h1{font-size:1.625rem;line-height:1.3;letter-spacing:-.04em;font-weight:550}
+.field-shell .class-count{font-size:.875rem;color:var(--ink-secondary)}
+.field-shell .date-control{font-size:.875rem;gap:12px}
+.field-shell .date-control input{background:transparent;min-height:44px;border-color:var(--border);width:174px}
+.field-shell .sync-strip{border:0;border-bottom:1px solid var(--border);border-radius:0;box-shadow:none;background:transparent;margin:0;padding:0 0 10px;gap:8px;min-height:48px;font-size:.875rem}
+.field-shell .sync-strip>svg{width:16px;height:16px}
+.field-shell .sync-strip .quiet{min-height:40px;padding:6px 8px;font-size:.875rem}
+.field-shell .sync-strip.has-error{background:var(--danger-bg);color:var(--danger);padding:10px;border-bottom:2px solid var(--danger)}
+.field-shell .sync-strip.is-offline{background:var(--warning-bg);color:var(--warning);padding:10px}
+.field-shell .error,.field-shell .notice,.field-shell .success{border-radius:6px;box-shadow:none}
+.field-shell .workspace{margin-top:18px;gap:0;align-items:start;transition:grid-template-columns var(--motion-enter) var(--ease-out)}
+.field-overview .workspace{grid-template-columns:minmax(0,1fr)}
+.field-focused .workspace{grid-template-columns:196px minmax(0,1fr)}
+.field-shell .roster{position:static;top:auto;max-height:none;overflow:visible;padding:0;border:0;border-radius:0;box-shadow:none;background:transparent;min-width:0;margin:0}
+.field-shell .roster>.section-title{padding:0 0 12px;min-height:44px;align-items:center}
+.field-shell .roster>.section-title h2{font-size:.875rem;font-weight:500;letter-spacing:0}
+.field-shell .roster>.section-title h2 span{font-size:.875rem;color:var(--ink-secondary);margin-left:6px}
+.field-shell .roster>.section-title .quiet{font-size:.875rem;min-height:40px}
+.field-shell .field-students{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:0;align-items:stretch}
+.field-shell .field-students .student-card{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:24px;min-width:0;width:100%;min-height:320px;padding:28px;border:0;border-radius:0;background:var(--field);box-shadow:none;text-align:left;position:relative;font-weight:400;transition:background var(--motion-state) var(--ease-out)}
+.field-shell .field-students .student-card:nth-child(3n+2){background:var(--field-muted)}
+.field-shell .field-students .student-card:nth-child(3n){background:var(--field-quiet)}
+.field-shell .field-students .student-card:hover{background:#eae574}
+.field-shell .field-students .student-card:focus-visible{outline-offset:-4px;z-index:1}
+.field-shell .field-students .student-card:active{transform:none;background:#e5df65}
+.field-shell .field-students .student-card-top{display:flex;gap:8px;flex-direction:column;align-items:flex-start}
+.field-shell .field-students .student-card-top strong{font-size:clamp(1.75rem,2.7vw,2.5rem);line-height:1.25;font-weight:600;letter-spacing:-.055em;color:var(--ink)}
+.field-shell .field-students .student-card-top>span{font-size:.8125rem;color:#615b42;line-height:1.65;display:flex;gap:10px;flex-wrap:wrap}
+.field-student-time{font-variant-numeric:tabular-nums}
+.field-shell .field-students .student-activity{display:flex;flex-direction:column;gap:18px;flex:1;min-width:0}
+.field-shell .field-students .roster-activity-line{display:flex;flex-direction:column;gap:6px;margin:0}
+.field-shell .field-students .field-task-lane{font-size:.75rem;color:#615b42;font-weight:400}
+.field-shell .field-students .roster-task-name{display:block;font-size:1.25rem;font-weight:500;letter-spacing:-.035em;line-height:1.45}
+.field-shell .field-students .roster-task-state{display:block;font-size:.875rem;color:#615b42;letter-spacing:0;margin-top:4px}
+.field-shell .field-students .roster-range{font-size:1rem;line-height:1.65;color:var(--ink);font-weight:500}
+.field-shell .field-students .activity-clock{font-size:.8125rem;color:#615b42;margin:0}
+.field-shell .field-students .roster-unassigned{font-size:1.125rem;color:#615b42;font-weight:400;margin-top:14px}
+.field-shell .field-students .student-badges{margin-top:auto;padding-top:12px;gap:8px}
+.field-shell .field-students .student-badges .status-tag{font-size:.875rem;padding:2px 0;background:transparent;border:0;box-shadow:none;font-weight:500;color:var(--ink);white-space:normal}
+.field-shell .field-students .student-badges .status-tag.attention{color:#6f4808}
+.field-shell .field-students .student-badges .status-tag.recording-tag{color:#9a2a3f}
+.field-shell .field-students .roster-closeout{font-size:.875rem;color:#615b42}
+.field-shell .field-students .roster-chevron{position:absolute;right:20px;top:30px;color:#615b42;width:16px;height:16px}
+.field-more-tasks{font-size:.875rem;color:#615b42}
+.field-shell .roster-origin{margin-top:18px;border-top:0;padding:0;font-size:.875rem}
+.field-shell .roster-origin summary{font-size:.8125rem;min-height:44px;align-content:center;color:var(--ink-secondary)}
+.field-focused .roster{padding-right:14px}
+.field-focused .roster>.section-title h2{display:none}
+.field-focused .roster>.section-title{justify-content:flex-start;padding-bottom:8px}
+.field-focused .field-students{grid-template-columns:1fr;gap:2px}
+.field-focused .field-students .student-card{min-height:94px;padding:16px;gap:10px;background:var(--field-quiet)}
+.field-focused .field-students .student-card.selected{background:var(--field);box-shadow:inset 3px 0 var(--field-purple)}
+.field-focused .field-students .student-card-top strong{font-size:1.125rem;letter-spacing:-.035em}
+.field-focused .field-students .student-card-top>span{font-size:.75rem;gap:6px}
+.field-focused .field-students .field-student-time{display:none}
+.field-focused .field-students .roster-activity-line,.field-focused .field-students .roster-unassigned,.field-focused .field-students .field-more-tasks,.field-focused .field-students .roster-closeout{display:none}
+.field-focused .field-students .student-activity{gap:0;flex:0}
+.field-focused .field-students .student-badges{padding:0;gap:5px}
+.field-focused .field-students .student-badges .status-tag{font-size:.8125rem}
+.field-focused .field-students .roster-chevron{display:none}
+.field-focused .roster-origin{margin-top:12px}
+.field-shell .student-work{background:var(--field);padding:22px 30px 30px;min-width:0;border:0;border-radius:0;box-shadow:none;scroll-margin-top:12px}
+.field-shell .context-toolbar{position:static;top:auto;border:0;border-radius:0;padding:0 0 17px;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;gap:10px;min-height:44px}
+.field-shell .context-toolbar button{font-size:.875rem;min-height:44px;background:transparent;border:0;padding:7px 0;color:#575132}
+.field-shell .context-toolbar button:hover{color:var(--field-purple)}
+.field-shell .student-title{margin:0;gap:12px;align-items:baseline}
+.field-shell .student-title h2{font-size:clamp(2rem,3.6vw,3rem);letter-spacing:-.055em;line-height:1.25;font-weight:600;transform-origin:left center}
+.field-shell .student-title>div{align-items:baseline;gap:13px;flex-wrap:wrap}
+.field-shell .student-schedule{font-size:.875rem;line-height:1.6;color:#615b42}
+.field-shell .book-line{font-size:.875rem;color:#615b42;line-height:1.65;margin:10px 0 20px}
+.field-shell .work-tabs{position:relative;display:flex;border-radius:0;background:transparent;box-shadow:none;border:0;border-bottom:1px solid #b8b568;padding:0;gap:24px;width:100%;height:auto;margin:0 0 20px;justify-content:flex-start}
+.field-shell .work-tabs button{flex:none;border:0;border-radius:0;box-shadow:none;background:transparent;color:#625b39;padding:10px 0!important;min-height:48px;font-size:.9375rem!important;gap:7px;position:relative}
+.field-shell .work-tabs button[data-state=active]{color:var(--ink);background:transparent!important;box-shadow:none!important}
+.field-shell .work-tabs button:after{position:absolute;content:"";left:0;right:0;bottom:-1px;height:3px;background:var(--field-purple);transform:scaleX(0);transform-origin:left;transition:transform var(--motion-state) var(--ease-out)}
+.field-shell .work-tabs button[data-state=active]:after{transform:scaleX(1)}
+.field-shell .work-tabs button>svg{width:17px;height:17px}
+.field-shell .panel{background:transparent;border:0;border-radius:0;box-shadow:none;padding:20px 0;margin-bottom:18px;border-bottom:1px solid #b8b568}
+.field-shell .panel h3{font-size:1.125rem;font-weight:550;letter-spacing:-.025em}
+.field-shell .panel summary{font-size:1rem;min-height:44px}
+.field-shell .assign-panel{padding:0 0 14px;margin-bottom:20px}
+.field-shell .assign-panel .section-title{margin:0;gap:10px;align-items:center}
+.field-shell .field-assign-toggle{display:flex;gap:8px;border:0;background:transparent;color:var(--ink);padding:0;min-height:44px;font-size:.9375rem}
+.field-shell .field-assign-toggle>svg:last-child{transition:transform var(--motion-state) var(--ease-out);width:15px;height:15px}
+.field-shell .field-assign-toggle[aria-expanded=true]>svg:last-child{transform:rotate(180deg)}
+.field-shell .assignment-choices{padding-top:12px}
+.field-shell .activity-buttons{gap:7px;margin:0 0 8px}
+.field-shell .activity-option button{min-height:44px;padding:8px 12px;border:1px solid #b8b568;border-radius:6px;background:#fffdf55e;font-size:.875rem;font-weight:500}
+.field-shell .activity-option button[aria-pressed=true]{background:var(--field-purple-soft);color:var(--field-purple);border-color:#af9bc7}
+.field-shell .custom-activity{margin-top:10px;border-top:0;padding-top:0}
+.field-shell .custom-activity summary{font-size:.875rem;color:#615b42}
+.field-shell .activity-lanes{gap:22px;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+.field-shell .lane{min-width:0}
+.field-shell .lane>h3{font-size:.875rem;font-weight:500;color:#615b42;margin-bottom:12px;letter-spacing:0;display:flex;justify-content:space-between;gap:10px}
+.field-shell .lane>h3>span{font-size:.875rem;color:#615b42;margin-left:0}
+.field-shell .empty-small{background:transparent;padding:16px 0;border:0;border-radius:0;color:var(--ink-secondary);font-size:.9375rem}
+.field-shell .lane>.empty-small{color:#615b42;min-height:76px}
+.field-shell .swipe-card{border:0;border-radius:0;box-shadow:none;margin-bottom:14px}
+.field-shell .swipe-card.task-card{border-top:1px solid #b8b568;background:var(--danger);margin-top:0}
+.field-shell .swipe-card .swipe-face,.field-shell .swipe-card .swipe-handle{background:var(--field);color:var(--ink)}
+.field-shell .swipe-card .swipe-handle{padding:16px 0 10px;min-height:60px;gap:8px}
+.field-shell .swipe-card .task-title{display:flex;align-items:flex-start;flex-direction:column;gap:8px}
+.field-shell .swipe-card .task-title strong{font-size:1.625rem;letter-spacing:-.045em;line-height:1.4;font-weight:500}
+.field-shell .swipe-card .task-title .status-tag{padding:0;background:transparent;color:#615b42;font-size:.875rem;font-weight:400}
+.field-shell .swipe-card .task-title .status-tag.attention{color:var(--warning);font-weight:500}
+.field-shell .swipe-content{padding:0 0 18px}
+.field-shell .swipe-content>p:not(.hint):not(.attention-text){font-size:1.0625rem;font-weight:500;margin:12px 0;line-height:1.6}
+.field-shell .task-actions{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+.field-shell .task-actions button{min-height:44px;font-size:.875rem;border:1px solid #b8b568;border-radius:6px;background:#fffdf54d;padding:8px 10px;white-space:normal;flex:1}
+.field-shell .task-actions button[aria-pressed=true]{background:var(--field-purple);color:#fff;border-color:var(--field-purple)}
+.field-shell .task-actions button[aria-pressed=true]:hover{background:#51318d}
+.field-shell .activity-clock{font-size:.875rem;color:#615b42}
+.field-shell .activity-timing-controls{font-size:.875rem}
+.field-shell .swipe-content>details{margin-top:15px;border-top:1px solid #c7c36e;padding-top:5px}
+.field-shell .swipe-content>details>summary{font-size:.875rem;min-height:44px;align-content:center;color:#575132}
+.field-shell .detail-fields{background:var(--surface);padding:16px;border-radius:6px;margin-top:10px}
+.field-shell .detail-fields .field{margin:14px 0}
+.field-shell .detail-fields .field-grid{display:block}
+.field-shell .detail-fields label{font-size:.875rem;font-weight:500}
+.field-shell .swipe-restore{background:var(--field-quiet);color:var(--ink);border:1px dashed #aaa477;font-size:.9375rem;box-shadow:none;min-height:64px;padding:14px}
+.field-shell .swipe-restore small{color:var(--field-purple);font-size:.875rem}
+.field-shell .swipe-card.is-deleted{border:0}
+.field-shell .swipe-card .swipe-delete{background:var(--danger);color:#fff;border-radius:0}
+.field-shell .swipe-card.delete-armed .swipe-delete{background:#7f2535}
+.field-shell .previous-work{margin-top:18px;padding:15px 0}
+.field-shell .closeout{padding:20px 0;border-top:1px solid #b8b568;border-bottom:0;margin-top:22px}
+.field-shell .closeout-summary{display:flex;justify-content:space-between;gap:12px;align-items:center;font-weight:500}
+.field-shell .closeout-summary>.status-tag{font-size:.875rem;background:transparent;border:0;padding:4px 0;color:var(--warning)}
+.field-shell .closeout.confirmed .closeout-summary>.status-tag{color:var(--field-purple)}
+.field-shell .closeout .field,.field-shell .teacher-review .field{margin:18px 0}
+.field-shell .closeout textarea{min-height:80px}
+.field-shell .primary{background:var(--field-purple);color:#fff;border-color:var(--field-purple);border-radius:8px}
+.field-shell .primary:hover{background:#51318d}
+.field-shell .primary[aria-pressed=true]{background:var(--field-purple-soft);color:var(--field-purple);border-color:#af9bc7}
+.field-shell .source-return{background:var(--field-purple-soft);color:var(--field-purple);border:0;border-radius:6px;min-height:44px}
+.field-shell .observation-cards{padding-top:0}
+.field-shell .observation-cards>h3{margin:0 0 18px;font-size:1.5rem}
+.field-shell .observation-cards select{min-height:44px;font-size:1rem;border-radius:6px;background:var(--surface);margin:6px 0 12px}
+.field-shell .quick-observations{gap:8px;margin:18px 0}
+.field-shell .quick-observations button{background:#fffdf56e;border-color:#b8b568;border-radius:6px;font-size:.9375rem;min-height:48px;padding:10px 12px}
+.field-shell .observation-cards>details{border-top:1px solid #b8b568;padding-top:5px}
+.field-shell .observation-cards>details>summary{min-height:48px;align-content:center}
+.field-shell .observation-cards .hint:empty{display:none}
+.field-shell .observation-card-list{gap:0}
+.field-shell .observation-swipe{border-top:1px solid #b8b568}
+.field-shell .observation-swipe .swipe-handle{padding:18px 0;gap:9px}
+.field-shell .observation-meta{font-size:.8125rem;color:#615b42;line-height:1.7}
+.field-shell .observation-text{font-size:1.0625rem;font-weight:400;line-height:1.8;color:var(--ink)}
+.field-shell .repeat-observation{background:var(--field-purple-soft);color:var(--field-purple);border:0;border-radius:6px}
+.field-shell .session-picker{margin:20px 0 14px}
+.field-shell .conversation-heading h3{font-size:1.25rem}
+.field-shell .source-details,.field-shell .export-panel{border-top:1px solid #b8b568}
+.field-shell .review-roster{gap:6px;flex-wrap:wrap;margin:16px 0}
+.field-shell .review-roster button{background:#fffdf56e;border:1px solid #b8b568;border-radius:6px;min-height:56px;padding:9px 12px}
+.field-shell .review-roster button.selected{background:var(--field-purple-soft);color:var(--field-purple);border-color:#af9bc7}
+.field-shell .review-roster button span{font-size:.8125rem}
+.field-shell .review-workspace{gap:22px}
+.field-shell .review-evidence{background:var(--field-quiet);padding:0 18px}
+.field-shell .review-evidence .panel{border-color:var(--border)}
+.field-shell .review-evidence .facts{font-size:.9375rem;gap:8px}
+.field-shell .review-evidence .source-summary{border-color:var(--border);padding:16px 0}
+.field-shell .review-connections{border-top:1px solid #b8b568;margin-top:20px}
+.field-shell .history{background:var(--surface-soft);border-color:var(--border);font-size:.875rem}
+.field-shell .handoff{background:transparent;border-top:1px solid #c7c36e;border-radius:0;box-shadow:none;margin-top:18px;padding:16px 0 0}
+.field-shell .recording-status-line{background:transparent;min-height:30px;font-size:.75rem;gap:6px;padding:0 max(24px,env(safe-area-inset-right,0px)) 0 max(24px,env(safe-area-inset-left,0px));color:var(--ink-secondary)}
+.field-shell .recording-status-line>.quiet{min-height:44px;min-width:44px;font-size:.8125rem;padding:4px}
+.field-shell .touch-recorder{background:var(--glass);border:1px solid #c1b2d1;box-shadow:var(--shadow-float);border-radius:40px;gap:2px;padding:6px;color:var(--field-purple);transition:background var(--motion-state) var(--ease-out),box-shadow var(--motion-state) var(--ease-out)}
+.field-shell .touch-recorder button{min-height:48px;border:0;border-radius:28px;background:transparent;color:var(--field-purple);font-size:.9375rem;padding:10px 14px}
+.field-shell .touch-recorder button[data-dock-part=mic]{width:48px;min-width:48px;padding:0;background:var(--field-purple);color:white;border-radius:50%}
+.field-shell .touch-recorder.recording{background:#f6e3e8;border-color:#cf9da9;box-shadow:0 6px 24px #a3334424}
+.field-shell .touch-recorder.recording button{color:var(--danger)}
+.field-shell .touch-recorder.recording button[data-dock-part=mic]{background:var(--danger);color:#fff}
+.field-shell .touch-recorder.held{outline:2px solid var(--field-purple);outline-offset:2px}
+.field-shell .touch-recorder-edge{background:var(--field-purple-soft);color:var(--field-purple);border-color:#c1b2d1;box-shadow:none;font-size:.8125rem}
+.field-shell .touch-recorder-edge.recording{background:var(--danger-bg);color:var(--danger);border-color:#cf9da9}
+.connection-dialog,.wide-dialog,.quick-work-dialog{background:var(--surface);color:var(--ink);border:1px solid var(--border);border-radius:20px!important;box-shadow:var(--shadow-dialog)}
+.connection-dialog h2,.wide-dialog h2,.quick-work-dialog h2{font-weight:600;letter-spacing:-.035em}
+.connection-dialog .primary,.wide-dialog .primary,.quick-work-dialog .primary{background:var(--field-purple);color:#fff;border-color:var(--field-purple)}
+.connection-dialog .hint,.wide-dialog .hint,.quick-work-dialog .hint{font-size:.875rem}
+.quick-work-dialog .student-card{background:var(--field-quiet);border:0;border-radius:6px;box-shadow:none}
+.quick-work-dialog .student-card.selected{background:var(--field);box-shadow:inset 3px 0 var(--field-purple)}
+.quick-work-dialog .swipe-card{border-radius:6px;border-color:var(--border)}
+.quick-work-dialog .swipe-face,.quick-work-dialog .swipe-handle{background:var(--surface)}
+.assignment-choices[hidden]{display:none!important}
+@media(min-width:1160px){.field-focused .workspace{grid-template-columns:200px minmax(0,1fr)}.field-shell .student-work{padding:26px 36px 36px}.field-shell .review-workspace{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}}
+@media(max-width:1080px){.field-shell .activity-lanes{grid-template-columns:1fr}.field-shell .field-students .student-card{padding:24px}.field-focused .field-students .student-card{padding:14px}.field-shell .review-workspace{grid-template-columns:1fr}.field-shell .review-evidence{position:static;max-height:none}}
+@media(max-width:760px){
+ .field-shell .topbar{padding:calc(8px + env(safe-area-inset-top,0px)) max(14px,env(safe-area-inset-right,0px)) 8px max(14px,env(safe-area-inset-left,0px));min-height:58px}.field-shell .brand{font-size:1.5rem}.field-shell .top-actions{gap:8px}.field-shell .private{display:none}
+ .field-shell main{padding:14px 0 0}.field-shell main>:not(.workspace){margin-left:max(14px,env(safe-area-inset-left,0px));margin-right:max(14px,env(safe-area-inset-right,0px))}.field-shell .work-heading{align-items:center;gap:10px;margin-bottom:9px}.field-shell h1{font-size:1.375rem}.field-shell .work-heading>div{gap:6px}.field-shell .class-count{font-size:.8125rem}
+ .field-shell .date-control{font-size:.8125rem;display:block}.field-shell .date-control input{width:154px;padding:7px 8px;margin-top:2px}
+ .field-shell .sync-strip{gap:5px;font-size:.8125rem}.field-shell .sync-strip>span{min-width:0;flex:1}.field-shell .sync-strip .quiet{padding:5px;font-size:.8125rem}.field-shell .sync-strip .sync-refresh{min-width:36px}
+ .field-shell .workspace{display:block;margin-top:12px}.field-shell .roster{padding:0;margin:0}.field-shell .roster>.section-title{padding:0 max(14px,env(safe-area-inset-right,0px)) 8px max(14px,env(safe-area-inset-left,0px))}.field-shell .roster-origin,.field-shell .roster>.empty-small{margin-left:max(14px,env(safe-area-inset-left,0px));margin-right:max(14px,env(safe-area-inset-right,0px))}
+ .field-shell .field-students{grid-template-columns:1fr;gap:0}.field-shell .field-students .student-card{display:grid;grid-template-columns:minmax(105px,.9fr) minmax(0,1.1fr);min-height:160px;padding:22px 18px;gap:14px;align-items:center}
+ .field-shell .field-students .student-card-top strong{font-size:1.75rem;letter-spacing:-.05em}.field-shell .field-students .student-card-top>span{display:flex;flex-direction:column;gap:2px;font-size:.75rem}
+ .field-shell .field-students .student-activity{gap:12px}.field-shell .field-students .roster-task-name{font-size:1.0625rem;letter-spacing:-.03em}.field-shell .field-students .field-task-lane{font-size:.75rem}
+ .field-shell .field-students .roster-task-state{font-size:.8125rem;margin-top:2px}.field-shell .field-students .roster-range{font-size:.9375rem}.field-shell .field-students .roster-unassigned{font-size:.9375rem;margin-top:0}
+ .field-shell .field-students .roster-chevron{display:none}.field-shell .field-students .student-badges{padding-top:0;gap:5px}.field-shell .field-students .student-badges .status-tag{font-size:.8125rem}.field-shell .field-students .roster-closeout{font-size:.8125rem}
+ .field-focused .roster>.section-title{padding:0 max(14px,env(safe-area-inset-right,0px)) 6px max(14px,env(safe-area-inset-left,0px));min-height:36px}.field-focused .roster-origin{display:none}
+ .field-focused .field-students{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:2px;margin-bottom:0}
+ .field-focused .field-students .student-card{display:flex;min-height:70px;padding:13px 10px;gap:5px;align-items:flex-start;justify-content:center}
+ .field-focused .field-students .student-card-top{gap:0}.field-focused .field-students .student-card-top strong{font-size:1rem;line-height:1.5;letter-spacing:-.025em}
+ .field-focused .field-students .student-card-top>span{display:none}.field-focused .field-students .student-activity{flex:0;gap:0}.field-focused .field-students .student-badges{gap:3px}
+ .field-focused .field-students .student-badges .status-tag{font-size:.75rem}.field-focused .field-students .student-badges .status-tag.complete{display:none}
+ .field-shell .student-work{padding:15px max(18px,env(safe-area-inset-right,0px)) 24px max(18px,env(safe-area-inset-left,0px));margin-top:2px;scroll-margin-top:8px}.field-shell .context-toolbar{padding-bottom:14px;gap:12px}.field-shell .context-toolbar button{font-size:.8125rem;min-height:44px}
+ .field-shell .student-title h2{font-size:2rem}.field-shell .student-title>div{display:flex;flex-direction:column;align-items:flex-start;gap:6px}.field-shell .student-schedule{font-size:.8125rem}.field-shell .book-line{font-size:.8125rem;margin:8px 0 15px}
+ .field-shell .work-tabs{gap:0;justify-content:space-between;margin-bottom:18px}.field-shell .work-tabs button{font-size:.875rem!important;padding:9px 0!important;gap:5px;min-height:48px}.field-shell .work-tabs button>svg{width:15px;height:15px}
+ .field-shell .panel{padding:16px 0}.field-shell .assign-panel{padding:0 0 12px;margin-bottom:17px}.field-shell .activity-lanes{gap:18px}.field-shell .lane>h3{font-size:.875rem;margin-bottom:8px}
+ .field-shell .swipe-card .task-title strong{font-size:1.5rem}.field-shell .swipe-card .swipe-handle{padding:15px 0 10px}.field-shell .task-actions{gap:5px}.field-shell .task-actions button{font-size:.8125rem;padding:8px 6px}
+ .field-shell .detail-fields{padding:13px}.field-shell .inline-form{flex-wrap:wrap}.field-shell .inline-form input{flex:1 1 100%}
+ .field-shell .closeout{padding-top:17px;margin-top:17px}.field-shell .closeout-summary{font-size:1rem;gap:7px}.field-shell .closeout-summary>.status-tag{font-size:.8125rem}
+ .field-shell .quick-observations{display:grid;grid-template-columns:1fr;gap:7px}.field-shell .quick-observations button{justify-content:flex-start;text-align:left;font-size:.9375rem;min-height:48px}
+ .field-shell .observation-cards>h3{font-size:1.375rem}.field-shell .observation-text{font-size:1rem}.field-shell .review-evidence{padding:0 14px}
+ .field-shell .recording-status-line{padding:0 max(12px,env(safe-area-inset-right,0px)) 0 max(12px,env(safe-area-inset-left,0px));font-size:.75rem;justify-content:flex-end}.field-shell .recording-status-line>span{flex:0 1 auto}
+ .field-shell .touch-recorder{padding:5px}.field-shell .touch-recorder button{min-height:48px;padding:9px 12px}.field-shell .touch-recorder button[data-dock-part=mic]{min-width:48px;width:48px}
+ .quick-work-dialog{border-radius:20px!important}.connection-dialog,.wide-dialog{border-radius:18px!important}
+}
+@media(max-width:374px){.field-shell .student-work{padding-left:14px;padding-right:14px}.field-shell .field-students .student-card{padding:20px 14px;gap:11px;grid-template-columns:minmax(95px,.85fr) minmax(0,1.15fr)}.field-shell .field-students .student-card-top strong{font-size:1.625rem}.field-focused .field-students .student-card{padding:11px 8px}.field-focused .field-students .student-card-top strong{font-size:.9375rem}.field-shell .work-tabs button>svg{display:none}.field-shell .date-control input{width:144px}.field-shell .work-heading>div{display:block}}
+@media(prefers-contrast:more){:root{--ink-secondary:#484235;--border:#7d755f;--input:#655d48;--glass:#ede4f5}.field-shell .student-card.selected{outline:2px solid var(--field-purple);outline-offset:-3px}.field-shell .task-actions button{border-color:#766d3e}.field-shell .touch-recorder{backdrop-filter:none}}
+@media(forced-colors:active){.field-shell .field-students .student-card{border:1px solid CanvasText}.field-shell .student-card.selected{outline:3px solid Highlight;outline-offset:-3px}.field-shell .work-tabs button[data-state=active]{border-bottom:3px solid Highlight}.field-shell .touch-recorder{background:Canvas;color:CanvasText;border:1px solid CanvasText}}
+@media(prefers-reduced-motion:reduce){.field-shell *,.field-shell *:before,.field-shell *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.field-shell button:active{transform:none}}

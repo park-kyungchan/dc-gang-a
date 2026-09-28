@@ -194,6 +194,15 @@ class SaveState(str, Enum):
 
 
 @dataclass(frozen=True)
+class DayRecordReadbackTarget:
+    """Source-attested identity of the row and field actually reread."""
+
+    key: LessonKey
+    record_seq: str
+    field: DayRecordField
+
+
+@dataclass(frozen=True)
 class SaveReadback:
     """Imported audit evidence; this package never attempts an LMS save."""
 
@@ -207,6 +216,7 @@ class SaveReadback:
     effect_id: str
     reviewed_at: datetime
     attempted_at: datetime | None = None
+    readback_target: DayRecordReadbackTarget | None = None
 
 
 @dataclass(frozen=True)
@@ -395,6 +405,12 @@ def project_selection(
             raise JoinError("unverified save cannot claim a known readback")
         if effect.record_seq != day.record_seq:
             raise JoinError("save readback targets a foreign DayRecord row")
+        expected_target = DayRecordReadbackTarget(selection, day.record_seq, effect.field)
+        if effect.readback_target is not None and effect.readback_target != expected_target:
+            raise JoinError("readback target differs from reviewed DayRecord field")
+        if (effect.state is SaveState.VERIFIED_READBACK and
+                effect.readback_target is None):
+            raise JoinError("verified save needs an exact readback target")
         _source(effect.readback, Source.LMS_DAY_RECORD, "save readback")
         _not_future(effect.readback, as_of, "save readback")
         if (effect.state is SaveState.VERIFIED_READBACK and effect.readback.observed_at
@@ -402,6 +418,7 @@ def project_selection(
             raise JoinError("save readback predates attempt")
         if effect.state is SaveState.VERIFIED_READBACK and (
             effect.readback.state is not FactState.KNOWN or
+            type(effect.readback.value) is not type(effect.proposed_value) or
             effect.readback.value != effect.proposed_value
         ):
             raise JoinError("verified save lacks an exact matching readback")

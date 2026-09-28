@@ -1,37 +1,34 @@
-# Daechi Main Sheet workbench
+# Daechi Whole-Lens Workspace: Agent Instructions
 
-## Purpose and source boundaries
+## Entry and ownership
 
-- This workspace supports one instructor's PC preparation and reviewed closeout in the `박경찬` Main Sheet. The separate SPT iOS worktree owns live classroom capture. The academy LMS remains authoritative for official lesson records, SPT D1 for classroom events, the Sheet for teacher review and drafts, and the official sender for actual parent delivery.
-- Start with `handoffs/2026-09-27-desktop-resume.md`, then the earlier Main Sheet handoff and verified Desktop transition pack it cites. Use `research/backend-map/README.md` only for a specific backend question. Treat handoff claims as dated until refreshed.
-- Preserve date-first, then student selection; whole-class preparation beside selected-student detail; unknown evidence as unknown; linked original media; append-only draft and correction history.
+- This is the shared entrypoint for coding agents. Read `docs/CODEX_CONTEXT.md` (historical filename) for user intent and authority, `docs/WHOLE_LENS_DECISION.md` for the current product direction, and `handoffs/2026-09-28-windows-antigravity.md` for the current phase. Revalidate time-sensitive claims.
+- The repository contains Main Sheet code at the root, SPT source under `spt/`, and LMS automation source under `lms-automation/`. Read each directory's `AGENTS.md` before changing its files. A source snapshot in Git does not establish a running service or authorize a production effect.
+- Support date-first whole-class preparation, then selected-student judgment. The LMS owns official lesson/DayRecord data; SPT D1/R2 owns classroom event/audio evidence; the Main Sheet owns teacher review and drafts; the official sender owns parent delivery.
+- Preserve linked original media, append-only draft/correction history, and unknown evidence as unknown. UI labels, screenshots, page shells, and HTTP 200 do not establish student-level backend joins or delivery.
+- Routine assigned local files, execution, and network work may proceed. Confirm deployment, sending, deletion, and account/access changes unless the exact action is already authorized. The user requests structural improvement, including related local SPT/runtime material, with concrete review before moving, retiring, or deleting operational material.
 
-## Safe local setup
+## Actual academy data and production writes
 
-- Use Windows Python 3.12 from this project root. `workbench_v2` and its tests use only the standard library; no virtual environment or package installation is needed for that slice.
-- The safe local gate is `python -B -m unittest discover -s workbench_v2/tests -v`. It uses invented records and has no network, Sheet, or LMS effect.
-- `python -B harness/desktop_gate.py --profile core` is the broader local gate and works in a clean managed worktree without optional dependencies. Use `--profile live` only when that checkout has its own installed and locked LMS reader environment. Neither profile proves Desktop app association, an authenticated LMS read, production Sheet effects, or teacher acceptance.
-- The former session-file client, MCP server, smoke check, pipeline test, and manual-session probe were retired on 2026-09-27. Do not restore or run a saved-cookie workflow or use blanket test discovery as an environment check.
-- Never read or print credential contents from `config/`, credential stores, or raw student data from `data/`. Do not add them to Git, logs, prompts, or broad tool output.
+- Standing reads are allowed through verified read routes for the current task's students, dates, and necessary fields. Use synthetic records for general harness checks. Exclude credential extraction, unrelated data collection, bulk raw retention, and raw student/media output in logs or reports.
+- Classify operations by their actual effect: GET can mutate and POST can render a read-only view. Start with `research/backend-map/README.md` and the exact operation in its canonical route registry. Parameterized reads are permitted when their contract and current task scope are verified; the existence of a page-shell route alone does not establish that permission.
+- Prefer the reviewed `ganga.lms.session.LmsSession` contract for exact direct reads when an authorized ephemeral session is available. Never run automatic cookie or credential discovery. Keep session values in process memory and out of persistent artifacts/output.
+- Use an authorized browser tool for named teacher-site UI and bounded passive request-shape inspection. Confirm the actual browser, tab, route, and authentication. In Codex, use its in-app Browser; in Antigravity, verify the actual browser capability before use. Saved sign-in may be reused for authorized reads; do not extract its JSESSIONID. Hand account input to the user when needed.
+- Before changing production LMS records or the academy-owned Google Sheet, present the exact target, before/after values, and recovery method and obtain approval for that batch. All eight DayRecord fields require teacher-reviewed exact values and a verified target/wire contract. After saving, read back the same target before claiming success.
+- Keep the academy-owned workbook separate from the owner-owned synthetic prototype. Refresh metadata and protections before a production batch. Synthetic writes are not production acceptance. The teacher retains final Kakao-send responsibility under the current product decision.
 
-## Desktop interaction
+## Teacher and mobile workflow
 
-- Use normal file tools for workspace files and source review. Use Browser only when web UI inspection or interaction is needed and Computer Use only for native Windows UI work.
-- For academy backend research, prefer exact, source-reviewed, bounded direct reads through the existing `ganga.lms.session.LmsSession` contract when an authorized ephemeral session is available. Do not run its automatic browser-cookie or manual credential discovery without separate authorization. Never save or print session values. A page shell proves route access only; verify exact selected-student and lesson joins before displaying facts.
-- Start from `research/backend-map/README.md` and the exact `route-registry.json` operation before adding a probe. Reuse the existing 12-file, hash-pinned map; do not repeat settled route discovery or promote historical evidence to current student facts.
+- The 14:00 preparation reviews each date-scoped student's homework range, matching pre-study upload, app problem attempts/backend grading, and wrong-answer video/correction, followed by teacher visual judgment. Do not invent a waiting-time threshold.
+- App/student/course/submission/grading joins remain unknown until verified. Preserve source timestamps and exact occurrence keys when projecting evidence.
+- Paid Apple membership and TestFlight are withdrawn from the current release route. The documented first candidate is an iPhone web app; Android remains conditional on a confirmed classroom device. Keep physical-device and teacher acceptance distinct from synthetic tests.
 
-## Tool routing
+## Local runtime, tests, and structure
 
-- Workspace files, source searches, Git, local tests, and safe scripts: use file/shell tools with an explicit absolute Windows workdir. Use `rg` for search. Do not use Browser or Computer Use to edit files or run terminal commands.
-- Academy LMS backend data: use the reviewed `ganga.lms.session.LmsSession` route with an exact operation, subject/date bound, transient authentication, and aggregate or redacted output. The Browser login is not a license to extract its cookie or substitute UI clicks for a backend contract.
-- `@Browser`: use only for a named web UI question, visual check, or interaction that a direct connector cannot answer. Confirm the actual tab and route. A page shell, DOM label, or screenshot is weaker than an exact backend read.
-- `@Computer`: use only for native Windows app UI when no dedicated app tool exists. Follow its window-selection and confirmation rules; never automate a terminal, the Codex app, credential UI, or routine file edits through it.
-- Google Drive/Sheets: use the dedicated connector for exact file metadata, bounded ranges, and reviewed writes; use Browser only for visual usability checks. Preserve the academy-owned workbook versus synthetic prototype boundary.
-- Codex project/chat management: use the Codex app tools. Remote SSH: use the named host and strict host-key checks for a bounded read, keeping source paths distinct from local snapshots. SPT implementation and Linux gates stay in the separate SPT worktree.
-
-## Effect gates
-
-- Classify each academy operation by its actual effect; GET can mutate and a POST can render a read-only view. Use only source-reviewed, bounded read contracts for backend research. Do not infer app submission, grading, video status, parent-delivered body, or receipt from page shells or labels.
-- All eight DayRecord fields require teacher-reviewed exact values, a verified target and wire contract, and exact same-target readback before any save. The teacher performs the final Kakao send.
-- The academy-owned workbook and owner-owned synthetic prototype are distinct. Do not treat prototype bot writes as production acceptance. Check current metadata and protection before a reversible production batch.
-- Keep SPT's dirty native-pairing and CI files intact. Do not assume the local worktree equals the remote SPT service, Sites deployment, signed app, or physical iPhone.
+- On Windows, use explicit absolute working directories and normal file/shell tools for source, Git, tests, and scripts. Use a dedicated Drive/Sheets connector when available for exact metadata, ranges, and approved writes; otherwise stop at the unverified boundary.
+- `workbench_v2` uses Python 3.12 and the standard library. The focused gate is `python -B -m unittest discover -s workbench_v2/tests -v` with synthetic records and no network, LMS, or Sheet effect.
+- The existing machine-local gate is `python -B harness/desktop_gate.py --profile core`; it expects the original Windows sibling checkouts and transition package, so a fresh clone cannot claim its pass. Read its current effect/reference map before changing it. Use `--profile live` only with that checkout's declared, installed, and locked optional reader environment. Do not install the live environment merely to run core checks. The portable source check is `python -B harness/tools/verify_source_imports.py`; the focused synthetic tests and backend-map validator are separate checks.
+- Do not restore the retired saved-session client, cookie workflow, MCP server, or broad smoke/pipeline probes. Never use blanket test discovery as an environment check.
+- `config/` and `data/` contain protected local material; do not read credential contents or bulk raw records, add them to Git, or include them in broad tool output. Purpose-specific verified reads follow the boundary above.
+- Preserve dirty work and source locks. Keep immutable transition/snapshot/backend evidence at its verified paths unless the exact migration updates and validates every consumer. Consolidate mutable current guidance around one context map and dated handoff.
+- The original SPT checkout and running service remain separate authorities from the `spt/` source import. Review each exact edit or move of operational material and preserve provenance. Local tests do not establish remote SPT parity, deployment, classroom audio transfer, or physical iPhone acceptance.

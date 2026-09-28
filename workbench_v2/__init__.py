@@ -6,6 +6,7 @@ from .core import (
     AppPreparation,
     CourseAssignment,
     DayRecordField,
+    DayRecordReadbackTarget,
     DayRecordSnapshot,
     DeliveryReceipt,
     Draft,
@@ -28,14 +29,18 @@ from .lms_read_adapter import (
     CourseRow, DayRecordRead, DayRecordRow, OccurrenceBinding,
     adapt_selected_lms_reads,
 )
+from .class_overview import (
+    ClassOverview, PreparationRow, SelectionState, project_class_overview,
+)
 
 __all__ = [
     "APP_FIELDS", "DAY_RECORD_FIELDS", "AppPreparation", "CourseAssignment",
-    "DayRecordField", "DayRecordSnapshot", "DeliveryReceipt", "Draft",
+    "DayRecordField", "DayRecordReadbackTarget", "DayRecordSnapshot", "DeliveryReceipt", "Draft",
     "DraftAuthor", "Fact", "FactState", "JoinError", "LessonKey",
     "Projection", "ReportEvidence", "RosterEntry", "SaveReadback",
     "SaveState", "Source", "SptProjection", "project_selection",
     "DAY_RECORD_READ", "STUDY_COURSE_READ", "AdaptedLmsReads",
     "CourseRead", "CourseRow", "DayRecordRead", "DayRecordRow",
     "OccurrenceBinding", "adapt_selected_lms_reads",
+    "ClassOverview", "PreparationRow", "SelectionState", "project_class_overview",
 ]

@@ -6,7 +6,8 @@ from datetime import date, datetime, timedelta, timezone
 
 from workbench_v2 import (
     APP_FIELDS, DAY_RECORD_FIELDS, AppPreparation, CourseAssignment,
-    DayRecordField, DayRecordSnapshot, DeliveryReceipt, Draft, DraftAuthor,
+    DayRecordField, DayRecordReadbackTarget, DayRecordSnapshot, DeliveryReceipt,
+    Draft, DraftAuthor,
     Fact, FactState, JoinError, LessonKey, ReportEvidence, RosterEntry,
     SaveReadback, SaveState, Source, SptProjection, project_selection,
 )
@@ -135,7 +136,8 @@ class ProjectionTests(unittest.TestCase):
                             SaveState.VERIFIED_READBACK,
                             known("Saved body", Source.LMS_DAY_RECORD),
                             "effect-1", NOW - timedelta(minutes=2),
-                            NOW - timedelta(minutes=1))
+                            NOW - timedelta(minutes=1),
+                            DayRecordReadbackTarget(key, "R001", DayRecordField.MEMO))
         delivered = DeliveryReceipt("P1", "receipt-1", "Delivered body")
         report = replace(report, receipt=known(delivered, Source.DELIVERY_RECEIPT))
         view = project_selection(**{**data, "drafts": [draft], "save_effects": [save],
@@ -151,11 +153,28 @@ class ProjectionTests(unittest.TestCase):
                             SaveState.VERIFIED_READBACK,
                             known("different", Source.LMS_DAY_RECORD),
                             "effect-1", NOW - timedelta(minutes=2),
-                            NOW - timedelta(minutes=1))
+                            NOW - timedelta(minutes=1),
+                            DayRecordReadbackTarget(key, "R001", DayRecordField.MEMO))
         with self.assertRaisesRegex(JoinError, "exact matching readback"):
             project_selection(**{**data, "save_effects": [save]})
         with self.assertRaisesRegex(JoinError, "foreign DayRecord"):
             project_selection(**{**data, "save_effects": [replace(save, record_seq="R999")]})
+        with self.assertRaisesRegex(JoinError, "readback target differs"):
+            project_selection(**{**data, "save_effects": [replace(
+                save, readback_target=DayRecordReadbackTarget(
+                    key, "R001", DayRecordField.HOMEWORK))]})
+        with self.assertRaisesRegex(JoinError, "readback target differs"):
+            project_selection(**{**data, "save_effects": [replace(
+                save, readback_target=DayRecordReadbackTarget(
+                    LessonKey(DAY, "occ-1", "S999"), "R001",
+                    DayRecordField.MEMO))]})
+        with self.assertRaisesRegex(JoinError, "exact readback target"):
+            project_selection(**{**data, "save_effects": [replace(
+                save, readback_target=None)]})
+        typed = replace(save, proposed_value=True,
+                        readback=known(1, Source.LMS_DAY_RECORD))
+        with self.assertRaisesRegex(JoinError, "exact matching readback"):
+            project_selection(**{**data, "save_effects": [typed]})
         report = ReportEvidence(key, "P1", Fact.unknown(Source.REPORT_PREVIEW),
                                 Fact.unknown(Source.SENT_LABEL),
                                 known(DeliveryReceipt("P2", "receipt-2", "body"),

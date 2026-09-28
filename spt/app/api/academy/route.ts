@@ -1,0 +1,5 @@
+import {owner,body,result,failure,ApiError} from '@/lib/server';
+import {academyConfigured,academyEntry,reviewedAcademySource,academyCall} from '@/lib/academy-bridge';
+export const dynamic='force-dynamic';
+export async function GET(request:Request){try{const user=await owner(),id=new URL(request.url).searchParams.get('sourceId');return result(id?{ownerKey:user,source:await reviewedAcademySource(user,id)}:{configured:academyConfigured(user)});}catch(e){return failure(e);}}
+export async function POST(request:Request){try{const user=await owner(request),p=await body(request);if(!['preview','apply','status'].includes(p.action))throw new ApiError('학원 입력 동작을 확인해 주세요.');const e=await academyEntry(user,p.entryId);if(p.studentId!==e.student_id||p.date!==e.class_date)throw new ApiError('선택한 학생·수업일과 검토 기록이 다릅니다.',409);if(p.action!=='status')await reviewedAcademySource(user,p.entryId);if(p.requestId!==undefined&&typeof p.requestId!=='string')throw new ApiError('학원 입력 요청을 확인해 주세요.');return result(await academyCall(user,{action:p.action,entryId:e.id,...(p.requestId?{requestId:p.requestId}:{})}));}catch(e){return failure(e);}}

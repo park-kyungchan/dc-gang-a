@@ -21,13 +21,19 @@ projection = project_selection(
 
 Every displayed source value is a `Fact(value, source, observed_at, state)`. Construct a known fact with `Fact.known(value, Source.X, observed_at)` or an unknown fact with `Fact.unknown(Source.X, reason)`. Known current-state facts older than `max_age` become `stale` with their value hidden. Missing course and app reads stay `unknown`; no assignment, submission, grade, correction, teacher check, or absence is inferred. `AppPreparation.join_verified=True` is an adapter assertion, not a discovery method: do not construct it from a teacher-site shell or an unproven native-app key.
 
-`DAY_RECORD_FIELDS` enumerates exactly eight read-model fields: attendance, daily test, progress, homework, memo, homework rate, persistent student memo, and unit selection. `SaveReadback` is imported audit evidence with reviewer, times, effect ID, target record, and exact readback validation. It contains no save function. `Draft` is teacher or LLM text with revision, optional review, `supersedes_id`, and correction reason. Supply the retained predecessor with a correction; old revisions remain in `Projection.drafts`. An edited revision is unreviewed until explicitly reviewed again. `SptProjection` requires an approved event and receipt ID; raw phone taps are rejected.
+`DAY_RECORD_FIELDS` enumerates exactly eight read-model fields: attendance, daily test, progress, homework, memo, homework rate, persistent student memo, and unit selection. `SaveReadback` is imported audit evidence with reviewer, times, effect ID, target record, and exact readback validation. A verified effect must carry a source-attested `DayRecordReadbackTarget` matching the selected lesson/student, `record_seq`, and field. The reread value must match the proposed value in both type and content. The caller still needs a reviewed wire contract and a real same-target source read; this model does not perform or prove either operation by itself. It contains no save function. `Draft` is teacher or LLM text with revision, optional review, `supersedes_id`, and correction reason. Supply the retained predecessor with a correction; old revisions remain in `Projection.drafts`. An edited revision is unreviewed until explicitly reviewed again. `SptProjection` requires an approved event and receipt ID; raw phone taps are rejected.
 
 `ReportEvidence` keeps current preview, LMS sent label, and independently verified delivery receipt as separate facts. A draft, matching LMS save readback, preview, or sent icon does not imply parent delivery. A receipt must match the selected `report_seq`. The default for an unread report is unknown for all three facts.
 
+## Date-first class overview
+
+`project_class_overview` accepts only rows for one exact lesson date and occurrence. It returns the observed preparation rows for all groups or one selected group, with school grade, course/book, and each app preparation fact kept separate. `observed_count` counts the supplied rows; `coverage` remains unknown unless an independently reviewed date/group read establishes completeness. It does not claim a complete current Park roster.
+
+The selected student receives the full `Projection` only while that student belongs to the current date/group view. Changing group or date leaves `selection_state` at `out_of_group` or `not_in_lesson` and exposes no replacement detail. Missing course or app evidence stays unknown. The function performs no LMS, Sheet, or SPT I/O; invented six-student tests cover the overview and stale-selection behavior.
+
 ## Check
 
-From this project directory: `py -3 -m unittest discover -s workbench_v2/tests -v`.
+From this project directory: `python -B -m unittest discover -s workbench_v2/tests -v`.
 
 ## Next integration step
 

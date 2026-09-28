@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "source": "C:/Users/packr/Desktop/spt-ios-workbench/worktree",
+  "spt_git_head": "150cbc335558748e375d5616aa5fa90186883835",
+  "spt_git_branch": "codex/spt-ios-refactor",
+  "spt_git_status_short": "M AGENTS.md\n M handoffs/2026-09-27-spt-ios.md",
+  "tested_archive_sha256": "8eeea6fc7a405352a1048024aa5d5de51a7b335fb1b94b873033d92061774cbd",
+  "tested_manifest_sha256": "e6e1fb84a3645b07e229641242e64f1d6e9287418cd7f1fd6c46f36c934561e7",
+  "postcommit_archive_sha256": "6d2e122026db7a0c5d2b2abc681a7783ce8a570ce0a396ff3e80b578289746f2",
+  "postcommit_manifest_sha256": "ef2160d91a0c1675b90172251025c118f11c262274e2d8c1d98437bd28ccbfec",
+  "source_file_hashes_compared": 273,
+  "source_file_hash_mismatches": 0,
+  "tested_to_current_content_difference": [
+    "AGENTS.md",
+    "handoffs/2026-09-27-spt-ios.md"
+  ],
+  "current_source_binding": {
+    "created_utc": "2026-09-27T13:59:11.433840+00:00",
+    "archive": "C:\\Users\\packr\\Desktop\\spt-ios-workbench\\artifacts\\harness-2026-09-27\\source.tar",
+    "manifest": "C:\\Users\\packr\\Desktop\\spt-ios-workbench\\artifacts\\harness-2026-09-27\\source.json",
+    "change_kind": "reviewed_runtime_documentation_only",
+    "previous_current_archive_sha256": "53b36d57a0f537a51f4901fd4ef643c3f4fc1179a1d1f49e110065535c4f824a",
+    "previous_current_manifest_sha256": "2270e98b4557784dadce6315f0ebba9605d07dc34c135ae3671b8b34f6d56731",
+    "difference_basis": "Previously recorded tested-source difference plus the newly verified documentation delta",
+    "new_linux_device_or_service_acceptance": false
+  }
+}

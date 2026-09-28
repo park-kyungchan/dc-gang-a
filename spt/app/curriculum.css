@@ -1,0 +1,12 @@
+.curriculum-assignment{border:1px solid var(--line,#dce3e8);border-radius:14px;margin:12px 0;background:var(--paper,#f8fafb);color:var(--ink,#20242d)}
+.curriculum-assignment>summary{padding:14px;font-weight:650;cursor:pointer;min-height:48px}
+.curriculum-body{padding:0 14px 14px;display:grid;gap:12px;min-width:0}
+.curriculum-body .field{min-width:0}.curriculum-body select{width:100%;min-height:46px;border:1px solid #bbc7ce;border-radius:8px;padding:8px;font:inherit;background:#fff;color:#20242d}
+.curriculum-units{max-height:280px;overflow-y:auto;overscroll-behavior:contain;border:1px solid #dce3e8;border-radius:8px;background:#fff}
+.curriculum-unit{display:flex;align-items:flex-start;gap:10px;min-height:48px;padding:10px;border-bottom:1px solid #e7ebee;cursor:pointer;font-size:14px;line-height:1.5}.curriculum-unit:last-child{border:0}
+.curriculum-unit input{flex:none;width:20px;height:20px;margin-top:2px}.curriculum-unit span{overflow-wrap:anywhere}.curriculum-unit small{display:block;color:#536274}
+.curriculum-activities{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-top:8px}.curriculum-activities label{padding:6px;min-height:44px}
+.curriculum-preview{padding:10px;border-left:3px solid #417b61;white-space:pre-wrap;overflow-wrap:anywhere;background:#edf5f0}
+.diary-fields{border-top:1px solid #dce3e8;padding-top:16px;margin-top:16px;display:grid;gap:12px}.diary-fields textarea{min-height:88px;resize:vertical}.diary-count{display:block;color:#526173}.diary-count.over{color:#a32222;font-weight:700}.diary-fields pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.academy-panel{padding:16px;border:1px solid #ccd7df;border-radius:14px;margin:14px 0;background:#f8fbfa}.academy-panel h3{margin:0 0 8px}.academy-panel pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}.academy-comparison{display:grid;grid-template-columns:1fr 1fr;gap:12px}.academy-comparison>section{padding:12px;border:1px solid #d9e1e6;border-radius:8px;background:#fff}.academy-panel .checkbox-label{margin:12px 0}.academy-status{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:600px){.academy-comparison{grid-template-columns:1fr}.curriculum-units{max-height:220px}.curriculum-activities{grid-template-columns:1fr 1fr}}

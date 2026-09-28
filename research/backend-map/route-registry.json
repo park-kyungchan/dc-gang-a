@@ -763,6 +763,24 @@
       ]
     },
     {
+      "id": "prestudy_historical_detail",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet?reqCmd=WebPreStudy&prestudy_key={prestudy_key}",
+      "operation": "WebPreStudy",
+      "http_method": null,
+      "semantic_effect": "unknown",
+      "evidence_grade": "source",
+      "evidence_date": "2026-08-26",
+      "join_key_names": [
+        "prestudy_key"
+      ],
+      "safe_to_probe": false,
+      "reason": "Historical detail candidate only; current method/effect, Park ownership, lesson binding, and deployed field schema are unverified.",
+      "source_refs": [
+        "../remote-2026-09-27/shared-llm-wiki/concepts/academy-source-system-structure-map.md:140",
+        "app-read-contracts.md:22"
+      ]
+    },
+    {
       "id": "dtzt_result_search",
       "route_template": "/servlet/controller.dailyzerotest.DailyZeroTestServlet?reqCmd=DtResultSearch",
       "operation": "DtResultSearch",
