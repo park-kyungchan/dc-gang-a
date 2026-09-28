@@ -57,12 +57,13 @@ export class MainSheetAssessmentProjector {
     record: StudentAssessmentRecord,
     stats?: StudentCumulativeStats
   ): MainSheetAssessmentCardProjection {
-    const isHighPassing = record.score >= 90;
-    const statusBadge = record.wrongCount === 0 
-      ? '🟢 채점완료' 
-      : isHighPassing 
+    const statusBadge = (record.status === 'clinic_completed' || record.status === 'mastered')
+      ? '🟢 오답검사완료'
+      : record.wrongCount === 0 
         ? '🟢 채점완료' 
-        : '🟡 풀이완료(채점중)';
+        : record.score >= 90 
+          ? '🟢 채점완료' 
+          : '🟡 풀이완료(채점중)';
 
     const scoreDisplay = `${record.score}점 (${record.correctCount}/${record.totalQuestions})`;
     const wrongItemsDisplay = record.wrongItemNumbers.length > 0 

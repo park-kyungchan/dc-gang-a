@@ -188,5 +188,28 @@ describe('Student Assessment Ledger & Individual DB Engine', () => {
       expect(appendOp.appendCells?.fields).toBe('userEnteredValue,note');
       expect(appendOp.appendCells?.rows[0].values.length).toBe(17);
     });
+
+    it('updates Shin Ji-woo card to 🟢 오답검사완료 upon teacher face-to-face inspection', () => {
+      const raw = AppGradingReader.createShinJiwooGradingPayload();
+      const record = ledger.ingestAssessmentRecord(AppGradingReader.normalizeAppSubmission(raw));
+
+      // Initial state: 🟢 채점완료
+      const initialCard = MainSheetAssessmentProjector.projectCard(record);
+      expect(initialCard.statusBadge).toBe('🟢 채점완료');
+
+      // Teacher inspects and approves Shin Ji-woo's error corrections
+      const updated = ledger.markAssessmentCorrectionsCompleted(
+        '1293032',
+        record.recordId,
+        '오답 7번, 14번 재풀이 확인 완료 및 p.68~70 배정'
+      );
+      expect(updated.status).toBe('clinic_completed');
+      expect(ledger.verifyRecordIntegrity(updated)).toBe(true);
+
+      // Card reflects 🟢 오답검사완료
+      const finalCard = MainSheetAssessmentProjector.projectCard(updated);
+      expect(finalCard.statusBadge).toBe('🟢 오답검사완료');
+      expect(finalCard.nextStepAction).toContain('후속 진도');
+    });
   });
 });
