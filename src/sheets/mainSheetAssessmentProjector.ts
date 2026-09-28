@@ -47,6 +47,35 @@ export interface SheetsBatchUpdateOperation {
     }>;
     fields: string;
   };
+  addDimensionGroup?: {
+    range: {
+      sheetId: number;
+      dimension: 'ROWS' | 'COLUMNS';
+      startIndex: number;
+      endIndex: number;
+    };
+  };
+  updateDimensionGroup?: {
+    dimensionGroup: {
+      range: {
+        sheetId: number;
+        dimension: 'ROWS' | 'COLUMNS';
+        startIndex: number;
+        endIndex: number;
+      };
+      depth: number;
+      collapsed: boolean;
+    };
+    fields: string;
+  };
+  deleteDimensionGroup?: {
+    range: {
+      sheetId: number;
+      dimension: 'ROWS' | 'COLUMNS';
+      startIndex: number;
+      endIndex: number;
+    };
+  };
 }
 
 export class MainSheetAssessmentProjector {
@@ -218,4 +247,87 @@ export class MainSheetAssessmentProjector {
       }
     };
   }
+
+  /**
+   * Generates Google Sheets API v4 addDimensionGroup and updateDimensionGroup requests
+   * to create an expandable/collapsible row group for a student DB block.
+   */
+  public static buildAddRowGroupRequest(
+    sheetId: number,
+    startRowIndex: number, // 0-indexed, inclusive
+    endRowIndex: number,   // 0-indexed, exclusive
+    collapsed: boolean = true
+  ): SheetsBatchUpdateOperation[] {
+    const addOp: SheetsBatchUpdateOperation = {
+      addDimensionGroup: {
+        range: {
+          sheetId,
+          dimension: 'ROWS',
+          startIndex: startRowIndex,
+          endIndex: endRowIndex
+        }
+      }
+    };
+
+    const updateOp: SheetsBatchUpdateOperation = {
+      updateDimensionGroup: {
+        dimensionGroup: {
+          range: {
+            sheetId,
+            dimension: 'ROWS',
+            startIndex: startRowIndex,
+            endIndex: endRowIndex
+          },
+          depth: 1,
+          collapsed
+        },
+        fields: 'collapsed'
+      }
+    };
+
+    return [addOp, updateOp];
+  }
+
+  /**
+   * Builds updateCells operation for historical records within a student's row-grouped block.
+   * Indented under the main card row for clean visual hierarchy.
+   */
+  public static buildRowGroupedHistoryCells(
+    sheetId: number,
+    startRowIndex: number,
+    records: StudentAssessmentRecord[]
+  ): SheetsBatchUpdateOperation {
+    const rows = records.map(rec => {
+      const values = [
+        { userEnteredValue: { stringValue: `  ↳ [이력] ${rec.sessionDate}` } },
+        { userEnteredValue: { stringValue: `${rec.assessmentCategory} (${rec.unitName})` } },
+        { userEnteredValue: { stringValue: rec.scope } },
+        { userEnteredValue: { stringValue: rec.status } },
+        { 
+          userEnteredValue: { stringValue: `${rec.score}점 (${rec.correctCount}/${rec.totalQuestions})` },
+          note: rec.wrongItemNumbers.length > 0 
+            ? `오답 문항: ${rec.wrongItemNumbers.join(', ')}번\n체크섬: ${rec.checksum.substring(0, 12)}`
+            : '전 문항 100% 정답'
+        },
+        { userEnteredValue: { stringValue: rec.wrongItemNumbers.length > 0 ? `${rec.wrongItemNumbers.join('번, ')}번` : '없음' } },
+        { userEnteredValue: { stringValue: rec.nextAction || '' } }
+      ];
+      return { values };
+    });
+
+    return {
+      updateCells: {
+        range: {
+          sheetId,
+          startRowIndex,
+          endRowIndex: startRowIndex + rows.length,
+          startColumnIndex: 1, // Column B
+          endColumnIndex: 8    // Column H
+        },
+        rows,
+        fields: 'userEnteredValue,note'
+      }
+    };
+  }
 }
+
