@@ -174,51 +174,56 @@ console.log('\n--- [DIM-06: Student Individual DB Isolation & Longitudinal Ledge
 import { StudentAssessmentLedgerEngine } from '../../src/assessment/studentAssessmentLedger';
 import { AppGradingReader } from '../../src/assessment/appGradingReader';
 import { MainSheetAssessmentProjector } from '../../src/sheets/mainSheetAssessmentProjector';
+import {
+  syntheticAlphaGradingPayload,
+  syntheticBetaGradingPayload,
+  syntheticGammaGradingPayload
+} from '../assessment/appGradingFixtures';
 
 const ledgerEngine = new StudentAssessmentLedgerEngine();
-const rawShin = AppGradingReader.createShinJiwooGradingPayload();
-const recordShin = ledgerEngine.ingestAssessmentRecord(AppGradingReader.normalizeAppSubmission(rawShin));
+const rawAlpha = syntheticAlphaGradingPayload;
+const recordAlpha = ledgerEngine.ingestAssessmentRecord(AppGradingReader.normalizeAppSubmission(rawAlpha));
 
-if (recordShin.score !== 90 || recordShin.percentage !== 90 || recordShin.wrongItemNumbers.length !== 2) {
-  throw new Error('FAIL: Shin Ji-woo assessment record calculation mismatch.');
+if (recordAlpha.score !== 90 || recordAlpha.percentage !== 90 || recordAlpha.wrongItemNumbers?.length !== 2) {
+  throw new Error('FAIL: Synthetic alpha assessment record calculation mismatch.');
 }
-console.log('  PASS: Shin Ji-woo individual DB record ingested (90점, 18/20, 오답 7, 14번).');
+console.log('  PASS: Synthetic alpha ledger record calculated (90 points, 18/20).');
 
-const rawYoo = AppGradingReader.createYooJiyeonGradingPayload();
-const recordYoo = ledgerEngine.ingestAssessmentRecord(AppGradingReader.normalizeAppSubmission(rawYoo));
-if (recordYoo.score !== 95 || recordYoo.percentage !== 95 || recordYoo.wrongItemNumbers.length !== 1) {
-  throw new Error('FAIL: Yoo Ji-yeon assessment record calculation mismatch.');
+const rawBeta = syntheticBetaGradingPayload;
+const recordBeta = ledgerEngine.ingestAssessmentRecord(AppGradingReader.normalizeAppSubmission(rawBeta));
+if (recordBeta.score !== 95 || recordBeta.percentage !== 95 || recordBeta.wrongItemNumbers?.length !== 1) {
+  throw new Error('FAIL: Synthetic beta assessment record calculation mismatch.');
 }
-console.log('  PASS: Yoo Ji-yeon individual DB record ingested (95점, 19/20, 오답 12번).');
+console.log('  PASS: Synthetic beta ledger record calculated (95 points, 19/20).');
 
-if (!ledgerEngine.verifyRecordIntegrity(recordShin) || !ledgerEngine.verifyRecordIntegrity(recordYoo)) {
+if (!ledgerEngine.verifyRecordIntegrity(recordAlpha) || !ledgerEngine.verifyRecordIntegrity(recordBeta)) {
   throw new Error('FAIL: SHA-256 record integrity check failed.');
 }
 console.log('  PASS: SHA-256 tamper-proof ledger integrity verified.');
 
 console.log('\n--- [DIM-07: Main Sheet Projection Card & Sheets batchUpdate] ---');
-const cardShin = MainSheetAssessmentProjector.projectCard(recordShin);
-if (cardShin.statusBadge !== '🟢 채점완료' || !cardShin.hoverNote.includes('LEC_G5_2_CH1_P72_Q07')) {
+const cardAlpha = MainSheetAssessmentProjector.projectRow(recordAlpha);
+if (cardAlpha.statusBadge !== '🟡 강사확인필요' || !cardAlpha.hoverNote.includes('해설 키 연결됨')) {
   throw new Error('FAIL: Main Sheet projection card or hover note mismatch.');
 }
-console.log('  PASS: Main Sheet card projected with 🟢 채점완료 and rich hover notes.');
+console.log('  PASS: Main row projected with teacher-review-needed status and source-key presence marker.');
 
-const rawPark = AppGradingReader.createParkSeeunGradingPayload();
-const recordPark = ledgerEngine.ingestAssessmentRecord(AppGradingReader.normalizeAppSubmission(rawPark));
-if (recordPark.score !== 85 || recordPark.wrongItemNumbers.length !== 3) {
-  throw new Error('FAIL: Park Se-eun grading calculation mismatch.');
+const rawGamma = syntheticGammaGradingPayload;
+const recordGamma = ledgerEngine.ingestAssessmentRecord(AppGradingReader.normalizeAppSubmission(rawGamma));
+if (recordGamma.score !== 85 || recordGamma.wrongItemNumbers?.length !== 3) {
+  throw new Error('FAIL: Synthetic gamma grading calculation mismatch.');
 }
-console.log('  PASS: Park Se-eun individual DB record ingested (85점, 17/20, 오답 5, 11, 19번).');
+console.log('  PASS: Synthetic gamma ledger record calculated (85 points, 17/20).');
 
 console.log('\n--- [DIM-08: Carry-Forward Clinic & Daily Test Pipeline] ---');
 import { CarryForwardQueueManager } from '../../src/assessment/carryForwardQueue';
 
-const shinNextDate = CarryForwardQueueManager.resolveNextSessionDate('월수1부', '2026-09-28');
-const parkNextDate = CarryForwardQueueManager.resolveNextSessionDate('월금1부', '2026-09-28');
-if (shinNextDate !== '2026-09-30' || parkNextDate !== '2026-10-02') {
+const firstNextDate = CarryForwardQueueManager.resolveNextSessionDate('2026-09-28', ['2026-09-30']);
+const secondNextDate = CarryForwardQueueManager.resolveNextSessionDate('2026-09-28', ['2026-10-02']);
+if (firstNextDate !== '2026-09-30' || secondNextDate !== '2026-10-02') {
   throw new Error('FAIL: Next class date resolution error.');
 }
-console.log('  PASS: Next session dates mapped (월수1부 ➔ 2026-09-30, 월금1부 ➔ 2026-10-02).');
+console.log('  PASS: Verified synthetic next session dates selected.');
 
 const clinicItems = CarryForwardQueueManager.buildClinicItems([
   { sourceCategory: '필수예제', originalProblemNumber: 3, similarCount: 2 }

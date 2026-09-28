@@ -1,8 +1,8 @@
 /**
- * Student Individual Database & Longitudinal Assessment Ledger Engine.
+ * In-memory, student-partitioned longitudinal assessment ledger.
  * 
  * Domain Rules:
- * 1. Each student maintains an independent, append-only historical database (`DB_{studentName}` or `DB_{studentId}`).
+ * 1. Each opaque student ID partitions append-only history in memory; sheet tabs are not created here.
  * 2. All assessment records (대단원 총괄평가, Daily Test, Zero Test, 클리닉 등) accumulate longitudinally.
  * 3. Each record maintains cryptographic SHA-256 checksums to detect grade tampering.
  * 4. Read-only app grading feeds are ingested without destructive overwrites of historical records.
@@ -17,12 +17,16 @@ import type {
   AssessmentGradingStatus,
   AssessmentItemOutcome,
   StudentAssessmentRecord,
-  StudentCumulativeStats
+  StudentCumulativeStats,
+  AssessmentCorrectionReviewEvent,
+  AssessmentVerificationEvidence
 } from '../../data/raw_sessions/2026-09-28/main_sheet_v2.types';
 
 export interface IngestAssessmentInput {
-  pNo?: string;        // LMS Exam Paper Identifier (e.g. "6343283")
   studentId: StudentId;
+  pNo?: string;
+  sourceRecordId?: string;
+  verificationEvidence?: AssessmentVerificationEvidence;
   studentName: string;
   enrolledGroup: ClassGroupId;
   sessionDate: string; // YYYY-MM-DD
@@ -33,89 +37,125 @@ export interface IngestAssessmentInput {
   timeLimitMinutes: number;
   timeSpentMinutes: number;
   submittedAt: string; // ISO 8601
+  gradeVerification?: 'verified' | 'unknown';
   submissionMethod: 'academy_app' | 'paper_omr' | 'teacher_direct';
   deviceInfo?: string;
-  itemOutcomes: AssessmentItemOutcome[];
+  itemOutcomes?: AssessmentItemOutcome[];
   teacherNotes?: string;
   nextAction?: string;
 }
 
+export interface AssessmentCorrectionReviewInput {
+  teacherId: string;
+  reviewedAt: string;
+  reviewedWrongItemNumbers: readonly number[];
+  teacherNotes: string;
+}
+
 export class StudentAssessmentLedgerEngine {
   // Keyed by StudentId -> Array of StudentAssessmentRecord
-  private studentDatabases: Map<StudentId, StudentAssessmentRecord[]> = new Map();
+  private studentHistories: Map<StudentId, StudentAssessmentRecord[]> = new Map();
 
-  // Student metadata cache (StudentId -> { name, sheetTabName })
-  private studentDirectory: Map<StudentId, { name: string; sheetTabName: string }> = new Map();
+  // Assessment facts remain immutable. Corrections are appended as separate events.
+  private studentDirectory: Map<StudentId, string> = new Map();
+  private correctionEvents: Map<StudentId, AssessmentCorrectionReviewEvent[]> = new Map();
 
   constructor() {}
 
   /**
-   * Register or ensure a student's individual DB tab exists.
+   * Register a student's opaque ID and display name in the in-memory ledger.
    */
-  public registerStudent(studentId: StudentId, name: string): string {
-    const sheetTabName = `DB_${name}`;
-    if (!this.studentDatabases.has(studentId)) {
-      this.studentDatabases.set(studentId, []);
+  public registerStudent(studentId: StudentId, name: string): void {
+    if (!this.studentHistories.has(studentId)) {
+      this.studentHistories.set(studentId, []);
     }
-    this.studentDirectory.set(studentId, { name, sheetTabName });
-    return sheetTabName;
+    this.studentDirectory.set(studentId, name);
   }
 
   /**
-   * Ingests a completed assessment into the student's individual database.
+   * Ingests an assessment into the in-memory partition for its opaque student ID.
    * Calculates scores, item statistics, and SHA-256 checksum automatically.
    */
   public ingestAssessmentRecord(input: IngestAssessmentInput): StudentAssessmentRecord {
-    const sheetTabName = this.registerStudent(input.studentId, input.studentName);
-
-    if (!input.itemOutcomes || input.itemOutcomes.length === 0) {
-      throw new Error(`Cannot ingest assessment without item outcomes. Received 0 questions.`);
+    this.registerStudent(input.studentId, input.studentName);
+    const existingHistory = this.studentHistories.get(input.studentId)!;
+    if (input.sourceRecordId && existingHistory.some(record => record.sourceRecordId === input.sourceRecordId)) {
+      throw new Error(`Source assessment ${input.sourceRecordId} is already present for student ${input.studentId}.`);
     }
 
-    const totalQuestions = input.itemOutcomes.length;
-    let correctCount = 0;
-    let totalScore = 0;
-    const wrongItemNumbers: number[] = [];
-
-    for (const item of input.itemOutcomes) {
-      if (item.isCorrect) {
-        correctCount++;
-        totalScore += item.score;
-      } else {
-        wrongItemNumbers.push(item.itemNo);
+    const gradeVerification = input.gradeVerification ?? 'unknown';
+    const sourceItems = input.itemOutcomes ?? [];
+    if (gradeVerification === 'verified') {
+      const proof = input.verificationEvidence;
+      if (
+        !input.sourceRecordId?.trim() ||
+        !input.submittedAt.trim() ||
+        !proof ||
+        proof.studentId !== input.studentId ||
+        (input.submissionMethod === 'academy_app' && (!input.pNo?.trim() || proof.pNo !== input.pNo)) ||
+        proof.sourceRecordId !== input.sourceRecordId ||
+        proof.sourceTimestamp !== input.submittedAt ||
+        !proof.sourceAttemptId.trim()
+      ) {
+        throw new Error('Verified grades require an exact student, attempt, source record ID, and source timestamp join proof.');
       }
     }
+    if (gradeVerification === 'verified' && sourceItems.length === 0) {
+      throw new Error('Cannot ingest a verified assessment without item outcomes.');
+    }
 
-    const wrongCount = totalQuestions - correctCount;
-    const percentage = Number(((correctCount / totalQuestions) * 100).toFixed(1));
+    const itemOutcomes = gradeVerification === 'verified'
+      ? sourceItems.map(item => ({ ...item }))
+      : null;
+    const totalQuestions = itemOutcomes?.length ?? null;
+    let correctCount: number | null = null;
+    let totalScore: number | null = null;
+    let wrongCount: number | null = null;
+    let percentage: number | null = null;
+    let wrongItemNumbers: number[] | null = null;
 
-    // Determine default status and nextAction
-    const status: AssessmentGradingStatus = wrongCount > 0 ? 'graded' : 'mastered';
-    const nextAction = input.nextAction || (wrongCount > 0 
-      ? `오답 문항(${wrongItemNumbers.join(', ')}번) 클리닉지 인쇄 및 해설강의 배정`
-      : '전문항 정답 마스터 완료');
+    if (itemOutcomes) {
+      correctCount = 0;
+      totalScore = 0;
+      wrongItemNumbers = [];
+      for (const item of itemOutcomes) {
+        if (item.isCorrect) {
+          correctCount += 1;
+          totalScore += item.score;
+        } else {
+          wrongItemNumbers.push(item.itemNo);
+        }
+      }
+      wrongCount = totalQuestions! - correctCount;
+      percentage = Number(((correctCount / totalQuestions!) * 100).toFixed(1));
+    }
 
-    // Generate unique recordId
+    const status: AssessmentGradingStatus = gradeVerification === 'unknown' ? 'unverified' : 'graded';
+    const nextAction = input.nextAction || (gradeVerification === 'unknown'
+      ? '성적 확인 대기'
+      : '강사 최종 확인 필요');
+
     const dateCompact = input.sessionDate.replace(/-/g, '');
-    const currentCount = (this.studentDatabases.get(input.studentId) || []).length + 1;
-    const recordId = `asm_${dateCompact}_${input.studentId}_${String(currentCount).padStart(2, '0')}`;
-
-    // Compute cryptographic SHA-256 hash of assessment facts
-    const hashPayload = JSON.stringify({
+    const recordId = `asm_${dateCompact}_${input.studentId}_${String(existingHistory.length + 1).padStart(2, '0')}`;
+    const checksum = this.calculateRecordChecksum({
       recordId,
-      pNo: input.pNo || null,
+      pNo: input.pNo,
+      sourceRecordId: input.sourceRecordId,
+      sourceAttemptId: input.verificationEvidence?.sourceAttemptId,
       studentId: input.studentId,
       sessionDate: input.sessionDate,
+      submittedAt: input.submittedAt,
       score: totalScore,
       correctCount,
       wrongItemNumbers,
-      submittedAt: input.submittedAt
+      itemOutcomes
     });
-    const checksum = createHash('sha256').update(hashPayload).digest('hex');
 
     const record: StudentAssessmentRecord = {
       recordId,
       pNo: input.pNo,
+      sourceRecordId: input.sourceRecordId,
+      sourceAttemptId: input.verificationEvidence?.sourceAttemptId,
       studentId: input.studentId,
       studentName: input.studentName,
       enrolledGroup: input.enrolledGroup,
@@ -134,7 +174,7 @@ export class StudentAssessmentLedgerEngine {
       score: totalScore,
       percentage,
       wrongItemNumbers,
-      itemOutcomes: input.itemOutcomes,
+      itemOutcomes,
       status,
       deviceInfo: input.deviceInfo,
       teacherNotes: input.teacherNotes,
@@ -142,42 +182,42 @@ export class StudentAssessmentLedgerEngine {
       checksum
     };
 
-    // Append to student's individual DB
-    const studentHistory = this.studentDatabases.get(input.studentId)!;
-    studentHistory.push(record);
-
-    return record;
+    existingHistory.push(record);
+    return {
+      ...record,
+      wrongItemNumbers: record.wrongItemNumbers ? [...record.wrongItemNumbers] : null,
+      itemOutcomes: record.itemOutcomes?.map(item => ({ ...item })) ?? null
+    };
   }
 
   /**
    * Retrieves all historical assessment records for a student.
    */
   public getStudentHistory(studentId: StudentId): StudentAssessmentRecord[] {
-    const records = this.studentDatabases.get(studentId);
+    const records = this.studentHistories.get(studentId);
     if (!records) return [];
-    // Return a shallow clone of the array to prevent direct external mutation
-    return [...records];
+    const events = this.correctionEvents.get(studentId) ?? [];
+    return records.map(record => this.projectEffectiveRecord(record, events));
   }
 
   /**
    * Retrieves the most recent assessment record for a student.
    */
   public getLatestAssessment(studentId: StudentId): StudentAssessmentRecord | null {
-    const history = this.studentDatabases.get(studentId);
+    const history = this.studentHistories.get(studentId);
     if (!history || history.length === 0) return null;
-    return history[history.length - 1];
+    return this.projectEffectiveRecord(history[history.length - 1], this.correctionEvents.get(studentId) ?? []);
   }
 
   /**
-   * Marks a student's assessment error corrections as completed and approved by the teacher.
-   * Updates status to 'clinic_completed' and recomputes the SHA-256 checksum.
+   * Appends a teacher correction-review event without changing the assessment record.
    */
   public markAssessmentCorrectionsCompleted(
     studentId: StudentId,
     recordId: string,
-    teacherNotes?: string
+    review: AssessmentCorrectionReviewInput
   ): StudentAssessmentRecord {
-    const history = this.studentDatabases.get(studentId);
+    const history = this.studentHistories.get(studentId);
     if (!history) {
       throw new Error(`Student ${studentId} not found in assessment ledger.`);
     }
@@ -187,74 +227,109 @@ export class StudentAssessmentLedgerEngine {
       throw new Error(`Assessment record ${recordId} not found for student ${studentId}.`);
     }
 
-    record.status = 'clinic_completed';
-    record.teacherNotes = teacherNotes || '오답 문항 재풀이 완료 및 강사 대면 실물 검사 통과';
-    record.nextAction = '오답 대면 검사 완료 ➔ 후속 진도 진행';
+    if (record.status === 'unverified' || record.wrongItemNumbers === null || record.wrongItemNumbers.length === 0) {
+      throw new Error(`Assessment record ${recordId} has no verified clinic work to review.`);
+    }
 
-    // Recompute SHA-256 integrity hash with updated status
-    const hashPayload = JSON.stringify({
-      recordId: record.recordId,
-      pNo: record.pNo || null,
-      studentId: record.studentId,
-      sessionDate: record.sessionDate,
-      score: record.score,
-      correctCount: record.correctCount,
-      wrongItemNumbers: record.wrongItemNumbers,
-      submittedAt: record.submittedAt
-    });
-    record.checksum = createHash('sha256').update(hashPayload).digest('hex');
+    if (!review.teacherId.trim() || !review.teacherNotes.trim()) {
+      throw new Error('Teacher ID and review notes are required to record correction review.');
+    }
+    if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(review.reviewedAt) || !Number.isFinite(Date.parse(review.reviewedAt))) {
+      throw new Error('Correction review time must be an ISO timestamp with an explicit UTC offset.');
+    }
+    const expectedItems = [...record.wrongItemNumbers].sort((a, b) => a - b);
+    const reviewedItems = [...review.reviewedWrongItemNumbers].sort((a, b) => a - b);
+    if (
+      reviewedItems.length !== expectedItems.length ||
+      new Set(reviewedItems).size !== reviewedItems.length ||
+      reviewedItems.some((itemNo, index) => itemNo !== expectedItems[index])
+    ) {
+      throw new Error('Reviewed wrong-item numbers must exactly match the verified assessment wrong items.');
+    }
 
-    return record;
+    const events = this.correctionEvents.get(studentId) ?? [];
+    const priorReviewsForRecord = events.filter(event => event.assessmentRecordId === recordId).length;
+    const event: AssessmentCorrectionReviewEvent = {
+      eventId: `review_${recordId}_${String(priorReviewsForRecord + 1).padStart(2, '0')}`,
+      studentId,
+      assessmentRecordId: recordId,
+      teacherId: review.teacherId,
+      reviewedAt: review.reviewedAt,
+      reviewedWrongItemNumbers: [...reviewedItems],
+      status: 'clinic_completed',
+      teacherNotes: review.teacherNotes,
+      nextAction: '강사 다음 조치 확인 필요'
+    };
+    events.push(event);
+    this.correctionEvents.set(studentId, events);
+    return this.projectEffectiveRecord(record, events);
   }
 
+  public getCorrectionHistory(studentId: StudentId): AssessmentCorrectionReviewEvent[] {
+    return (this.correctionEvents.get(studentId) ?? []).map(event => ({ ...event }));
+  }
 
   /**
    * Computes longitudinal cumulative statistics for a student.
    */
-  public getCumulativeStats(studentId: StudentId): StudentCumulativeStats {
-    const history = this.studentDatabases.get(studentId) || [];
-    const meta = this.studentDirectory.get(studentId);
-    const studentName = meta?.name || studentId;
-    const sheetTabName = meta?.sheetTabName || `DB_${studentId}`;
+  public getCumulativeStats(studentId: StudentId, weakUnitThresholdPercent?: number): StudentCumulativeStats {
+    if (weakUnitThresholdPercent !== undefined &&
+      (!Number.isFinite(weakUnitThresholdPercent) || weakUnitThresholdPercent < 0 || weakUnitThresholdPercent > 100)) {
+      throw new Error('Weak-unit threshold must be a caller-provided percentage from 0 to 100.');
+    }
+    const history = this.getStudentHistory(studentId);
+    const studentName = this.studentDirectory.get(studentId) || studentId;
 
     if (history.length === 0) {
       return {
         studentId,
         studentName,
-        sheetTabName,
         totalAssessmentsCount: 0,
-        cumulativeAverageScore: 0,
+        verifiedAssessmentsCount: 0,
+        cumulativeAverageScore: null,
         unresolvedClinicsCount: 0,
-        weakUnits: [],
+        weakUnits: weakUnitThresholdPercent === undefined ? null : [],
         lastAssessedAt: ''
       };
     }
 
-    const totalScoreSum = history.reduce((sum, r) => sum + r.score, 0);
-    const cumulativeAverageScore = Number((totalScoreSum / history.length).toFixed(1));
-    const unresolvedClinicsCount = history.filter(r => r.status === 'graded' || r.status === 'clinic_assigned').length;
+    const verifiedHistory = history.filter((record): record is StudentAssessmentRecord & { score: number; percentage: number } =>
+      record.score !== null && record.percentage !== null
+    );
+    const totalScoreSum = verifiedHistory.reduce((sum, record) => sum + record.score, 0);
+    const cumulativeAverageScore = verifiedHistory.length === 0
+      ? null
+      : Number((totalScoreSum / verifiedHistory.length).toFixed(1));
+    const unresolvedClinicsCount = history.filter(record =>
+      record.status !== 'clinic_completed' &&
+      record.wrongItemNumbers !== null && record.wrongItemNumbers.length > 0
+    ).length;
 
-    // Detect weak units (units with average score < 85%)
+    // Weak-unit classification is omitted until a teacher supplies a threshold.
     const unitScores: Map<string, { total: number; count: number }> = new Map();
-    for (const r of history) {
-      const entry = unitScores.get(r.unitName) || { total: 0, count: 0 };
-      entry.total += r.percentage;
-      entry.count += 1;
-      unitScores.set(r.unitName, entry);
+    if (weakUnitThresholdPercent !== undefined) {
+      for (const r of verifiedHistory) {
+        const entry = unitScores.get(r.unitName) || { total: 0, count: 0 };
+        entry.total += r.percentage;
+        entry.count += 1;
+        unitScores.set(r.unitName, entry);
+      }
     }
 
-    const weakUnits: string[] = [];
-    for (const [unit, data] of unitScores.entries()) {
-      if (data.total / data.count < 85) {
-        weakUnits.push(unit);
+    const weakUnits: string[] | null = weakUnitThresholdPercent === undefined ? null : [];
+    if (weakUnits) {
+      for (const [unit, data] of unitScores.entries()) {
+        if (data.total / data.count < weakUnitThresholdPercent!) {
+          weakUnits.push(unit);
+        }
       }
     }
 
     return {
       studentId,
       studentName,
-      sheetTabName,
       totalAssessmentsCount: history.length,
+      verifiedAssessmentsCount: verifiedHistory.length,
       cumulativeAverageScore,
       unresolvedClinicsCount,
       weakUnits,
@@ -266,43 +341,44 @@ export class StudentAssessmentLedgerEngine {
    * Verifies that a record's checksum matches its contents (tamper detection).
    */
   public verifyRecordIntegrity(record: StudentAssessmentRecord): boolean {
+    return record.checksum === this.calculateRecordChecksum(record);
+  }
+
+  private calculateRecordChecksum(record: Pick<StudentAssessmentRecord,
+    'recordId' | 'pNo' | 'sourceRecordId' | 'sourceAttemptId' | 'studentId' | 'sessionDate' | 'submittedAt' |
+    'score' | 'correctCount' | 'wrongItemNumbers' | 'itemOutcomes'>): string {
     const hashPayload = JSON.stringify({
       recordId: record.recordId,
-      pNo: record.pNo || null,
+      pNo: record.pNo,
+      sourceRecordId: record.sourceRecordId,
+      sourceAttemptId: record.sourceAttemptId,
       studentId: record.studentId,
       sessionDate: record.sessionDate,
+      submittedAt: record.submittedAt,
       score: record.score,
       correctCount: record.correctCount,
       wrongItemNumbers: record.wrongItemNumbers,
-      submittedAt: record.submittedAt
+      itemOutcomes: record.itemOutcomes
     });
-    const expectedChecksum = createHash('sha256').update(hashPayload).digest('hex');
-    return record.checksum === expectedChecksum;
+    return createHash('sha256').update(hashPayload).digest('hex');
   }
 
-  /**
-   * Exports the entire student database into Google Sheets 2D row array for tabular sync.
-   */
-  public exportStudentDbRows(studentId: StudentId): (string | number)[][] {
-    const history = this.studentDatabases.get(studentId) || [];
-    return history.map(rec => [
-      rec.sessionDate,
-      rec.enrolledGroup,
-      rec.assessmentCategory,
-      rec.bookTitle,
-      rec.unitName,
-      rec.scope,
-      rec.timeLimitMinutes,
-      rec.timeSpentMinutes,
-      rec.totalQuestions,
-      rec.correctCount,
-      rec.wrongCount,
-      rec.score,
-      `${rec.percentage}%`,
-      rec.wrongItemNumbers.length > 0 ? rec.wrongItemNumbers.join(', ') : '없음',
-      rec.status,
-      rec.nextAction || '',
-      rec.checksum.substring(0, 12) // Short hash for sheet audit display
-    ]);
+  private projectEffectiveRecord(
+    record: StudentAssessmentRecord,
+    events: AssessmentCorrectionReviewEvent[]
+  ): StudentAssessmentRecord {
+    const latestReview = [...events].reverse().find(event => event.assessmentRecordId === record.recordId);
+    const copy: StudentAssessmentRecord = {
+      ...record,
+      wrongItemNumbers: record.wrongItemNumbers ? [...record.wrongItemNumbers] : null,
+      itemOutcomes: record.itemOutcomes?.map(item => ({ ...item })) ?? null
+    };
+    if (!latestReview) return copy;
+    return {
+      ...copy,
+      status: latestReview.status,
+      teacherNotes: latestReview.teacherNotes,
+      nextAction: latestReview.nextAction
+    };
   }
 }

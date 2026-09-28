@@ -246,7 +246,7 @@ export class AuditTrailEngine {
       throw new Error(`Audit rejection: Reason must be at least 10 meaningful characters. Received: "${input.reason || ''}".`);
     }
 
-    // Prevent trivial bypass like "1234567890" or "수정수정수정수정수정" without semantic text
+    // Reject repetitive reasons that contain only an opaque identifier or repeated filler text.
     const trimmedReason = input.reason.trim();
     if (/^(.)\1{9,}$/.test(trimmedReason)) {
       throw new Error(`Audit rejection: Trivial repetitive pattern detected in reason: "${trimmedReason}".`);
