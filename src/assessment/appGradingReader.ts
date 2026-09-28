@@ -26,6 +26,7 @@ export interface RawAppQuestionSubmission {
 }
 
 export interface RawAppAssessmentSubmission {
+  pNo?: string;        // LMS Exam Paper Identifier (e.g. "6343283")
   studentId: StudentId;
   studentName: string;
   enrolledGroup: ClassGroupId;
@@ -66,6 +67,7 @@ export class AppGradingReader {
     });
 
     return {
+      pNo: raw.pNo,
       studentId: raw.studentId,
       studentName: raw.studentName,
       enrolledGroup: raw.enrolledGroup,
@@ -169,6 +171,7 @@ export class AppGradingReader {
     }
 
     return {
+      pNo: '6343283',
       studentId: '1293138',
       studentName: '유지연',
       enrolledGroup: '월금1부',

@@ -122,6 +122,7 @@ export interface TimedAssessmentState {
   assessmentName: string; // e.g. "대단원 총괄평가 (소수의 곱셈)"
   bookTitle: string;      // e.g. "초5-2 가우스 2권"
   scope: string;          // e.g. "p.71 ~ p.73"
+  pNo?: string;           // LMS exam paper identifier (e.g. "6343283")
   timeLimitMinutes: number; // e.g. 60
   scheduledStartTime: string; // "15:35"
   scheduledEndTime: string;   // "16:35"
@@ -689,6 +690,7 @@ export interface AssessmentItemOutcome {
 
 export interface StudentAssessmentRecord {
   recordId: string;             // e.g. "asm_20260928_1293032_01"
+  pNo?: string;                 // LMS Exam Paper Identifier (e.g. "6343283")
   studentId: StudentId;
   studentName: string;
   enrolledGroup: ClassGroupId;
@@ -729,6 +731,7 @@ export interface StudentCumulativeStats {
 export interface MainSheetAssessmentCardProjection {
   studentId: StudentId;
   studentName: string;
+  pNo?: string;                 // LMS Exam Paper Identifier (e.g. "6343283")
   latestAssessmentTitle: string;
   scope: string;
   statusBadge: '🟢 채점완료' | '🟢 오답검사완료' | '🟡 풀이완료(채점중)' | '🔵 응시중' | '⚪ 미응시';

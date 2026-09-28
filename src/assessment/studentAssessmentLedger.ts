@@ -21,6 +21,7 @@ import type {
 } from '../../data/raw_sessions/2026-09-28/main_sheet_v2.types';
 
 export interface IngestAssessmentInput {
+  pNo?: string;        // LMS Exam Paper Identifier (e.g. "6343283")
   studentId: StudentId;
   studentName: string;
   enrolledGroup: ClassGroupId;
@@ -102,6 +103,7 @@ export class StudentAssessmentLedgerEngine {
     // Compute cryptographic SHA-256 hash of assessment facts
     const hashPayload = JSON.stringify({
       recordId,
+      pNo: input.pNo || null,
       studentId: input.studentId,
       sessionDate: input.sessionDate,
       score: totalScore,
@@ -113,6 +115,7 @@ export class StudentAssessmentLedgerEngine {
 
     const record: StudentAssessmentRecord = {
       recordId,
+      pNo: input.pNo,
       studentId: input.studentId,
       studentName: input.studentName,
       enrolledGroup: input.enrolledGroup,
@@ -191,6 +194,7 @@ export class StudentAssessmentLedgerEngine {
     // Recompute SHA-256 integrity hash with updated status
     const hashPayload = JSON.stringify({
       recordId: record.recordId,
+      pNo: record.pNo || null,
       studentId: record.studentId,
       sessionDate: record.sessionDate,
       score: record.score,
@@ -264,6 +268,7 @@ export class StudentAssessmentLedgerEngine {
   public verifyRecordIntegrity(record: StudentAssessmentRecord): boolean {
     const hashPayload = JSON.stringify({
       recordId: record.recordId,
+      pNo: record.pNo || null,
       studentId: record.studentId,
       sessionDate: record.sessionDate,
       score: record.score,
