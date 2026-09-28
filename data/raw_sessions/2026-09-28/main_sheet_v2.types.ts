@@ -1,7 +1,7 @@
 /**
  * Main Sheet v2 Schema & Type Definitions
  * Session Date: 2026-09-28 15:00
- * Target Pupils: Shin Ji-woo (1293032), Park Se-eun (1293067), Yoo Ji-yeon (1293138)
+ * Student and teacher identifiers are opaque values supplied by authorized callers.
  * 
  * Strict Domain Model:
  * 1. Multi-Book Atomic State Machine & Task Drop/Pivot
@@ -15,9 +15,9 @@
 // 1. Identifiers & Branded Core Types
 // ============================================================================
 
-export type StudentId = '1293032' | '1293067' | '1293138' | '1294174' | (string & {});
+export type StudentId = string;
 export type ClassGroupId = '1' | '2' | '3' | '4'; // 1: 화목2부, 2: 월수1부, 3: 월금1부, 4: 수금2부
-export type TeacherId = '1292923' | (string & {}); // 1292923: 박경찬 선생님
+export type TeacherId = string;
 
 export type BookSlug = 
   | 'gauss_5_2_vol2'
@@ -268,11 +268,11 @@ export interface ResolvedBaselineDate {
   }>;
 }
 
-export type PrestudyTrafficLight = 
-  | 'GREEN'   // Video uploaded & verified before 14:00
-  | 'YELLOW'  // Video uploaded late (< 30 min before class) or sound/angle partial
-  | 'RED'     // Missing or overdue; triggers Zero Test or Explanation Shoot upon arrival
-  | 'GRAY';    // Not assigned / exempt
+export type PrestudyTrafficLight =
+  | 'GREEN'   // Source- and occurrence-verified upload before the briefing time
+  | 'YELLOW'  // Verified upload after briefing or verified quality issue
+  | 'UNKNOWN' // Required submission evidence is absent, unverified, or ambiguous
+  | 'GRAY';   // No prestudy video is assigned
 
 export interface ParsedPrestudyTask {
   bookTitle: string;
@@ -313,7 +313,7 @@ export type AuditField =
 export interface AuditRecord {
   auditId: AuditId;
   timestamp: string; // ISO 8601 with offset, e.g. "2026-09-23T11:20:00+09:00"
-  author: string;    // e.g. "박경찬T" or TeacherId "1292923"
+  author: string; // Opaque reviewer identifier.
   targetStudentId: StudentId;
   targetDate: string; // YYYY-MM-DD of the target lesson record
   field: AuditField;
@@ -591,7 +591,7 @@ export function parsePrestudyHomework(homeworkText: string): ParsedPrestudyTask[
         pageStart,
         pageEnd,
         requiresVideoUpload: true,
-        status: 'RED', // Default until backend upload confirmation at 14:00 scanner
+        status: 'UNKNOWN', // Unverified until exact source and occurrence evidence is joined
         rawKeywordMatch: line,
         verificationSource: 'unverified'
       });
@@ -671,10 +671,10 @@ export type AssessmentCategory =
   | '개념백지테스트';
 
 export type AssessmentGradingStatus = 
+  | 'unverified'
   | 'graded' 
   | 'clinic_assigned' 
-  | 'clinic_completed' 
-  | 'mastered';
+  | 'clinic_completed';
 
 export interface AssessmentItemOutcome {
   itemNo: number;
@@ -688,7 +688,9 @@ export interface AssessmentItemOutcome {
 }
 
 export interface StudentAssessmentRecord {
-  recordId: string;             // e.g. "asm_20260928_1293032_01"
+  recordId: string;             // Local immutable ledger entry ID
+  sourceRecordId?: string;      // Preserved source-system record ID, when supplied
+  sourceAttemptId?: string;     // Exact joined source attempt ID, when verified
   studentId: StudentId;
   studentName: string;
   enrolledGroup: ClassGroupId;
@@ -699,15 +701,15 @@ export interface StudentAssessmentRecord {
   scope: string;
   timeLimitMinutes: number;
   timeSpentMinutes: number;
-  submittedAt: string;          // ISO 8601
+  submittedAt: string;          // Exact source timestamp (ISO 8601 when provided that way)
   submissionMethod: 'academy_app' | 'paper_omr' | 'teacher_direct';
-  totalQuestions: number;
-  correctCount: number;
-  wrongCount: number;
-  score: number;
-  percentage: number;
-  wrongItemNumbers: number[];
-  itemOutcomes: AssessmentItemOutcome[];
+  totalQuestions: number | null;
+  correctCount: number | null;
+  wrongCount: number | null;
+  score: number | null;
+  percentage: number | null;
+  wrongItemNumbers: number[] | null;
+  itemOutcomes: AssessmentItemOutcome[] | null;
   status: AssessmentGradingStatus;
   deviceInfo?: string;
   teacherNotes?: string;
@@ -715,24 +717,58 @@ export interface StudentAssessmentRecord {
   checksum: string;             // SHA-256 integrity hash
 }
 
+export interface AssessmentVerificationEvidence {
+  studentId: StudentId;
+  sourceRecordId: string;
+  sourceAttemptId: string;
+  sourceTimestamp: string;
+}
+
+export interface AssessmentCorrectionReviewEvent {
+  eventId: string;
+  studentId: StudentId;
+  teacherId: TeacherId;
+  assessmentRecordId: string;
+  reviewedAt: string;
+  reviewedWrongItemNumbers: number[];
+  status: 'clinic_completed';
+  teacherNotes: string;
+  nextAction: string;
+}
+
 export interface StudentCumulativeStats {
   studentId: StudentId;
   studentName: string;
-  sheetTabName: string;         // e.g. "DB_신지우"
   totalAssessmentsCount: number;
-  cumulativeAverageScore: number;
+  verifiedAssessmentsCount: number;
+  cumulativeAverageScore: number | null;
   unresolvedClinicsCount: number;
-  weakUnits: string[];
+  weakUnits: string[] | null;
   lastAssessedAt: string;
 }
 
-export interface MainSheetAssessmentCardProjection {
+export interface MainSheetAssessmentTarget {
+  spreadsheetId: string;
+  sheetId: number;
+  tabName: '박경찬';
+  block: {
+    startRowIndex: number;
+    endRowIndex: number;
+    nextRowIndex: number;
+    startColumnIndex: number;
+    endColumnIndex: number;
+  };
+}
+
+export interface MainSheetAssessmentRowProjection {
+  recordId: string;
+  sourceRecordId: string | null;
   studentId: StudentId;
   studentName: string;
   latestAssessmentTitle: string;
   scope: string;
-  statusBadge: '🟢 채점완료' | '🟢 오답검사완료' | '🟡 풀이완료(채점중)' | '🔵 응시중' | '⚪ 미응시';
-  scoreDisplay: string;         // e.g. "90점 (18/20)"
+  statusBadge: '🟢 오답검사완료' | '🟡 강사확인필요' | '🟡 클리닉배정' | '⚪ 미응시' | '⚪ 성적미확인';
+  scoreDisplay: string;         // e.g. "90점 (18/20)" or "성적 미확인"
   wrongItemsDisplay: string;    // e.g. "7번, 14번"
   nextStepAction: string;       // e.g. "오답 클리닉지 인쇄 / 개념백지테스트 대면 구술"
   sheetRowValues: (string | number)[];
@@ -795,5 +831,3 @@ export interface CarryForwardSessionBundle {
   homeworkCheckRequired: boolean;
   briefingAlert: string;
 }
-
-

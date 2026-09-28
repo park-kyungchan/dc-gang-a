@@ -1,0 +1,13 @@
+{
+  "name": "dc-gang-a-main-sheet",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test:synthetic": "bun test tests/wholeLens/classOverview.test.ts tests/preclass/preclassScanner.test.ts tests/assessment/studentAssessmentLedger.test.ts tests/assessment/carryForwardQueue.test.ts tests/sheets/oneTabMigrationPlan.test.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "1.3.14",
+    "typescript": "5.9.3"
+  }
+}
