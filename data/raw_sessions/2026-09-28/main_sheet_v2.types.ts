@@ -731,7 +731,7 @@ export interface MainSheetAssessmentCardProjection {
   studentName: string;
   latestAssessmentTitle: string;
   scope: string;
-  statusBadge: '🟢 채점완료' | '🟡 풀이완료(채점중)' | '🔵 응시중' | '⚪ 미응시';
+  statusBadge: '🟢 채점완료' | '🟢 오답검사완료' | '🟡 풀이완료(채점중)' | '🔵 응시중' | '⚪ 미응시';
   scoreDisplay: string;         // e.g. "90점 (18/20)"
   wrongItemsDisplay: string;    // e.g. "7번, 14번"
   nextStepAction: string;       // e.g. "오답 클리닉지 인쇄 / 개념백지테스트 대면 구술"

@@ -166,6 +166,45 @@ export class StudentAssessmentLedgerEngine {
   }
 
   /**
+   * Marks a student's assessment error corrections as completed and approved by the teacher.
+   * Updates status to 'clinic_completed' and recomputes the SHA-256 checksum.
+   */
+  public markAssessmentCorrectionsCompleted(
+    studentId: StudentId,
+    recordId: string,
+    teacherNotes?: string
+  ): StudentAssessmentRecord {
+    const history = this.studentDatabases.get(studentId);
+    if (!history) {
+      throw new Error(`Student ${studentId} not found in assessment ledger.`);
+    }
+
+    const record = history.find(r => r.recordId === recordId);
+    if (!record) {
+      throw new Error(`Assessment record ${recordId} not found for student ${studentId}.`);
+    }
+
+    record.status = 'clinic_completed';
+    record.teacherNotes = teacherNotes || '오답 문항 재풀이 완료 및 강사 대면 실물 검사 통과';
+    record.nextAction = '오답 대면 검사 완료 ➔ 후속 진도 진행';
+
+    // Recompute SHA-256 integrity hash with updated status
+    const hashPayload = JSON.stringify({
+      recordId: record.recordId,
+      studentId: record.studentId,
+      sessionDate: record.sessionDate,
+      score: record.score,
+      correctCount: record.correctCount,
+      wrongItemNumbers: record.wrongItemNumbers,
+      submittedAt: record.submittedAt
+    });
+    record.checksum = createHash('sha256').update(hashPayload).digest('hex');
+
+    return record;
+  }
+
+
+  /**
    * Computes longitudinal cumulative statistics for a student.
    */
   public getCumulativeStats(studentId: StudentId): StudentCumulativeStats {
