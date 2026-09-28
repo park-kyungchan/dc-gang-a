@@ -1,0 +1,163 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-09-28T15:31:08+09:00",
+  "textbooks": {
+    "g5_2_gauss_vol2": {
+      "bookId": "g5_2_gauss_vol2",
+      "curriculumRevision": "2022개정",
+      "gradeLevel": "초5-2",
+      "series": "가우스",
+      "volume": 2,
+      "bookTitle": "초5-2 가우스 2권",
+      "targetStudents": ["신지우 (1293032)", "박세은 (1293067)"],
+      "chapters": [
+        {
+          "unitNo": 1,
+          "unitName": "소수의 곱셈",
+          "pageRange": "p.40 ~ p.73",
+          "subsections": [
+            { "subNo": "4-1", "title": "(1보다 작은 소수) × (자연수)의 계산", "pageRange": "p.40 ~ p.45" },
+            { "subNo": "4-2", "title": "(1보다 큰 소수) × (자연수)의 계산", "pageRange": "p.46 ~ p.51" },
+            { "subNo": "4-3", "title": "(자연수) × (1보다 작은 소수)의 계산", "pageRange": "p.52 ~ p.57" },
+            { "subNo": "4-4", "title": "(자연수) × (1보다 큰 소수)의 계산", "pageRange": "p.58 ~ p.63" },
+            { "subNo": "4-5", "title": "(1보다 작은 소수) × (1보다 작은 소수)의 계산", "pageRange": "p.64 ~ p.69" },
+            { "subNo": "DT", "title": "Daily Test 및 오답 Clinic", "pageRange": "p.52 ~ p.70" },
+            { 
+              "subNo": "FINAL_EVAL_1", 
+              "title": "대단원 총괄평가 (소수의 곱셈)", 
+              "pageRange": "p.71 ~ p.73", 
+              "assessmentType": "대단원 총괄평가 (60분 타임어택)",
+              "assignedStudent": "신지우 (1293032, 15:35 시작)"
+            }
+          ]
+        },
+        {
+          "unitNo": 2,
+          "unitName": "직육면체 및 직육면체의 성질",
+          "pageRange": "p.78 ~ p.138",
+          "subsections": [
+            { "subNo": "2-5-1", "title": "직사각형 6개로 둘러싸인 도형", "pageRange": "p.78 ~ p.95" },
+            { "subNo": "2-5-2", "title": "정사각형 6개로 둘러싸인 도형", "pageRange": "p.96 ~ p.113" },
+            { "subNo": "2-5-3", "title": "직육면체의 성질", "pageRange": "p.114 ~ p.131" },
+            { "subNo": "DT_CLINIC", "title": "개념백지테스트·클리닉·Daily Test", "pageRange": "p.100 ~ p.131" },
+            { 
+              "subNo": "FINAL_EVAL_2", 
+              "title": "대단원 총괄평가 (직육면체)", 
+              "pageRange": "p.134 ~ p.138", 
+              "assessmentType": "대단원 총괄평가 (60분 타임어택)",
+              "assignedStudent": "박세은 (1293067, 15:35 시작)"
+            }
+          ]
+        }
+      ]
+    },
+    "g5_1_davinci_vol1": {
+      "bookId": "g5_1_davinci_vol1",
+      "curriculumRevision": "2022개정",
+      "gradeLevel": "초5-1",
+      "series": "다빈치 (심화)",
+      "volume": 1,
+      "bookTitle": "초5-1 다빈치 1권",
+      "targetStudents": ["신지우 (1293032)", "박세은 (1293067)"],
+      "chapters": [
+        {
+          "unitNo": 1,
+          "unitName": "자연수의 혼합 계산",
+          "pageRange": "p.14 ~ p.21",
+          "subsections": [
+            { "subNo": "1-1", "title": "자연수의 혼합 계산 (1)", "pageRange": "p.14 ~ p.17" },
+            { "subNo": "1-2", "title": "자연수의 혼합 계산 (2)", "pageRange": "p.18 ~ p.21" }
+          ]
+        },
+        {
+          "unitNo": 2,
+          "unitName": "약수와 배수",
+          "pageRange": "p.22 ~ p.39",
+          "subsections": [
+            { "subNo": "2-1", "title": "실력올리기, 만점도전", "pageRange": "p.27 ~ p.29" },
+            { 
+              "subNo": "2-2", 
+              "title": "약수와 배수 (2)", 
+              "pageRange": "p.30 ~ p.39",
+              "inClassProgress": "박세은 (1293067, 대기 버퍼 과제로 풀이 완료)"
+            }
+          ]
+        },
+        {
+          "unitNo": 3,
+          "unitName": "규칙과 대응 / 분수의 약분과 통분 심화",
+          "pageRange": "p.40 ~ p.59",
+          "subsections": [
+            { 
+              "subNo": "3-1", 
+              "title": "심화 문제풀이", 
+              "pageRange": "p.42 ~ p.49",
+              "note": "신지우(1293032) 결석 사후 과제였으나 난이도 과부하로 강사 취소 결정"
+            }
+          ]
+        }
+      ]
+    },
+    "g5_2_gaussplus": {
+      "bookId": "g5_2_gaussplus",
+      "curriculumRevision": "2022개정",
+      "gradeLevel": "초5-2",
+      "series": "가우스플러스 (응용/심화연계)",
+      "volume": 1,
+      "bookTitle": "가우스플러스 초5-2",
+      "targetStudents": ["유지연 (1293138)"],
+      "chapters": [
+        {
+          "unitNo": 1,
+          "unitName": "발전/응용 심화 1권",
+          "pageRange": "p.1 ~ p.70",
+          "subsections": []
+        },
+        {
+          "unitNo": 2,
+          "unitName": "발전/응용 심화 2단원",
+          "pageRange": "p.71 ~ p.89",
+          "subsections": [
+            {
+              "subNo": "GP-2",
+              "title": "개념 예습 및 응용 문제풀이",
+              "pageRange": "p.71 ~ p.89",
+              "note": "유지연 (1293138, 숙제 100% 완료 검사 통과 및 개념백지테스트 대상 범위)"
+            }
+          ]
+        }
+      ]
+    },
+    "g7_1_gauss_vol1": {
+      "bookId": "g7_1_gauss_vol1",
+      "curriculumRevision": "2022개정",
+      "gradeLevel": "중1-1",
+      "series": "가우스",
+      "volume": 1,
+      "bookTitle": "가우스 1-1",
+      "targetStudents": ["유지연 (1293138)"],
+      "chapters": [
+        {
+          "unitNo": 1,
+          "unitName": "소인수분해 및 정수와 유리수",
+          "pageRange": "p.1 ~ p.175",
+          "subsections": []
+        },
+        {
+          "unitNo": 2,
+          "unitName": "대단원 총괄평가",
+          "pageRange": "p.176 ~ p.179",
+          "subsections": [
+            {
+              "subNo": "FINAL_EVAL_G7_1",
+              "title": "대단원 총괄평가",
+              "pageRange": "p.176 ~ p.179",
+              "assessmentType": "대단원 총괄평가 (60분 타임어택)",
+              "assignedStudent": "유지연 (1293138, 15:35 ~ 16:35 실시)"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
