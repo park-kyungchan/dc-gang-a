@@ -4,6 +4,8 @@ Reviewed 2026-09-28 against `origin/feat/lms-harness-route-map-and-sheet-db-grou
 at `7139f0f84e8ac897c4caf4d4888b17351df505fa` and this branch's
 `03ba585`. This is a source review, not a backend invocation or workbook write.
 The remote branch remains separate.
+The user has assigned its subsequent integration and merge decision to the
+other PC. This review does not authorize merging or deleting that branch here.
 
 ## Findings
 
