@@ -259,6 +259,87 @@ export class LmsLiveQueryService {
   }
 
   /**
+   * Queries generated clinic papers (incorrect questions + similar drilling questions)
+   * from the LMS typeset servlet (TestpageSelectExServlet).
+   */
+  public async queryClinicPaper(params: {
+    sessionCookie: string;
+    studentName: string;
+    priNo: string | number;
+    testingNo: string | number;
+    similarExamCount?: number;
+    createAdvance?: boolean;
+  }): Promise<{
+    result: string;
+    printList: Array<{
+      examsetTitle: string;
+      subTitle: string;
+      examList: Array<{
+        examNo: number;
+        patName: string;
+        difficulty: number;
+        lectureKey: number;
+      }>;
+    }>;
+  }> {
+    if (!params.sessionCookie) {
+      throw new Error('LmsLiveQueryService: sessionCookie is required in process memory.');
+    }
+
+    const url = `${this.baseUrl}/servlet/controller.common.TestpageSelectExServlet`;
+    const condition = {
+      testing_no: Number(params.testingNo),
+      pri_no: Number(params.priNo),
+      student_name: params.studentName,
+      score: { create: 0 },
+      incorrect: { create: 1 },
+      similar: {
+        create: 1,
+        mode: 1,
+        exam_cnt: params.similarExamCount || 1
+      },
+      advance: { create: params.createAdvance ? 1 : 0 },
+      report: { create: 0 }
+    };
+
+    const body = new URLSearchParams({
+      p_process: 'getStudyResultSingleTestingSingleUser',
+      condition: JSON.stringify(condition)
+    }).toString();
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Cookie': `JSESSIONID=${params.sessionCookie}`,
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to query clinic paper: HTTP ${response.status}`);
+    }
+
+    const json: any = await response.json();
+    const printList = (json.print_list || []).map((p: any) => ({
+      examsetTitle: p.examset_title,
+      subTitle: p.sub_title,
+      examList: (p.exam_list || []).map((e: any) => ({
+        examNo: Number(e.exam_no),
+        patName: String(e.pat_name || ''),
+        difficulty: Number(e.difficulty || 0),
+        lectureKey: Number(e.lecture_key || 0)
+      }))
+    }));
+
+    return {
+      result: json.result,
+      printList
+    };
+  }
+
+  /**
    * Converts PupilResultDetail into normalized RawAppAssessmentSubmission.
    */
   public toRawAppSubmission(params: {
