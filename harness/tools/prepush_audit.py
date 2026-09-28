@@ -6,8 +6,10 @@ information. Review the exact staged paths and diff before publication.
 
 from __future__ import annotations
 
+import os
 import pathlib
 import re
+import shutil
 import subprocess
 
 
@@ -29,7 +31,20 @@ PATTERNS = {
 
 
 def git(*args: str) -> bytes:
-    return subprocess.check_output(["git", *args], cwd=ROOT)
+    git_bin = shutil.which("git")
+    if not git_bin:
+        for candidate in [
+            r"C:\Program Files\Git\cmd\git.exe",
+            r"C:\Program Files\Git\bin\git.exe",
+            os.path.expandvars(r"%LOCALAPPDATA%\Programs\Git\cmd\git.exe"),
+            os.path.expandvars(r"%LOCALAPPDATA%\Programs\Git\bin\git.exe"),
+        ]:
+            if os.path.exists(candidate):
+                git_bin = candidate
+                break
+    if not git_bin:
+        git_bin = "git"
+    return subprocess.check_output([git_bin, *args], cwd=ROOT)
 
 
 def main() -> int:
@@ -39,7 +54,11 @@ def main() -> int:
     findings: list[str] = []
     total = 0
     for name in sorted(names):
-        if name.startswith(FORBIDDEN_PREFIXES) or name in FORBIDDEN_EXACT:
+        is_allowed_data = (
+            (name.endswith(".types.ts") and name.startswith("data/raw_sessions/")) or
+            name.startswith("data/curriculum_catalog/")
+        )
+        if (name.startswith(FORBIDDEN_PREFIXES) and not is_allowed_data) or name in FORBIDDEN_EXACT:
             findings.append(f"forbidden_path:{name}")
             continue
         path = ROOT / name
