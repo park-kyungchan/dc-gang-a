@@ -184,4 +184,68 @@ export class AppGradingReader {
       questions
     };
   }
+
+  /**
+   * Generates synthetic live app grading payload for 2026-09-28 Park Se-eun (`1293067`).
+   * 20 questions total, 17 correct (85 pts), wrong: #5, #11, #19.
+   */
+  public static createParkSeeunGradingPayload(): RawAppAssessmentSubmission {
+    const questions: RawAppQuestionSubmission[] = [];
+    for (let i = 1; i <= 20; i++) {
+      if (i === 5) {
+        questions.push({
+          questionNo: 5,
+          submittedAnswer: '4',
+          correctAnswer: '2',
+          points: 5,
+          lectureKey: 'LEC_G5_2_CH2_P135_Q05',
+          topic: '직육면체의 꼭짓점과 모서리 관계'
+        });
+      } else if (i === 11) {
+        questions.push({
+          questionNo: 11,
+          submittedAnswer: '3',
+          correctAnswer: '1',
+          points: 5,
+          lectureKey: 'LEC_G5_2_CH2_P136_Q11',
+          topic: '직육면체의 겨냥도 그리기 및 평행 모서리'
+        });
+      } else if (i === 19) {
+        questions.push({
+          questionNo: 19,
+          submittedAnswer: '5',
+          correctAnswer: '3',
+          points: 5,
+          lectureKey: 'LEC_G5_2_CH2_P138_Q19',
+          topic: '직육면체의 전개도 접었을 때 마주보는 면'
+        });
+      } else {
+        questions.push({
+          questionNo: i,
+          submittedAnswer: '1',
+          correctAnswer: '1',
+          points: 5,
+          lectureKey: `LEC_G5_2_CH2_Q${String(i).padStart(2, '0')}`,
+          topic: '직육면체의 성질'
+        });
+      }
+    }
+
+    return {
+      studentId: '1293067',
+      studentName: '박세은',
+      enrolledGroup: '월금1부',
+      sessionDate: '2026-09-28',
+      assessmentCategory: '대단원총괄평가',
+      bookTitle: '초5-2 가우스 2권',
+      unitName: '2. 직육면체 및 직육면체의 성질',
+      scope: 'p.134 ~ p.138',
+      timeLimitMinutes: 60,
+      timeSpentMinutes: 59,
+      submittedAt: '2026-09-28T16:47:30+09:00',
+      deviceInfo: 'Galaxy Tab S8 (학원 태블릿)',
+      questions
+    };
+  }
 }
+

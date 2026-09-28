@@ -739,3 +739,61 @@ export interface MainSheetAssessmentCardProjection {
   hoverNote: string;
 }
 
+// ============================================================================
+// 10. Carry-Forward Clinic & Daily Test Pipeline Architecture
+// ============================================================================
+
+export type PrestudyProblemCategory = 
+  | '필수예제' 
+  | '유형다지기' 
+  | '실력다지기' 
+  | '대단원오답';
+
+export interface LabeledSimilarProblem {
+  similarProblemId: string;
+  label: string; // e.g. "유사 1번", "유사 2번"
+  difficultyLevel: '기본' | '응용' | '심화';
+}
+
+export interface CarryForwardClinicItem {
+  itemId: string;
+  sourceCategory: PrestudyProblemCategory;
+  originalProblemNumber: number;
+  originalProblemPrinted: boolean;
+  labeledSimilarProblems: LabeledSimilarProblem[];
+  executionSurface: '풀이노트 (Practice Notebook)';
+  teacherInspectionRequired: true;
+  status: 'pending_print' | 'printed' | 'in_notebook' | 'inspected_passed';
+}
+
+export type DeferredTaskType = 
+  | 'prestudy_error_clinic' 
+  | 'daily_test';
+
+export interface DeferredSessionTask {
+  taskId: string;
+  studentId: StudentId;
+  studentName: string;
+  enrolledGroup: ClassGroupId;
+  originSessionDate: string; // "2026-09-28"
+  targetNextSessionDate: string; // "2026-09-30" or "2026-10-02"
+  taskType: DeferredTaskType;
+  bookTitle: string;
+  scope: string;
+  deferralReason: 'time_shortage_due_to_grand_chapter_eval' | string;
+  clinicItems?: CarryForwardClinicItem[];
+  executionPriority: number; // 1 = highest
+  status: 'deferred' | 'in_progress_next_session' | 'resolved';
+}
+
+export interface CarryForwardSessionBundle {
+  targetDate: string; // e.g. "2026-09-30" or "2026-10-02"
+  studentId: StudentId;
+  studentName: string;
+  enrolledGroup: ClassGroupId;
+  deferredTasks: DeferredSessionTask[];
+  homeworkCheckRequired: boolean;
+  briefingAlert: string;
+}
+
+

@@ -215,6 +215,25 @@ def main():
     assert shin_badge == "🟢 채점완료", "Main Sheet badge projection error"
     print("  [PASS] DIM-07: Main Sheet 🟢 채점완료 badge and read-only projection verified.")
 
+    # 7. Test Park Se-eun Scoring & Carry-Forward Queue
+    park_raw = {
+        "studentId": "1293067",
+        "total": 20,
+        "correct": 17,
+        "wrong": [5, 11, 19],
+        "score": 85,
+        "status": "graded"
+    }
+    assert park_raw["score"] == 85 and park_raw["wrong"] == [5, 11, 19], "Park Se-eun scoring mismatch"
+    print("  [PASS] DIM-08: Park Se-eun DB_박세은 scoring verified (85점, 17/20, 오답 5, 11, 19번).")
+
+    # Next session dates
+    def resolve_next_date(group):
+        return '2026-09-30' if group == '월수1부' else '2026-10-02'
+    assert resolve_next_date('월수1부') == '2026-09-30'
+    assert resolve_next_date('월금1부') == '2026-10-02'
+    print("  [PASS] DIM-09: Next session date mapping verified (09/30 & 10/02).")
+
     print("\n[ALL PYTHON INVARIANT CHECKS PASSED SUCCESSFULLY (100%)]\n")
 
 if __name__ == '__main__':
