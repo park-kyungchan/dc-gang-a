@@ -26,6 +26,7 @@ export interface RawAppQuestionSubmission {
 }
 
 export interface RawAppAssessmentSubmission {
+  pNo?: string;
   studentId: StudentId;
   sourceRecordId?: string;
   studentName: string;
@@ -69,6 +70,7 @@ export class AppGradingReader {
     });
 
     return {
+      pNo: raw.pNo,
       studentId: raw.studentId,
       sourceRecordId: raw.sourceRecordId,
       studentName: raw.studentName,

@@ -24,6 +24,7 @@ import type {
 
 export interface IngestAssessmentInput {
   studentId: StudentId;
+  pNo?: string;
   sourceRecordId?: string;
   verificationEvidence?: AssessmentVerificationEvidence;
   studentName: string;
@@ -91,6 +92,7 @@ export class StudentAssessmentLedgerEngine {
         !input.submittedAt.trim() ||
         !proof ||
         proof.studentId !== input.studentId ||
+        (input.submissionMethod === 'academy_app' && (!input.pNo?.trim() || proof.pNo !== input.pNo)) ||
         proof.sourceRecordId !== input.sourceRecordId ||
         proof.sourceTimestamp !== input.submittedAt ||
         !proof.sourceAttemptId.trim()
@@ -137,6 +139,7 @@ export class StudentAssessmentLedgerEngine {
     const recordId = `asm_${dateCompact}_${input.studentId}_${String(existingHistory.length + 1).padStart(2, '0')}`;
     const checksum = this.calculateRecordChecksum({
       recordId,
+      pNo: input.pNo,
       sourceRecordId: input.sourceRecordId,
       sourceAttemptId: input.verificationEvidence?.sourceAttemptId,
       studentId: input.studentId,
@@ -150,6 +153,7 @@ export class StudentAssessmentLedgerEngine {
 
     const record: StudentAssessmentRecord = {
       recordId,
+      pNo: input.pNo,
       sourceRecordId: input.sourceRecordId,
       sourceAttemptId: input.verificationEvidence?.sourceAttemptId,
       studentId: input.studentId,
@@ -341,10 +345,11 @@ export class StudentAssessmentLedgerEngine {
   }
 
   private calculateRecordChecksum(record: Pick<StudentAssessmentRecord,
-    'recordId' | 'sourceRecordId' | 'sourceAttemptId' | 'studentId' | 'sessionDate' | 'submittedAt' |
+    'recordId' | 'pNo' | 'sourceRecordId' | 'sourceAttemptId' | 'studentId' | 'sessionDate' | 'submittedAt' |
     'score' | 'correctCount' | 'wrongItemNumbers' | 'itemOutcomes'>): string {
     const hashPayload = JSON.stringify({
       recordId: record.recordId,
+      pNo: record.pNo,
       sourceRecordId: record.sourceRecordId,
       sourceAttemptId: record.sourceAttemptId,
       studentId: record.studentId,

@@ -140,6 +140,7 @@ describe('Student-partitioned assessment ledger and Main-tab projection', () => 
     it('accumulates multiple assessments over time without overwriting history', () => {
       // Session 1: synthetic historical assessment
       ledger.ingestAssessmentRecord({
+        pNo: 'TEST-PAPER-ALPHA-HISTORICAL',
         studentId: 'TEST-STUDENT-ALPHA',
         sourceRecordId: 'TEST-SOURCE-ALPHA-HISTORICAL',
         studentName: 'Synthetic Student ALPHA',
@@ -155,6 +156,7 @@ describe('Student-partitioned assessment ledger and Main-tab projection', () => 
         gradeVerification: 'verified',
         verificationEvidence: {
           studentId: 'TEST-STUDENT-ALPHA',
+          pNo: 'TEST-PAPER-ALPHA-HISTORICAL',
           sourceRecordId: 'TEST-SOURCE-ALPHA-HISTORICAL',
           sourceAttemptId: 'TEST-ATTEMPT-ALPHA-HISTORICAL',
           sourceTimestamp: '2098-12-25T10:00:00+09:00'

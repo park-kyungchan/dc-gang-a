@@ -25,6 +25,7 @@ function createSyntheticGradingPayload(label: FixtureLabel): RawAppAssessmentSub
   });
 
   return {
+    pNo: `TEST-PAPER-${label}`,
     studentId: `TEST-STUDENT-${label}`,
     sourceRecordId: `TEST-SOURCE-${label}`,
     studentName: `Synthetic Student ${label}`,
@@ -40,6 +41,7 @@ function createSyntheticGradingPayload(label: FixtureLabel): RawAppAssessmentSub
     gradeVerification: 'verified',
     verificationEvidence: {
       studentId: `TEST-STUDENT-${label}`,
+      pNo: `TEST-PAPER-${label}`,
       sourceRecordId: `TEST-SOURCE-${label}`,
       sourceAttemptId: `TEST-ATTEMPT-${label}`,
       sourceTimestamp: '2099-01-01T10:00:00+09:00'

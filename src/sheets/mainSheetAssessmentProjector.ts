@@ -69,6 +69,7 @@ export class MainSheetAssessmentProjector {
     const lines: string[] = [
       `[평가 결과 검토]`,
       `• 평가 유형: ${record.assessmentCategory} (${record.unitName})`,
+      `• 시험지 pNo: ${record.pNo || '미확인'} (출처 연결 별도 확인)`,
       `• 교재/범위: ${record.bookTitle} ${record.scope}`,
       `• 응시 소요시간: ${record.timeSpentMinutes}분 / 제한 ${record.timeLimitMinutes}분`,
       `• 제출 방식: ${record.submissionMethod === 'academy_app' ? '학원 앱' : '서면'}`,
@@ -123,6 +124,7 @@ export class MainSheetAssessmentProjector {
     return {
       recordId: record.recordId,
       sourceRecordId: record.sourceRecordId ?? null,
+      pNo: record.pNo,
       studentId: record.studentId,
       studentName: record.studentName,
       latestAssessmentTitle: `${record.assessmentCategory} (${record.unitName})`,

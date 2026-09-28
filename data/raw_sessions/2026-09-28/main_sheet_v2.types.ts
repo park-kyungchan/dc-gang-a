@@ -689,6 +689,7 @@ export interface AssessmentItemOutcome {
 
 export interface StudentAssessmentRecord {
   recordId: string;             // Local immutable ledger entry ID
+  pNo?: string;                 // Exact source exam-paper key, when verified
   sourceRecordId?: string;      // Preserved source-system record ID, when supplied
   sourceAttemptId?: string;     // Exact joined source attempt ID, when verified
   studentId: StudentId;
@@ -719,6 +720,7 @@ export interface StudentAssessmentRecord {
 
 export interface AssessmentVerificationEvidence {
   studentId: StudentId;
+  pNo?: string;
   sourceRecordId: string;
   sourceAttemptId: string;
   sourceTimestamp: string;
@@ -763,6 +765,7 @@ export interface MainSheetAssessmentTarget {
 export interface MainSheetAssessmentRowProjection {
   recordId: string;
   sourceRecordId: string | null;
+  pNo?: string;
   studentId: StudentId;
   studentName: string;
   latestAssessmentTitle: string;
