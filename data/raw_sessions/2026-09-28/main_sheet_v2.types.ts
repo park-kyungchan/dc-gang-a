@@ -657,3 +657,85 @@ export function validateAuditRecord(record: unknown): { valid: boolean; errors: 
     errors
   };
 }
+
+// ============================================================================
+// 9. Student Individual DB & Longitudinal Assessment Ledger Architecture
+// ============================================================================
+
+export type AssessmentCategory = 
+  | '대단원총괄평가' 
+  | 'DailyTest' 
+  | 'ZeroTest' 
+  | '주간클리닉' 
+  | '진단평가' 
+  | '개념백지테스트';
+
+export type AssessmentGradingStatus = 
+  | 'graded' 
+  | 'clinic_assigned' 
+  | 'clinic_completed' 
+  | 'mastered';
+
+export interface AssessmentItemOutcome {
+  itemNo: number;
+  studentAnswer: string;
+  correctAnswer: string;
+  isCorrect: boolean;
+  score: number;
+  maxScore: number;
+  lectureKey?: string;
+  topicDescription?: string;
+}
+
+export interface StudentAssessmentRecord {
+  recordId: string;             // e.g. "asm_20260928_1293032_01"
+  studentId: StudentId;
+  studentName: string;
+  enrolledGroup: ClassGroupId;
+  sessionDate: string;          // YYYY-MM-DD
+  assessmentCategory: AssessmentCategory;
+  bookTitle: string;
+  unitName: string;
+  scope: string;
+  timeLimitMinutes: number;
+  timeSpentMinutes: number;
+  submittedAt: string;          // ISO 8601
+  submissionMethod: 'academy_app' | 'paper_omr' | 'teacher_direct';
+  totalQuestions: number;
+  correctCount: number;
+  wrongCount: number;
+  score: number;
+  percentage: number;
+  wrongItemNumbers: number[];
+  itemOutcomes: AssessmentItemOutcome[];
+  status: AssessmentGradingStatus;
+  deviceInfo?: string;
+  teacherNotes?: string;
+  nextAction?: string;
+  checksum: string;             // SHA-256 integrity hash
+}
+
+export interface StudentCumulativeStats {
+  studentId: StudentId;
+  studentName: string;
+  sheetTabName: string;         // e.g. "DB_신지우"
+  totalAssessmentsCount: number;
+  cumulativeAverageScore: number;
+  unresolvedClinicsCount: number;
+  weakUnits: string[];
+  lastAssessedAt: string;
+}
+
+export interface MainSheetAssessmentCardProjection {
+  studentId: StudentId;
+  studentName: string;
+  latestAssessmentTitle: string;
+  scope: string;
+  statusBadge: '🟢 채점완료' | '🟡 풀이완료(채점중)' | '🔵 응시중' | '⚪ 미응시';
+  scoreDisplay: string;         // e.g. "90점 (18/20)"
+  wrongItemsDisplay: string;    // e.g. "7번, 14번"
+  nextStepAction: string;       // e.g. "오답 클리닉지 인쇄 / 개념백지테스트 대면 구술"
+  sheetRowValues: (string | number)[];
+  hoverNote: string;
+}
+

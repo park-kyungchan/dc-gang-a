@@ -298,3 +298,24 @@ if (!audit.valid) throw new Error('Valid audit failed validation');
 console.log('✅ Main Sheet Rubric Verification: 100% Passed (Score: 100/100, 0 Hard Blockers)');
 "
 ```
+
+---
+
+## 8. DIM-06 & DIM-07: Student Individual DB Isolation & Read-Only App Grading Projection
+
+### 8.1 Architectural Philosophy: Per-Student Longitudinal Databases
+- In the academy's real-world environment, assessment results must not be transiently overwritten on a single daily dashboard.
+- Every student owns an independent, dedicated historical database tab (e.g. `DB_신지우`, `DB_유지연`, `DB_박세은`).
+- Longitudinal records accumulate append-only across sessions, terms, and school years.
+- Each record maintains cryptographic SHA-256 integrity hash:
+  `SHA256(recordId + studentId + sessionDate + score + correctCount + wrongItemNumbers + submittedAt)`
+- Tampering with student scores outside the official ledger triggers immediate integrity failure.
+
+### 8.2 DIM-07: Read-Only App Grading Reader & Main Sheet Projection
+- **Read-Only Invariant**: Connecting to app auto-grading feeds never mutates LMS state.
+- **Main Sheet Projection Card**:
+  - Displays status badge (`🟢 채점완료` for $\ge 90$ or all correct, `🟡 풀이완료(채점중)` for $< 90$, `🔵 응시중`, `⚪ 미응시`).
+  - Score display formatted as `{score}점 ({correct}/{total})`.
+  - Wrong question numbers clearly itemized with linked lecture keys (`lectureKey`).
+  - Multiline Hover Notes detailing question-by-question student answers vs correct answers and next instructor actions (clinic assignment).
+
