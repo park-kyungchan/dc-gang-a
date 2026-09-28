@@ -203,6 +203,32 @@ if (cardShin.statusBadge !== '🟢 채점완료' || !cardShin.hoverNote.includes
 }
 console.log('  PASS: Main Sheet card projected with 🟢 채점완료 and rich hover notes.');
 
+const rawPark = AppGradingReader.createParkSeeunGradingPayload();
+const recordPark = ledgerEngine.ingestAssessmentRecord(AppGradingReader.normalizeAppSubmission(rawPark));
+if (recordPark.score !== 85 || recordPark.wrongItemNumbers.length !== 3) {
+  throw new Error('FAIL: Park Se-eun grading calculation mismatch.');
+}
+console.log('  PASS: Park Se-eun individual DB record ingested (85점, 17/20, 오답 5, 11, 19번).');
+
+console.log('\n--- [DIM-08: Carry-Forward Clinic & Daily Test Pipeline] ---');
+import { CarryForwardQueueManager } from '../../src/assessment/carryForwardQueue';
+
+const shinNextDate = CarryForwardQueueManager.resolveNextSessionDate('월수1부', '2026-09-28');
+const parkNextDate = CarryForwardQueueManager.resolveNextSessionDate('월금1부', '2026-09-28');
+if (shinNextDate !== '2026-09-30' || parkNextDate !== '2026-10-02') {
+  throw new Error('FAIL: Next class date resolution error.');
+}
+console.log('  PASS: Next session dates mapped (월수1부 ➔ 2026-09-30, 월금1부 ➔ 2026-10-02).');
+
+const clinicItems = CarryForwardQueueManager.buildClinicItems([
+  { sourceCategory: '필수예제', originalProblemNumber: 3, similarCount: 2 }
+]);
+if (clinicItems[0].labeledSimilarProblems.length !== 2 || clinicItems[0].executionSurface !== '풀이노트 (Practice Notebook)') {
+  throw new Error('FAIL: Clinic package requirement mismatch.');
+}
+console.log('  PASS: Clinic package requires identical reprint + 2 labeled similar problems in 풀이노트.');
+
+
 console.log('\n============================================================');
 console.log('🎉 ALL ADVERSARIAL RUBRIC TESTS PASSED CLEANLY (100/100)');
 console.log('Zero hard-fail blockers detected.');

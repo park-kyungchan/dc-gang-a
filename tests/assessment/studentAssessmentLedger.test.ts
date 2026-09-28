@@ -55,6 +55,28 @@ describe('Student Assessment Ledger & Individual DB Engine', () => {
       expect(history.length).toBe(1);
     });
 
+    it('ingests Park Se-eun app grading results for DB_박세은', () => {
+      const raw = AppGradingReader.createParkSeeunGradingPayload();
+      const normalized = AppGradingReader.normalizeAppSubmission(raw);
+
+      const record = ledger.ingestAssessmentRecord(normalized);
+
+      expect(record.studentId).toBe('1293067');
+      expect(record.studentName).toBe('박세은');
+      expect(record.bookTitle).toBe('초5-2 가우스 2권');
+      expect(record.scope).toBe('p.134 ~ p.138');
+      expect(record.score).toBe(85);
+      expect(record.totalQuestions).toBe(20);
+      expect(record.correctCount).toBe(17);
+      expect(record.wrongCount).toBe(3);
+      expect(record.wrongItemNumbers).toEqual([5, 11, 19]);
+      expect(record.status).toBe('graded');
+
+      const history = ledger.getStudentHistory('1293067');
+      expect(history.length).toBe(1);
+      expect(ledger.verifyRecordIntegrity(record)).toBe(true);
+    });
+
     it('verifies cryptographic SHA-256 integrity and catches grade tampering', () => {
       const raw = AppGradingReader.createShinJiwooGradingPayload();
       const record = ledger.ingestAssessmentRecord(AppGradingReader.normalizeAppSubmission(raw));
