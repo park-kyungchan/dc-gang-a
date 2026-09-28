@@ -2,6 +2,10 @@
 
 Status: read-only inventory and local TypeScript/Bun planning. No production
 Google Sheet cell, tab, protection, or sharing change has been made.
+The teacher subsequently chose to preserve all five working screens and ten
+record areas in this Main tab, each behind a native collapsed row group. The
+section UX and additional Sheets features are planned in
+`MAIN_SHEET_NATIVE_UX_BLUEPRINT.md`.
 
 ## Exact target and scope
 
