@@ -121,7 +121,7 @@ describe('LmsLiveQueryService & Deterministic Parser', () => {
         detail,
         summary,
         studentId: '1293138',
-        enrolledGroup: '월금1부',
+        enrolledGroup: '3',
         bookTitle: '가우스 1-1',
         unitName: '3. 방정식',
         scope: '3. 방정식 대단원 총괄',

@@ -112,70 +112,8 @@ export class LmsReverseEngineerEngine {
   }
 }
 
-async function main() {
-  const cookie = process.env.SESSION_COOKIE;
-  const engine = new LmsReverseEngineerEngine();
-
-  console.log(`\n======================================================================`);
-  console.log(`[LMS Deterministic Reverse Engineering Inspector]`);
-  console.log(`======================================================================\n`);
-
-  const targetUrl = 'https://dc.gang-a.kr/servlet/controller.tutor.base.TestPageListServlet?p_process=UserBySearchTestResult&ass_no=1001';
-  console.log(`>>> Target URL: ${targetUrl}`);
-
-  const headers: Record<string, string> = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-  };
-  if (cookie) {
-    headers['Cookie'] = `JSESSIONID=${cookie}`;
-  }
-
-  const res = await fetch(targetUrl, {
-    method: 'POST',
-    headers: { ...headers, 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      clg_no: '14581',
-      cls_no: '0',
-      p_pageno: '1',
-      check_fa_test: '1001',
-      stu_name: '유지연',
-      sort_date1: '2026-09-14',
-      sort_date2: '2026-09-28',
-      checkAllPage: 'Y'
-    }).toString()
-  });
-
-  const html = await res.text();
-  console.log(`Response length: ${html.length} bytes`);
-
-  const analysis = engine.analyzeHtml(html, 'TestPageListServlet');
-
-  console.log(`\n[Discovered External Scripts (${analysis.scripts.length} files)]:`);
-  for (const s of analysis.scripts) {
-    console.log(`  • ${s}`);
-  }
-
-  console.log(`\n[Discovered Servlet Endpoints (${analysis.endpoints.length} routes)]:`);
-  for (const ep of analysis.endpoints.slice(0, 10)) {
-    console.log(`  • [${ep.method || 'ANY'}] ${ep.url}`);
-  }
-
-  console.log(`\n[Key Client Functions (${analysis.functions.length} found)]:`);
-  const keyFuncs = analysis.functions.filter(f => f.name.includes('Clinic') || f.name.includes('Paper') || f.name.includes('Test') || f.name.includes('Print'));
-  for (const f of keyFuncs) {
-    console.log(`  • ${f.name}(${f.params.join(', ')})`);
-  }
-
-  const reportDir = join(__dirname, '..', 'docs');
-  mkdirSync(reportDir, { recursive: true });
-  const reportPath = join(reportDir, 'LMS_REVERSE_ENGINEERING_REPORT.json');
-  writeFileSync(reportPath, JSON.stringify(analysis, null, 2), 'utf-8');
-  console.log(`\n[SUCCESS] Detailed Reverse Engineering Report saved to: ${reportPath}\n`);
-}
-
+// Historical direct probe is disabled; source parsing does not establish a read contract.
 if (import.meta.main) {
-  main().catch(err => {
-    console.error('Fatal execution error:', err.message);
-    process.exit(1);
-  });
+  console.error(JSON.stringify({ ok: false, code: 'unverified_live_probe_retired', replacement: 'harness/lead.ts' }));
+  process.exitCode = 1;
 }

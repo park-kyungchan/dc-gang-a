@@ -3,7 +3,7 @@
  * Prose Drift(자연어 표류) 방지를 위한 엄격한 타입 모델
  */
 
-export type StudentId = '1293032' | '1293067' | '1293138' | '1294174';
+export type StudentId = string & {};
 export type ClassGroupId = '1' | '2' | '3' | '4'; // 1: 화목2부, 2: 월수1부, 3: 월금1부, 4: 수금2부
 
 export type PhysicalPossession = 'teacher' | 'student' | 'unconfirmed';

@@ -1,205 +1,249 @@
-import { describe, it, expect, beforeEach } from 'bun:test';
-import { CarryForwardQueueManager, type VerifiedSessionCalendar } from '../../src/assessment/carryForwardQueue';
+import { beforeEach, describe, expect, it } from 'bun:test';
+import { CarryForwardQueueManager } from '../../src/assessment/carryForwardQueue';
 
-const shinCalendar: VerifiedSessionCalendar = {
-  group: '월수1부', studentIds: ['1293032'],
-  fromDate: '2026-09-28', throughDate: '2026-09-30',
-  coverage: 'complete', sourceRef: 'synthetic-schedule-shin',
-  occurrences: [
-    { date: '2026-09-28', occurrenceId: 'shin-sep28', status: 'held' },
-    { date: '2026-09-30', occurrenceId: 'shin-sep30', status: 'planned' },
-  ],
-};
-const monFriCalendar: VerifiedSessionCalendar = {
-  group: '월금1부', studentIds: ['1293067', '1293138'],
-  fromDate: '2026-09-28', throughDate: '2026-10-02',
-  coverage: 'complete', sourceRef: 'synthetic-schedule-monfri',
-  occurrences: [
-    { date: '2026-09-28', occurrenceId: 'monfri-sep28', status: 'held' },
-    { date: '2026-10-02', occurrenceId: 'monfri-oct02', status: 'planned' },
-  ],
-};
-
-describe('CarryForwardQueueManager & Next-Session Integration', () => {
+describe('CarryForwardQueueManager & next-session integration', () => {
   let queueManager: CarryForwardQueueManager;
 
   beforeEach(() => {
     queueManager = new CarryForwardQueueManager();
   });
 
-  describe('DIM-09: Next Regular Class Schedule Resolution', () => {
-    it('correctly maps 월수1부 (신지우) to 2026-09-30 (Wednesday)', () => {
-      const nextDate = CarryForwardQueueManager.resolveNextSessionDate('월수1부', '2026-09-28', shinCalendar);
-      expect(nextDate).toBe('2026-09-30');
-    });
-
-    it('correctly maps 월금1부 (박세은, 유지연) to 2026-10-02 (Friday)', () => {
-      const nextDate = CarryForwardQueueManager.resolveNextSessionDate('월금1부', '2026-09-28', monFriCalendar);
-      expect(nextDate).toBe('2026-10-02');
-    });
-
-    it('skips the October holidays and blocks an unknown intervening class', () => {
-      const holidayCalendar: VerifiedSessionCalendar = {
-        group: '월금1부', studentIds: ['1293067', '1293138'],
-        fromDate: '2026-10-02', throughDate: '2026-10-12',
-        coverage: 'complete', sourceRef: 'synthetic-holiday-calendar',
-        occurrences: [
-          { date: '2026-10-02', occurrenceId: 'oct02', status: 'held' },
-          { date: '2026-10-05', occurrenceId: 'oct05', status: 'cancelled' },
-          { date: '2026-10-09', occurrenceId: 'oct09', status: 'cancelled' },
-          { date: '2026-10-12', occurrenceId: 'oct12', status: 'planned' },
-        ],
-      };
-      expect(CarryForwardQueueManager.resolveNextSessionDate(
-        '월금1부', '2026-10-02', holidayCalendar)).toBe('2026-10-12');
-      expect(() => CarryForwardQueueManager.resolveNextSessionDate(
-        '월금1부', '2026-10-02', {
-          ...holidayCalendar,
-          occurrences: [
-            holidayCalendar.occurrences[0],
-            holidayCalendar.occurrences[1],
-            { date: '2026-10-09', occurrenceId: 'oct09', status: 'unknown' },
-            holidayCalendar.occurrences[3],
-          ],
-        })).toThrow('status is unknown');
-      expect(() => CarryForwardQueueManager.resolveNextSessionDate(
-        '월금1부', '2026-10-02', {
-          ...holidayCalendar, coverage: 'complete', sourceRef: '',
-        })).toThrow('coverage is unverified');
-      expect(CarryForwardQueueManager.resolveNextSessionDate('월금1부', '2026-10-02', {
-        ...holidayCalendar,
-        occurrences: [
-          holidayCalendar.occurrences[0],
-          holidayCalendar.occurrences[1],
-          { date: '2026-10-07', occurrenceId: 'makeup-oct07', status: 'planned' },
-          holidayCalendar.occurrences[2],
-          holidayCalendar.occurrences[3],
-        ],
-      })).toBe('2026-10-07');
-      expect(() => CarryForwardQueueManager.resolveNextSessionDate('월금1부', '2026-10-02', {
-        ...holidayCalendar,
-        occurrences: holidayCalendar.occurrences.slice(1),
-      })).toThrow('Origin class is not verified held');
-    });
+  it('selects the next date only from caller-verified future lessons', () => {
+    expect(CarryForwardQueueManager.resolveNextSessionDate(
+      '2026-09-28', ['2026-10-02', '2026-09-30']
+    ))
+      .toBe('2026-09-30');
+    expect(CarryForwardQueueManager.resolveNextSessionDate(
+      '2026-09-28', ['2026-10-02']
+    ))
+      .toBe('2026-10-02');
+    expect(CarryForwardQueueManager.resolveNextSessionDate(
+      '2027-01-04', ['2027-01-11']
+    )).toBe('2027-01-11');
+    expect(() => CarryForwardQueueManager.resolveNextSessionDate(
+      '2026-09-28', ['2026-09-21']
+    )).toThrow('after the origin date');
+    expect(() => CarryForwardQueueManager.resolveNextSessionDate(
+      '2026-09-28', []
+    )).toThrow('verified future lesson dates');
   });
 
-  describe('DIM-10: Clinic Package Construction & Problem Labeled Reprints', () => {
-    it('constructs identical reprinted problem plus 1~2 labeled similar problems for 풀이노트', () => {
-      const clinicItems = CarryForwardQueueManager.buildClinicItems([
-        { sourceCategory: '필수예제', originalProblemNumber: 3, similarCount: 2, difficultyLevel: '응용' },
-        { sourceCategory: '유형다지기', originalProblemNumber: 8, similarCount: 1, difficultyLevel: '심화' },
-        { sourceCategory: '실력다지기', originalProblemNumber: 15, similarCount: 2, difficultyLevel: '응용' }
-      ]);
+  it('builds clinic items that require face-to-face teacher inspection', () => {
+    const clinicItems = CarryForwardQueueManager.buildClinicItems([
+      { sourceCategory: '필수예제', originalProblemNumber: 3, similarCount: 2, difficultyLevel: '응용' },
+      { sourceCategory: '유형다지기', originalProblemNumber: 8, similarCount: 1, difficultyLevel: '심화' }
+    ]);
 
-      expect(clinicItems.length).toBe(3);
-
-      // Item 1 (필수예제 3번)
-      expect(clinicItems[0].sourceCategory).toBe('필수예제');
-      expect(clinicItems[0].originalProblemNumber).toBe(3);
-      expect(clinicItems[0].originalProblemPrinted).toBe(false);
-      expect(clinicItems[0].labeledSimilarProblems.length).toBe(2);
-      expect(clinicItems[0].labeledSimilarProblems[0].label).toBe('유사 1번');
-      expect(clinicItems[0].labeledSimilarProblems[1].label).toBe('유사 2번');
-      expect(clinicItems[0].executionSurface).toBe('풀이노트 (Practice Notebook)');
-      expect(clinicItems[0].teacherInspectionRequired).toBe(true);
-
-      // Item 2 (유형다지기 8번)
-      expect(clinicItems[1].labeledSimilarProblems.length).toBe(1);
-      expect(clinicItems[1].labeledSimilarProblems[0].difficultyLevel).toBe('심화');
-      expect(() => CarryForwardQueueManager.buildClinicItems([
-        { sourceCategory: '필수예제', originalProblemNumber: 0, similarCount: 3 }
-      ])).toThrow('positive problem number');
-    });
+    expect(clinicItems).toHaveLength(2);
+    expect(clinicItems[0]?.originalProblemPrinted).toBe(false);
+    expect(clinicItems[0]?.labeledSimilarProblems.map((item) => item.label))
+      .toEqual(['유사 1번', '유사 2번']);
+    expect(clinicItems[0]?.teacherInspectionRequired).toBe(true);
+    expect(clinicItems[0]?.status).toBe('pending_print');
+    expect(clinicItems[1]?.labeledSimilarProblems).toHaveLength(1);
   });
 
-  describe('DIM-11: Deferral Queueing & 차기 수업(09/30, 10/02) 14:00 브리핑/체크리스트 생성', () => {
-    it('queues Shin Ji-woo deferred tasks to 2026-09-30 and generates 14:00 preparation items', () => {
-      const clinicItems = CarryForwardQueueManager.buildClinicItems([
-        { sourceCategory: '필수예제', originalProblemNumber: 7, similarCount: 2 },
-        { sourceCategory: '유형다지기', originalProblemNumber: 14, similarCount: 2 }
-      ]);
+  it('keeps original date and reason, pairs carry-forward work with current homework, and never auto-completes', () => {
+    const clinicItems = CarryForwardQueueManager.buildClinicItems([
+      { sourceCategory: '필수예제', originalProblemNumber: 7 },
+      { sourceCategory: '유형다지기', originalProblemNumber: 14, similarCount: 1 }
+    ]);
+    const unfinishedReason = 'Synthetic reason: chapter assessment used the remaining class time.';
+    const tasks = queueManager.queueDeferralsForStudent(
+      'SYN-STUDENT-001',
+      'Synthetic Student A',
+      '2',
+      '2026-09-28',
+      'Synthetic Book A',
+      'Synthetic pages 100-131',
+      clinicItems,
+      unfinishedReason,
+      {
+        sourceWorkKey: 'SYN-WORK-001',
+        verifiedFutureSessionDates: ['2026-09-30'],
+        deferClinic: true,
+        deferDailyTest: true
+      }
+    );
 
-      const tasks = queueManager.queueDeferralsForStudent(
-        '1293032',
-        '신지우',
-        '월수1부',
-        '2026-09-28',
-        '초5-2 가우스 2권',
-        'p.100 ~ p.131 (예습 범위)',
-        clinicItems,
-        'synthetic-shin-deferral',
-        'teacher-confirmed unfinished clinic',
-        shinCalendar
-      );
+    expect(tasks).toHaveLength(2);
+    expect(tasks.map((task) => task.originSessionDate)).toEqual(['2026-09-28', '2026-09-28']);
+    expect(tasks.map((task) => task.deferralReason)).toEqual([unfinishedReason, unfinishedReason]);
+    expect(tasks.every((task) => task.status === 'deferred')).toBe(true);
 
-      expect(tasks.length).toBe(2);
-      expect(tasks[0].taskType).toBe('prestudy_error_clinic');
-      expect(tasks[0].targetNextSessionDate).toBe('2026-09-30');
-      expect(tasks[1].taskType).toBe('daily_test');
-      expect(tasks[1].targetNextSessionDate).toBe('2026-09-30');
-      expect(queueManager.queueDeferralsForStudent(
-        '1293032', '신지우', '월수1부', '2026-09-28',
-        '초5-2 가우스 2권', 'p.100 ~ p.131 (예습 범위)', clinicItems,
-        'synthetic-shin-deferral', 'teacher-confirmed unfinished clinic',
-        shinCalendar)).toEqual(tasks);
-      expect(() => queueManager.queueDeferralsForStudent(
-        '1293032', '신지우', '월수1부', '2026-09-28',
-        '초5-2 가우스 2권', 'different scope', clinicItems,
-        'synthetic-shin-deferral', 'teacher-confirmed unfinished clinic',
-        shinCalendar)).toThrow('Conflicting deferral retry');
+    const bundle = queueManager.getCarryForwardBundle('SYN-STUDENT-001', '2026-09-30');
+    expect(bundle).not.toBeNull();
+    expect(bundle?.homeworkCheckRequired).toBe(true);
+    expect(bundle?.deferredTasks.map((task) => task.taskType))
+      .toEqual(['prestudy_error_clinic', 'daily_test']);
+    expect(bundle?.briefingAlert).toContain('2026-09-28');
+    expect(bundle?.briefingAlert).toContain(unfinishedReason);
+    expect(bundle?.deferredTasks.every((task) =>
+      task.originSessionDate === '2026-09-28' && task.deferralReason === unfinishedReason
+    )).toBe(true);
 
-      // Verify bundle for 09/30
-      const bundle = queueManager.getCarryForwardBundle('1293032', '2026-09-30');
-      expect(bundle).not.toBeNull();
-      expect(bundle?.studentName).toBe('신지우');
-      expect(bundle?.briefingAlert).toContain('미실시 오답클리닉');
-      expect(bundle?.briefingAlert).toContain('Daily Test');
+    const checklist = queueManager.generatePreclassChecklistForDate('2026-09-30');
+    expect(checklist).toHaveLength(4);
+    expect(checklist.filter((item) => item.taskType === 'current_homework')).toHaveLength(1);
+    const carryForwardItems = checklist.filter((item) => item.taskType !== 'current_homework');
+    expect(carryForwardItems).toHaveLength(3);
+    expect(carryForwardItems.every((item) =>
+      item.currentHomeworkCheckRequired &&
+      item.teacherConfirmationRequired &&
+      item.originSessionDate === '2026-09-28' &&
+      item.unfinishedReason === unfinishedReason &&
+      item.status === 'deferred'
+    )).toBe(true);
 
-      // Verify 14:00 checklist for 09/30
-      const checklist = queueManager.generatePreclassChecklistForDate('2026-09-30');
-      expect(checklist.length).toBe(3); // 2 clinic entries (print, notebook) + 1 DT entry
-      expect(checklist.some(c => c.taskDescription.includes('[클리닉지 인쇄]'))).toBe(true);
-      expect(checklist.some(c => c.taskDescription.includes('[풀이노트 검사 큐잉]'))).toBe(true);
-      expect(checklist.some(c => c.taskDescription.includes('[Daily Test 시험지 준비]'))).toBe(true);
-    });
+    const laterClass = queueManager.getCarryForwardBundle('SYN-STUDENT-001', '2026-10-07');
+    expect(laterClass?.deferredTasks).toHaveLength(2);
+    expect(queueManager.generatePreclassChecklistForDate('2026-10-07')).toHaveLength(4);
+    expect(queueManager.getCarryForwardBundle('SYN-STUDENT-001', '2026-09-27')).toBeNull();
 
-    it('queues Park Se-eun & Yoo Ji-yeon deferred tasks to 2026-10-02 (월금1부)', () => {
-      const parkClinic = CarryForwardQueueManager.buildClinicItems([
-        { sourceCategory: '유형다지기', originalProblemNumber: 5, similarCount: 2 }
-      ]);
-      queueManager.queueDeferralsForStudent(
-        '1293067',
-        '박세은',
-        '월금1부',
-        '2026-09-28',
-        '초5-2 가우스 2권',
-        'p.78 ~ p.95 (예습 범위)',
-        parkClinic,
-        'synthetic-park-deferral',
-        'teacher-confirmed unfinished clinic',
-        monFriCalendar
-      );
+    const repeated = queueManager.queueDeferralsForStudent(
+      'SYN-STUDENT-001',
+      'Synthetic Student A',
+      '2',
+      '2026-09-28',
+      'Synthetic Book A',
+      'Synthetic pages 100-131',
+      clinicItems,
+      'A replacement reason must not overwrite the original.',
+      {
+        sourceWorkKey: 'SYN-WORK-001',
+        verifiedFutureSessionDates: ['2026-09-30'],
+        deferClinic: true,
+        deferDailyTest: true
+      }
+    );
+    expect(repeated.map((task) => task.deferralReason))
+      .toEqual([unfinishedReason, unfinishedReason]);
+    expect(repeated.every((task) => task.status === 'deferred')).toBe(true);
+  });
 
-      const yooClinic = CarryForwardQueueManager.buildClinicItems([
-        { sourceCategory: '실력다지기', originalProblemNumber: 12, similarCount: 1 }
-      ]);
-      queueManager.queueDeferralsForStudent(
-        '1293138',
-        '유지연',
-        '월금1부',
-        '2026-09-28',
-        '가우스플러스 5-2',
-        'p.71 ~ p.89 (예습 범위)',
-        yooClinic,
-        'synthetic-yoo-deferral',
-        'teacher-confirmed unfinished clinic',
-        monFriCalendar
-      );
+  it('requires explicit teacher confirmation before resolving clinic or Daily Test work', () => {
+    const clinicItems = CarryForwardQueueManager.buildClinicItems([
+      { sourceCategory: '실력다지기', originalProblemNumber: 5, similarCount: 1 }
+    ]);
+    const tasks = queueManager.queueDeferralsForStudent(
+      'SYN-STUDENT-002',
+      'Synthetic Student B',
+      '3',
+      '2026-09-28',
+      'Synthetic Book B',
+      'Synthetic pages 78-95',
+      clinicItems,
+      'Synthetic reason: clinic and test were not reached.',
+      {
+        sourceWorkKey: 'SYN-WORK-002',
+        verifiedFutureSessionDates: ['2026-10-02'],
+        deferClinic: true,
+        deferDailyTest: true
+      }
+    );
 
-      const checklist1002 = queueManager.generatePreclassChecklistForDate('2026-10-02');
-      expect(checklist1002.length).toBe(6); // 3 items for Park + 3 items for Yoo
-      expect(checklist1002.filter(c => c.studentName === '박세은').length).toBe(3);
-      expect(checklist1002.filter(c => c.studentName === '유지연').length).toBe(3);
-    });
+    const clinic = tasks.find((task) => task.taskType === 'prestudy_error_clinic')!;
+    const dailyTest = tasks.find((task) => task.taskType === 'daily_test')!;
+    const confirmation = {
+      teacherId: 'SYN-TEACHER-001',
+      confirmedAt: '2026-10-02T15:30:00+09:00'
+    };
+
+    expect(() => queueManager.confirmTaskCompletion(
+      'SYN-STUDENT-002',
+      clinic.taskId,
+      { ...confirmation, inspectedClinicItemIds: [] }
+    )).toThrow('teacher must confirm inspection of every clinic item');
+    expect(queueManager.getCarryForwardBundle('SYN-STUDENT-002', '2026-10-02')
+      ?.deferredTasks.every((task) => task.status === 'deferred')).toBe(true);
+
+    const completedClinic = queueManager.confirmTaskCompletion(
+      'SYN-STUDENT-002',
+      clinic.taskId,
+      {
+        ...confirmation,
+        inspectedClinicItemIds: clinic.clinicItems!.map((item) => item.itemId)
+      }
+    );
+    expect(completedClinic.status).toBe('resolved');
+    expect(completedClinic.teacherConfirmation?.teacherId).toBe(confirmation.teacherId);
+    expect(completedClinic.clinicItems?.every((item) => item.status === 'inspected_passed')).toBe(true);
+    expect(completedClinic.originSessionDate).toBe('2026-09-28');
+
+    const stillOpen = queueManager.getCarryForwardBundle('SYN-STUDENT-002', '2026-10-02');
+    expect(stillOpen?.deferredTasks.map((task) => task.taskType)).toEqual(['daily_test']);
+    expect(stillOpen?.deferredTasks[0]?.status).toBe('deferred');
+
+    const completedDailyTest = queueManager.confirmTaskCompletion(
+      'SYN-STUDENT-002',
+      dailyTest.taskId,
+      confirmation
+    );
+    expect(completedDailyTest.status).toBe('resolved');
+    expect(completedDailyTest.deferralReason)
+      .toBe('Synthetic reason: clinic and test were not reached.');
+    expect(queueManager.getCarryForwardBundle('SYN-STUDENT-002', '2026-10-07')).toBeNull();
+  });
+
+  it('does not let callers mutate stored tasks through returned copies', () => {
+    const clinicItems = CarryForwardQueueManager.buildClinicItems([
+      { sourceCategory: '유형다지기', originalProblemNumber: 2 }
+    ]);
+    const returned = queueManager.queueDeferralsForStudent(
+      'SYN-STUDENT-003',
+      'Synthetic Student C',
+      '2',
+      '2026-09-28',
+      'Synthetic Book C',
+      'Synthetic pages 1-10',
+      clinicItems,
+      'Synthetic unfinished reason.',
+      {
+        sourceWorkKey: 'SYN-WORK-003',
+        verifiedFutureSessionDates: ['2026-09-30'],
+        deferClinic: true,
+        deferDailyTest: true
+      }
+    );
+
+    returned[0]!.status = 'resolved';
+    returned[0]!.clinicItems![0]!.status = 'inspected_passed';
+    const stored = queueManager.getCarryForwardBundle('SYN-STUDENT-003', '2026-09-30');
+    expect(stored?.deferredTasks[0]?.status).toBe('deferred');
+    expect(stored?.deferredTasks[0]?.clinicItems?.[0]?.status).toBe('pending_print');
+  });
+
+  it('keeps distinct source work independent and can defer Daily Test alone', () => {
+    const clinicItems = CarryForwardQueueManager.buildClinicItems([
+      { sourceCategory: '필수예제', originalProblemNumber: 1 }
+    ]);
+    queueManager.queueDeferralsForStudent(
+      'SYN-STUDENT-004', 'Synthetic Student D', '2', '2026-09-28',
+      'Synthetic Book D', 'Synthetic scope A', clinicItems, 'Synthetic first reason.',
+      {
+        sourceWorkKey: 'SYN-WORK-A',
+        verifiedFutureSessionDates: ['2026-09-30'],
+        deferClinic: true,
+        deferDailyTest: true
+      }
+    );
+    const later = queueManager.queueDeferralsForStudent(
+      'SYN-STUDENT-004', 'Synthetic Student D', '2', '2026-09-28',
+      'Synthetic Book D', 'Synthetic scope B', [], 'Synthetic second reason.',
+      {
+        sourceWorkKey: 'SYN-WORK-B',
+        verifiedFutureSessionDates: ['2026-09-30'],
+        deferClinic: false,
+        deferDailyTest: true
+      }
+    );
+    expect(later).toHaveLength(1);
+    expect(later[0]?.taskType).toBe('daily_test');
+    expect(later[0]?.sourceWorkKey).toBe('SYN-WORK-B');
+    const bundle = queueManager.getCarryForwardBundle('SYN-STUDENT-004', '2026-09-30');
+    expect(bundle?.deferredTasks).toHaveLength(3);
+    expect(new Set(bundle?.deferredTasks.map((task) => task.taskId)).size).toBe(3);
+    expect(bundle?.deferredTasks.map((task) => task.deferralReason))
+      .toEqual(['Synthetic first reason.', 'Synthetic first reason.', 'Synthetic second reason.']);
   });
 });

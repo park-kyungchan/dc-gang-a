@@ -1,14 +1,14 @@
 /**
  * Test Paper & Assessment Attempt Adapter.
- * 
- * Bridges LMS Deterministic Repository contracts with the Student Assessment Ledger.
- * Enforces zero-hallucination policies:
- * - If an attempt is unverified or pending, it raises an explicit error or exports a pending placeholder.
- * - Confirmed attempts are cleanly mapped to `IngestAssessmentInput` with exact `pNo` provenance.
+ *
+ * Bridges an independently verified source read to the local assessment ledger.
+ * This pure adapter performs no LMS or database request and cannot certify a
+ * caller-supplied object as authentic.
  */
 
 import type { IngestAssessmentInput } from './studentAssessmentLedger';
 import type { LmsStudentAttemptContract, LmsTestPaperContract } from '../lms/lmsBackendContracts';
+import type { AssessmentCategory } from '../../data/raw_sessions/2026-09-28/main_sheet_v2.types';
 import { JoinError } from '../lms/lmsDeterministicReadRepository';
 
 export class TestPaperAdapter {
@@ -25,20 +25,47 @@ export class TestPaperAdapter {
       );
     }
 
-    if (attempt.score === null || attempt.verificationStatus === 'pending_verification') {
-      throw new JoinError(
-        `Cannot ingest pending/unverified attempt for student ${attempt.studentName} (pNo: ${attempt.pNo}). ` +
-        `Real score must be verified before claiming grade completion.`
-      );
+    const live = attempt.verificationStatus === 'verified_live' &&
+      attempt.isVerifiedLive && attempt.dataSource === 'LIVE_LMS' &&
+      paper.provenance === 'LIVE_LMS';
+    const snapshot = attempt.verificationStatus === 'verified_snapshot' &&
+      !attempt.isVerifiedLive && attempt.dataSource === 'VERIFIED_SNAPSHOT' &&
+      paper.provenance === 'VERIFIED_SNAPSHOT';
+    if (!live && !snapshot) {
+      throw new JoinError('Assessment source and verification status are not consistently verified.');
+    }
+    if (!attempt.testingNo?.trim() || !attempt.attemptId.trim() ||
+        !attempt.studentId.trim() || !attempt.submittedAt.trim() ||
+        attempt.score === null || attempt.correctCount === null ||
+        attempt.wrongCount === null || attempt.itemOutcomes.length === 0 ||
+        attempt.itemOutcomes.length !== attempt.totalQuestions ||
+        attempt.correctCount + attempt.wrongCount !== attempt.totalQuestions) {
+      throw new JoinError('Exact attempt key, source timestamp, and complete graded items are required.');
+    }
+    const categories: ReadonlySet<AssessmentCategory> = new Set([
+      '대단원총괄평가', 'DailyTest', 'ZeroTest', '주간클리닉',
+      '진단평가', '개념백지테스트'
+    ]);
+    if (!categories.has(paper.categoryName as AssessmentCategory)) {
+      throw new JoinError('Assessment category is not recognized by the local ledger.');
     }
 
     return {
       pNo: attempt.pNo,
       studentId: attempt.studentId,
+      sourceRecordId: attempt.attemptId,
+      gradeVerification: 'verified',
+      verificationEvidence: {
+        studentId: attempt.studentId,
+        pNo: attempt.pNo,
+        sourceRecordId: attempt.attemptId,
+        sourceAttemptId: attempt.testingNo,
+        sourceTimestamp: attempt.submittedAt
+      },
       studentName: attempt.studentName,
       enrolledGroup: attempt.enrolledGroup,
       sessionDate: attempt.sessionDate,
-      assessmentCategory: paper.categoryName as any,
+      assessmentCategory: paper.categoryName as AssessmentCategory,
       bookTitle: paper.bookTitle,
       unitName: paper.unitName,
       scope: paper.scope,
@@ -58,9 +85,7 @@ export class TestPaperAdapter {
         topicDescription: item.topicDescription
       })),
       teacherNotes: attempt.teacherNotes,
-      nextAction: attempt.wrongCount && attempt.wrongCount > 0
-        ? `오답 문항(${attempt.wrongItemNumbers.join(', ')}번) 클리닉지 인쇄 및 대면 풀이노트 검사`
-        : '전문항 정답 완료'
+      nextAction: '강사 최종 확인 필요'
     };
   }
 }

@@ -3,9 +3,7 @@
  * 14:00 Pre-class Briefing Scanner & Holiday-Aware Lookback Engine.
  * 
  * Strict Domain Invariants:
- * 1. Heterogeneous Student Lookback:
- *    - Group 2 (월수1부): Shin Ji-woo skips 2026-09-23 Chuseok absence -> resolves to 2026-09-21.
- *    - Group 3 (월금1부): Park Se-eun & Yoo Ji-yeon -> resolves to 2026-09-25.
+ * 1. Student-specific lookback follows the configured schedule, closures, and recorded absences.
  * 2. Post-Absence Override Integration:
  *    - Merges retroactive teacher assignments (e.g. Davinci p.42~p.49 added on 09/23 for 09/21).
  * 3. Scope Parsing & Context Inheritance:
@@ -13,11 +11,11 @@
  *    - Inherits book context across clauses ("+" or newline delimited).
  * 4. Concept Blank Test Invariant:
  *    - 금일 개념백지테스트 평가 범위 ≡ 직전 회차 수업일지 숙제(예습) 범위.
- * 5. Traffic-Light Engine:
- *    - 🟢 GREEN: Uploaded and verified before 14:00.
- *    - 🟡 YELLOW: Submitted late (< 30 min before class) or partial quality.
- *    - 🔴 RED: Missing / overdue -> Queues Zero Test (ZT) or explanation shoot on arrival.
- *    - ⚪ GRAY: No prestudy assigned for unit.
+ * 5. Evidence Status:
+ *    - GREEN: Source- and occurrence-verified upload before the briefing time.
+ *    - YELLOW: Source- and occurrence-verified upload after briefing or verified quality issue.
+ *    - UNKNOWN: Submission, source, occurrence, timestamp, or quality evidence is unresolved.
+ *    - GRAY: No prestudy video is assigned.
  */
 
 import {
@@ -38,8 +36,8 @@ import {
 
 export const STANDARD_CLASS_SCHEDULES: Record<ClassGroupId, { groupName: string; daysOfWeek: number[] }> = {
   '1': { groupName: '화목2부', daysOfWeek: [2, 4] },
-  '2': { groupName: '월수1부', daysOfWeek: [1, 3] }, // Shin Ji-woo
-  '3': { groupName: '월금1부', daysOfWeek: [1, 5] }, // Park Se-eun, Yoo Ji-yeon
+  '2': { groupName: '월수1부', daysOfWeek: [1, 3] },
+  '3': { groupName: '월금1부', daysOfWeek: [1, 5] },
   '4': { groupName: '수금2부', daysOfWeek: [3, 5] }
 };
 
@@ -54,7 +52,11 @@ export const DEFAULT_ACADEMY_HOLIDAYS_2026: HolidayEntry[] = [
 // ============================================================================
 
 export interface VideoSubmissionRecord {
-  uploadedAt: string | null; // ISO 8601 or HH:mm e.g. "13:42" or "14:45"
+  uploadedAt: string | null; // Local ISO datetime on the target date
+  studentId?: StudentId;
+  occurrenceId?: string; // Opaque ID supplied by an authoritative occurrence join
+  verificationSource?: ParsedPrestudyTask['verificationSource'];
+  verifiedExactReadJoin?: boolean;
   fileSizeMb?: number;
   durationSeconds?: number;
   qualityApproved?: boolean;
@@ -66,38 +68,24 @@ export interface StudentScanInput {
   name: string;
   classGroupId: ClassGroupId;
   enrolledDaysOfWeek?: number[];
-  targetDate?: string; // defaults to '2026-09-28'
   absenceHistory?: Record<string, string>; // date -> reason
   baselineHomeworkOverride?: string; // Teacher post-absence override text
   homeworkLogs?: Record<string, string>; // date -> raw homework string
-  videoSubmissions?: Record<string, VideoSubmissionRecord>; // book/task -> submission
+  prestudyOccurrenceIds?: Array<string | null>; // Opaque IDs aligned with parsed prestudy task order
+  videoSubmissions?: Record<string, VideoSubmissionRecord>; // Opaque occurrence ID -> submission
   specialAlerts?: string[];
 }
 
 export interface PreclassCohortBriefingReport {
   briefingDate: string;
   briefingTime: string; // e.g. "14:00"
-  targetSessionStartTime: string; // e.g. "15:00"
   totalStudents: number;
   trafficLightSummary: {
     green: number;
     yellow: number;
-    red: number;
     gray: number;
+    unknown: number;
   };
-  zeroTestQueue: Array<{
-    studentId: StudentId;
-    name: string;
-    bookTitle: string;
-    missingScope: string;
-    actionRequired: string;
-  }>;
-  synchronizedEvaluations: Array<{
-    syncGroupName: string;
-    scheduledStartTime: string;
-    timeLimitMinutes: number;
-    participants: StudentId[];
-  }>;
   studentBriefings: Record<StudentId, PreclassStudentBriefing>;
 }
 
@@ -108,86 +96,107 @@ export interface PreclassCohortBriefingReport {
 export interface TrafficLightEvaluationParams {
   requiresVideoUpload: boolean;
   submission?: VideoSubmissionRecord | null;
+  expectedStudentId?: StudentId | null;
+  expectedOccurrenceId?: string | null;
   targetDateStr: string;
   briefingTimeStr?: string; // Default: "14:00"
-  classStartTimeStr?: string; // Default: "15:00"
 }
 
 /**
- * Evaluates traffic light status based on LMS video submission timestamps.
+ * Evaluates only source- and occurrence-verified submission evidence.
+ * Absence of a matching record is unresolved evidence, not proof of non-submission.
  */
 export function evaluatePrestudyTrafficLight(params: TrafficLightEvaluationParams): PrestudyTrafficLight {
   if (!params.requiresVideoUpload) {
     return 'GRAY';
   }
 
-  if (!params.submission || !params.submission.uploadedAt) {
-    return 'RED'; // Missing video -> Triggers Zero Test or in-class shoot
+  const submission = params.submission;
+  if (
+    !params.expectedStudentId ||
+    !params.expectedOccurrenceId ||
+    !isValidISODate(params.targetDateStr) ||
+    !submission ||
+    submission.studentId !== params.expectedStudentId ||
+    submission.occurrenceId !== params.expectedOccurrenceId ||
+    !hasVerifiedExactReadJoin(submission, params.expectedStudentId) ||
+    !submission.uploadedAt
+  ) {
+    return 'UNKNOWN';
   }
 
-  if (params.submission.qualityApproved === false) {
-    return 'YELLOW'; // Partial audio or cut off
+  if (submission.qualityApproved === undefined) {
+    return 'UNKNOWN';
   }
 
   const briefingTimeStr = params.briefingTimeStr || '14:00';
-  const classStartTimeStr = params.classStartTimeStr || '15:00';
-
-  // Parse time into minutes of day
-  const toMinutes = (timeStr: string): number => {
-    if (timeStr.includes('T')) {
-      const d = new Date(timeStr);
-      return d.getHours() * 60 + d.getMinutes();
-    }
-    const [h, m] = timeStr.split(':').map(Number);
-    return h * 60 + (m || 0);
-  };
-
-  const uploadMinutes = toMinutes(params.submission.uploadedAt);
-  const briefingMinutes = toMinutes(briefingTimeStr);
-  const classStartMinutes = toMinutes(classStartTimeStr);
-
-  // If uploaded before briefing (14:00) -> GREEN
-  if (uploadMinutes <= briefingMinutes) {
-    return 'GREEN';
+  const uploadMinutes = parseComparableUploadTime(submission.uploadedAt, params.targetDateStr);
+  const briefingMinutes = parseClockTime(briefingTimeStr);
+  if (uploadMinutes === undefined || briefingMinutes === undefined) {
+    return 'UNKNOWN';
   }
 
-  // If uploaded after briefing but >= 30 min before class -> GREEN or YELLOW depending on cutoff
-  // If uploaded < 30 min before class start (e.g. >= 14:30 for 15:00 class) -> YELLOW
-  if (uploadMinutes > classStartMinutes - 30) {
+  if (submission.qualityApproved === false || uploadMinutes > briefingMinutes) {
     return 'YELLOW';
   }
 
-  // Uploaded between 14:00 and 14:30
-  return 'YELLOW';
+  return 'GREEN';
 }
 
 /**
- * Finds a matching video submission record by exact match, normalized substring,
- * single-entry fallback, or default key.
+ * Finds a submission only when its caller-supplied opaque occurrence ID and exact-read join are verified.
  */
 export function findVideoSubmission(
-  bookTitle: string,
+  expectedStudentId: StudentId | null | undefined,
+  expectedOccurrenceId: string | null | undefined,
   submissions?: Record<string, VideoSubmissionRecord>
 ): VideoSubmissionRecord | undefined {
-  if (!submissions) return undefined;
-  if (submissions[bookTitle]) return submissions[bookTitle];
-  if (submissions['default']) return submissions['default'];
+  if (!expectedStudentId || !expectedOccurrenceId || !submissions) return undefined;
+  const submission = submissions[expectedOccurrenceId];
+  if (
+    !submission ||
+    submission.studentId !== expectedStudentId ||
+    submission.occurrenceId !== expectedOccurrenceId ||
+    !hasVerifiedExactReadJoin(submission, expectedStudentId)
+  ) return undefined;
+  return submission;
+}
 
-  const normTitle = bookTitle.replace(/\s+/g, '').toLowerCase();
-  for (const [key, sub] of Object.entries(submissions)) {
-    const normKey = key.replace(/\s+/g, '').toLowerCase();
-    if (normKey.includes(normTitle) || normTitle.includes(normKey)) {
-      return sub;
-    }
+function hasVerifiedExactReadJoin(submission: VideoSubmissionRecord, expectedStudentId: StudentId): boolean {
+  return submission.studentId === expectedStudentId &&
+    submission.verificationSource === 'app_backend_submission' &&
+    submission.verifiedExactReadJoin === true;
+}
+
+function isValidISODate(value: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const [year, month, day] = value.split('-').map(Number);
+  if (year < 1000 || month < 1 || month > 12 || day < 1 || day > 31) return false;
+  const parsed = new Date(Date.UTC(year, month - 1, day));
+  return parsed.getUTCFullYear() === year && parsed.getUTCMonth() === month - 1 && parsed.getUTCDate() === day;
+}
+
+function requireISODate(value: string, parameterName: string): string {
+  if (!isValidISODate(value)) {
+    throw new RangeError(`${parameterName} must be an explicit valid YYYY-MM-DD date.`);
   }
+  return value;
+}
 
-  // Fallback to single submission if student has exactly 1 video upload
-  const entries = Object.values(submissions);
-  if (entries.length === 1) {
-    return entries[0];
-  }
+function parseClockTime(value: string): number | undefined {
+  const match = value.match(/^(\d{2}):(\d{2})$/);
+  if (!match) return undefined;
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
+  if (hours > 23 || minutes > 59) return undefined;
+  return hours * 60 + minutes;
+}
 
-  return undefined;
+function parseComparableUploadTime(value: string, targetDate: string): number | undefined {
+  // A time without a date or a zoned instant cannot be compared to the local briefing clock safely.
+  const localTimestamp = value.match(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})(?::\d{2}(?:\.\d+)?)?$/);
+  if (!localTimestamp || !isValidISODate(targetDate) || localTimestamp[1] !== targetDate) return undefined;
+  return parseClockTime(localTimestamp[2]);
 }
 
 // ============================================================================
@@ -208,10 +217,11 @@ export class PreclassScanner {
   public resolveStudentBaseline(
     studentId: StudentId,
     classGroupId: ClassGroupId,
-    targetDateStr: string = '2026-09-28',
+    targetDateStr: string,
     absenceHistory: Record<string, string> = {},
     customEnrolledDays?: number[]
   ): ResolvedBaselineDate {
+    requireISODate(targetDateStr, 'targetDateStr');
     const enrolledDays = customEnrolledDays || STANDARD_CLASS_SCHEDULES[classGroupId]?.daysOfWeek;
     if (!enrolledDays || enrolledDays.length === 0) {
       throw new Error(`Invalid or unregistered class group ID: ${classGroupId}`);
@@ -272,11 +282,9 @@ export class PreclassScanner {
     };
   }
 
-  /**
-   * Scans a single student at the 14:00 pre-class briefing milestone.
-   */
-  public scanStudent(input: StudentScanInput): PreclassStudentBriefing {
-    const targetDate = input.targetDate || '2026-09-28';
+  /** Scans a single student's assigned prestudy evidence at the briefing time. */
+  public scanStudent(input: StudentScanInput, targetDateStr: string, briefingTimeStr: string = '14:00'): PreclassStudentBriefing {
+    const targetDate = requireISODate(targetDateStr, 'targetDateStr');
     const absenceHistory = input.absenceHistory || {};
 
     // 1. Holiday-aware lookback resolution
@@ -298,32 +306,36 @@ export class PreclassScanner {
     const { prestudyTasks } = this.parseBaselineHomework(rawHomework);
 
     // 4. Evaluate traffic-light status for each prestudy task
-    let aggregatedLight: PrestudyTrafficLight = prestudyTasks.length > 0 ? 'GREEN' : 'GRAY';
     const evaluatedTasks: ParsedPrestudyTask[] = [];
 
-    for (const task of prestudyTasks) {
-      const submission = findVideoSubmission(task.bookTitle, input.videoSubmissions);
+    for (const [taskIndex, task] of prestudyTasks.entries()) {
+      const occurrenceId = input.prestudyOccurrenceIds?.[taskIndex];
+      const submission = findVideoSubmission(input.studentId, occurrenceId, input.videoSubmissions);
       const status = evaluatePrestudyTrafficLight({
         requiresVideoUpload: task.requiresVideoUpload,
         submission,
+        expectedStudentId: input.studentId,
+        expectedOccurrenceId: occurrenceId,
         targetDateStr: targetDate,
-        briefingTimeStr: '14:00',
-        classStartTimeStr: '15:00'
+        briefingTimeStr
       });
 
       evaluatedTasks.push({
         ...task,
         status,
-        verificationSource: submission ? 'lms_TeacherPrestudySummary' : 'unverified'
+        verificationSource: submission?.verificationSource ?? 'unverified'
       });
-
-      // Aggregate: RED takes highest priority, then YELLOW, then GREEN, then GRAY
-      if (status === 'RED') {
-        aggregatedLight = 'RED';
-      } else if (status === 'YELLOW' && aggregatedLight !== 'RED') {
-        aggregatedLight = 'YELLOW';
-      }
     }
+
+    // Keep any unresolved occurrence visible in the aggregate instead of implying readiness.
+    const statuses = evaluatedTasks.map(task => task.status);
+    const aggregatedLight: PrestudyTrafficLight = statuses.length === 0
+      ? 'GRAY'
+      : statuses.includes('UNKNOWN')
+        ? 'UNKNOWN'
+        : statuses.includes('YELLOW')
+          ? 'YELLOW'
+          : 'GREEN';
 
     // 5. Invariant: Concept Blank Test scope injection from baseline prestudy
     const conceptTest = this.injectConceptTestScope(rawHomework);
@@ -331,13 +343,13 @@ export class PreclassScanner {
     // 6. Build contextual classroom alerts
     const alerts: string[] = [];
     if (baseline.absenceIntervened) {
-      alerts.push(`[학습공백 보완] 직전 예정일(${absenceHistory['2026-09-23'] ? '09/23 결석' : '이전 결석'})로 인해 ${baseline.baselineDate} 수업 기준으로 과제 추적.`);
+      alerts.push(`[학습공백 보완] 결석 기록을 반영해 ${baseline.baselineDate} 수업 기준으로 과제를 추적합니다.`);
     }
 
-    if (aggregatedLight === 'RED') {
-      alerts.push(`[Zero Test 대기] 예습영상 미제출 -> 등원 즉시 개념설명 영상 촬영 및 ZT 응시 큐 배정.`);
+    if (aggregatedLight === 'UNKNOWN') {
+      alerts.push('[예습영상 상태 미확인] 출처·발생 회차·제출 시각·품질 정보 중 확인되지 않은 항목이 있습니다.');
     } else if (aggregatedLight === 'YELLOW') {
-      alerts.push(`[지연 제출 주의] 예습영상이 브리핑(14:00) 이후 제출되었거나 음질 점검 필요.`);
+      alerts.push('[예습영상 확인 필요] 확인된 제출 시각 또는 품질 정보에서 교사 검토가 필요합니다.');
     }
 
     if (input.specialAlerts) {
@@ -357,23 +369,22 @@ export class PreclassScanner {
   }
 
   /**
-   * Scans an entire cohort of students and generates the master 14:00 classroom briefing report.
+   * Scans an entire cohort without inferring ZT eligibility or assessment schedules.
    */
   public scanCohort(
     cohort: StudentScanInput[],
-    targetDate: string = '2026-09-28',
+    targetDateStr: string,
     briefingTime: string = '14:00'
   ): PreclassCohortBriefingReport {
+    const targetDate = requireISODate(targetDateStr, 'targetDateStr');
     const studentBriefings: Record<StudentId, PreclassStudentBriefing> = {} as any;
     let greenCount = 0;
     let yellowCount = 0;
-    let redCount = 0;
     let grayCount = 0;
-
-    const zeroTestQueue: PreclassCohortBriefingReport['zeroTestQueue'] = [];
+    let unknownCount = 0;
 
     for (const student of cohort) {
-      const briefing = this.scanStudent({ ...student, targetDate });
+      const briefing = this.scanStudent(student, targetDate, briefingTime);
       studentBriefings[student.studentId] = briefing;
 
       switch (briefing.prestudyTrafficLight) {
@@ -383,49 +394,25 @@ export class PreclassScanner {
         case 'YELLOW':
           yellowCount++;
           break;
-        case 'RED':
-          redCount++;
-          for (const task of briefing.prestudyTasks) {
-            if (task.status === 'RED') {
-              zeroTestQueue.push({
-                studentId: student.studentId,
-                name: student.name,
-                bookTitle: task.bookTitle,
-                missingScope: task.assignedScope,
-                actionRequired: '등원 직후 개념백지 및 구술 설명 영상 촬영'
-              });
-            }
-          }
-          break;
         case 'GRAY':
           grayCount++;
+          break;
+        case 'UNKNOWN':
+          unknownCount++;
           break;
       }
     }
 
-    // Grounded 15:35 Synchronized Timed Assessment for target session
-    const synchronizedEvaluations: PreclassCohortBriefingReport['synchronizedEvaluations'] = [
-      {
-        syncGroupName: 'timed_eval_1535',
-        scheduledStartTime: '15:35',
-        timeLimitMinutes: 60,
-        participants: cohort.map(s => s.studentId)
-      }
-    ];
-
     return {
       briefingDate: targetDate,
       briefingTime,
-      targetSessionStartTime: '15:00',
       totalStudents: cohort.length,
       trafficLightSummary: {
         green: greenCount,
         yellow: yellowCount,
-        red: redCount,
-        gray: grayCount
+        gray: grayCount,
+        unknown: unknownCount
       },
-      zeroTestQueue,
-      synchronizedEvaluations,
       studentBriefings
     };
   }
