@@ -1,0 +1,16 @@
+sandbox_mode = "danger-full-access"
+approval_policy = "never"
+web_search = "live"
+model_context_window = 1050000
+model_auto_compact_token_limit = 872000
+
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+
+[mcp_servers.localBrowser]
+command = "node"
+args = ["C:/Users/dcgan/OneDrive/Desktop/dc/dc-gang-a/node_modules/@playwright/mcp/cli.js", "--isolated", "--browser", "chrome", "--caps", "devtools", "--no-webmcp"]
+
+[mcp_servers.chromeDevTools]
+command = "node"
+args = ["C:/Users/dcgan/OneDrive/Desktop/dc/dc-gang-a/node_modules/chrome-devtools-mcp/build/src/bin/chrome-devtools-mcp.js", "--user-data-dir=C:/Users/dcgan/AppData/Local/dc-gang-a-chrome-devtools-profile", "--redact-network-headers", "--no-usage-statistics", "--no-performance-crux"]

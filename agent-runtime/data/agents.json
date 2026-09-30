@@ -1,0 +1,64 @@
+{
+  "agents": [
+    {
+      "agentId": "rubric-researcher",
+      "policyStatus": "historical",
+      "displayName": "Rubric Researcher",
+      "role": "Adversarial research: explores codebases, identifies edge cases, boundary conditions, failure modes, and penetration paths; authors objective evaluation rubrics before code is written.",
+      "modelTier": "inherit",
+      "workspaceMode": "inherit",
+      "isMainAgent": false,
+      "toolPolicy": {
+        "policyMode": "allowlist",
+        "allowedTools": ["view_file", "search_web", "read_url_content", "send_message"],
+        "blockedTools": ["write_to_file", "replace_file_content", "run_command", "invoke_subagent"]
+      },
+      "dispatchPattern": "Dispatch as first subagent in Tier 3 pipeline. Provide objective and target files. Expect a structured rubric table with binary Pass/Fail criteria as output."
+    },
+    {
+      "agentId": "implementation-specialist",
+      "policyStatus": "historical",
+      "displayName": "Implementation Specialist",
+      "role": "TDD engineering: writes minimal, cohesive, test-driven code and unit tests satisfying the objective evaluation rubric established by the Rubric Researcher.",
+      "modelTier": "inherit",
+      "workspaceMode": "inherit",
+      "isMainAgent": false,
+      "toolPolicy": {
+        "policyMode": "allowlist",
+        "allowedTools": ["view_file", "write_to_file", "replace_file_content", "run_command", "send_message"],
+        "blockedTools": ["invoke_subagent"]
+      },
+      "dispatchPattern": "Dispatch after rubric-researcher has established rubric. Provide the rubric output and target files. Expect an implementation completion report with test evidence."
+    },
+    {
+      "agentId": "adversarial-auditor",
+      "policyStatus": "historical",
+      "displayName": "Adversarial Auditor",
+      "role": "Independent adversarial code audit: scrutinizes implementation against evaluation rubric, detects code smells, regressions, mock falsification, concurrency locks, and resource leaks.",
+      "modelTier": "inherit",
+      "workspaceMode": "inherit",
+      "isMainAgent": false,
+      "toolPolicy": {
+        "policyMode": "denylist",
+        "allowedTools": ["view_file", "run_command", "send_message"],
+        "blockedTools": ["write_to_file", "replace_file_content", "invoke_subagent"]
+      },
+      "dispatchPattern": "Dispatch last in Tier 3 pipeline. Provide rubric and implementation report. Expect AUDIT_PASSED or AUDIT_REJECTED verdict with detailed findings."
+    },
+    {
+      "agentId": "lead-workflow-orchestrator",
+      "policyStatus": "historical",
+      "displayName": "Lead Workflow Orchestrator",
+      "role": "Multi-agent governance coordinator: manages task triage, 3-Tier pacing, subagent dispatching, inter-agent contracts, and structured HITL gate reporting.",
+      "modelTier": "inherit",
+      "workspaceMode": "inherit",
+      "isMainAgent": true,
+      "toolPolicy": {
+        "policyMode": "allowlist",
+        "allowedTools": ["view_file", "invoke_subagent", "manage_subagents", "send_message", "ask_question"],
+        "blockedTools": ["write_to_file", "replace_file_content"]
+      },
+      "dispatchPattern": "Main orchestrating agent. Classifies tasks into Tier 1/2/3, decomposes Tier 3 into phases, dispatches the 3-agent pipeline (researcher → specialist → auditor), and gates on explicit user approval."
+    }
+  ]
+}

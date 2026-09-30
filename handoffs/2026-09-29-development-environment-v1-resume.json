@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "asOfUtc": "2026-09-29T12:05:42Z",
+  "status": "development_environment_local_v1_completed_session_reload_pending",
+  "activeTaskContinues": "academy_read_path_completion_and_class_pilot_preparation",
+  "completedSubphase": "I1_local_optimization_and_V1_local_recheck",
+  "scorecard": "review/development-environment-v1-scorecard-2026-09-29.json",
+  "rubric": "review/development-environment-adversarial-rubric-2026-09-29.json",
+  "evaluation": "review/development-environment-e1-findings-2026-09-29.json",
+  "verifiedLocalWork": [
+    "Prompt-centered feedback registry and omission canary cover seven recurring themes.",
+    "Resume rejects impossible dates, false completed handoffs and active phase drift.",
+    "Preflight rejects configured MCP scripts that do not resolve to installed package files.",
+    "DevTools helper requires explicit teacher-site tab binding and emits bounded structural output.",
+    "Thirteen legacy route candidates cannot be reached through public read/safety/request APIs.",
+    "Pilot validation preserves teacher-confirmed facts against coordinated deletion.",
+    "Default explicit Bun gate now includes changed harness and read-safety tests and uses dots output."
+  ],
+  "validation": {
+    "bunFocused": "106_pass_0_fail_across_14_files",
+    "harnessTypecheck": "pass_with_skipLibCheck",
+    "harnessVerify": "5_cohort_5_groups_54_routes",
+    "siteContracts": "valid_50_servlet_plus_4_other",
+    "feedbackCoverage": "7_of_7",
+    "nativeDevToolsCurrentSession": "not_exposed_zero_callable_tools",
+    "productionLmsWrites": 0,
+    "productionSheetWrites": 0
+  },
+  "unresolvedBoundaries": [
+    "Reload Codex session and verify native chromeDevTools tools are callable; CLI registration alone is insufficient.",
+    "Dedicated teacher Chrome currently shows login page; teacher identity and student join unverified.",
+    "Current 1.05M context capacity remains unverified despite project configuration.",
+    "Native app read joins and full class/occurrence coverage remain unverified.",
+    "Operating Sheet cutover remains undeployed and requires current structural metadata and separate batch approval.",
+    "Machine-local desktop core gate remains blocked by old PC references and absent sibling checkout/transition package."
+  ],
+  "nextSessionStart": [
+    "bun run harness/resume.ts --json",
+    "bun run harness/runtime_preflight.ts --mcp --json",
+    "bun run harness/feedback_coverage.ts --json",
+    "Check current session callable mcp__chromeDevTools__ tools before claiming native availability",
+    "When teacher login is needed, use explicit Chrome tab binding; do not extract session credentials"
+  ],
+  "sessionReloadRequiredForNativeDevTools": true
+}

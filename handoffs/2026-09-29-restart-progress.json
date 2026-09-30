@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "asOfUtc": "2026-09-29T11:04:00.364Z",
+  "status": "local_lead_routing_completed_operating_cutover_pending",
+  "activeTask": "academy_read_path_completion_and_class_pilot_preparation",
+  "userDirection": {
+    "engineeringRuntime": "TypeScript/Bun",
+    "backwardPropagation": "Analyze repeated feedback at harness and Codex CLI runtime level without raw prompt dumps.",
+    "nextSessionBoundary": "Stop after delegated analysis, then continue in a new session."
+  },
+  "completedLocalChanges": [
+    "harness/lead.ts consumes teacher-confirmed class and historical DayRecord scope, validates canonical identities and route effects, and blocks unknown-effect facts.",
+    "handoffs/2026-09-30-class-scope.json binds the two confirmed students and retains unknown page range.",
+    "handoffs/current-state.json, harness/context-map.md, and harness/README.md route new lead planning through Bun.",
+    "src/lms/lmsRouteRegistry.ts separates DayRecord request selectors from response join keys and blocks generic canonical buildRequest."
+  ],
+  "verification": {
+    "resume": "pass",
+    "harnessVerify": "pass_5_cohort_5_groups_54_routes",
+    "siteContracts": "valid",
+    "focusedTests": "43_pass_0_fail",
+    "focusedTypecheck": "pass",
+    "productionSheetWrites": 0,
+    "productionLmsWrites": 0,
+    "credentialExtraction": false
+  },
+  "browserAndSheet": {
+    "browser": "project_local_Chrome_isolated_DevTools",
+    "accountAndTarget": "authenticated_Park_account_and_exact_operating_Park_tab_verified",
+    "operatingWorkbookModifiedTimeUtc": "2026-09-29T09:59:59.273Z",
+    "operatingTabGrid": {
+      "rows": 72,
+      "columns": 16,
+      "frozenRows": 2
+    },
+    "operatingConditionalFormatRules": 5,
+    "operatingProtection": {
+      "type": "sheet",
+      "editableExceptions": [
+        "I8",
+        "I5"
+      ],
+      "editorCountShown": 3
+    },
+    "recoveryCopy": {
+      "ownerOnly": true,
+      "gridAndFiveConditionalRulesMatch": true,
+      "protectedRulesPresent": false
+    },
+    "connectorLimitation": "Metadata omits merges, protectedRanges and row/column pixel sizes.",
+    "browserPersistence": "Operating and recovery tabs left open; isolated login may not survive a new Codex session."
+  },
+  "operatingCutover": {
+    "deployed": false,
+    "approvalReady": false,
+    "blockers": [
+      "Exact source/target merges and pixel dimensions unverified.",
+      "Recovery copy lacks operating protection; inverse requests incomplete.",
+      "Native date/time, validation and full reversible batch unverified."
+    ]
+  },
+  "backwardPropagation": {
+    "evidence": "87 user-role messages from the 2026-09-29 session classified without raw dump.",
+    "repeatedFeedbackPatterns": [
+      "Do not reask settled teacher facts.",
+      "Investigate teacher-web Chrome DevTools and verified contracts before requesting app files or PDFs.",
+      "Use Chrome and TypeScript/Bun; separate configured runtime from effective access and authentication."
+    ],
+    "nextEngineeringPriorities": [
+      "Make resume.ts fail closed on genuinely stale index and surface concise teacher facts.",
+      "Add a safe next-investigation path to blocked fact plans before interviewing.",
+      "Align .agents/skills/park-main-sheet/SKILL.md and current guidance with Bun-first routing.",
+      "Separate config, effective policy, MCP connection, browser auth and context checks in Bun preflight."
+    ]
+  },
+  "nextSessionStart": [
+    "bun run harness/resume.ts --json",
+    "Read this handoff and preserve dirty work.",
+    "Reconfirm Chrome account/tab/auth; never discover cookies.",
+    "Finish exact metadata/recovery validation and prepare approval batch before any production write."
+  ]
+}

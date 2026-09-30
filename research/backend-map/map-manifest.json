@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_utc": "2026-09-27T12:14:59Z",
+  "generated_utc": "2026-09-29T10:00:57Z",
   "scope": "Park Gyeongchan instructor workspace structural map, dated live evidence, and Main Sheet UX proposal; no student values",
   "remote_source_commit": "e91b4d7d9f48013469cf823bec5693e5276c01e5",
   "files": [
@@ -66,29 +66,35 @@
     },
     {
       "path": "route-registry.json",
-      "bytes": 32527,
-      "sha256": "f3986148905996d70f3b3d54fc786d15419e1ed366d781b0661cffe8a690e8e6",
-      "evidence_scope": "Operation entries across live, static, source-only, and historical evidence; the pre-study detail entry is an unsafe-to-probe historical candidate."
+      "bytes": 35329,
+      "sha256": "c442309b342252ad2d25890c6bd267ed08182ceea50086f8634b73af527d7437",
+      "evidence_scope": "Operation entries across live, static, source-only, and historical evidence; textbook_answer_catalog and default pre-study lists have bounded live structure; textbook_sample_pdf permits only two fixed catalog-observed URLs; the pre-study detail entry is an unsafe-to-probe historical candidate."
     },
     {
       "path": "sheet-topology.json",
       "bytes": 9722,
       "sha256": "28870e45695667abfec2e1b3ef17a5382e71ca6b7f5ba1437efe9fc156c333cb",
       "evidence_scope": "Bounded 2026-09-27 Sheets metadata/topology and protection observations; no cell-write acceptance."
+    },
+    {
+      "path": "teacher-site-live-structure-2026-09-29.json",
+      "evidence_scope": "Bounded authenticated fixed GET structure observations for the two default pre-study lists and active middle-school textbook catalog; no raw student rows or PDF contents.",
+      "bytes": 2348,
+      "sha256": "f1e229e6e0c1a0f1ff13d6dd6cf995edf2680c44addcd483f4441e9b72ae4cde"
     }
   ],
   "remote_copy_manifest": "../remote-2026-09-27/manifest.json",
   "remote_copy_manifest_sha256": "a76a1d9389900adde4164a5d530672720af4500019b1bf53686d2bbb827ef0c5",
   "remote_inventory_sha256": "aef8033dfd957f9a9a475da06d8d0b42e15bc14124f5ce04709a408a8648eeb4",
   "evidence_summary": {
-    "route_registry_entries": 52,
+    "route_registry_entries": 54,
     "route_registry_by_evidence_grade": {
       "historical-effect": 2,
       "historical-read": 2,
       "historical-read-plus-live-structure": 2,
       "live-route": 4,
       "live-static-js": 10,
-      "live-structure": 17,
+      "live-structure": 19,
       "source": 15
     },
     "bounded_teacher_site_routes": 13,
@@ -97,5 +103,5 @@
     "parent_delivery": "A current report preview and read-only Kakao send screen were observed; no send/cancel was invoked, and exact parent-delivered text plus an independent receipt remain unverified.",
     "native_app": "No native-app API contract, student submission/grading records, or stable app-to-LMS join has been verified."
   },
-  "note": "Hashes cover the 12 canonical files listed above. This manifest excludes itself and files outside research/backend-map. Evidence summaries are bounded to the dated sources cited by each map file."
+  "note": "Hashes cover the 13 canonical files listed above. This manifest excludes itself and files outside research/backend-map. Evidence summaries are bounded to the dated sources cited by each map file."
 }

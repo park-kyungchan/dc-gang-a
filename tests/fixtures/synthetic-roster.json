@@ -1,0 +1,82 @@
+{
+  "version": "synthetic-1",
+  "academy": "Synthetic Academy",
+  "branch": "Synthetic Branch",
+  "teacher": {
+    "teacherPriNo": "teacher-synthetic",
+    "teacherId": "teacher-synthetic",
+    "name": "Synthetic Teacher",
+    "academy": "Synthetic Academy",
+    "branch": "Synthetic Branch",
+    "sheetTabGid": "sheet-synthetic"
+  },
+  "groups": {
+    "group-a": {
+      "groupId": "group-a",
+      "id": "group-a",
+      "name": "Synthetic A",
+      "days": [
+        1,
+        3
+      ],
+      "time": "15:00"
+    },
+    "group-b": {
+      "groupId": "group-b",
+      "id": "group-b",
+      "name": "Synthetic B",
+      "days": [
+        3,
+        5
+      ],
+      "time": "17:00"
+    }
+  },
+  "students": [
+    {
+      "studentId": "student-a",
+      "name": "Synthetic Student A",
+      "loginId": "synthetic-a",
+      "grade": null,
+      "schoolGrade": null,
+      "group": "group-a",
+      "groupId": "group-a",
+      "groupName": "Synthetic A",
+      "courseSeq": null,
+      "cmSeq": null,
+      "primaryBook": null,
+      "secondaryBook": null,
+      "isTest": false
+    },
+    {
+      "studentId": "student-b",
+      "name": "Synthetic Student B",
+      "loginId": "synthetic-b",
+      "grade": null,
+      "schoolGrade": null,
+      "group": "group-b",
+      "groupId": "group-b",
+      "groupName": "Synthetic B",
+      "courseSeq": null,
+      "cmSeq": null,
+      "primaryBook": null,
+      "secondaryBook": null,
+      "isTest": false
+    },
+    {
+      "studentId": "test-a",
+      "name": "Synthetic Test",
+      "loginId": "synthetic-test",
+      "grade": null,
+      "schoolGrade": null,
+      "group": "group-a",
+      "groupId": "group-a",
+      "groupName": "Synthetic A",
+      "courseSeq": null,
+      "cmSeq": null,
+      "primaryBook": null,
+      "secondaryBook": null,
+      "isTest": true
+    }
+  ]
+}

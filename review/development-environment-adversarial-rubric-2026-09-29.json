@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-09-29",
+  "phase": "R1_complete_root_reviewed",
+  "source": "R1 adversarial_rubric_researcher final answer, grounded in user prompts, AGENTS.md, current artifacts, official OpenAI/Chrome docs",
+  "rule": "PASS only with required evidence and canary; else FAIL, UNKNOWN or BLOCKED. UNKNOWN/BLOCKED are not complete.",
+  "evidenceGrades": [
+    "configured",
+    "registered",
+    "connected",
+    "authenticated",
+    "bounded_operation_verified",
+    "production_effect_readback"
+  ],
+  "criteria": [
+    {
+      "id": "BP-01",
+      "priority": "P0",
+      "passEvidence": "Repeated user prompts map to root causes, fixes, and verification across runtime/tools/data",
+      "canary": "Drop one feedback theme and detect omission"
+    },
+    {
+      "id": "BP-02",
+      "priority": "P0",
+      "passEvidence": "Teacher-confirmed facts survive resume and prevent repeat questions",
+      "canary": "Remove 9/23 confirmed lesson date"
+    },
+    {
+      "id": "CTX-01",
+      "priority": "P0",
+      "passEvidence": "Resume rejects missing, escaping, future-inconsistent, or stale index",
+      "canary": "Run as 10/1 against 9/30 scheduled index"
+    },
+    {
+      "id": "CTX-02",
+      "priority": "P1",
+      "passEvidence": "Compaction preserves approval, incomplete tasks, and effect boundaries",
+      "canary": "Swap pending plan for completed handoff"
+    },
+    {
+      "id": "RT-01",
+      "priority": "P0",
+      "passEvidence": "Separate configured context from effective session capacity and policy",
+      "canary": "Claim 1.05M from config alone"
+    },
+    {
+      "id": "RT-02",
+      "priority": "P1",
+      "passEvidence": "Apply root and nested AGENTS and trust discovery by path",
+      "canary": "Ignore SPT/LMS nested guidance"
+    },
+    {
+      "id": "MCP-01",
+      "priority": "P0",
+      "passEvidence": "Distinguish current-session callable DevTools, CLI registration, and direct handshake",
+      "canary": "Treat 30-tool local handshake as hot-load"
+    },
+    {
+      "id": "MCP-02",
+      "priority": "P0",
+      "passEvidence": "Verify current Chrome instance, tab, teacher auth, and route; menu shell is not student join",
+      "canary": "Use another profile or menu 200"
+    },
+    {
+      "id": "MCP-03",
+      "priority": "P1",
+      "passEvidence": "Use textual snapshot and filtered request metadata with header redaction",
+      "canary": "Emit cookie headers or routine screenshots"
+    },
+    {
+      "id": "MCP-04",
+      "priority": "P1",
+      "passEvidence": "Refresh exact Drive workbook/tab/protection/merge/size at operating batch",
+      "canary": "Rely on prior protection metadata"
+    },
+    {
+      "id": "DATA-01",
+      "priority": "P0",
+      "passEvidence": "Use deterministic roster/routes and fail closed on unknown ID",
+      "canary": "Grep raw dumps for student ID"
+    },
+    {
+      "id": "DATA-02",
+      "priority": "P0",
+      "passEvidence": "Classify operation semantics, including mutating GET/read-only POST",
+      "canary": "Probe all GET as safe"
+    },
+    {
+      "id": "DATA-03",
+      "priority": "P0",
+      "passEvidence": "Bound DayRecord by student/date/group/occurrence/page/time and preserve partial grade",
+      "canary": "Promote observed row to whole class"
+    },
+    {
+      "id": "DATA-04",
+      "priority": "P0",
+      "passEvidence": "Require verified app joins per student/course/submission/attempt/grade/video/correction",
+      "canary": "Convert missing row to incomplete"
+    },
+    {
+      "id": "DATA-05",
+      "priority": "P0",
+      "passEvidence": "Legacy CLI/service block before clipboard, unknown-effect request, and fetch",
+      "canary": "Discover JSESSIONID or fetch route"
+    },
+    {
+      "id": "SEC-01",
+      "priority": "P0",
+      "passEvidence": "No credential, raw student/media, headers/body in logs/artifacts; ephemeral explicit session",
+      "canary": "Inject synthetic secret into output"
+    },
+    {
+      "id": "OPS-01",
+      "priority": "P0",
+      "passEvidence": "Production writes require exact target, before/after, recovery, approval, same-target readback",
+      "canary": "Omit one gate"
+    },
+    {
+      "id": "DEV-01",
+      "priority": "P1",
+      "passEvidence": "New harness source/artifacts use TS/Bun; Python limited to existing reader/gates",
+      "canary": "Add convenience Python helper"
+    },
+    {
+      "id": "DEV-02",
+      "priority": "P1",
+      "passEvidence": "Run changed-path focused gates and separate preexisting vs new failures",
+      "canary": "Reuse past 40-pass claim"
+    },
+    {
+      "id": "SRC-01",
+      "priority": "P1",
+      "passEvidence": "Preserve dirty work/source locks; moves need consumer map and recovery",
+      "canary": "Clean untracked files or move without hash"
+    },
+    {
+      "id": "SRC-02",
+      "priority": "P1",
+      "passEvidence": "Distinguish SPT import, original checkout, service, physical iPhone evidence",
+      "canary": "Promote local synthetic test to deployment"
+    },
+    {
+      "id": "REP-01",
+      "priority": "P1",
+      "passEvidence": "Final scorecard lists evidence, canary, unresolved boundary, production effects",
+      "canary": "Mark unverified app/Sheet complete"
+    }
+  ],
+  "review": {
+    "criterionCount": 22,
+    "decision": "approved_for_E1",
+    "initialUnknown": [
+      "MCP-01 current-session DevTools hot-load",
+      "RT-01 effective 1.05M capacity",
+      "DATA-04 app joins",
+      "MCP-04 complete operating Sheet structure"
+    ]
+  }
+}

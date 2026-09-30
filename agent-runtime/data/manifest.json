@@ -1,0 +1,10 @@
+{
+  "version": "1.2.0",
+  "schemaVersion": "1.0.0",
+  "rulePrecedence": ["workspace", "global"],
+  "pluginName": "antigravity-runtime-harness",
+  "description": "Agent-agnostic typed runtime manifest extracted from antigravity-runtime-harness plugin",
+  "codexIntegration": "none",
+  "enforcement": "none",
+  "generatedAt": "2026-09-29T05:15:36Z"
+}

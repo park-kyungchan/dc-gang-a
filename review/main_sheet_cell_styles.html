@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Main Sheet · 셀 디자인 3안 비교</title>
+  <style>
+    :root { font: 14px/1.45 "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; color: #253344; background: #edf1f4; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { padding: 30px max(20px, calc((100vw - 1440px)/2)); color: white; background: #203446; }
+    h1 { margin: 0 0 6px; font-size: 26px; }
+    header p { margin: 0; color: #ccdae4; }
+    main { max-width: 1480px; margin: auto; padding: 24px 20px 42px; }
+    .notice { margin-bottom: 22px; padding: 10px 13px; border-left: 4px solid #bc853d; background: #fff8e9; color: #73531e; }
+    .samples { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+    .sample { --header: #e8ecf0; --section: #f5f7f8; --grid: #dce2e7; --accent: #e8f4f8; --text: #253344; --muted: #596b7a; --unknown: #80591d; --unknown-bg: #fff2dc; --body: #fff; min-width: 0; border: 1px solid #c9d6df; border-radius: 11px; overflow: hidden; box-shadow: 0 5px 17px #1c34420c; }
+    .sample.b { --header: #25485c; --section: #eaf3f6; --grid: #d1e1e7; --accent: #dff1f2; --text: #203645; --muted: #5a7281; --unknown: #8b5a18; --unknown-bg: #fff0ce; --body: #fcfefe; }
+    .sample.c { --header: #333a42; --section: #fbf5e7; --grid: #d5d0c3; --accent: #e8f4e9; --text: #20252a; --muted: #4e5961; --unknown: #5c4208; --unknown-bg: #ffdea0; --body: #fffdf8; }
+    .label { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; padding: 16px; background: white; border-bottom: 1px solid #dde5ea; }
+    .label h2 { margin: 0 0 4px; font-size: 17px; }
+    .label p { margin: 0; color: #526678; font-size: 12px; }
+    .label .letter { padding: 4px 8px; border-radius: 6px; background: #e8eef2; color: #344e5e; font-weight: 900; }
+    .sheet { margin: 13px; border: 1px solid var(--grid); color: var(--text); background: var(--body); overflow: hidden; }
+    .ruler { display: grid; grid-template-columns: 32px 1fr 1fr 1fr 1fr; border-bottom: 1px solid #cad3d9; background: #f5f7f8; color: #6b7b86; font: 10px ui-monospace, Consolas, monospace; }
+    .ruler span { padding: 5px; text-align: center; border-right: 1px solid #dce2e7; }
+    .sheet-title { padding: 9px 10px; background: var(--header); color: var(--text); font-weight: 900; }
+    .b .sheet-title, .c .sheet-title { color: white; }
+    .sheet-meta { display: grid; grid-template-columns: 1fr 1fr; }
+    .sheet-meta div { padding: 7px 9px; border-right: 1px solid var(--grid); border-bottom: 1px solid var(--grid); font-size: 11px; }
+    .sheet-meta b { display: block; }
+    .muted { color: var(--muted); }
+    .section-title { padding: 8px 9px; border-top: 1px solid var(--grid); border-bottom: 1px solid var(--grid); background: var(--section); font-size: 12px; font-weight: 900; }
+    .section-title small { float: right; color: var(--muted); font-weight: 600; }
+    .grid { display: grid; grid-template-columns: .8fr 1.4fr 1.1fr 1fr; }
+    .grid div { min-width: 0; min-height: 44px; padding: 6px 7px; border-right: 1px solid var(--grid); border-bottom: 1px solid var(--grid); font-size: 11px; overflow-wrap: anywhere; }
+    .grid div:nth-child(4n) { border-right: 0; }
+    .grid.head div { min-height: 30px; background: var(--section); color: var(--muted); font-weight: 800; }
+    .grid .selected { background: var(--accent); font-weight: 800; }
+    .state { display: inline-block; padding: 2px 5px; border-radius: 3px; background: var(--unknown-bg); color: var(--unknown); font-size: 10px; font-weight: 800; }
+    .complete { display: inline-block; padding: 2px 5px; border-radius: 3px; background: #dff2e9; color: #17604e; font-size: 10px; font-weight: 800; }
+    .active { display: inline-block; padding: 2px 5px; border-radius: 3px; background: #e5f0fa; color: #21577e; font-size: 10px; font-weight: 800; }
+    .review { display: grid; grid-template-columns: .8fr 1.2fr 1.4fr 1fr; }
+    .review div { padding: 7px; border-right: 1px solid var(--grid); border-bottom: 1px solid var(--grid); font-size: 11px; }
+    .review div:nth-child(4n) { border-right: 0; }
+    .sample.a .grid div { min-height: 38px; }
+    .sample.b .section-title { border-left: 4px solid #3c93a0; }
+    .sample.b .grid div { min-height: 50px; }
+    .sample.c .section-title { border-left: 4px solid #b78a42; }
+    .sample.c .grid div { min-height: 58px; font-size: 12px; }
+    .traits { margin: 13px 16px 18px; padding-left: 18px; color: #516575; font-size: 12px; }
+    .traits li { margin: 5px 0; }
+    .recommendation { margin-top: 18px; padding: 14px 16px; border: 1px solid #d3e0e7; border-radius: 9px; background: white; }
+    .recommendation p { margin: 4px 0 0; color: #526778; }
+    @media (max-width: 1100px) { .samples { grid-template-columns: 1fr; } .sample { max-width: 620px; } }
+  </style>
+</head>
+<body>
+  <header><h1>Main Sheet 셀 디자인 3안</h1><p>같은 합성 수업 정보를 세 가지 밀도와 대비로 비교합니다. 실제 Google Sheet의 셀·서식·조건부 서식으로 옮길 수 있는 요소만 사용했습니다.</p></header>
+  <main>
+    <div class="notice">합성 데이터 시안입니다. 학생 이름, 점수, 수업 기록과 학원 시트 변경 사항은 포함하지 않습니다.</div>
+    <div class="samples">
+      <article class="sample a">
+        <div class="label"><div><h2>표준 그리드</h2><p>기존 시트와 가장 가까운 고밀도 작업표</p></div><span class="letter">A</span></div>
+        <div class="sheet">
+          <div class="ruler"><span></span><span>A–D</span><span>E–H</span><span>I–L</span><span>M–P</span></div>
+          <div class="sheet-title">박경찬 · 오늘 수업</div>
+          <div class="sheet-meta"><div><b>수업일 · 2099-01-14</b><span class="muted">날짜 먼저 선택</span></div><div><b>갱신 상태 · 확인 대기</b><span class="muted">출처와 시각 표시</span></div></div>
+          <div class="section-title">14:00 준비 <small>A8:P28</small></div>
+          <div class="grid head"><div>학생</div><div>직전 숙제</div><div>예습·앱</div><div>교사 판단</div></div>
+          <div class="grid"><div class="selected">가상 A</div><div>가우스 · 범위 확인</div><div><span class="state">확인 불가</span></div><div>숙제 검사 대기</div><div>가상 B</div><div>가우스플러스 · 범위 확인</div><div><span class="state">확인 불가</span></div><div>교사 확인 전</div></div>
+          <div class="section-title">수업 중 <small>A30:P59</small></div>
+          <div class="grid head"><div>학생</div><div>현재 작업</div><div>경과</div><div>대기·다음</div></div>
+          <div class="grid"><div class="selected">가상 A</div><div>숙제 제출·검사 대기</div><div>시작 미확인</div><div>버퍼 과제 대기</div><div>가상 B</div><div>백지테스트 준비</div><div>합성 08분</div><div>두 번째 교재 검사</div></div>
+          <div class="section-title">수업 후 <small>A61:P95</small></div>
+          <div class="review"><div>숙제</div><div>시트: 미확정</div><div>LMS: 검토 전</div><div><span class="state">대기</span></div></div>
+        </div>
+        <ul class="traits"><li>한 화면에 많은 학생과 필드를 표시</li><li>기존 Google Sheets와 익숙한 느낌</li><li>정보량이 많을 때 행 높이가 낮아 오독 가능</li></ul>
+      </article>
+      <article class="sample b">
+        <div class="label"><div><h2>운영 관제</h2><p>현재 작업과 출처 상태를 더 빨리 찾는 균형형</p></div><span class="letter">B</span></div>
+        <div class="sheet">
+          <div class="ruler"><span></span><span>A–D</span><span>E–H</span><span>I–L</span><span>M–P</span></div>
+          <div class="sheet-title">박경찬 · 오늘 수업</div>
+          <div class="sheet-meta"><div><b>수업일 · 2099-01-14</b><span class="muted">날짜 먼저 선택</span></div><div><b>갱신 상태 · 확인 대기</b><span class="muted">출처와 시각 표시</span></div></div>
+          <div class="section-title">14:00 준비 <small>A8:P28</small></div>
+          <div class="grid head"><div>학생</div><div>직전 숙제</div><div>예습·앱</div><div>교사 판단</div></div>
+          <div class="grid"><div class="selected">가상 A</div><div>가우스 · 범위 확인</div><div><span class="state">확인 불가</span></div><div>숙제 검사 대기</div><div>가상 B</div><div>가우스플러스 · 범위 확인</div><div><span class="state">확인 불가</span></div><div>교사 확인 전</div></div>
+          <div class="section-title">수업 중 <small>A30:P59</small></div>
+          <div class="grid head"><div>학생</div><div>현재 작업</div><div>경과</div><div>대기·다음</div></div>
+          <div class="grid"><div class="selected">가상 A</div><div>숙제 제출·검사 대기</div><div>시작 미확인</div><div>버퍼 과제 대기</div><div>가상 B</div><div>백지테스트 준비</div><div>합성 08분</div><div>두 번째 교재 검사</div></div>
+          <div class="section-title">수업 후 <small>A61:P95</small></div>
+          <div class="review"><div>숙제</div><div>시트: 미확정</div><div>LMS: 검토 전</div><div><span class="state">대기</span></div></div>
+        </div>
+        <ul class="traits"><li>단계 구분과 선택 학생이 빠르게 보임</li><li>미확인 값을 색과 글자로 함께 표시</li><li>중간 행 높이로 읽기와 정보량을 균형 있게 배치</li></ul>
+      </article>
+      <article class="sample c">
+        <div class="label"><div><h2>고대비 집중</h2><p>한 명씩 판단할 때 가독성을 우선한 큰 셀</p></div><span class="letter">C</span></div>
+        <div class="sheet">
+          <div class="ruler"><span></span><span>A–D</span><span>E–H</span><span>I–L</span><span>M–P</span></div>
+          <div class="sheet-title">박경찬 · 오늘 수업</div>
+          <div class="sheet-meta"><div><b>수업일 · 2099-01-14</b><span class="muted">날짜 먼저 선택</span></div><div><b>갱신 상태 · 확인 대기</b><span class="muted">출처와 시각 표시</span></div></div>
+          <div class="section-title">14:00 준비 <small>A8:P28</small></div>
+          <div class="grid head"><div>학생</div><div>직전 숙제</div><div>예습·앱</div><div>교사 판단</div></div>
+          <div class="grid"><div class="selected">가상 A</div><div>가우스 · 범위 확인</div><div><span class="state">확인 불가</span></div><div>숙제 검사 대기</div><div>가상 B</div><div>가우스플러스 · 범위 확인</div><div><span class="state">확인 불가</span></div><div>교사 확인 전</div></div>
+          <div class="section-title">수업 중 <small>A30:P59</small></div>
+          <div class="grid head"><div>학생</div><div>현재 작업</div><div>경과</div><div>대기·다음</div></div>
+          <div class="grid"><div class="selected">가상 A</div><div>숙제 제출·검사 대기</div><div>시작 미확인</div><div>버퍼 과제 대기</div><div>가상 B</div><div>백지테스트 준비</div><div>합성 08분</div><div>두 번째 교재 검사</div></div>
+          <div class="section-title">수업 후 <small>A61:P95</small></div>
+          <div class="review"><div>숙제</div><div>시트: 미확정</div><div>LMS: 검토 전</div><div><span class="state">대기</span></div></div>
+        </div>
+        <ul class="traits"><li>큰 셀과 강한 대비로 빠르게 읽힘</li><li>교사 확인과 미확인 항목에 눈길이 감</li><li>한 화면에 보이는 학생 수가 적음</li></ul>
+      </article>
+    </div>
+    <div class="recommendation"><strong>적용 방식</strong><p>확정한 한 탭 세로 배치는 그대로 둡니다. 선택한 안의 색, 행 높이, 제목 밴드, 조건부 서식만 합성 Google Sheet에서 먼저 검증합니다. 실제 운영 파일의 다른 강사 탭은 변경하지 않습니다.</p></div>
+  </main>
+</body>
+</html>

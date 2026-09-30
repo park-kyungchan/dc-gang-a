@@ -1,0 +1,336 @@
+{
+  "schema_version": 1,
+  "generated_date": "2026-09-29",
+  "title": "App API and teacher-site evidence inventory",
+  "purpose": "Inventory existing app-related reverse-engineering evidence and canonical route candidates; identify what is needed for a verified app API map.",
+  "scope": {
+    "included": [
+      "Existing sanitized app/site structural artifacts under research/backend-map and the linked sanitized remote-source inventory.",
+      "App-related route entries discovered through the deterministic harness route query.",
+      "Site-visible clues versus native-app-only unknowns."
+    ],
+    "excluded": [
+      "Protected config/ and data/ contents, credentials, raw student records, and student identifiers.",
+      "Network requests, browser sessions, app traffic, and production data.",
+      "Claims that teacher-site shells or route declarations establish a complete native-app API."
+    ]
+  },
+  "provenance": [
+    {
+      "path": "research/backend-map/app-static.md",
+      "sha256": "d63b607032d5091c1618d2268d0a6716f340c901f197e22dec99815fdaafd32b",
+      "evidence": "Source-level app-adjacent declarations and operation risks; explicitly says no live native-app proof."
+    },
+    {
+      "path": "research/backend-map/app-live.md",
+      "sha256": "8879af286f6c8e48e03ead2471042a268218c217be4cf52ce3721554bc3dd5ad",
+      "evidence": "Dated bounded teacher-site page shells and inspected inline JavaScript/form structure; no app action replay or student-level app state verification."
+    },
+    {
+      "path": "research/backend-map/app-read-contracts.md",
+      "sha256": "9fbc46d38c3cc880b53f78ae2e08f9da87158498e887ddafd474cf849edd186c",
+      "evidence": "Source and prior-live review of pre-study/app read gaps; no selected-student submission, grading, video, or stable join verified."
+    },
+    {
+      "path": "research/backend-map/route-registry.json",
+      "sha256": "0e0876c3bbbc31cf3ece142d95ed7294758414814c3d89f5c27d40ad0a0a7b22",
+      "discovery_method": "python -B harness/cli.py routes --all --json",
+      "evidence": "Canonical operation records, effects, join-key names, and probe limits. The harness result was filtered by route ID and app/pre-study concepts; the registry file was not edited."
+    },
+    {
+      "path": "research/remote-2026-09-27/inventory.md",
+      "evidence": "Sanitized source inventory says native-command bridges such as LecturePlay and CreateWorkBook do not establish direct student-app backend access; the copied local SQLite schema is not the academy production database."
+    },
+    {
+      "path": "research/backend-map/README.md",
+      "evidence": "Current map boundary states teacher-site shells do not verify the native app API, selected-student submissions/grading, or app-to-site joins."
+    },
+    {
+      "path": "research/backend-map/teacher-site-live-structure-2026-09-29.json",
+      "sha256": "f1e229e6e0c1a0f1ff13d6dd6cf995edf2680c44addcd483f4441e9b72ae4cde",
+      "evidence": "Current fixed authenticated default views: one table each for WebUnPreStudy and WebCtPreStudy; aggregate HTTP status, table count, tr-element count, and headings. Student row values were not persisted.",
+      "limit": "Default-list appearance does not identify canonical student ID, assigned book/course, lesson occurrence, app upload/submission, grading, or watch state; current parameterized POST effects remain unclassified."
+    }
+  ],
+  "route_discovery": {
+    "command": "python -B harness/cli.py routes --all --json",
+    "canonical_registry_entries": 54,
+    "app_related_entries": [
+      "prestudy_waiting",
+      "prestudy_completed",
+      "prestudy_summary",
+      "prestudy_waiting_search",
+      "prestudy_completed_search",
+      "prestudy_historical_search",
+      "prestudy_historical_detail",
+      "study_course",
+      "study_schedule",
+      "course_get_list",
+      "student_get_list",
+      "pro_course_get_list",
+      "smartbook_menu",
+      "smartbook_result",
+      "smartbook_result_search",
+      "item_metadata",
+      "video_lookup",
+      "app_registration"
+    ],
+    "interpretation": "These entries include teacher-site shells, source-declared operations, historical candidates, and unknown-effect candidates. Presence in the registry does not imply live app access or permission to probe."
+  },
+  "site_visible_evidence": [
+    {
+      "surface": "Pre-study waiting/completed and summary pages",
+      "route_ids": [
+        "prestudy_waiting",
+        "prestudy_completed",
+        "prestudy_summary"
+      ],
+      "classification": "teacher_site_default_list_views",
+      "observed_clues": [
+        "Current default authenticated GET observations on 2026-09-29 rendered one table each for WebUnPreStudy and WebCtPreStudy; the aggregate DOM tr counts and headings are recorded below, with raw row values excluded.",
+        "The current WebUnPreStudy and WebCtPreStudy forms use POST commands with g_clg_no, g_mem_type, g_pri_no, student_name, and reqCmd.",
+        "Current search commands differ from the historical StudentNameSearch read operation; current search effect and lesson/student scoping are unknown.",
+        "WebPreStudy detail navigation by prestudy_key is a historical candidate with unknown current method, effect, ownership, and occurrence join."
+      ],
+      "establishes": [
+        "Reachable teacher-facing default list views, visible headings, and aggregate table-row structure.",
+        "Fixed default-view HTTP status and table counts are documented in the dated live structure artifact."
+      ],
+      "does_not_establish": [
+        "Which default-list rows correspond to a selected canonical student ID or lesson occurrence.",
+        "A verified book/course assignment or date/occurrence join.",
+        "A selected student's upload/submission state, app-level upload event, video watch history, grading status, or native-app endpoint."
+      ],
+      "default_view_observations": [
+        {
+          "route_id": "prestudy_waiting",
+          "observed_date_kst": "2026-09-29",
+          "http_status": 200,
+          "table_count": 1,
+          "tr_element_count": 8,
+          "observed_headers": [
+            "학생이름",
+            "단원명",
+            "날 짜",
+            "영상 상태"
+          ],
+          "verified_scope": "default authenticated view only",
+          "row_values_persisted": false
+        },
+        {
+          "route_id": "prestudy_completed",
+          "observed_date_kst": "2026-09-29",
+          "http_status": 200,
+          "table_count": 1,
+          "tr_element_count": 43,
+          "observed_headers": [
+            "학생이름",
+            "단원명",
+            "날짜",
+            "평점"
+          ],
+          "verified_scope": "default authenticated view only",
+          "row_values_persisted": false
+        }
+      ]
+    },
+    {
+      "surface": "StudySchedule and StudyCourse pages",
+      "route_ids": [
+        "study_schedule",
+        "study_course",
+        "student_get_list",
+        "course_get_list"
+      ],
+      "classification": "teacher_site_shell_and_inline_javascript",
+      "observed_clues": [
+        "StudySchedule inline JavaScript builds StudentGetList from grade_no and cls_no, then CourseGetList with student_no.",
+        "The live shell uses grade_no/cls_no/student_no while older notes use different spellings; method, scope, pagination, and effect remain unverified.",
+        "Course rows are a plan/association surface and do not prove work completion or app grading."
+      ],
+      "establishes": [
+        "Candidate site-side selector flow and parameter names."
+      ],
+      "does_not_establish": [
+        "A safe or Park-scoped app API, lesson assignment, attempt, or grade relation."
+      ]
+    },
+    {
+      "surface": "StudyPro and StudyMain pages",
+      "route_ids": [
+        "pro_course_get_list"
+      ],
+      "classification": "teacher_site_shell_and_inline_javascript",
+      "observed_clues": [
+        "StudyPro exposes candidate course-list lookup and course_key-related form fields.",
+        "StudyMain JavaScript names StudyMainSearch and GetDayOfStudentList with date/student/class context fields; operation effects remain unknown."
+      ],
+      "establishes": [
+        "Site-visible candidate operation tokens and context fields."
+      ],
+      "does_not_establish": [
+        "Student app activity or a verified app-to-LMS join."
+      ]
+    },
+    {
+      "surface": "Smartbook result page",
+      "route_ids": [
+        "smartbook_menu",
+        "smartbook_result",
+        "smartbook_result_search"
+      ],
+      "classification": "teacher_site_shell_and_inline_javascript",
+      "observed_clues": [
+        "The result shell exposes book_code, clg_no, cls_no, stu_no, wb_list, sort_date, and search_mode fields.",
+        "Inline JavaScript selects SmartBookResultSearch or SmartBookResultSearchByName; method, selected-student scope, and server effect remain unknown.",
+        "Rendered selector counts and a reachable shell do not establish a student assignment or result."
+      ],
+      "establishes": [
+        "Teacher-site result surface and candidate search fields/tokens."
+      ],
+      "does_not_establish": [
+        "App submission, grading, or correction state."
+      ]
+    }
+  ],
+  "app_linked_registry_candidates": [
+    {
+      "id": "item_metadata",
+      "operation": "GetLectureList",
+      "method": "GET",
+      "semantic_effect": "read",
+      "safe_to_probe": false,
+      "registry_reason": "Code-declared item metadata read; requires verified item keys and no student answer disclosure.",
+      "classification": "source_declared_item_metadata_candidate",
+      "limit": "An item metadata lookup is not a student attempt, app submission, or grading contract."
+    },
+    {
+      "id": "video_lookup",
+      "operation": "getVideoLecture",
+      "method": "POST",
+      "semantic_effect": "unknown",
+      "safe_to_probe": false,
+      "registry_reason": "Intended lecture metadata read, but live effect and app entitlement unverified.",
+      "classification": "app_adjacent_bridge_candidate",
+      "limit": "Separate automation code uses POST while a local target client constructs a GET URL; no request was made and no playback/watch-history contract is established."
+    },
+    {
+      "id": "app_registration",
+      "operation": "unknown",
+      "method": null,
+      "semantic_effect": "unknown",
+      "safe_to_probe": false,
+      "registry_reason": "Registration/session synchronization may mutate; no read operation contract.",
+      "classification": "app_adjacent_registration_candidate",
+      "limit": "Not a read candidate; registration/session effects are unresolved."
+    },
+    {
+      "id": "prestudy_waiting_search",
+      "operation": "WebUnPreStudy",
+      "method": "POST",
+      "semantic_effect": "unknown",
+      "safe_to_probe": false,
+      "registry_reason": "Current form differs from historically verified StudentNameSearch; never transferred read effect.",
+      "classification": "teacher_site_search_candidate",
+      "limit": "No search submitted; no current read-effect or exact student/lesson scope verified."
+    },
+    {
+      "id": "prestudy_completed_search",
+      "operation": "WebCtPreStudy",
+      "method": "POST",
+      "semantic_effect": "unknown",
+      "safe_to_probe": false,
+      "registry_reason": "Current form differs from historically verified StudentNameSearch.",
+      "classification": "teacher_site_search_candidate",
+      "limit": "No search submitted; no current read-effect or exact student/lesson scope verified."
+    },
+    {
+      "id": "prestudy_historical_search",
+      "operation": "StudentNameSearch",
+      "method": "POST",
+      "semantic_effect": "read",
+      "safe_to_probe": false,
+      "registry_reason": "Historical exact read; current page uses different command.",
+      "classification": "historical_teacher_site_read",
+      "limit": "Historical read classification cannot be transferred to current WebUnPreStudy/WebCtPreStudy POST forms."
+    },
+    {
+      "id": "prestudy_historical_detail",
+      "operation": "WebPreStudy",
+      "method": null,
+      "semantic_effect": "unknown",
+      "safe_to_probe": false,
+      "registry_reason": "Historical detail candidate only; current method/effect, Park ownership, lesson binding, and deployed field schema are unverified.",
+      "classification": "historical_detail_candidate",
+      "limit": "No exact current detail read contract."
+    }
+  ],
+  "app_only_unknowns": [
+    "Native app host/base URL, API version, endpoint inventory, and authentication/session contract.",
+    "App account/student identity and its stable mapping to the LMS student key.",
+    "Assigned course edition, volume, unit, problem range, and exact lesson occurrence relation.",
+    "Submission/upload identifiers, event timestamps, pagination, retries, and server acknowledgment semantics.",
+    "Problem attempts and automatic grading status, score, and grading timestamp.",
+    "Wrong-answer video/correction workflow and teacher-reviewed completion status.",
+    "Video upload versus playback metadata versus actual watch-history events and their occurrence keys.",
+    "Whether app traffic shares any teacher-site operation or database path; shared-backend claims are not protocol evidence.",
+    "Production app schema/interface; copied local SQLite tables belong to the teacher tool, not the academy production service."
+  ],
+  "devtools_assessment": {
+    "can_site_devtools_help": "Yes, for requests made by the teacher website in that browser session. It can reveal browser-visible paths, methods, content types, request field names, response field names, pagination, and timing for actions actually performed there.",
+    "boundary": "Site DevTools cannot reveal native-app-only traffic unless the app action is actually executed through an inspectable browser surface or the app is separately instrumented through an authorized device debugging/proxy setup. Shared backend claims do not make native requests visible in the site browser.",
+    "current_session_result": "No browser tool or authenticated browser tab was available for this inventory pass. Existing dated app-live evidence records fixed teacher-site shells and inline JavaScript inspection only; it did not submit searches, invoke app bridges, or capture app traffic.",
+    "handling": "Any future capture should be owner-provided or made through an authorized session, with credentials, cookies, authorization headers, student values, media URLs, and answer content removed before persistence. Keep only the minimum field/route contract evidence needed."
+  },
+  "next_inputs_needed_for_verified_app_api_map": [
+    {
+      "input": "A sanitized DevTools HAR or equivalent request/response field inventory from the actual app workflow, if that workflow runs in an inspectable browser.",
+      "must_include": [
+        "host and path",
+        "method",
+        "content type",
+        "status",
+        "operation sequence",
+        "field names",
+        "pagination/continuation behavior",
+        "timestamps or event-key semantics"
+      ],
+      "must_exclude": [
+        "cookies",
+        "authorization values",
+        "session IDs",
+        "student names/IDs",
+        "answer text",
+        "media URLs or bodies"
+      ]
+    },
+    {
+      "input": "If native-only, app/platform/build version plus an owner-authorized device capture method and a redacted request contract; no credential extraction or broad traffic collection.",
+      "needed_to_answer": [
+        "whether traffic is app-only",
+        "authentication boundary",
+        "endpoint and operation names",
+        "read/write effects"
+      ]
+    },
+    {
+      "input": "A synthetic or owner-approved identity/lesson fixture with exact expected joins, supplied as opaque placeholders rather than raw student records.",
+      "needed_to_answer": [
+        "app identity to LMS identity mapping",
+        "course/lesson assignment relation",
+        "submission-to-attempt and grading joins",
+        "correction/video occurrence relation"
+      ]
+    },
+    {
+      "input": "Current source or API documentation for the app service, including schema/version and explicit read/write semantics, if available.",
+      "needed_to_answer": [
+        "production data model",
+        "field cardinality",
+        "retention and pagination",
+        "safe read boundaries"
+      ]
+    }
+  ],
+  "status": "Inventory complete; a verified native app API map remains blocked on app-origin request/source evidence and stable student/lesson joins."
+}

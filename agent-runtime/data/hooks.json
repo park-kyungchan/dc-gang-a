@@ -1,0 +1,31 @@
+{
+  "hooks": [
+    {
+      "id": "governance-guard-pre-mutate",
+      "eventType": "pre-mutate",
+      "triggerPattern": "write_to_file|replace_file_content|run_command",
+      "handlerCommand": "bun run scripts/governanceGuard.ts --hook-pre-tool",
+      "timeoutMs": 15000,
+      "enabled": false,
+      "description": "Proposed pre-mutation guard. Its handler is absent from this checkout and this record does not enforce policy."
+    },
+    {
+      "id": "utf8-sanitizer-post-execute",
+      "eventType": "post-execute",
+      "triggerPattern": "run_command",
+      "handlerCommand": "bun run scripts/utf8Sanitizer.ts --hook-post-tool",
+      "timeoutMs": 15000,
+      "enabled": false,
+      "description": "Proposed output sanitizer. Its handler is absent from this checkout and this record does not transform output."
+    },
+    {
+      "id": "governance-guard-session-stop",
+      "eventType": "session-stop",
+      "triggerPattern": "*",
+      "handlerCommand": "bun run scripts/governanceGuard.ts --hook-stop",
+      "timeoutMs": 15000,
+      "enabled": false,
+      "description": "Proposed session cleanup. Its handler is absent from this checkout and this record performs no cleanup."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-09-30",
+  "kind": "cloud_development_handoff",
+  "status": "ready_for_current_codex_cloud_setup",
+  "activeTask": "synthetic_whole_lens_development_in_codex_cloud",
+  "environment": "harness/cloud-environment.json",
+  "readiness": "review/codex-cloud-readiness-2026-09-30.json",
+  "previousAcademyCheckpoint": "handoffs/current-state.json",
+  "previousCheckpointMeaning": "Dated source/evidence preserved, no fresh academy or device acceptance.",
+  "commands": [
+    "bun run cloud:install",
+    "bun run cloud:start",
+    "bun run cloud:check"
+  ],
+  "nextWork": [
+    "Prepare and publish the current Cloud environment from the setupPrompt in the manifest.",
+    "Continue date-first whole-class and selected-student synthetic domain tests.",
+    "Use the existing bounded single Main-tab migration draft; inspect real workbook metadata locally before a separate production batch.",
+    "Advance unverified app joins only after a verified exact read contract and local authorization channel."
+  ],
+  "runtimePreference": "TypeScript/Bun; Python only for an unavoidable existing gate or unique verified reader.",
+  "verifiedSourceRevision": "ed9cb47bef583d0ae73e2fb44ce84d2282030907",
+  "pullRequest": "https://github.com/park-kyungchan/dc-gang-a/pull/4",
+  "validation": {
+    "windowsCleanCheckout": "pass",
+    "linuxCleanCheckout": "pass",
+    "defaultTests": [
+      72,
+      61,
+      111
+    ],
+    "sourcePins": {
+      "backend": 13,
+      "imported": 329
+    },
+    "localRosterTests": 50,
+    "actualCloudEnvironment": "requires_user_setup_and_publish"
+  }
+}

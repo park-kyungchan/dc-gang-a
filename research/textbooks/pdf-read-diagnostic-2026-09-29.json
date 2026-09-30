@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "checked_date_kst": "2026-09-29",
+  "requested_pdf": "https://storage.studyq.net/data/answer/mi/book/g7_gauss_sample_1_1.pdf",
+  "checks": [
+    { "target": "storage.studyq.net", "dns_a_resolved": true, "tcp_443_connected": false, "http_result": null },
+    { "target": "dc.gang-a.kr", "dns_a_resolved": true, "tcp_443_connected": false, "http_result": null },
+    { "target": "example.com", "dns_a_resolved": true, "tcp_443_connected": false, "http_result": null }
+  ],
+  "proxy_environment": { "http_proxy_present": false, "https_proxy_present": false, "all_proxy_present": false },
+  "web_tool_pdf_result": "url_not_accessible_via_tool",
+  "diagnosis": "current execution environment has no working outbound TCP path; this does not establish that the PDF origin is down",
+  "next_machine_action": "rerun harness/gauss_sample_fetch.ts in an authorized environment with outbound access to the catalog and PDF host, then verify response status, content type, and PDF signature before parsing",
+  "session_or_student_data_persisted": false
+}

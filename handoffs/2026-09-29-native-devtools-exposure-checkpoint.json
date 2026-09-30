@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "development_environment_checkpoint",
+  "status": "development_environment_eval_completed_with_deferred_boundaries",
+  "observedAtUtc": "2026-09-29T12:13:07Z",
+  "activeTaskContinues": "academy_read_path_completion_and_class_pilot_preparation",
+  "sourceScorecard": "review/development-environment-v1-scorecard-2026-09-29.json",
+  "nextKickoffPath": "handoffs/2026-09-29-next-session-kickoff.json",
+  "verifiedLocalWork": [
+    "Current reloaded session exposes 30 callable official Chrome DevTools tools.",
+    "Official list_pages call succeeded; page details were not emitted.",
+    "Prior local adversarial evaluation and optimization are recorded in the V1 scorecard."
+  ],
+  "validation": {
+    "nativeDevTools": {
+      "callableToolCount": 30,
+      "listPagesCallSucceeded": true,
+      "pageDetailsEmitted": false,
+      "teacherAuthentication": "unverified",
+      "studentReadPerformed": false
+    },
+    "bunFocused": "previous_session_106_pass_0_fail_not_rerun_in_exposure_only_session",
+    "productionWrites": 0
+  },
+  "deferredBoundaries": [
+    "Teacher-site authentication and exact student joins unverified.",
+    "Native app read contracts and full class/occurrence coverage unverified.",
+    "Operating Sheet cutover undeployed and requires a separately approved exact batch.",
+    "Effective model context capacity unverified; project config alone is insufficient.",
+    "Machine-local desktop core gate depends on unavailable legacy sibling checkout/transition package."
+  ],
+  "resolvedCriterionIds": [
+    "MCP-01"
+  ]
+}

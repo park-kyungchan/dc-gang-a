@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-09-29",
+  "phase": "V1_local_complete_session_reload_pending",
+  "rubric": "review/development-environment-adversarial-rubric-2026-09-29.json",
+  "evaluation": "review/development-environment-e1-findings-2026-09-29.json",
+  "scoring": "PASS requires local evidence and canary; FAIL, UNKNOWN and BLOCKED remain incomplete. Production acceptance requires separate live evidence.",
+  "criteria": [
+    {
+      "id": "BP-01",
+      "status": "PASS",
+      "evidence": "7 prompt-centered themes with omission canary",
+      "refs": [
+        "harness/feedback_coverage.ts",
+        ".agents/feedback-themes.json",
+        "tests/harness/feedbackCoverage.test.ts"
+      ]
+    },
+    {
+      "id": "BP-02",
+      "status": "PASS",
+      "evidence": "Confirmed pilot facts resist coordinated omission; occurrence remains unknown",
+      "refs": [
+        "harness/lead.ts",
+        "tests/harness/lead.test.ts"
+      ]
+    },
+    {
+      "id": "CTX-01",
+      "status": "PASS",
+      "evidence": "Impossible date, missing/escaping and stale index canaries reject",
+      "refs": [
+        "harness/resume.ts",
+        "tests/harness/resume.test.ts"
+      ]
+    },
+    {
+      "id": "CTX-02",
+      "status": "PASS",
+      "evidence": "In-progress plan cannot masquerade as completed handoff; I1 prerequisites cross-checked",
+      "refs": [
+        "harness/resume.ts",
+        "handoffs/current-state.json"
+      ]
+    },
+    {
+      "id": "RT-01",
+      "status": "PASS",
+      "evidence": "Preflight distinguishes configured, registered, connected and effective properties; effective 1.05M capacity unknown",
+      "refs": [
+        "harness/runtime_preflight.ts",
+        "tests/harness/runtimePreflight.test.ts"
+      ]
+    },
+    {
+      "id": "RT-02",
+      "status": "PASS",
+      "evidence": "Root and nested instructions reviewed; no nested source edits made",
+      "refs": [
+        "AGENTS.md",
+        "spt/AGENTS.md",
+        "lms-automation/AGENTS.md"
+      ]
+    },
+    {
+      "id": "MCP-01",
+      "status": "FAIL",
+      "evidence": "Current session exposes 0 native chromeDevTools tools despite CLI registration; reload required",
+      "refs": [
+        "current ALL_TOOLS count",
+        "harness/runtime_preflight.ts"
+      ]
+    },
+    {
+      "id": "MCP-02",
+      "status": "BLOCKED",
+      "evidence": "Dedicated Chrome currently login page; teacher identity and student join unverified",
+      "refs": [
+        "review/development-environment-e1-findings-2026-09-29.json"
+      ]
+    },
+    {
+      "id": "MCP-03",
+      "status": "PASS",
+      "evidence": "Helper now requires explicit tab binding and emits bounded structural snapshot/network metadata; no raw title/path",
+      "refs": [
+        "harness/chrome_devtools_session.ts",
+        "tests/harness/chromeDevtoolsSession.test.ts"
+      ]
+    },
+    {
+      "id": "MCP-04",
+      "status": "UNKNOWN",
+      "evidence": "Drive connector profile read succeeded but workbook structure not refreshed for an operating batch",
+      "refs": [
+        "review/development-environment-e1-findings-2026-09-29.json"
+      ]
+    },
+    {
+      "id": "DATA-01",
+      "status": "PASS",
+      "evidence": "Deterministic harness verifies 5 cohort, 5 groups, 54 canonical routes and unknown-ID rejection",
+      "refs": [
+        "bun run harness verify --json"
+      ]
+    },
+    {
+      "id": "DATA-02",
+      "status": "PASS",
+      "evidence": "All 13 legacy candidates are excluded from public lookup, list, safe-read and generic request builder",
+      "refs": [
+        "src/lms/lmsRouteRegistry.ts",
+        "tests/lms/lmsRouteRegistry.test.ts"
+      ]
+    },
+    {
+      "id": "DATA-03",
+      "status": "BLOCKED",
+      "evidence": "One bounded DayRecord observed-row reader; exact occurrence and full pagination unverified",
+      "refs": [
+        "review/backend-read-coverage-2026-09-29.json"
+      ]
+    },
+    {
+      "id": "DATA-04",
+      "status": "BLOCKED",
+      "evidence": "Native app student/submission/grading/correction joins unverified",
+      "refs": [
+        "review/backend-read-coverage-2026-09-29.json"
+      ]
+    },
+    {
+      "id": "DATA-05",
+      "status": "PASS",
+      "evidence": "Legacy CLI/live service fail before fetch; legacy route bypass closed",
+      "refs": [
+        "scripts/query_lms_student_assessment.ts",
+        "src/lms/lmsLiveQueryService.ts",
+        "tests/lms/lmsRouteRegistry.test.ts"
+      ]
+    },
+    {
+      "id": "SEC-01",
+      "status": "PASS",
+      "evidence": "Current helper and default Bun gate minimize output; no credential values used or retained; initial verbose fixture titles were emitted before gate change",
+      "refs": [
+        "harness/chrome_devtools_session.ts",
+        "package.json",
+        "tests/harness/chromeDevtoolsSession.test.ts"
+      ]
+    },
+    {
+      "id": "OPS-01",
+      "status": "BLOCKED",
+      "evidence": "No approved production batch; zero LMS/Sheet writes and no end-to-end write/readback assertion",
+      "refs": [
+        "AGENTS.md",
+        "review/development-environment-e1-findings-2026-09-29.json"
+      ]
+    },
+    {
+      "id": "DEV-01",
+      "status": "PASS",
+      "evidence": "New harness work uses TypeScript/Bun; existing Python reader remains scoped exception",
+      "refs": [
+        "package.json",
+        "harness/lead.ts",
+        "harness/academy.py"
+      ]
+    },
+    {
+      "id": "DEV-02",
+      "status": "PASS",
+      "evidence": "Explicit 14-file Bun gate 106 pass, focused harness typecheck and backend map validator pass; machine-local core gate separately blocked",
+      "refs": [
+        "package.json",
+        "bun run test:bun",
+        "bun run typecheck:harness"
+      ]
+    },
+    {
+      "id": "SRC-01",
+      "status": "PASS",
+      "evidence": "Dirty work preserved, no operational moves; imported source hashes match; original sibling checkout unavailable",
+      "refs": [
+        "review/development-environment-e1-findings-2026-09-29.json"
+      ]
+    },
+    {
+      "id": "SRC-02",
+      "status": "PASS",
+      "evidence": "Imported SPT, original checkout, running service, and physical iPhone remain separate evidence states",
+      "refs": [
+        "docs/WHOLE_LENS_DECISION.md",
+        "review/development-environment-e1-findings-2026-09-29.json"
+      ]
+    },
+    {
+      "id": "REP-01",
+      "status": "PASS",
+      "evidence": "This scorecard records criterion status, evidence, unresolved boundaries and zero production effects",
+      "refs": [
+        "review/development-environment-v1-scorecard-2026-09-29.json"
+      ]
+    }
+  ],
+  "counts": {
+    "PASS": 16,
+    "FAIL": 1,
+    "UNKNOWN": 1,
+    "BLOCKED": 4
+  },
+  "resolvedLocalFindings": [
+    "F01",
+    "F02",
+    "F03",
+    "F04",
+    "F05",
+    "F06",
+    "F08",
+    "F09"
+  ],
+  "unresolved": [
+    "F07 current-session native DevTools hot-load requires reload",
+    "Dedicated Chrome teacher authentication unverified",
+    "Operating Sheet structural metadata and approval batch unverified",
+    "Exact LMS occurrence/full pagination and native app joins unverified",
+    "Effective model context capacity unverified",
+    "Machine-local desktop core gate depends on absent/stale sibling checkout and transition references"
+  ],
+  "validation": {
+    "bunFocused": {
+      "tests": 106,
+      "failures": 0,
+      "files": 14,
+      "reporter": "dots"
+    },
+    "harnessTypecheck": "pass_with_skipLibCheck_due_existing_ambient_undici_types_gap",
+    "canonicalRoutes": 54,
+    "siteContracts": "valid_50_servlet_plus_4_other",
+    "feedbackThemes": "7_of_7",
+    "legacyCandidatesPubliclyBlocked": 13,
+    "productionLmsWrites": 0,
+    "productionSheetWrites": 0,
+    "unknownEffectLiveProbes": 0
+  },
+  "nativeTools": {
+    "currentSessionCallable": false,
+    "registered": true,
+    "localHandshakePreviouslyVerified": true,
+    "nextGate": "reload_Codex_session_then_check_current_callable_tools_and_authenticated_browser_separately"
+  }
+}

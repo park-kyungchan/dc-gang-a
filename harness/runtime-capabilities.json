@@ -1,0 +1,72 @@
+{
+  "schema_version": 2,
+  "observed_date_kst": "2026-09-29",
+  "scope": "this_trusted_repository",
+  "user_policy": {
+    "tool_preference": "built_in_first",
+    "selection": "only_current_task_needs",
+    "academy_backend_effect": "read_only",
+    "external_plugin_academy_access": "only_minimized_data_already_retrieved_by_verified_read; no direct academy session or backend access"
+  },
+  "project_declarations": {
+    "config": ".codex/config.toml",
+    "model_context_window_configured": 1050000,
+    "model_auto_compact_token_limit_configured": 872000,
+    "localBrowser": "Chrome isolated with DevTools",
+    "openaiDeveloperDocs": "declared",
+    "note": "Configuration includes an exact on-disk MCP script check but does not prove effective session permissions, model capacity, MCP connection or account authentication.",
+    "chromeDevTools": "official Chrome DevTools MCP 1.10.1, project-local package, separate local Chrome profile, network headers redacted"
+  },
+  "observed_in_2026_09_29_session": {
+    "network_tcp_443": [
+      "dc.gang-a.kr",
+      "storage.studyq.net",
+      "developers.openai.com"
+    ],
+    "codex_mcp_list": "localBrowser and openaiDeveloperDocs registered enabled",
+    "localBrowser": "Chrome DevTools connected; exact operating Park Sheet and teacher account observed without extracting authentication",
+    "googleDrive": "Connector metadata reads succeeded for operating workbook and recovery copy",
+    "openaiDeveloperDocs": "Search and fetch succeeded",
+    "operatingSheetWrites": 0,
+    "academyLmsWrites": 0,
+    "chromeDevTools": "MCP server connected; 30 tools listed; dedicated Chrome connected; fixed instructor menu rendered after manual login; teacher identity and student joins not independently bound; current Codex session native tool hot-load remains unverified"
+  },
+  "must_revalidate_each_session": [
+    "Effective permission profile and active model capacity",
+    "MCP connection, not just registration",
+    "Current Chrome browser, tab and authentication; isolated session can lose login when closed",
+    "Google Drive connector access and exact workbook metadata",
+    "Bounded academy read contract and ephemeral authentication before any live student read",
+    "Official Chrome DevTools MCP browser connection and authenticated teacher-site tab",
+    "After Codex session reload, confirm native chromeDevTools tools are callable; registration and local helper handshake are insufficient"
+  ],
+  "preferred_checks": [
+    "bun run harness/runtime_preflight.ts --network --mcp --json",
+    "bun run harness/resume.ts --json",
+    "bun run harness verify --json",
+    "bun run harness/lead.ts pilot --json",
+    "bun run harness/chrome_devtools_session.ts (explicit bind <id> required; status/snapshot/network emit bounded redacted summaries)"
+  ],
+  "deferred_external_plugins": [
+    {
+      "id": "TinyFish",
+      "reason": "remote browser access to academy login conflicts with the no-direct-session policy"
+    },
+    {
+      "id": "Opera Browser Connector",
+      "reason": "global-scope connector and browser-session exposure; project-local browser tool preferred"
+    },
+    {
+      "id": "Adobe Acrobat",
+      "reason": "global-scope remote OCR; evaluate only if local PDF image extraction is inadequate and only on non-student textbook PDFs"
+    },
+    {
+      "id": "Firecrawl",
+      "reason": "remote crawl and broad extraction are unnecessary for exact academy read routes"
+    }
+  ],
+  "limits": [
+    "External plugins may receive only minimized data already obtained through verified local reads; never academy session credentials.",
+    "A registered MCP, network port or stored sign-in is not proof of a currently connected, authenticated session."
+  ]
+}

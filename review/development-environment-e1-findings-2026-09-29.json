@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-09-29",
+  "phase": "E1_consolidated_root_reviewed",
+  "productionEffects": {
+    "lmsWrites": 0,
+    "sheetWrites": 0,
+    "unknownEffectProbes": 0
+  },
+  "rubric": "review/development-environment-adversarial-rubric-2026-09-29.json",
+  "validatedFindings": [
+    {
+      "id": "F01",
+      "severity": "P0",
+      "criterion": "DATA-02",
+      "owner": "read_contract_optimizer",
+      "finding": "All 13 parallel legacy routes exposed safe read; TYPESET_SINGLE may create paper; MULTI effect unverified",
+      "evidence": "local isSafeRead/buildRequest canary; research/backend-map/learning-assessment.md:34,48",
+      "fix": "Fail-close legacy route lookup/safe read/generic build; update tests"
+    },
+    {
+      "id": "F02",
+      "severity": "P0",
+      "criterion": "BP-02",
+      "owner": "read_contract_optimizer",
+      "finding": "Coordinated deletion of teacher-confirmed 9/23 date/correction passes pilot scope validation",
+      "evidence": "in-memory validatePilotScope canary",
+      "fix": "Require exact dated teacher confirmation for pilot scope and negative test"
+    },
+    {
+      "id": "F03",
+      "severity": "P0",
+      "criterion": "CTX-01",
+      "owner": "context_runtime_optimizer",
+      "finding": "Invalid calendar date 2026-02-31 accepted in index",
+      "evidence": "in-memory validateCurrentState canary",
+      "fix": "Strict ISO date round-trip and negative test"
+    },
+    {
+      "id": "F04",
+      "severity": "P0",
+      "criterion": "CTX-02",
+      "owner": "context_runtime_optimizer",
+      "finding": "In-progress plan accepted as completed evidence; approved eval subphase absent from index",
+      "evidence": "in-memory latestCompletedEvidence swap accepted",
+      "fix": "Semantic evidence status/type check and active subphase consistency"
+    },
+    {
+      "id": "F05",
+      "severity": "P1",
+      "criterion": "RT-01",
+      "owner": "devtools_mcp_optimizer",
+      "finding": "MCP script args can point to nonexistent files while preflight reports configured",
+      "evidence": "in-memory config path substitution",
+      "fix": "Validate declared script target against package file; keep connection separate"
+    },
+    {
+      "id": "F06",
+      "severity": "P1",
+      "criterion": "MCP-03/SEC-01",
+      "owner": "devtools_mcp_optimizer",
+      "finding": "DevTools helper status emits raw path/title and selects domain tab implicitly; no bounded text snapshot command",
+      "evidence": "source review and current login-page status",
+      "fix": "Sanitize status; explicit tab binding; safe text snapshot; synthetic tests"
+    },
+    {
+      "id": "F07",
+      "severity": "P1",
+      "criterion": "MCP-01",
+      "owner": "root_session_reload",
+      "finding": "Current Codex session does not expose native chromeDevTools tools despite CLI registration/local handshake",
+      "evidence": "ALL_TOOLS zero native DevTools tools; codex mcp list registered",
+      "fix": "After local integration reload session and inspect current callable tools"
+    },
+    {
+      "id": "F08",
+      "severity": "P1",
+      "criterion": "DEV-02",
+      "owner": "root_integration",
+      "finding": "test:bun excludes recently changed harness/read safety tests",
+      "evidence": "package.json script vs explicit focused 57 pass",
+      "fix": "Update focused Bun script and TypeScript check command without broad discovery"
+    },
+    {
+      "id": "F09",
+      "severity": "P1",
+      "criterion": "BP-01",
+      "owner": "context_runtime_optimizer",
+      "finding": "No independent repeated-feedback theme registry or coverage canary",
+      "evidence": "bounded 87-user-message analysis maps limited themes without coverage control",
+      "fix": "Typed theme registry with prompt-centered evidence references and omission canary; no transcript dump"
+    }
+  ],
+  "deferredBoundaries": [
+    {
+      "id": "D01",
+      "criterion": "DATA-03/04",
+      "reason": "Exact lesson occurrence/full pagination and native app joins unverified; source/authorization work needed before readers",
+      "grade": "BLOCKED"
+    },
+    {
+      "id": "D02",
+      "criterion": "MCP-02/04",
+      "reason": "Dedicated Chrome currently login page; operating Sheet exact structure must refresh at actual approved batch",
+      "grade": "BLOCKED_OR_UNKNOWN"
+    },
+    {
+      "id": "D03",
+      "criterion": "DEV-02/SRC-01",
+      "reason": "machine-local desktop_gate core fails on old PC paths/companion source lock and absent sibling checkout/transition package; imported SPT/LMS hashes match",
+      "grade": "ENVIRONMENT_BLOCKED"
+    },
+    {
+      "id": "D04",
+      "criterion": "RT-01",
+      "reason": "Configured 1.05M context has no independently observed effective session model capacity",
+      "grade": "UNKNOWN"
+    },
+    {
+      "id": "D05",
+      "criterion": "OPS-01",
+      "reason": "No approved production batch exists to test end-to-end write/readback enforcement",
+      "grade": "BLOCKED"
+    }
+  ],
+  "readOnlyEvaluations": {
+    "runtimeContext": "complete",
+    "toolsConnection": "complete",
+    "buildData": "complete"
+  }
+}

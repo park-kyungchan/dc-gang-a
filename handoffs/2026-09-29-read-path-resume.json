@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "academy_read_path_resumed_2026_09_29",
+  "completedOn": "2026-09-29",
+  "status": "completed",
+  "activeTaskContinues": "academy_read_path_completion_and_class_pilot_preparation",
+  "scope": "read-only local readiness and two exact non-student sample PDF reads",
+  "currentChecks": {
+    "localTimeKst": "2026-09-29 evening",
+    "harnessVerify": {
+      "verified": true,
+      "cohortCount": 5,
+      "groupCount": 5,
+      "routeCount": 54
+    },
+    "siteContractValidation": "valid",
+    "networkTcp443": [
+      "dc.gang-a.kr",
+      "storage.studyq.net",
+      "developers.openai.com"
+    ],
+    "pdfRead": "two exact registered storage URLs returned HTTP 200 application/pdf with valid PDF header",
+    "configuredDocsMcp": "listed as enabled; connection and authentication not established by this check"
+  },
+  "textbookEvidence": [
+    {
+      "candidateBookCode": "gauss:1-1-1",
+      "filename": "g7_gauss_sample_1_1.pdf",
+      "bytes": 17179750,
+      "sha256": "3a4b062cd54b2dc5da052c7d93017a0d2f72ab2091094732ee1a1bad47e2f5d4",
+      "tocPdfPage": 10,
+      "tocUnitCount": 10,
+      "exactSections": "research/textbooks/book-catalog.json",
+      "studentAssignment": "unverified",
+      "fullPageQuestionMap": "unverified"
+    },
+    {
+      "candidateBookCode": "gauss:1-2-3",
+      "filename": "g7_gauss_sample_2_3.pdf",
+      "bytes": 21764755,
+      "sha256": "67c9af3c33ee22b655d452a7ce8aa016d8e4faf65dbb6e6df3dafbe9a52676fa",
+      "tocPdfPage": 10,
+      "tocUnitCount": 12,
+      "exactSections": "research/textbooks/book-catalog.json",
+      "studentAssignment": "unverified",
+      "fullPageQuestionMap": "unverified"
+    }
+  ],
+  "pilotScope": {
+    "date": "2026-09-30",
+    "canonicalStudentId": "1294174",
+    "groupId": "4",
+    "dayRecordPlan": "ready_in_declared_venv_only; no new authenticated read in this run",
+    "occurrenceBinding": "unverified",
+    "previousHeldLesson": "unverified",
+    "appSubmissionGradingCorrectionJoins": "unverified",
+    "weeklyPlan": "blocked_calendar_edition_page_audit_personal_pace_joins_unverified"
+  },
+  "changes": [
+    "research/textbooks/book-catalog.json: source hashes and visually checked sample TOC starts",
+    "harness/academy.py: textbook_samples now blocks on the actual missing student-book assignment",
+    "harness/tests/test_academy.py and tests/textbooks/bookCatalog.test.ts: focused expectation updates",
+    "src/textbooks/bookCatalog.ts: validate provenance for an image-reviewed TOC",
+    "review/academy_read_path_status.md, review/page_progress_pilot.md, and review/main_sheet_backlog.md: corrected stale PDF route and inspection-status guidance"
+  ],
+  "verification": {
+    "academyTests": "16 passed",
+    "workbenchTests": "78 passed",
+    "bunFocusedTests": "11 passed",
+    "sourceAndEffectLimit": "Synthetic tests and exact sample PDF reads do not establish live lesson or app joins, Sheet cutover, or classroom acceptance."
+  },
+  "operations": {
+    "productionLmsWrites": 0,
+    "academySheetWrites": 0,
+    "authenticatedAcademyStudentReads": 0,
+    "credentialDiscovery": false,
+    "sessionPersisted": false
+  },
+  "nextActions": [
+    "At the 2026-09-30 pilot, establish the actual date-scoped class and prior held occurrence from a verified read contract; do not infer from a current-roster group or an empty DayRecord field.",
+    "Bind the student's exact assigned textbook edition before using either sample TOC to interpret page 119-134 or proposing homework.",
+    "Keep pre-study, app attempts, grading, first correction, starred questions, and teacher inspection unknown until exact student/attempt joins are verified.",
+    "Use teacher-reviewed observations as append-only raw input and obtain an exact operating-Sheet batch review before any production write."
+  ]
+}

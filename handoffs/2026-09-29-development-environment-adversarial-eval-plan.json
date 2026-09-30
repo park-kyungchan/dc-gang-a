@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "asOfUtc": "2026-09-29T11:37:35.986Z",
+  "status": "completed_with_deferred_boundaries",
+  "rubric": "review/development-environment-adversarial-rubric-2026-09-29.json",
+  "e1Findings": "review/development-environment-e1-findings-2026-09-29.json",
+  "v1Scorecard": "review/development-environment-v1-scorecard-2026-09-29.json",
+  "exposureCheckpoint": "handoffs/2026-09-29-native-devtools-exposure-checkpoint.json",
+  "nextKickoff": "handoffs/2026-09-29-next-session-kickoff.json",
+  "objective": "Adversarially evaluate and optimize the whole Codex development environment against repeated user feedback, with TypeScript/Bun as the new engineering runtime.",
+  "scope": [
+    ".codex and .agents project runtime",
+    "current-state and handoff routing",
+    "Bun/TypeScript build and focused gates",
+    "MCP, official Chrome DevTools, Playwright fallback and Google Drive connector",
+    "academy site/app read contract and effect safety",
+    "Git dirty work, source locks and recovery boundaries"
+  ],
+  "exclusions": [
+    "No production LMS or academy Sheet write",
+    "No deployment, send, deletion or account/access change",
+    "No credential discovery, raw student dump or broad session transcript dump",
+    "No claim that a page shell or HTTP 200 proves student joins"
+  ],
+  "phases": [
+    {
+      "id": "R1",
+      "kind": "research",
+      "dependsOn": [],
+      "concurrency": 1,
+      "agent": "adversarial_rubric_researcher",
+      "mode": "read_only",
+      "model": "inherit",
+      "task": "Derive a binary Pass/Fail rubric from repeated user feedback, root and nested instructions, current code/evidence and official runtime contracts. Cover false-pass traps, evidence grades, data minimization, repeat-question prevention, tool authenticity, recovery and regression gates.",
+      "output": "structured rubric with criterion ID, failure example, required evidence, test method, severity and exact source; no edits or raw dumps",
+      "gate": "Root reviews rubric for missing domains and ambiguous criteria before any evaluator starts."
+    },
+    {
+      "id": "E1",
+      "kind": "evaluation",
+      "dependsOn": [
+        "R1"
+      ],
+      "concurrency": 3,
+      "agents": [
+        {
+          "name": "runtime_context_evaluator",
+          "mode": "read_only",
+          "ownership": [
+            ".codex",
+            ".agents",
+            "harness/resume.ts",
+            "current-state",
+            "session policy and compaction"
+          ]
+        },
+        {
+          "name": "tools_connection_evaluator",
+          "mode": "read_only",
+          "ownership": [
+            "official Chrome DevTools MCP",
+            "Playwright fallback",
+            "Google Drive connector",
+            "auth and network evidence",
+            "secret handling"
+          ]
+        },
+        {
+          "name": "build_data_evaluator",
+          "mode": "read_only",
+          "ownership": [
+            "Bun/TypeScript gates",
+            "Python reader exception",
+            "canonical roster/route registry",
+            "site/app read coverage",
+            "source locks and Git dirty state"
+          ]
+        }
+      ],
+      "task": "Apply the same R1 rubric independently to assigned domains. Run only bounded, read-only checks and distinguish configured, connected, authenticated, source-only and effect-verified states.",
+      "output": "one evidence-backed scorecard per agent with exact reproduction and no file edits",
+      "gate": "Root deduplicates findings, resolves disagreements, checks false positives and forms a prioritized defect register."
+    },
+    {
+      "id": "I1",
+      "kind": "optimization",
+      "dependsOn": [
+        "E1"
+      ],
+      "concurrency": 3,
+      "agents": [
+        {
+          "name": "context_runtime_optimizer",
+          "model": "gpt-6-sol/high",
+          "files": [
+            ".agents",
+            "harness/resume.ts",
+            "current-state routing tests"
+          ]
+        },
+        {
+          "name": "devtools_mcp_optimizer",
+          "model": "gpt-6-sol/high",
+          "files": [
+            ".codex",
+            "harness/runtime_preflight.ts",
+            "harness/chrome_devtools_session.ts",
+            "runtime-capabilities and MCP tests"
+          ]
+        },
+        {
+          "name": "read_contract_optimizer",
+          "model": "gpt-6-sol/high",
+          "files": [
+            "harness/lead.ts",
+            "src/lms",
+            "scripts/query_lms_student_assessment.ts",
+            "focused read-safety tests"
+          ]
+        }
+      ],
+      "task": "Fix only validated local findings. Preserve dirty work and assigned file ownership; coordinate before touching another agent's files. New implementation and artifacts use TypeScript/Bun. Existing Python reader remains a scoped exception until a verified replacement exists.",
+      "output": "small reviewable patches, before/after behavior and focused tests per optimizer",
+      "gate": "No operational material move/retirement without exact consumer and recovery review; no production effect."
+    },
+    {
+      "id": "V1",
+      "kind": "integration_and_adversarial_recheck",
+      "dependsOn": [
+        "I1"
+      ],
+      "concurrency": 1,
+      "owner": "root",
+      "task": "Review combined diffs against R1, rerun failed canaries and focused gates, check current-state/index and tool registration, and record every unresolved boundary.",
+      "output": "machine-readable final scorecard and handoff",
+      "gate": "Completion requires evidence for each rubric criterion or an explicit deferred reason; synthetic and local passes stay distinct from production acceptance."
+    }
+  ],
+  "sharedWorkspaceRules": [
+    "Evaluators are read-only and can run in parallel after the rubric is approved by root.",
+    "Optimizers start only after the consolidated evaluation and own disjoint paths.",
+    "Root owns integration, shared documentation and final status.",
+    "No agent reads or prints the supplied session value, cookies, raw student records or media."
+  ],
+  "executionApproval": "Approved by user after compaction on 2026-09-29; R1 researcher spawned. Model overrides in the draft plan are advisory only; agent spawns inherit the parent model unless a higher-priority instruction explicitly requests an override."
+}

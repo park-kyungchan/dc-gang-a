@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "asOfUtc": "2026-09-29T11:38:03.296Z",
+  "status": "local_runtime_meta_optimization_and_backend_read_audit_completed_live_joins_pending",
+  "activeTaskContinues": "academy_read_path_completion_and_class_pilot_preparation",
+  "verifiedLocalWork": [
+    "Bun lead routing now exposes teacher-confirmed facts, a 12-fact coverage summary and safe next-investigation steps.",
+    "Resume index now fails after its scheduled validity window and surfaces teacher-confirmed facts.",
+    "Runtime preflight separates config declaration, package presence, MCP registration, network reachability and unverified effective session/authentication.",
+    "Project-scoped official Chrome DevTools MCP 1.10.1 installed and registered with network header redaction; direct MCP handshake, 30-tool list and dedicated Chrome connection verified.",
+    "Native DevTools saw the reviewed fixed instructor menu after manual login and returned only method, servlet path, query key name and status.",
+    "Legacy assessment CLI, direct live service methods and misleading verified-endpoint catalog fail closed; seeded assessment repository defaults are marked synthetic."
+  ],
+  "backendReadCoverage": "review/backend-read-coverage-2026-09-29.json",
+  "nativeBrowser": {
+    "dedicatedProfile": "user-local outside repository",
+    "fixedMenuObserved": true,
+    "teacherIdentityIndependentlyBound": false,
+    "studentLevelReadPerformed": false,
+    "cookiesExtracted": false,
+    "headersOrBodiesEmitted": false,
+    "helperProcessStoppedCleanly": true,
+    "browserProfileMayRetainSavedSignIn": true
+  },
+  "limits": [
+    "One bounded DayRecord observed-row reader exists as a scoped Python exception; occurrence and full class coverage remain unverified.",
+    "Native app API, student identity mapping, submission, grading and correction joins are unverified.",
+    "Official Chrome DevTools MCP is registered in project config but tool hot-loading in the already-running Codex session is unavailable; direct local MCP client was tested.",
+    "Operating Main Sheet cutover remains undeployed and requires exact structural/recovery review and separate production batch approval.",
+    "A broad TypeScript typecheck still encounters preexisting assessment fixture group-type errors; focused harness typecheck passed."
+  ],
+  "validation": {
+    "bunFocusedTests": "40_pass_0_fail_for_runtime_route_read_safety_and_fixture_suites",
+    "focusedHarnessTypecheck": "pass",
+    "harnessVerify": "pass_5_cohort_5_groups_54_routes",
+    "siteContractInventory": "valid_50_servlet_plus_4_other",
+    "runtimePreflight": "config_and_mcp_registered_network_tcp443_reachable",
+    "productionLmsWrites": 0,
+    "academySheetWrites": 0
+  },
+  "pendingUserApprovedPlan": "handoffs/2026-09-29-development-environment-adversarial-eval-plan.json",
+  "subagentsSpawnedForPendingPlan": 0,
+  "nextStart": [
+    "bun run harness/resume.ts --json",
+    "bun run harness/runtime_preflight.ts --network --mcp --json",
+    "bun run harness/lead.ts coverage --json",
+    "Revalidate current Chrome profile, teacher identity and exact target before any bounded live read.",
+    "After user approves the plan, spawn rubric researcher first; evaluators depend on its rubric, optimizers depend on consolidated findings."
+  ]
+}
