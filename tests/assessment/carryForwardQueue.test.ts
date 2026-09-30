@@ -1,5 +1,24 @@
 import { describe, it, expect, beforeEach } from 'bun:test';
-import { CarryForwardQueueManager } from '../../src/assessment/carryForwardQueue';
+import { CarryForwardQueueManager, type VerifiedSessionCalendar } from '../../src/assessment/carryForwardQueue';
+
+const shinCalendar: VerifiedSessionCalendar = {
+  group: '월수1부', studentIds: ['1293032'],
+  fromDate: '2026-09-28', throughDate: '2026-09-30',
+  coverage: 'complete', sourceRef: 'synthetic-schedule-shin',
+  occurrences: [
+    { date: '2026-09-28', occurrenceId: 'shin-sep28', status: 'held' },
+    { date: '2026-09-30', occurrenceId: 'shin-sep30', status: 'planned' },
+  ],
+};
+const monFriCalendar: VerifiedSessionCalendar = {
+  group: '월금1부', studentIds: ['1293067', '1293138'],
+  fromDate: '2026-09-28', throughDate: '2026-10-02',
+  coverage: 'complete', sourceRef: 'synthetic-schedule-monfri',
+  occurrences: [
+    { date: '2026-09-28', occurrenceId: 'monfri-sep28', status: 'held' },
+    { date: '2026-10-02', occurrenceId: 'monfri-oct02', status: 'planned' },
+  ],
+};
 
 describe('CarryForwardQueueManager & Next-Session Integration', () => {
   let queueManager: CarryForwardQueueManager;
@@ -10,13 +29,57 @@ describe('CarryForwardQueueManager & Next-Session Integration', () => {
 
   describe('DIM-09: Next Regular Class Schedule Resolution', () => {
     it('correctly maps 월수1부 (신지우) to 2026-09-30 (Wednesday)', () => {
-      const nextDate = CarryForwardQueueManager.resolveNextSessionDate('월수1부', '2026-09-28');
+      const nextDate = CarryForwardQueueManager.resolveNextSessionDate('월수1부', '2026-09-28', shinCalendar);
       expect(nextDate).toBe('2026-09-30');
     });
 
     it('correctly maps 월금1부 (박세은, 유지연) to 2026-10-02 (Friday)', () => {
-      const nextDate = CarryForwardQueueManager.resolveNextSessionDate('월금1부', '2026-09-28');
+      const nextDate = CarryForwardQueueManager.resolveNextSessionDate('월금1부', '2026-09-28', monFriCalendar);
       expect(nextDate).toBe('2026-10-02');
+    });
+
+    it('skips the October holidays and blocks an unknown intervening class', () => {
+      const holidayCalendar: VerifiedSessionCalendar = {
+        group: '월금1부', studentIds: ['1293067', '1293138'],
+        fromDate: '2026-10-02', throughDate: '2026-10-12',
+        coverage: 'complete', sourceRef: 'synthetic-holiday-calendar',
+        occurrences: [
+          { date: '2026-10-02', occurrenceId: 'oct02', status: 'held' },
+          { date: '2026-10-05', occurrenceId: 'oct05', status: 'cancelled' },
+          { date: '2026-10-09', occurrenceId: 'oct09', status: 'cancelled' },
+          { date: '2026-10-12', occurrenceId: 'oct12', status: 'planned' },
+        ],
+      };
+      expect(CarryForwardQueueManager.resolveNextSessionDate(
+        '월금1부', '2026-10-02', holidayCalendar)).toBe('2026-10-12');
+      expect(() => CarryForwardQueueManager.resolveNextSessionDate(
+        '월금1부', '2026-10-02', {
+          ...holidayCalendar,
+          occurrences: [
+            holidayCalendar.occurrences[0],
+            holidayCalendar.occurrences[1],
+            { date: '2026-10-09', occurrenceId: 'oct09', status: 'unknown' },
+            holidayCalendar.occurrences[3],
+          ],
+        })).toThrow('status is unknown');
+      expect(() => CarryForwardQueueManager.resolveNextSessionDate(
+        '월금1부', '2026-10-02', {
+          ...holidayCalendar, coverage: 'complete', sourceRef: '',
+        })).toThrow('coverage is unverified');
+      expect(CarryForwardQueueManager.resolveNextSessionDate('월금1부', '2026-10-02', {
+        ...holidayCalendar,
+        occurrences: [
+          holidayCalendar.occurrences[0],
+          holidayCalendar.occurrences[1],
+          { date: '2026-10-07', occurrenceId: 'makeup-oct07', status: 'planned' },
+          holidayCalendar.occurrences[2],
+          holidayCalendar.occurrences[3],
+        ],
+      })).toBe('2026-10-07');
+      expect(() => CarryForwardQueueManager.resolveNextSessionDate('월금1부', '2026-10-02', {
+        ...holidayCalendar,
+        occurrences: holidayCalendar.occurrences.slice(1),
+      })).toThrow('Origin class is not verified held');
     });
   });
 
@@ -33,7 +96,7 @@ describe('CarryForwardQueueManager & Next-Session Integration', () => {
       // Item 1 (필수예제 3번)
       expect(clinicItems[0].sourceCategory).toBe('필수예제');
       expect(clinicItems[0].originalProblemNumber).toBe(3);
-      expect(clinicItems[0].originalProblemPrinted).toBe(true);
+      expect(clinicItems[0].originalProblemPrinted).toBe(false);
       expect(clinicItems[0].labeledSimilarProblems.length).toBe(2);
       expect(clinicItems[0].labeledSimilarProblems[0].label).toBe('유사 1번');
       expect(clinicItems[0].labeledSimilarProblems[1].label).toBe('유사 2번');
@@ -43,6 +106,9 @@ describe('CarryForwardQueueManager & Next-Session Integration', () => {
       // Item 2 (유형다지기 8번)
       expect(clinicItems[1].labeledSimilarProblems.length).toBe(1);
       expect(clinicItems[1].labeledSimilarProblems[0].difficultyLevel).toBe('심화');
+      expect(() => CarryForwardQueueManager.buildClinicItems([
+        { sourceCategory: '필수예제', originalProblemNumber: 0, similarCount: 3 }
+      ])).toThrow('positive problem number');
     });
   });
 
@@ -60,7 +126,10 @@ describe('CarryForwardQueueManager & Next-Session Integration', () => {
         '2026-09-28',
         '초5-2 가우스 2권',
         'p.100 ~ p.131 (예습 범위)',
-        clinicItems
+        clinicItems,
+        'synthetic-shin-deferral',
+        'teacher-confirmed unfinished clinic',
+        shinCalendar
       );
 
       expect(tasks.length).toBe(2);
@@ -68,6 +137,16 @@ describe('CarryForwardQueueManager & Next-Session Integration', () => {
       expect(tasks[0].targetNextSessionDate).toBe('2026-09-30');
       expect(tasks[1].taskType).toBe('daily_test');
       expect(tasks[1].targetNextSessionDate).toBe('2026-09-30');
+      expect(queueManager.queueDeferralsForStudent(
+        '1293032', '신지우', '월수1부', '2026-09-28',
+        '초5-2 가우스 2권', 'p.100 ~ p.131 (예습 범위)', clinicItems,
+        'synthetic-shin-deferral', 'teacher-confirmed unfinished clinic',
+        shinCalendar)).toEqual(tasks);
+      expect(() => queueManager.queueDeferralsForStudent(
+        '1293032', '신지우', '월수1부', '2026-09-28',
+        '초5-2 가우스 2권', 'different scope', clinicItems,
+        'synthetic-shin-deferral', 'teacher-confirmed unfinished clinic',
+        shinCalendar)).toThrow('Conflicting deferral retry');
 
       // Verify bundle for 09/30
       const bundle = queueManager.getCarryForwardBundle('1293032', '2026-09-30');
@@ -95,7 +174,10 @@ describe('CarryForwardQueueManager & Next-Session Integration', () => {
         '2026-09-28',
         '초5-2 가우스 2권',
         'p.78 ~ p.95 (예습 범위)',
-        parkClinic
+        parkClinic,
+        'synthetic-park-deferral',
+        'teacher-confirmed unfinished clinic',
+        monFriCalendar
       );
 
       const yooClinic = CarryForwardQueueManager.buildClinicItems([
@@ -108,7 +190,10 @@ describe('CarryForwardQueueManager & Next-Session Integration', () => {
         '2026-09-28',
         '가우스플러스 5-2',
         'p.71 ~ p.89 (예습 범위)',
-        yooClinic
+        yooClinic,
+        'synthetic-yoo-deferral',
+        'teacher-confirmed unfinished clinic',
+        monFriCalendar
       );
 
       const checklist1002 = queueManager.generatePreclassChecklistForDate('2026-10-02');

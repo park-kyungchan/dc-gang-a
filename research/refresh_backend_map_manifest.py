@@ -29,8 +29,17 @@ def main() -> None:
         "path": "app-read-contracts.md",
         "evidence_scope": NEW_SCOPE,
     }
+    files["teacher-site-live-structure-2026-09-29.json"] = {
+        "path": "teacher-site-live-structure-2026-09-29.json",
+        "evidence_scope": (
+            "Bounded authenticated fixed GET structure observations for the two default pre-study "
+            "lists and active middle-school textbook catalog; no raw student rows or PDF contents."
+        ),
+    }
     files["route-registry.json"]["evidence_scope"] = (
         "Operation entries across live, static, source-only, and historical evidence; "
+        "textbook_answer_catalog and default pre-study lists have bounded live structure; "
+        "textbook_sample_pdf permits only two fixed catalog-observed URLs; "
         "the pre-study detail entry is an unsafe-to-probe historical candidate."
     )
     for name, item in files.items():

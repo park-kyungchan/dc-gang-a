@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-09-29",
+  "method": "Prompt-centered paraphrase of repeated user feedback; no raw transcript, credentials, or student records.",
+  "themes": [
+    {
+      "id": "SESSION_CONTINUITY",
+      "promptPattern": "Resume from the indexed handoff and prior user intent without dumping earlier sessions or redoing settled work.",
+      "sourceRefs": ["handoffs/2026-09-29-restart-kickoff.json", "handoffs/2026-09-29-restart-progress.json"],
+      "rootCause": "Dated narrative files can be mistaken for the current state, and a shallow index can pass stale or false evidence.",
+      "fixRefs": ["harness/resume.ts", "handoffs/current-state.json"],
+      "canary": "Swap an in-progress plan into latestCompletedEvidence, or use an impossible calendar date.",
+      "status": "implemented_local"
+    },
+    {
+      "id": "BACKWARD_PROPAGATION",
+      "promptPattern": "Repeated corrections should change agent runtime guidance and verification, including .codex and .agents, beyond a task-level summary.",
+      "sourceRefs": ["handoffs/2026-09-29-restart-progress.json", "review/development-environment-adversarial-rubric-2026-09-29.json"],
+      "rootCause": "No independent theme inventory or omission check carried user feedback into the next session.",
+      "fixRefs": [".agents/feedback-themes.json", "harness/feedback_coverage.ts"],
+      "canary": "Remove one required feedback theme and require coverage validation to fail.",
+      "status": "implemented_local"
+    },
+    {
+      "id": "NATIVE_DEVTOOLS",
+      "promptPattern": "Use Chrome DevTools native text and network tools actively, avoiding repeated screenshot exploration and verifying the actual browser session.",
+      "sourceRefs": ["handoffs/2026-09-29-meta-and-read-audit-resume.json", "review/development-environment-e1-findings-2026-09-29.json"],
+      "rootCause": "MCP registration and a local handshake can be mistaken for callable tools in the current Codex session.",
+      "fixRefs": ["harness/chrome_devtools_session.ts", "harness/runtime_preflight.ts"],
+      "canary": "Report registered MCP as session-connected when native tools are absent.",
+      "status": "partially_verified"
+    },
+    {
+      "id": "VERIFIED_READ_PATH",
+      "promptPattern": "Find bounded academy site and app facts without repeatedly exploring the UI or spending tokens on route discovery.",
+      "sourceRefs": ["review/backend-read-coverage-2026-09-29.json", "handoffs/2026-09-29-meta-and-read-audit-resume.json"],
+      "rootCause": "Page shells and route names were promoted to student-level read contracts without verified joins or effect semantics.",
+      "fixRefs": ["harness/lead.ts", "harness/site_contracts.ts"],
+      "canary": "Treat a menu HTTP 200 or a legacy GET route as a verified student read.",
+      "status": "partially_verified"
+    },
+    {
+      "id": "BUN_TYPESCRIPT",
+      "promptPattern": "Build new project and runtime engineering with TypeScript and Bun, keeping Python only for existing required gates or unique verified readers.",
+      "sourceRefs": ["handoffs/2026-09-29-restart-progress.json", "AGENTS.md"],
+      "rootCause": "Convenience scripts can multiply runtimes and obscure the one approved read path.",
+      "fixRefs": ["harness/lead.ts", "harness/feedback_coverage.ts"],
+      "canary": "Add a new convenience Python discovery helper for a routine harness task.",
+      "status": "implemented_local"
+    },
+    {
+      "id": "SETTLED_TEACHER_FACTS",
+      "promptPattern": "Keep teacher-confirmed lesson dates and homework facts through compaction and do not ask for the same answer again.",
+      "sourceRefs": ["handoffs/2026-09-30-class-scope.json", "handoffs/2026-09-29-restart-progress.json"],
+      "rootCause": "Unverified backend occurrence binding can accidentally downgrade a teacher's confirmed date.",
+      "fixRefs": ["harness/lead.ts", "handoffs/current-state.json"],
+      "canary": "Delete the 2026-09-23 teacher-confirmed prior lesson date from pilot scope.",
+      "status": "implemented_local"
+    },
+    {
+      "id": "ADVERSARIAL_EVAL_SEQUENCE",
+      "promptPattern": "Research a development-environment rubric, evaluate independently, optimize validated findings, and carry approval across compaction.",
+      "sourceRefs": ["handoffs/2026-09-29-development-environment-adversarial-eval-plan.json", "review/development-environment-e1-findings-2026-09-29.json"],
+      "rootCause": "An implicit subphase can disappear from the current-state index even while agents are working.",
+      "fixRefs": ["handoffs/current-state.json", "harness/resume.ts"],
+      "canary": "Remove I1 from the active subphase or point its prerequisite at an unconsolidated E1 artifact.",
+      "status": "in_progress"
+    }
+  ]
+}

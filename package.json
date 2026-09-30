@@ -1,0 +1,21 @@
+{
+  "name": "dc-gang-a",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Daechi Whole-Lens Monorepo & Deterministic Dual-Runtime Harness",
+  "scripts": {
+    "harness": "bun run harness/cli.ts",
+    "test:agent-runtime": "bun test ./agent-runtime/tests/adversarial.test.ts ./agent-runtime/tests/agents.test.ts ./agent-runtime/tests/codex-compat.test.ts ./agent-runtime/tests/constraints.test.ts ./agent-runtime/tests/credential-leak.test.ts ./agent-runtime/tests/hooks.test.ts ./agent-runtime/tests/pacing.test.ts ./agent-runtime/tests/roundtrip.test.ts",
+    "typecheck:agent-runtime": "tsc --noEmit -p agent-runtime/tsconfig.json",
+    "test:bun": "bun test --dots tests/canonical/canonicalEntities.test.ts tests/harness/cli.test.ts tests/harness/codexFullAccess.test.ts tests/harness/resume.test.ts tests/harness/feedbackCoverage.test.ts tests/harness/runtimePreflight.test.ts tests/harness/chromeDevtoolsSession.test.ts tests/harness/lead.test.ts tests/lms/lmsRouteRegistry.test.ts tests/lms/lmsLiveQueryService.test.ts tests/lms/deterministicReadRepository.test.ts tests/lms/siteReadContracts.test.ts tests/lms/textbookSamplePdf.test.ts tests/assessment/carryForwardQueue.test.ts",
+    "test:python": "python -B -m unittest discover -s workbench_v2/tests -v",
+    "typecheck:harness": "tsc --noEmit --strict --skipLibCheck --target ES2022 --module ESNext --moduleResolution bundler --types bun harness/checkpoint.ts harness/resume.ts harness/runtime_preflight.ts harness/chrome_devtools_session.ts harness/lead.ts harness/feedback_coverage.ts src/lms/lmsRouteRegistry.ts"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "1.31.0",
+    "@playwright/mcp": "0.0.83",
+    "@types/bun": "^1.4.2",
+    "chrome-devtools-mcp": "1.10.1",
+    "typescript": "^7.0.2"
+  }
+}

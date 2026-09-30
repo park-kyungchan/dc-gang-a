@@ -1,5 +1,5 @@
 /**
- * LMS Backend Deterministic Read Contracts & Schema Specifications.
+ * Historical LMS contract candidates and local assessment schema.
  * 
  * Safety & Architecture Rules (AGENTS.md Invariant Compliance):
  * 1. ZERO-HALLUCINATION INVARIANT:
@@ -48,7 +48,11 @@ export interface LmsEndpointMetadata {
   description: string;
 }
 
-export const LMS_VERIFIED_READ_ENDPOINTS: Record<string, LmsEndpointMetadata> = {
+/** No general-purpose student read endpoint has been verified for this legacy surface. */
+export const LMS_VERIFIED_READ_ENDPOINTS: Record<string, LmsEndpointMetadata> = {};
+
+/** Historical declarations only. Use the canonical route registry and Bun lead plan for current eligibility. */
+export const LMS_LEGACY_ROUTE_CANDIDATES: Record<string, LmsEndpointMetadata> = {
   DAY_RECORD_MAIN: {
     operationName: 'DayRecordServlet?p_process=Main',
     path: '/servlet/controller.dayrecord.DayRecordServlet?p_process=Main',

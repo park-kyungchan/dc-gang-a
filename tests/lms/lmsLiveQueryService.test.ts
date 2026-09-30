@@ -9,6 +9,26 @@ describe('LmsLiveQueryService & Deterministic Parser', () => {
     service = new LmsLiveQueryService();
   });
 
+  it('fails closed before any legacy live assessment or clinic request', async () => {
+    const originalFetch = globalThis.fetch;
+    let networkCalls = 0;
+    globalThis.fetch = (async () => { networkCalls++; throw new Error('network_called'); }) as unknown as typeof fetch;
+    try {
+      await expect(service.queryStudentTestResults({
+        sessionCookie: 'synthetic', studentName: 'synthetic', startDate: '2099-01-01', endDate: '2099-01-02',
+      })).rejects.toThrow(/unverified_live_route_contract/);
+      await expect(service.queryPupilGradingDetails({
+        sessionCookie: 'synthetic', item: {} as LmsTestSummaryItem,
+      })).rejects.toThrow(/unverified_live_route_contract/);
+      await expect(service.queryClinicPaper({
+        sessionCookie: 'synthetic', studentName: 'synthetic', priNo: '0', testingNo: '0',
+      })).rejects.toThrow(/unverified_live_route_contract/);
+      expect(networkCalls).toBe(0);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
   describe('EXTERN_DIALOG testResultList Parsing', () => {
     it('deterministically parses testResultList from mock LMS HTML', () => {
       const mockHtml = `

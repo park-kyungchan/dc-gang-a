@@ -27,7 +27,7 @@ describe('LMS Deterministic Read Repository & Key Join Engine', () => {
       expect(paper!.totalQuestions).toBe(25);
       expect(paper!.timeLimitMinutes).toBe(60);
       expect(paper!.items.length).toBe(25);
-      expect(paper!.provenance).toBe('VERIFIED_SNAPSHOT');
+      expect(paper!.provenance).toBe('SYNTHETIC_HARNESS');
 
       // Verify specific question metadata
       const q1 = paper!.items.find(i => i.itemNo === 1);

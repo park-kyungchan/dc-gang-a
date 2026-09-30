@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "asOfUtc": "2026-09-29T11:36:24.454Z",
+  "scope": "read_only_site_and_native_app_capability_audit_no_student_data_retained",
+  "coverage": {
+    "scopeDate": "2026-09-30",
+    "namedFactCount": 12,
+    "boundedStudentReadContracts": [
+      "day_record"
+    ],
+    "blockedFacts": [
+      {
+        "fact": "class_schedule",
+        "reason": "schedule_date_status_and_coverage_join_unverified"
+      },
+      {
+        "fact": "previous_homework",
+        "reason": "previous_occurrence_and_book_assignment_join_unverified"
+      },
+      {
+        "fact": "prestudy_upload",
+        "reason": "student_submission_join_and_read_effect_unverified"
+      },
+      {
+        "fact": "problem_attempts",
+        "reason": "app_attempt_join_and_read_effect_unverified"
+      },
+      {
+        "fact": "automatic_grading",
+        "reason": "attempt_grading_join_unverified"
+      },
+      {
+        "fact": "assessment_results",
+        "reason": "assessment_student_paper_attempt_join_unverified"
+      },
+      {
+        "fact": "wrong_answer_video",
+        "reason": "video_lookup_effect_and_correction_join_unverified"
+      },
+      {
+        "fact": "textbook_samples",
+        "reason": "student_book_assignment_unverified"
+      },
+      {
+        "fact": "page_progress",
+        "reason": "teacher_page_events_and_question_coverage_unverified"
+      },
+      {
+        "fact": "weekly_plan",
+        "reason": "calendar_edition_page_audit_and_personal_pace_unverified"
+      },
+      {
+        "fact": "report_preview",
+        "reason": "report_occurrence_join_unverified"
+      }
+    ],
+    "canonicalOperations": 54,
+    "servletReadStateCounts": {
+      "bounded_read_requires_session": 1,
+      "effect_unknown": 10,
+      "effectful": 11,
+      "fixed_page_shell": 19,
+      "historical_read_requires_current_binding": 4,
+      "read_contract_unverified": 1,
+      "source_only_read": 4
+    },
+    "nativeAppStudentReadContract": "unverified",
+    "directProductionDatabaseReader": "unverified",
+    "excludedLegacyPaths": [
+      "scripts/query_lms_student_assessment.ts",
+      "src/lms/lmsLiveQueryService.ts"
+    ],
+    "conclusion": "not_sufficient_for_arbitrary_student_site_or_app_read"
+  },
+  "implementedStudentReader": {
+    "fact": "day_record",
+    "adapter": "harness/academy.py read (existing scoped Python exception)",
+    "outputGrade": "observed_row",
+    "limitations": [
+      "Explicit ephemeral session required",
+      "Selected page only; complete class coverage unverified",
+      "Exact lesson occurrence and textbook binding unverified"
+    ]
+  },
+  "notImplemented": [
+    "General student/date/course query layer across the teacher website",
+    "Native app host/API/auth and LMS student identity mapping",
+    "Student submission, attempt, backend grading, wrong-answer video and correction joins",
+    "Direct production database read interface or schema",
+    "Portable TypeScript/Bun replacement for the unique DayRecord reader"
+  ],
+  "misleadingLegacyPathsCorrected": [
+    "scripts/query_lms_student_assessment.ts now returns blocked before clipboard or network access",
+    "src/lms/lmsLiveQueryService.ts network methods now fail before fetch, including effectful clinic creation",
+    "src/lms/lmsBackendContracts.ts current verified-endpoint map is empty; historical candidates remain separate",
+    "src/lms/lmsDeterministicReadRepository.ts default seeded records are labelled synthetic"
+  ],
+  "tokenEfficientEntryPoints": [
+    "bun run harness/lead.ts coverage --json",
+    "bun run harness/lead.ts plan --fact <fact> --student-id <canonical-id> --date <date> --json",
+    "bun run harness routes --id <canonical-route-id> --json",
+    "bun run harness/site_contracts.ts --id <canonical-route-id> --json"
+  ],
+  "chromeDevTools": {
+    "package": "chrome-devtools-mcp@1.10.1",
+    "installation": "project_local_pinned",
+    "codexRegistration": "enabled",
+    "directMcpToolCount": 30,
+    "dedicatedChromeBrowserConnection": "verified",
+    "dedicatedTeacherSiteAuthentication": "fixed_instructor_menu_rendered_after_manual_login_teacher_identity_not_independently_bound",
+    "method": "textual page snapshot, filtered network and console inspection; no screenshot needed for route-shape work",
+    "browserProfile": "user_local_outside_repository",
+    "passiveObservation": {
+      "method": "GET",
+      "path": "/servlet/controller.tutor.TutorMenuIndexServlet",
+      "queryKeys": [
+        "p_process"
+      ],
+      "status": 200,
+      "meaning": "authenticated_fixed_menu_shell_only"
+    },
+    "credentialValuesExtracted": false,
+    "browserProfileMayRetainSavedSignIn": true
+  },
+  "effectAndJoinBoundary": {
+    "unknownEffectRequestsProbed": 0,
+    "productionLmsWrites": 0,
+    "productionSheetWrites": 0,
+    "verifiedNativeAppStudentReads": 0
+  },
+  "nextEvidence": [
+    "After teacher login in the dedicated Chrome, observe normal UI actions and bounded passive request shapes without headers, bodies or raw student values.",
+    "Source-review each exact operation effect before direct reads; never transfer historical read classification to a new POST.",
+    "Prove exact LMS occurrence, assigned book/course and app student/submission/attempt/grading/correction identities with pagination and source timestamps.",
+    "Only then add operation-specific TypeScript/Bun adapters and same-target bounded read tests."
+  ],
+  "conclusion": "Current code is not sufficient to read an arbitrary requested site or app student fact without new verified contracts; the offline routing and gap inventory now make that limit discoverable in one command."
+}

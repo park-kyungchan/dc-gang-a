@@ -2,7 +2,9 @@
 
 **작성일**: 2026-09-28  
 **적용 대상**: 대치 강의하는 아이들 (`dc-gang-a`)  
-**상태**: 검증 완료 (Production Ready, 66 Bun Tests 100% Pass, Python 17 Tests 100% Pass)
+**상태**: 역사적 설계 보고서. 현재 범위별 실행 가능성은 `bun run harness/lead.ts coverage --json`과 `handoffs/current-state.json`을 따른다. 당시 테스트 통과는 운영 백엔드의 학생별 읽기 계약을 증명하지 않는다.
+
+`scripts/query_lms_student_assessment.ts`는 현재 fail-closed다. 이전 구현의 클립보드 세션 자동 탐색, 이름 기반 대상 선택, 원문 답안 출력, 미검증 route 사용이 현재 계약과 충돌한다. 아래 과거 명령은 live reader로 실행하지 않는다.
 
 ---
 

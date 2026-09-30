@@ -375,16 +375,17 @@
       "http_method": "GET",
       "semantic_effect": "read",
       "evidence_grade": "live-structure",
-      "evidence_date": "2026-09-27",
+      "evidence_date": "2026-09-29",
       "join_key_names": [
         "g_clg_no",
         "g_pri_no",
         "student_name"
       ],
       "safe_to_probe": true,
-      "reason": "Fixed page shell only; search/detail controls need separate review.",
+      "reason": "Authenticated fixed GET default view returned a teacher-unconfirmed pre-study table with rows. Canonical student ID, book or edition, lesson occurrence, pagination completeness, and video watch history are unverified; parameterized search and detail controls remain separately gated.",
       "source_refs": [
-        "app-live.md:10"
+        "app-live.md:10",
+        "teacher-site-live-structure-2026-09-29.json:prestudy_waiting"
       ]
     },
     {
@@ -394,16 +395,17 @@
       "http_method": "GET",
       "semantic_effect": "read",
       "evidence_grade": "live-structure",
-      "evidence_date": "2026-09-27",
+      "evidence_date": "2026-09-29",
       "join_key_names": [
         "g_clg_no",
         "g_pri_no",
         "student_name"
       ],
       "safe_to_probe": true,
-      "reason": "Fixed page shell only; search/detail controls need separate review.",
+      "reason": "Authenticated fixed GET default view returned a teacher-confirmed pre-study table with rows. Canonical student ID, book or edition, lesson occurrence, pagination completeness, and video watch history are unverified; parameterized search and detail controls remain separately gated.",
       "source_refs": [
-        "app-live.md:11"
+        "app-live.md:11",
+        "teacher-site-live-structure-2026-09-29.json:prestudy_completed"
       ]
     },
     {
@@ -593,6 +595,48 @@
       "reason": "Fixed result shell; no student completion join yet.",
       "source_refs": [
         "app-live.md:21"
+      ]
+    },
+    {
+      "id": "textbook_answer_catalog",
+      "route_template": "/servlet/controller.coursemanage.CourseManageServlet?reqCmd=GaStudyAnswer",
+      "operation": "GaStudyAnswer",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-29",
+      "join_key_names": [],
+      "safe_to_probe": true,
+      "reason": "Authenticated fixed GET catalog returned 200 with the middle-school tab active and two Gauss sample PDF links. This verifies the default catalog view only; other tabs, PDF contents, report generation, and student book assignment remain unverified.",
+      "source_refs": [
+        "learning-assessment.md:26",
+        "learning-assessment.md:40",
+        "teacher-site-live-structure-2026-09-29.json:textbook_answer_catalog"
+      ]
+    },
+    {
+      "id": "textbook_sample_pdf",
+      "route_template": "https://storage.studyq.net/data/answer/mi/book/g7_gauss_sample_1_1.pdf",
+      "operation": "GaussSamplePdf",
+      "http_method": "GET",
+      "semantic_effect": "read",
+      "evidence_grade": "live-structure",
+      "evidence_date": "2026-09-29",
+      "join_key_names": [],
+      "safe_to_probe": true,
+      "reason": "The two allowed_exact_urls preserve dated fixed-link reads. Additional middle-school sample PDFs require a fresh authenticated GaStudyAnswer catalog response, an exact catalog link on the scoped storage host/path, and a filename matching the requested book code. No arbitrary storage path, adjacent PDF, report generation, or student assignment is implied.",
+      "allowed_exact_urls": [
+        "https://storage.studyq.net/data/answer/mi/book/g7_gauss_sample_1_1.pdf",
+        "https://storage.studyq.net/data/answer/mi/book/g7_gauss_sample_2_3.pdf"
+      ],
+      "catalog_scoped_discovery": {
+        "catalog_route_id": "textbook_answer_catalog",
+        "url_prefix": "https://storage.studyq.net/data/answer/mi/book/",
+        "filename_pattern": "^g[7-9]_[a-z]+_sample_[1-2]_[1-9][0-9]*\\.pdf$",
+        "book_code_pattern": "^([a-z]+):([1-3])-([1-2])-([1-9][0-9]*)$"
+      },
+      "source_refs": [
+        "teacher-site-live-structure-2026-09-29.json:textbook_answer_catalog"
       ]
     },
     {

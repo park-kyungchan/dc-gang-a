@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Main Sheet v3 · 하루 수업 흐름 시안</title>
+  <style>
+    :root { font: 15px/1.5 "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; color: #192a3a; background: #edf2f6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: inherit; }
+    button, select, input { font: inherit; }
+    button { cursor: pointer; }
+    .page { max-width: 1500px; margin: auto; padding: 0 24px 50px; }
+    .top { position: sticky; top: 0; z-index: 5; margin: 0 -24px; padding: 14px 24px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; color: #fff; background: #173348; box-shadow: 0 3px 14px #17334830; }
+    .brand { min-width: 215px; }
+    .brand strong { display: block; font-size: 17px; }
+    .brand small { color: #bdd1dd; }
+    .nav { display: flex; gap: 6px; flex-wrap: wrap; }
+    .nav a { padding: 8px 11px; border: 1px solid #ffffff35; border-radius: 7px; text-decoration: none; font-size: 13px; font-weight: 700; }
+    .nav a:hover, .nav a:focus-visible { background: #ffffff24; }
+    .synthetic { margin-left: auto; padding: 7px 10px; border-radius: 7px; color: #fff0bf; background: #59482b; font-size: 12px; font-weight: 800; }
+    .intro { padding: 26px 0 14px; }
+    h1 { margin: 0 0 5px; font-size: 27px; letter-spacing: -.04em; }
+    .intro p { margin: 0; color: #4b6072; }
+    .controls { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 18px 0 24px; }
+    .control, .metric { padding: 12px 14px; border: 1px solid #d6e1e9; border-radius: 10px; background: #fff; }
+    .control label { display: block; color: #52687a; font-size: 12px; font-weight: 800; }
+    .control input, .control select { display: block; width: 100%; margin-top: 5px; padding: 6px; border: 1px solid #bfcdd7; border-radius: 6px; background: white; color: #192a3a; }
+    .metric small { display: block; color: #52687a; font-size: 12px; font-weight: 700; }
+    .metric strong { display: block; margin-top: 5px; font-size: 17px; }
+    section.stage { scroll-margin-top: 84px; margin: 22px 0; border: 1px solid #d3dfe7; border-radius: 12px; background: #fff; overflow: hidden; }
+    .stage-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; padding: 18px 20px; border-bottom: 1px solid #e2e9ee; background: #f9fbfc; }
+    .stage-head h2 { margin: 0; font-size: 20px; }
+    .stage-head p { margin: 0; color: #516778; font-size: 13px; }
+    .range { margin-left: auto; color: #657889; font: 12px ui-monospace, Consolas, monospace; }
+    .body { padding: 18px 20px 22px; }
+    .columns { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(310px, 1fr); gap: 16px; }
+    .box { min-width: 0; border: 1px solid #dbe4ea; border-radius: 9px; overflow: hidden; }
+    .box h3 { margin: 0; padding: 10px 13px; border-bottom: 1px solid #e3eaf0; background: #f7fafc; font-size: 14px; }
+    .box-content { padding: 13px; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 10px 9px; text-align: left; vertical-align: top; border-bottom: 1px solid #e9eef2; }
+    th { color: #4b6172; background: #f7fafc; font-size: 12px; white-space: nowrap; }
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody tr.selected { background: #edf7fa; }
+    .student-button { border: 0; padding: 0; background: none; color: #0b6279; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+    .badge { display: inline-block; padding: 3px 7px; border-radius: 6px; font-size: 11px; font-weight: 800; white-space: nowrap; }
+    .ok { color: #17604e; background: #e2f3ed; }
+    .warn { color: #83551c; background: #fff1d7; }
+    .active { color: #245e87; background: #e4f0f9; }
+    .quiet { color: #5e6f7c; background: #edf1f4; }
+    .danger { color: #8a3f42; background: #fae8e9; }
+    .sub { color: #667b8a; font-size: 11px; }
+    .pair { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 9px; padding: 8px 0; border-bottom: 1px solid #e9eef2; }
+    .pair:last-child { border-bottom: 0; }
+    .pair span:first-child { color: #52687a; }
+    .callout { margin-top: 12px; padding: 10px 12px; border-left: 4px solid #ce9b48; background: #fff8e9; color: #654b21; font-size: 12px; }
+    .review-grid { display: grid; grid-template-columns: 145px minmax(0, 1fr) minmax(0, 1fr) 90px; }
+    .review-grid > * { padding: 9px 10px; border-bottom: 1px solid #e6edf1; font-size: 12px; }
+    .review-grid .head { color: #52687a; background: #f6f9fb; font-weight: 800; }
+    .review-grid .unverified { color: #83551c; }
+    .footnote { margin-top: 10px; color: #637889; font-size: 12px; }
+    @media (max-width: 980px) { .controls { grid-template-columns: repeat(2, 1fr); } .columns { grid-template-columns: 1fr; } .synthetic { margin-left: 0; } }
+    @media (max-width: 620px) { .page { padding: 0 12px 40px; } .top { margin: 0 -12px; padding: 12px; } .controls { grid-template-columns: 1fr; } .range { margin-left: 0; } .review-grid { grid-template-columns: 95px 1fr 1fr 65px; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="top">
+      <div class="brand"><strong>박경찬 · Main Sheet</strong><small>하나의 탭에서 준비 → 수업 → 마무리</small></div>
+      <nav class="nav" aria-label="수업 단계"><a href="#prep">14:00 준비</a><a href="#class">수업 중</a><a href="#closeout">수업 후</a><a href="#history">입력·이력</a></nav>
+      <span class="synthetic">합성 데이터 시안 · 저장 없음</span>
+    </header>
+
+    <div class="intro">
+      <h1>오늘 수업의 모든 판단을 한곳에서</h1>
+      <p>실제 운영 탭의 세 영역으로 옮길 화면 시안입니다. 증거가 없는 값은 완료로 표시하지 않습니다.</p>
+    </div>
+    <div class="controls" aria-label="수업 선택과 데이터 상태">
+      <div class="control"><label for="lesson-date">수업일</label><input id="lesson-date" type="date" value="2099-01-14"></div>
+      <div class="control"><label for="group">반</label><select id="group"><option>전체 반</option><option>시안 A반</option><option>시안 B반</option></select></div>
+      <div class="metric"><small>학원 데이터</small><strong>갱신 대기</strong><span class="sub">마지막 확인 시각 필요 · 수동 새로고침 예정</span></div>
+      <div class="metric"><small>현재 범위</small><strong>합성 학생 3명</strong><span class="sub">실제 출석 대상은 날짜·반·회차로 재확인</span></div>
+    </div>
+
+    <section class="stage" id="prep" aria-labelledby="prep-title">
+      <div class="stage-head"><h2 id="prep-title">14:00 준비</h2><p>그날 전체 학생을 먼저 확인하고, 학생별로 판단합니다.</p><span class="range">박경찬!A8:P28</span></div>
+      <div class="body columns">
+        <div class="box"><h3>전체 학생 준비 상태</h3><div class="table-scroll"><table>
+          <thead><tr><th>학생</th><th>직전 숙제</th><th>예습 영상</th><th>앱 풀이·채점</th><th>오답·교사 확인</th><th>판단</th></tr></thead>
+          <tbody id="prep-rows"></tbody>
+        </table></div></div>
+        <div class="box"><h3>선택 학생의 다음 확인</h3><div class="box-content" id="prep-detail"></div></div>
+      </div>
+    </section>
+
+    <section class="stage" id="class" aria-labelledby="class-title">
+      <div class="stage-head"><h2 id="class-title">수업 중</h2><p>현재 작업·경과시간과 대기 학생의 다음 과제를 가장 먼저 봅니다.</p><span class="range">박경찬!A30:P59</span></div>
+      <div class="body columns">
+        <div class="box"><h3>실시간 학생 작업판</h3><div class="table-scroll"><table>
+          <thead><tr><th>학생</th><th>현재 작업</th><th>시작·경과</th><th>대기 / 다음 과제</th><th>교재별 검사</th><th>시험·오답</th></tr></thead>
+          <tbody id="class-rows"></tbody>
+        </table></div></div>
+        <div class="box"><h3>선택 학생 작업 전환</h3><div class="box-content" id="class-detail"></div></div>
+      </div>
+    </section>
+
+    <section class="stage" id="closeout" aria-labelledby="closeout-title">
+      <div class="stage-head"><h2 id="closeout-title">수업 후 마무리</h2><p>교재별 숙제를 먼저 기록하고, 공식 수업일지는 검토 뒤 저장합니다.</p><span class="range">박경찬!A61:P95</span></div>
+      <div class="body columns">
+        <div class="box"><h3>선택 학생의 숙제와 DayRecord 검토</h3><div class="box-content">
+          <div id="homework-detail"></div>
+          <div class="review-grid" aria-label="공식 필드 검토 시안">
+            <div class="head">필드</div><div class="head">현재 LMS</div><div class="head">시트 초안</div><div class="head">상태</div>
+            <div>출결</div><div>확인 불가</div><div>수업 이벤트에서 제안</div><div class="unverified">검토 전</div>
+            <div>진도</div><div>확인 불가</div><div>교재별 완료 범위에서 제안</div><div class="unverified">검토 전</div>
+            <div>숙제</div><div>확인 불가</div><div>시트의 확정 숙제만 제안</div><div class="unverified">검토 전</div>
+            <div>메모·시험 등</div><div>확인 불가</div><div>선생님 확인 후 초안</div><div class="unverified">검토 전</div>
+          </div>
+          <div class="callout">LMS 저장은 대상 회차·학생·필드의 변경 전/후를 검토한 뒤 진행합니다. 저장 후 같은 대상의 읽기 결과를 보여줍니다.</div>
+        </div></div>
+        <div class="box"><h3>학부모 문구와 최종 전달</h3><div class="box-content">
+          <div class="pair"><span>교사 기록</span><strong>변경 이력을 남기는 초안</strong></div>
+          <div class="pair"><span>정리 문구</span><strong>근거 링크와 함께 제안 · 검토 전</strong></div>
+          <div class="pair"><span>전달 상태</span><strong><span class="badge warn">확인 불가</span></strong></div>
+          <div class="callout">최종 학부모 전송은 선생님이 공식 화면에서 직접 합니다. 미리보기나 전송 화면을 전송 완료로 표시하지 않습니다.</div>
+        </div></div>
+      </div>
+    </section>
+
+    <section class="stage" id="history" aria-labelledby="history-title">
+      <div class="stage-head"><h2 id="history-title">입력과 이력</h2><p>대화 입력과 직접 셀 입력을 같은 수업 이벤트로 정리합니다.</p><span class="range">박경찬!A97:P112</span></div>
+      <div class="body columns">
+        <div class="box"><h3>대화 입력이 처리되는 순서</h3><div class="box-content">
+          <div class="pair"><span>1 · 해석</span><strong>학생·수업일·교재·범위·시각 분리</strong></div>
+          <div class="pair"><span>2 · 확인</span><strong>동명이인·복수 교재·모호한 범위는 질문</strong></div>
+          <div class="pair"><span>3 · 기록</span><strong>이벤트 ID와 원문 참조, 현재 상태 갱신</strong></div>
+          <div class="pair"><span>4 · 수정</span><strong>이전 이벤트를 덮지 않고 정정 이벤트 추가</strong></div>
+        </div></div>
+        <div class="box"><h3>출처 상태</h3><div class="box-content">
+          <div class="pair"><span>LMS 사실</span><strong>검증된 읽기 계약·키·관찰 시각 필요</strong></div>
+          <div class="pair"><span>교사 관찰</span><strong>대화 또는 셀 입력 시각과 작성자</strong></div>
+          <div class="pair"><span>앱 증거</span><strong>학생·문항·채점 연결 전까지 확인 불가</strong></div>
+        </div></div>
+      </div>
+    </section>
+    <p class="footnote">이 파일은 화면 검토용 합성 시안입니다. 학원 시트, LMS, 앱, 학부모 전송과 연결되지 않습니다.</p>
+  </div>
+  <script>
+    const students = [
+      { id: 'A', name: '가상 학생 A', group: '시안 A반', homework: '가우스 2권 · 직전 범위 확인 대기', video: '확인 불가', app: '확인 불가', correction: '교사 확인 전', task: '숙제 제출 · 검사 대기', elapsed: '시작 시각 미확인', next: '검사 중 버퍼 과제 대기', books: '가우스 2권: 검사 전', exam: '미배정', assigned: '미확정' },
+      { id: 'B', name: '가상 학생 B', group: '시안 A반', homework: '가우스플러스 · 직전 범위 확인 대기', video: '확인 불가', app: '확인 불가', correction: '교사 확인 전', task: '개념백지테스트 준비', elapsed: '합성 08분', next: '가우스 별도 숙제 검사', books: '가우스플러스: 검사 완료 / 가우스: 검사 전', exam: '백지테스트 범위 확인', assigned: '미확정' },
+      { id: 'C', name: '가상 학생 C', group: '시안 B반', homework: '교재·범위 확인 대기', video: '확인 불가', app: '확인 불가', correction: '교사 확인 전', task: '대단원 평가 진행', elapsed: '합성 18분', next: '앱 입력·채점 확인 후 오답', books: '숙제 검사 대기', exam: '시험 진행 / pNo 확인 대기', assigned: '미확정' }
+    ];
+    let selected = 'A';
+    const group = document.getElementById('group');
+    const badge = (value, cls) => `<span class="badge ${cls}">${value}</span>`;
+    function render() {
+      const visible = students.filter(s => group.value === '전체 반' || s.group === group.value);
+      const current = visible.find(s => s.id === selected);
+      if (!current) selected = visible[0]?.id || '';
+      const chosen = visible.find(s => s.id === selected);
+      const pick = s => `<button class="student-button" data-student="${s.id}" type="button">${s.name}</button><div class="sub">${s.group}</div>`;
+      document.getElementById('prep-rows').innerHTML = visible.map(s => `<tr class="${s.id === selected ? 'selected' : ''}"><td>${pick(s)}</td><td>${s.homework}</td><td>${badge(s.video, 'warn')}</td><td>${badge(s.app, 'warn')}</td><td>${badge(s.correction, 'quiet')}</td><td>${badge('근거 확인', 'active')}</td></tr>`).join('');
+      document.getElementById('class-rows').innerHTML = visible.map(s => `<tr class="${s.id === selected ? 'selected' : ''}"><td>${pick(s)}</td><td><strong>${s.task}</strong></td><td>${s.elapsed}</td><td>${s.next}</td><td>${s.books}</td><td>${s.exam}</td></tr>`).join('');
+      document.getElementById('prep-detail').innerHTML = chosen ? `<div class="pair"><span>직전 숙제</span><strong>${chosen.homework}</strong></div><div class="pair"><span>영상·앱 채점</span><strong>학생·수업 연결 계약 확인 전</strong></div><div class="pair"><span>교사 판단</span><strong>${chosen.correction}</strong></div><div class="callout">예습 업로드, 문제 풀이, 자동채점, 오답 해결을 각각 확인합니다. 자료가 없으면 완료로 추정하지 않습니다.</div>` : '';
+      document.getElementById('class-detail').innerHTML = chosen ? `<div class="pair"><span>현재 작업</span><strong>${chosen.task}</strong></div><div class="pair"><span>경과시간</span><strong>${chosen.elapsed}</strong></div><div class="pair"><span>다음 과제</span><strong>${chosen.next}</strong></div><div class="pair"><span>교재별 상태</span><strong>${chosen.books}</strong></div><div class="callout">과제 취소·전환, 검사 완료, 오답 교사 확인은 서로 다른 이벤트로 남깁니다. 시작 시각이 없으면 시간을 계산하지 않습니다.</div>` : '';
+      document.getElementById('homework-detail').innerHTML = chosen ? `<div class="pair"><span>선택 학생</span><strong>${chosen.name}</strong></div><div class="pair"><span>교재별 숙제</span><strong>${chosen.assigned}</strong></div><div class="pair"><span>시트 기록</span><strong>${badge('아직 미확정', 'warn')}</strong></div><p class="footnote">교재·범위·마감일을 명시해 시트에 기록하면 1차 배정 완료입니다.</p>` : '';
+      document.querySelectorAll('[data-student]').forEach(b => b.addEventListener('click', () => { selected = b.dataset.student; render(); }));
+    }
+    group.addEventListener('change', render);
+    render();
+  </script>
+</body>
+</html>

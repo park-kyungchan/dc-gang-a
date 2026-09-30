@@ -1,11 +1,10 @@
 /**
- * LMS Live Backend Deterministic Read Service.
+ * Legacy LMS parser and request shapes. Direct live requests are disabled until
+ * their effects, exact identities, pagination and response joins are reviewed.
  * 
- * Safety & Invariants (AGENTS.md & Harness Compliance):
- * 1. Pure Read-Only: Only reads from vetted LMS read endpoints; never issues mutating POST/PUT/DELETE.
- * 2. Deterministic Parsing: Extracts typed records directly from LMS backend response payloads.
- * 3. Session Isolation: Session cookie is passed in-memory only; never written to disk or logs.
- * 4. Zero-Context Agent Support: Provides repeatable queries for any student, date, and exam type.
+ * The preserved parsers are synthetic-test and source-review material. Historical
+ * request methods below must not issue network traffic: the assessment route is
+ * not a current bounded read contract, and clinic creation is effectful.
  */
 
 import type { StudentId, ClassGroupId } from '../../data/raw_sessions/2026-09-28/main_sheet_v2.types';
@@ -58,6 +57,10 @@ export class LmsLiveQueryService {
     this.baseUrl = baseUrl;
   }
 
+  private blockUnreviewedLiveOperation(): never {
+    throw new Error('unverified_live_route_contract: use the Bun lead plan and a reviewed exact reader');
+  }
+
   /**
    * Queries the list of completed/active test papers for a given student within a date range.
    */
@@ -69,6 +72,7 @@ export class LmsLiveQueryService {
     assNo?: string;    // '1001' for grand chapter eval / unit test
     clgNo?: string;
   }): Promise<LmsTestSummaryItem[]> {
+    this.blockUnreviewedLiveOperation();
     if (!params.sessionCookie) {
       throw new Error('LmsLiveQueryService: sessionCookie is required in process memory.');
     }
@@ -156,6 +160,7 @@ export class LmsLiveQueryService {
     sessionCookie: string;
     item: LmsTestSummaryItem;
   }): Promise<PupilResultDetail | null> {
+    this.blockUnreviewedLiveOperation();
     if (!params.sessionCookie) {
       throw new Error('LmsLiveQueryService: sessionCookie is required in process memory.');
     }
@@ -282,6 +287,7 @@ export class LmsLiveQueryService {
       }>;
     }>;
   }> {
+    this.blockUnreviewedLiveOperation();
     if (!params.sessionCookie) {
       throw new Error('LmsLiveQueryService: sessionCookie is required in process memory.');
     }

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "next_session_kickoff",
+  "status": "ready_for_next_session",
+  "scheduledFor": "2026-09-30",
+  "activeTask": "academy_read_path_completion_and_class_pilot_preparation",
+  "checkpointPath": "handoffs/2026-09-29-native-devtools-exposure-checkpoint.json",
+  "firstCommands": [
+    "bun run harness/resume.ts --json",
+    "bun run harness/checkpoint.ts",
+    "bun run harness/runtime_preflight.ts --mcp --json",
+    "bun run harness/lead.ts pilot --date 2026-09-30 --json",
+    "bun run harness/lead.ts coverage --json"
+  ],
+  "priorities": [
+    {
+      "id": "P0_NATIVE_BROWSER",
+      "action": "Use currently callable official Chrome DevTools tools for bounded teacher-site tab/auth observation when the user is available; do not extract credentials or infer student joins from a menu shell.",
+      "evidenceBoundary": "Tool exposure verified in checkpoint; browser authentication and student binding remain unverified."
+    },
+    {
+      "id": "P0_READ_CONTRACTS",
+      "action": "Advance one date-scoped site/app read contract at a time using canonical routes and effect review; keep unknown joins unknown.",
+      "evidenceBoundary": "Only DayRecord has a bounded observed-row reader; arbitrary site/app reads are not ready."
+    },
+    {
+      "id": "P0_CLASS_PILOT",
+      "action": "Prepare the 2026-09-30 whole-class pilot from the teacher-confirmed scope, then selected-student judgment.",
+      "evidenceBoundary": "Teacher dates and homework description are confirmed; exact LMS occurrence, page range and app grading joins are not."
+    },
+    {
+      "id": "P1_MAIN_SHEET",
+      "action": "Refresh exact workbook structure and recovery preview before any separate operating Sheet batch approval.",
+      "evidenceBoundary": "Operating cutover is undeployed; prior metadata does not authorize writes."
+    }
+  ],
+  "stopRules": [
+    "No production LMS or academy Sheet write without exact target, before/after, recovery and batch approval.",
+    "No cookie/session extraction, raw student/media dumps, or unknown-effect live probes.",
+    "Do not promote configured tools, page shells, HTTP 200 or synthetic passes to authenticated student-level proof."
+  ]
+}

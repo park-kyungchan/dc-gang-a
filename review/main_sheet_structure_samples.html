@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Main Sheet 구조 시안 3종</title>
+  <style>
+    :root { font: 14px/1.5 "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; color: #1d2b35; background: #edf2f4; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { padding: 28px max(18px, calc((100vw - 1500px)/2)); background: #193441; color: #fff; }
+    h1 { margin: 0 0 5px; font-size: 27px; }
+    header p { margin: 0; max-width: 900px; color: #d7e4e9; }
+    main { max-width: 1540px; margin: auto; padding: 20px 18px 44px; }
+    .notice { margin-bottom: 17px; padding: 10px 13px; border-left: 4px solid #c58639; background: #fff8e9; color: #65491d; }
+    .samples { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+    article { min-width: 0; background: #fff; border: 1px solid #cbd9df; }
+    .intro { padding: 15px 16px 12px; border-bottom: 1px solid #dce6ea; }
+    .intro h2 { margin: 0 0 3px; font-size: 18px; }
+    .intro p { margin: 0; color: #526673; font-size: 12px; }
+    .intro strong { display: inline-block; margin-bottom: 4px; font-size: 11px; letter-spacing: .08em; color: #336478; }
+    .sheet-wrap { margin: 14px; border: 1px solid #bdcbd1; overflow-x: auto; }
+    .sheet { min-width: 425px; background: #fff; }
+    .sheetbar { display: flex; justify-content: space-between; gap: 12px; padding: 8px 10px; background: #eaf0f2; border-bottom: 1px solid #bfccd1; font-size: 11px; }
+    .sheetbar b { font-size: 12px; }
+    .sheetbar span { color: #4d626c; }
+    .phase { padding: 6px 8px; border-top: 1px solid #b8c8ce; border-bottom: 1px solid #b8c8ce; background: #e5eef1; font-size: 12px; font-weight: 800; }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 10px; }
+    th, td { padding: 6px 5px; border-right: 1px solid #d6e0e3; border-bottom: 1px solid #d6e0e3; vertical-align: top; overflow-wrap: anywhere; }
+    th:last-child, td:last-child { border-right: 0; }
+    th { background: #f1f5f6; text-align: left; color: #3f5864; font-weight: 800; }
+    .muted { color: #617681; }
+    .unknown { background: #fff0cf; color: #684911; font-weight: 800; }
+    .pending { background: #ffdfd7; color: #803b29; font-weight: 800; }
+    .done { background: #e2f2e7; color: #24573a; font-weight: 800; }
+    .now { background: #ddedf5; color: #21516b; font-weight: 800; }
+    .input { background: #eef6ff; }
+    .source { background: #f4f6f7; color: #536871; }
+    .footrow { padding: 7px 8px; color: #586b74; background: #f7f9f9; font-size: 10px; }
+    .notes { padding: 0 16px 15px; color: #435967; font-size: 12px; }
+    .notes p { margin: 0 0 5px; }
+    .notes ul { margin: 0; padding-left: 18px; }
+    .notes li { margin: 3px 0; }
+
+    .compact .sheetbar { background: #dce9ee; }
+    .compact .phase { background: #d6e6eb; }
+    .compact th, .compact td { padding: 4px 4px; }
+    .compact .student { background: #e8f0f3; font-weight: 800; }
+
+    .queue .sheetbar { background: #e9f0e8; }
+    .queue .phase { background: #dcebd9; }
+    .queue th { background: #f0f6ef; }
+    .queue .urgent { background: #fbe8df; }
+    .queue .student { font-weight: 800; }
+    .queue .check { text-align: center; font-size: 13px; }
+
+    .lanes .sheetbar { background: #ece9e3; }
+    .lanes .phase { background: #e8e2d5; }
+    .lanes th { background: #f5f1e9; }
+    .lanes td { padding: 8px 6px; }
+    .lanes .student { background: #ebe5da; font-weight: 800; }
+    .lanes .detail { display: block; margin-top: 2px; color: #54666b; font-weight: 400; }
+    .mapping { margin-top: 17px; padding: 14px 16px; background: #fff; border: 1px solid #cbd9df; }
+    .mapping h2 { margin: 0 0 7px; font-size: 16px; }
+    .mapping p { margin: 0; color: #526673; }
+    @media (max-width: 1180px) { .samples { grid-template-columns: 1fr; } article { max-width: 740px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Main Sheet 구조 시안 3종</h1>
+    <p>14시 준비 → 수업 중 → 수업 후를 한 탭에 세로로 둔다는 결정은 유지하고, 각 단계에서 정보를 배열하는 방식을 비교합니다.</p>
+  </header>
+  <main>
+    <div class="notice">가상 학생 A·B·C와 가상 날짜 2099-01-14만 사용한 로컬 시안입니다. 학원 운영 시트나 LMS 기록은 변경하지 않았습니다. ‘확인 불가’는 미완료나 완료로 해석하지 않습니다.</div>
+    <div class="samples">
+      <article class="compact">
+        <div class="intro"><strong>01 · 한눈에 전체 반</strong><h2>촘촘한 학생별 표</h2><p>학생 한 명을 한 행으로 두고, 준비 상태와 현재 작업을 가로로 훑습니다.</p></div>
+        <div class="sheet-wrap"><div class="sheet">
+          <div class="sheetbar"><b>박경찬 · 오늘 수업</b><span>2099-01-14 · 갱신 13:58</span></div>
+          <div class="phase">14:00 준비 · 전체 학생 점검</div>
+          <table aria-label="촘촘한 표의 수업 준비"><colgroup><col style="width:16%"><col style="width:22%"><col style="width:16%"><col style="width:16%"><col style="width:16%"><col style="width:14%"></colgroup><thead><tr><th>학생</th><th>직전 숙제</th><th>예습 업로드</th><th>앱 채점</th><th>오답 교정</th><th>교사 확인</th></tr></thead><tbody>
+            <tr><td class="student">가상 A</td><td>교재 1 · 범위 확인</td><td class="unknown">확인 불가</td><td class="unknown">확인 불가</td><td class="unknown">확인 불가</td><td class="input">검토 대기</td></tr>
+            <tr><td class="student">가상 B</td><td>교재 2 · 범위 확인</td><td class="done">확인됨</td><td class="unknown">확인 불가</td><td class="unknown">확인 불가</td><td class="input">검토 대기</td></tr>
+            <tr><td class="student">가상 C</td><td>교재 1 · 범위 확인</td><td class="unknown">확인 불가</td><td class="unknown">확인 불가</td><td class="unknown">확인 불가</td><td class="input">검토 대기</td></tr>
+          </tbody></table>
+          <div class="phase">수업 중 · 현재 작업과 대기</div>
+          <table aria-label="촘촘한 표의 수업 중"><colgroup><col style="width:16%"><col style="width:27%"><col style="width:13%"><col style="width:19%"><col style="width:25%"></colgroup><thead><tr><th>학생</th><th>현재 작업</th><th>경과</th><th>대기 여부</th><th>다음 과제</th></tr></thead><tbody>
+            <tr><td class="student">가상 A</td><td class="now">숙제 검사</td><td>08분</td><td>진행 중</td><td class="input">교재 2 검사</td></tr>
+            <tr><td class="student">가상 B</td><td>시험 풀이</td><td>05분</td><td class="pending">교사 대기</td><td class="input">버퍼 과제 확인</td></tr>
+            <tr><td class="student">가상 C</td><td class="unknown">시작 시각 미확인</td><td>—</td><td class="unknown">확인 불가</td><td class="input">개념 확인</td></tr>
+          </tbody></table>
+          <div class="phase">수업 후 · 숙제 초안과 LMS 검토</div>
+          <table aria-label="촘촘한 표의 수업 후"><colgroup><col style="width:17%"><col style="width:40%"><col style="width:22%"><col style="width:21%"></colgroup><thead><tr><th>학생</th><th>교재별 다음 숙제</th><th>시트 초안</th><th>LMS 상태</th></tr></thead><tbody><tr><td class="student">가상 A</td><td class="input">교재 1 · p.68–70</td><td class="done">기록됨</td><td class="pending">검토 전</td></tr><tr><td class="student">가상 B</td><td class="input">범위 결정 대기</td><td class="unknown">미확정</td><td class="pending">검토 전</td></tr></tbody></table>
+          <div class="footrow">셀 구분: 회색 출처 값 · 파란 입력 값 · 노란 확인 불가</div>
+        </div></div>
+        <div class="notes"><p><b>Google Sheets 구현</b></p><ul><li>상단 날짜 행과 학생 열 고정, 단계별 표 머리글과 좁은 행 높이</li><li>상태 셀 조건부 서식, 교사 입력 셀의 정적 연파랑 배경</li><li>한 화면에 여러 학생을 비교하는 PC 작업에 적합</li></ul></div>
+      </article>
+
+      <article class="queue">
+        <div class="intro"><strong>02 · 다음 행동 우선</strong><h2>작업 대기열</h2><p>학생 정보보다 지금 처리할 한 건의 행동을 먼저 보여줍니다.</p></div>
+        <div class="sheet-wrap"><div class="sheet">
+          <div class="sheetbar"><b>박경찬 · 오늘 할 일</b><span>2099-01-14 · 갱신 13:58</span></div>
+          <div class="phase">14:00 준비 · 확인이 필요한 항목</div>
+          <table aria-label="작업 대기열의 수업 준비"><colgroup><col style="width:11%"><col style="width:20%"><col style="width:37%"><col style="width:32%"></colgroup><thead><tr><th>확인</th><th>학생</th><th>다음 행동</th><th>근거 / 상태</th></tr></thead><tbody>
+            <tr class="urgent"><td class="check">☐</td><td class="student">가상 A</td><td>예습 업로드 확인</td><td class="unknown">앱 연동 확인 불가</td></tr>
+            <tr><td class="check">☐</td><td class="student">가상 B</td><td>채점·오답 교정 보기</td><td class="unknown">채점 자료 확인 불가</td></tr>
+            <tr><td class="check">☐</td><td class="student">가상 C</td><td>숙제 범위 대조</td><td class="source">LMS · 13:58</td></tr>
+          </tbody></table>
+          <div class="phase">수업 중 · 교사 응답 대기열</div>
+          <table aria-label="작업 대기열의 수업 중"><colgroup><col style="width:11%"><col style="width:20%"><col style="width:37%"><col style="width:32%"></colgroup><thead><tr><th>확인</th><th>학생</th><th>다음 행동</th><th>현재 상태</th></tr></thead><tbody>
+            <tr class="urgent"><td class="check">☐</td><td class="student">가상 B</td><td class="input">시험 종료 확인 → 다음 과제</td><td class="pending">교사 대기 · 05분</td></tr>
+            <tr><td class="check">☐</td><td class="student">가상 A</td><td class="input">교재 2 검사</td><td class="now">숙제 검사 · 08분</td></tr>
+            <tr><td class="check">☐</td><td class="student">가상 C</td><td class="input">현재 작업 기록</td><td class="unknown">시작 시각 확인 불가</td></tr>
+          </tbody></table>
+          <div class="phase">수업 후 · 완료 전 검토</div>
+          <table aria-label="작업 대기열의 수업 후"><colgroup><col style="width:11%"><col style="width:20%"><col style="width:37%"><col style="width:32%"></colgroup><thead><tr><th>확인</th><th>학생</th><th>다음 행동</th><th>기록 상태</th></tr></thead><tbody>
+            <tr><td class="check">☐</td><td class="student">가상 A</td><td>교재 1 p.68–70 검토</td><td class="done">시트 초안 기록됨</td></tr>
+            <tr><td class="check">☐</td><td class="student">가상 B</td><td>숙제 범위 결정</td><td class="pending">LMS 저장 전</td></tr>
+          </tbody></table>
+          <div class="footrow">체크박스는 작업 확인용입니다. LMS 저장 성공 표시와 분리합니다.</div>
+        </div></div>
+        <div class="notes"><p><b>Google Sheets 구현</b></p><ul><li>실제 체크박스와 단계별 고정 표, 상태 드롭다운 사용</li><li>조건부 서식으로 대기·확인 불가 강조; 임의 시간 임계값은 없음</li><li>급한 행동 찾기에 빠르지만 학생 전체 상태 비교는 약함</li></ul></div>
+      </article>
+
+      <article class="lanes">
+        <div class="intro"><strong>03 · 학생별 맥락 우선</strong><h2>학생 레인</h2><p>넓은 셀 한 행에 현재 맥락과 다음 과제를 함께 둡니다.</p></div>
+        <div class="sheet-wrap"><div class="sheet">
+          <div class="sheetbar"><b>박경찬 · 학생 레인</b><span>2099-01-14 · 갱신 13:58</span></div>
+          <div class="phase">14:00 준비 · 학생별 근거와 교사 판단</div>
+          <table aria-label="학생 레인의 수업 준비"><colgroup><col style="width:20%"><col style="width:47%"><col style="width:33%"></colgroup><thead><tr><th>학생</th><th>예습 근거</th><th>교사 판단</th></tr></thead><tbody>
+            <tr><td class="student">가상 A</td><td>직전 숙제: 교재 1 범위 확인<span class="detail unknown">업로드·채점·교정 확인 불가</span></td><td class="input">육안 확인 대기</td></tr>
+            <tr><td class="student">가상 B</td><td>직전 숙제: 교재 2 범위 확인<span class="detail">업로드 확인됨 · 채점/교정 확인 불가</span></td><td class="input">오답 대조 대기</td></tr>
+          </tbody></table>
+          <div class="phase">수업 중 · 지금 / 대기 / 다음</div>
+          <table aria-label="학생 레인의 수업 중"><colgroup><col style="width:20%"><col style="width:43%"><col style="width:37%"></colgroup><thead><tr><th>학생</th><th>지금 하는 일</th><th>대기와 다음 과제</th></tr></thead><tbody>
+            <tr><td class="student">가상 A</td><td class="now">숙제 검사 · 08분<span class="detail">시작 시각 14:12</span></td><td class="input">진행 중 → 교재 2 검사</td></tr>
+            <tr><td class="student">가상 B</td><td>시험 풀이 · 05분<span class="detail">시작 시각 14:15</span></td><td class="pending">교사 대기 → 버퍼 과제 확인</td></tr>
+            <tr><td class="student">가상 C</td><td class="unknown">현재 작업 확인 불가</td><td class="input">개념 확인 예정</td></tr>
+          </tbody></table>
+          <div class="phase">수업 후 · 교재별 숙제와 공식 기록</div>
+          <table aria-label="학생 레인의 수업 후"><colgroup><col style="width:20%"><col style="width:47%"><col style="width:33%"></colgroup><thead><tr><th>학생</th><th>시트에 기록할 숙제</th><th>LMS 검토</th></tr></thead><tbody>
+            <tr><td class="student">가상 A</td><td class="input">교재 1 · p.68–70<span class="detail">시트 초안 기록 시각 별도 보존</span></td><td class="pending">검토 전 → 저장 후 읽어 확인</td></tr>
+            <tr><td class="student">가상 B</td><td class="input">교재별 범위 결정 대기</td><td class="pending">검토 전</td></tr>
+          </tbody></table>
+          <div class="footrow">출처 시각과 교사 입력 시각은 별도 필드로 관리합니다.</div>
+        </div></div>
+        <div class="notes"><p><b>Google Sheets 구현</b></p><ul><li>학생 열 고정, 높은 행과 줄바꿈으로 셀 안 맥락 표현</li><li>정적 구역 색과 제한된 상태 색, 입력 영역 보호 설정</li><li>한 학생의 흐름 읽기 쉽지만 세부 정보는 더 많은 스크롤 필요</li></ul></div>
+      </article>
+    </div>
+    <section class="mapping"><h2>실제 시트로 옮길 때</h2><p>이 페이지의 각 표는 셀 채우기색, 글꼴, 테두리, 너비·높이, 줄바꿈, 체크박스, 데이터 유효성 검사, 조건부 서식, 행·열 고정으로 표현할 수 있습니다. 카드 테두리와 바깥 여백은 비교 페이지의 장식입니다. 공식 LMS 저장은 검토와 같은 대상 읽어 확인을 거친 뒤에만 완료로 표시합니다.</p></section>
+  </main>
+</body>
+</html>

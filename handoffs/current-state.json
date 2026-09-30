@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-09-29",
+  "activeTask": {
+    "id": "academy_read_path_completion_and_class_pilot_preparation",
+    "status": "active"
+  },
+  "latestCompletedEvidence": {
+    "path": "handoffs/2026-09-29-native-devtools-exposure-checkpoint.json",
+    "completedOn": "2026-09-29",
+    "status": "completed",
+    "type": "completed_handoff"
+  },
+  "activeSubphase": {
+    "id": "development_environment_adversarial_eval",
+    "phase": "V1",
+    "status": "checkpointed_for_next_session",
+    "planPath": "handoffs/2026-09-29-development-environment-adversarial-eval-plan.json",
+    "prerequisiteEvidencePath": "review/development-environment-e1-findings-2026-09-29.json",
+    "integrationEvidencePath": "review/development-environment-v1-scorecard-2026-09-29.json",
+    "checkpointPath": "handoffs/2026-09-29-native-devtools-exposure-checkpoint.json",
+    "kickoffPath": "handoffs/2026-09-29-next-session-kickoff.json"
+  },
+  "nextScheduledTask": {
+    "path": "handoffs/2026-09-29-next-session-kickoff.json",
+    "scheduledFor": "2026-09-30",
+    "status": "scheduled_not_started"
+  },
+  "pendingBoundaries": [
+    {
+      "id": "student_textbook_assignment_and_full_page_map",
+      "status": "unknown",
+      "detail": "Two exact Gauss sample TOCs are verified; the pilot student's assigned edition and full page/question coverage are not."
+    },
+    {
+      "id": "app_submission_grading_correction_joins",
+      "status": "unknown",
+      "detail": "Student, course, submission, grading, and correction joins remain unverified."
+    },
+    {
+      "id": "main_sheet_operating_workbook",
+      "status": "not_deployed",
+      "detail": "The operating workbook workflow is not deployed; no production workbook write is authorized by this index."
+    }
+  ],
+  "sessionMetadataAudit": {
+    "path": "handoffs/runtime-meta-audit-2026-09-29.json"
+  },
+  "nextSessionStart": {
+    "commands": [
+      "bun run harness/resume.ts --json",
+      "bun run harness/runtime_preflight.ts --network --mcp --json",
+      "bun run harness verify --json",
+      "bun run harness/site_contracts.ts --validate --summary --json",
+      "bun run harness/lead.ts pilot --date 2026-09-30 --json",
+      "bun run harness/lead.ts plan --fact <fact> --student-id <canonical-id> --date 2026-09-30 --json",
+      "bun run harness/lead.ts coverage --json",
+      "bun run harness/feedback_coverage.ts --json",
+      "bun run harness/checkpoint.ts",
+      "bun run test:bun",
+      "bun run typecheck:harness"
+    ],
+    "readPaths": [
+      "AGENTS.md",
+      "docs/CODEX_CONTEXT.md",
+      "docs/WHOLE_LENS_DECISION.md",
+      "handoffs/2026-09-29-runtime-kickoff.json",
+      "handoffs/2026-09-29-main-sheet-harness.md",
+      "handoffs/2026-09-30-class-pilot-kickoff.md",
+      "harness/runtime-capabilities.json",
+      "harness/codex_full_access.ts",
+      "harness/codex-project-full-access.toml",
+      "harness/runtime_preflight.ts",
+      "research/backend-map/teacher-site-live-structure-2026-09-29.json",
+      "research/textbooks/book-catalog.json",
+      "harness/context-map.md",
+      "harness/README.md",
+      "harness/lead.ts",
+      "handoffs/2026-09-29-read-path-resume.json",
+      "handoffs/2026-09-30-class-scope.json",
+      "handoffs/2026-09-29-restart-kickoff.json",
+      "handoffs/2026-09-29-restart-progress.json",
+      "review/backend-read-coverage-2026-09-29.json",
+      "handoffs/2026-09-29-meta-and-read-audit-resume.json",
+      "handoffs/2026-09-29-development-environment-adversarial-eval-plan.json",
+      "review/development-environment-e1-findings-2026-09-29.json",
+      "review/development-environment-adversarial-rubric-2026-09-29.json",
+      "review/development-environment-v1-scorecard-2026-09-29.json",
+      "handoffs/2026-09-29-development-environment-v1-resume.json",
+      "handoffs/2026-09-29-native-devtools-exposure-checkpoint.json",
+      "handoffs/2026-09-29-next-session-kickoff.json",
+      "harness/chrome_devtools_session.ts",
+      ".agents/feedback-themes.json"
+    ]
+  },
+  "teacherConfirmedNextClassScope": {
+    "path": "handoffs/2026-09-30-class-scope.json",
+    "date": "2026-09-30",
+    "groupIds": [
+      "4",
+      "5"
+    ]
+  },
+  "operatingCutoverState": {
+    "path": "handoffs/2026-09-29-operating-cutover-resume.json",
+    "status": "resume_in_new_session_before_deployment"
+  }
+}

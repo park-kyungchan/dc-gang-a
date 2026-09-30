@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-30",
+  "source": "teacher_confirmation_in_current_session",
+  "teacherConfirmedGroupIds": [
+    "4",
+    "5"
+  ],
+  "teacherConfirmedStudents": [
+    {
+      "studentId": "1294174",
+      "name": "이루한",
+      "groupId": "4",
+      "previousHeldLessonDate": "2026-09-23",
+      "previousHeldLessonStatus": "teacher_confirmed_date_occurrence_unverified"
+    },
+    {
+      "studentId": "1294575",
+      "name": "이현승",
+      "groupId": "5",
+      "firstAttendanceDate": "2026-09-30",
+      "homeworkTeacherDescription": "가우스 1-1-1 첫 소단원만; 정확한 쪽·문항 범위는 미검증",
+      "homeworkExactPageQuestionRange": "unverified"
+    }
+  ],
+  "excludedFromThisPilotGroupIds": [
+    "2"
+  ],
+  "scopeRule": "Use the teacher-confirmed date scope; canonical recurring weekdays alone do not establish the class list.",
+  "backendReadEvidence": {
+    "routeId": "day_record_read",
+    "group4": "one_selected_page_row_observed",
+    "group5": "one_selected_page_row_observed",
+    "group2": "target_row_not_found",
+    "completeness": "unverified"
+  },
+  "appJoinState": "unknown",
+  "sourceTimestampPolicy": "Use exact readAt from each ephemeral read; do not elevate observed rows to occurrence-bound facts.",
+  "teacherCorrections": {
+    "confirmedAtKst": "2026-09-29 evening",
+    "twoClassGroups": [
+      "4",
+      "5"
+    ],
+    "priorHeldLessonForIruhan": "2026-09-23",
+    "priorLessonReason": "Teacher said the Chuseok holiday gap makes the 2026-09-23 DayRecord the relevant prior lesson.",
+    "leeHyunseungFirstAttendance": "2026-09-30",
+    "leeHyunseungHomework": "가우스 1-1-1 첫 소단원만; 정확한 쪽·문항 범위는 미검증",
+    "preclassEvidenceSurface": "교사 웹 LMS 읽기 전용 조회를 Main Sheet에 시점별 스냅샷으로 표시",
+    "doNotReask": [
+      "9월 30일 대상 반",
+      "이루한의 직전 수업일",
+      "교사 LMS와 학생 앱 중 근거 조회 화면"
+    ]
+  }
+}

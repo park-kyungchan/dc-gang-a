@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "id": "runtime_kickoff_2026_09_29",
+  "created_on": "2026-09-29",
+  "purpose": "Prepare a fresh Windows Desktop PowerShell Codex CLI session to resume authorized academy workspace work.",
+  "status": "instructions_only",
+  "repository_root": "C:\\Users\\dcgan\\OneDrive\\Desktop\\dc-gang-a",
+  "setup": {
+    "must_run_outside_current_codex_session": true,
+    "config_apply_owner": "user",
+    "config_apply_boundary": "The current session cannot modify the protected project .codex config. Run the apply step manually in PowerShell outside this Codex session.",
+    "shell": "PowerShell",
+    "steps": [
+      {
+        "id": "initialize_utf8_console",
+        "command": "$utf8 = [System.Text.UTF8Encoding]::new($false); [Console]::InputEncoding = $utf8; [Console]::OutputEncoding = $utf8; $OutputEncoding = $utf8",
+        "purpose": "Use UTF-8 for PowerShell console input, output, and piped command output."
+      },
+      {
+        "id": "apply_project_config",
+        "command": "Set-Location -LiteralPath 'C:\\Users\\dcgan\\OneDrive\\Desktop\\dc-gang-a'; bun run harness/codex_full_access.ts --apply",
+        "purpose": "Apply the reviewed repository-scoped Codex runtime settings and OpenAI developer documentation MCP declaration.",
+        "success_check": "Check $LASTEXITCODE is 0. The helper prints a saved status and a backup path when it replaced an existing project config.",
+        "note": "This kickoff records a future instruction. It does not claim the helper has been run or that the config has been applied."
+      },
+      {
+        "id": "network_preflight",
+        "command": "bun run harness/runtime_preflight.ts --network --json",
+        "purpose": "Check project config declarations and TCP 443 reachability for the configured academy, storage, and OpenAI documentation hosts.",
+        "success_check": "Review the JSON fields projectConfigPresent, projectDeclared, and networkTcp443. Network reachability must be checked in the actual new session too."
+      },
+      {
+        "id": "launch_codex",
+        "command": "codex --sandbox danger-full-access --ask-for-approval never",
+        "working_directory": "C:\\Users\\dcgan\\OneDrive\\Desktop\\dc-gang-a",
+        "purpose": "Start a new Codex CLI process with the requested session flags after applying the repository config and reviewing preflight output."
+      }
+    ],
+    "new_session_prompt": "Read AGENTS.md, then run bun run harness/resume.ts --json and read handoffs/current-state.json. Read this typed kickoff index and the paths listed in its next-session instructions, including docs/CODEX_CONTEXT.md and docs/WHOLE_LENS_DECISION.md. Resume the active academy workspace task from the current-state index and revalidate time-sensitive claims. Keep academy backend operations read-only and task-bounded. Do not expose or persist secrets."
+  },
+  "new_session_checks": {
+    "commands": [
+      "bun run harness/resume.ts --json",
+      "bun run harness/runtime_preflight.ts --network --json",
+      "codex mcp list"
+    ],
+    "docs_mcp": {
+      "id": "openaiDeveloperDocs",
+      "expected_url": "https://developers.openai.com/mcp",
+      "verification": "Confirm the server appears in codex mcp list in the new full-access CLI session; a project declaration alone does not prove it is connected."
+    },
+    "local_playwright_candidate": {
+      "source": "https://github.com/microsoft/playwright-mcp",
+      "purpose": "Candidate for bounded local browser inspection when the actual task needs it.",
+      "status": "not_installed_or_validated",
+      "gate": "Only evaluate in a network-enabled session; pin and test the package locally before use. Keep any browser session local and do not export it to remote plugins."
+    }
+  },
+  "data_boundaries": {
+    "filesystem_access": "Project-scoped config selects settings for this repository; it does not confine a danger-full-access Codex process to repository files. Treat the launched session as able to access files outside this workspace and keep sensitive data out of its prompts and artifacts.",
+    "academy_backend": "Read-only, task-bounded access through verified canonical read operations only. Classify the exact operation by effect before use; GET may mutate. No production writes are authorized by this kickoff.",
+    "external_plugins": "No direct academy session or backend access. They may receive only minimized data already obtained through verified reads when the current task requires it.",
+    "secrets": "Do not include credentials, cookies, tokens, session values, or secret-bearing environment output in this file, logs, prompts, or external services. Never run automatic cookie or credential discovery."
+  },
+  "source_files_reviewed": [
+    "AGENTS.md",
+    "handoffs/current-state.json",
+    "harness/runtime-capabilities.json",
+    "harness/codex_full_access.ts",
+    "harness/runtime_preflight.ts",
+    "docs/CODEX_CONTEXT.md",
+    "docs/WHOLE_LENS_DECISION.md",
+    "harness/codex-project-full-access.toml"
+  ]
+}

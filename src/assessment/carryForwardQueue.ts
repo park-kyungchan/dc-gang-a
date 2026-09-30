@@ -3,9 +3,8 @@
  * 
  * Domain Rules:
  * 1. Time-shortage deferred tasks (클리닉 및 Daily Test) are queued into the student's next session.
- * 2. Next session schedule resolution:
- *    - 월수1부 (신지우) ➔ 2026-09-30 (수) 15:00
- *    - 월금1부 (박세은, 유지연) ➔ 2026-10-02 (금) 15:00
+ * 2. Next session comes from a complete, source-backed class calendar.
+ *    Cancellations are skipped, makeups are included, and unknowns block routing.
  * 3. Prestudy Clinic Specifications:
  *    - Identical wrong problem reprinted from [필수예제 / 유형다지기 / 실력다지기].
  *    - 1~2 labeled similar problems per wrong question.
@@ -30,30 +29,79 @@ export interface CreateClinicItemInput {
   difficultyLevel?: '기본' | '응용' | '심화';
 }
 
+export interface VerifiedSessionCalendar {
+  group: ClassGroupId;
+  studentIds: ReadonlyArray<StudentId>;
+  fromDate: string;
+  throughDate: string;
+  coverage: 'complete';
+  sourceRef: string;
+  occurrences: ReadonlyArray<{
+    date: string;
+    occurrenceId: string;
+    status: 'held' | 'planned' | 'cancelled' | 'unknown';
+  }>;
+}
+
+function exactDate(value: string): number {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) throw new Error('Invalid class date');
+  const time = Date.parse(`${value}T00:00:00.000Z`);
+  if (!Number.isFinite(time) || new Date(time).toISOString().slice(0, 10) !== value) {
+    throw new Error('Invalid class date');
+  }
+  return time;
+}
+
 export class CarryForwardQueueManager {
   // Keyed by StudentId -> List of DeferredSessionTask
   private deferredTaskStore: Map<StudentId, DeferredSessionTask[]> = new Map();
 
-  /**
-   * Resolves the student's next regular class date.
-   */
-  public static resolveNextSessionDate(group: ClassGroupId, currentDate: string): string {
-    // Current date: 2026-09-28 (Monday)
-    if (group === '월수1부') {
-      return '2026-09-30'; // Wednesday
-    } else if (group === '월금1부') {
-      return '2026-10-02'; // Friday
+  /** Select the first source-backed future class, including makeup lessons. */
+  public static resolveNextSessionDate(
+    group: ClassGroupId, currentDate: string, calendar: VerifiedSessionCalendar
+  ): string {
+    const current = exactDate(currentDate);
+    if (calendar.group !== group || calendar.coverage !== 'complete' || !calendar.sourceRef.trim()) {
+      throw new Error('Class calendar scope or coverage is unverified');
     }
-    // Fallback +2 days
-    return '2026-09-30';
+    if (exactDate(calendar.fromDate) > current || exactDate(calendar.throughDate) <= current) {
+      throw new Error('Class calendar does not cover the requested interval');
+    }
+    const seenDates = new Set<string>();
+    const occurrences = calendar.occurrences.filter(item => {
+      const time = exactDate(item.date);
+      if (!item.occurrenceId.trim() || seenDates.has(item.date)) {
+        throw new Error('Ambiguous or incomplete class occurrence');
+      }
+      seenDates.add(item.date);
+      if (time < exactDate(calendar.fromDate) || time > exactDate(calendar.throughDate)) {
+        throw new Error('Class occurrence falls outside verified coverage');
+      }
+      if (!['held', 'planned', 'cancelled', 'unknown'].includes(item.status)) {
+        throw new Error('Invalid class status');
+      }
+      return true;
+    }).sort((a, b) => a.date.localeCompare(b.date));
+    if (occurrences.find(item => item.date === currentDate)?.status !== 'held') {
+      throw new Error('Origin class is not verified held');
+    }
+    for (const item of occurrences.filter(item => exactDate(item.date) > current)) {
+      if (item.status === 'unknown') throw new Error('Future class status is unknown');
+      if (item.status === 'held' || item.status === 'planned') return item.date;
+    }
+    throw new Error('No next class in verified calendar window');
   }
 
   /**
-   * Builds standardized clinic items with identical reprinted problem and 1~2 labeled similar problems.
+   * Builds a synthetic clinic specification; no printing or source lookup occurs.
    */
   public static buildClinicItems(items: CreateClinicItemInput[]): CarryForwardClinicItem[] {
     return items.map((it, idx) => {
       const count = it.similarCount ?? 2;
+      if (!Number.isInteger(it.originalProblemNumber) || it.originalProblemNumber < 1
+          || !Number.isInteger(count) || count < 1 || count > 2) {
+        throw new Error('Clinic item needs a positive problem number and 1 or 2 similar problems');
+      }
       const labeledSimilarProblems = Array.from({ length: count }, (_, i) => ({
         similarProblemId: `SIM_${it.originalProblemNumber}_${i + 1}`,
         label: `유사 ${i + 1}번`,
@@ -64,7 +112,7 @@ export class CarryForwardQueueManager {
         itemId: `CLN_${it.sourceCategory}_P${it.originalProblemNumber}_${idx + 1}`,
         sourceCategory: it.sourceCategory,
         originalProblemNumber: it.originalProblemNumber,
-        originalProblemPrinted: true,
+        originalProblemPrinted: false,
         labeledSimilarProblems,
         executionSurface: '풀이노트 (Practice Notebook)',
         teacherInspectionRequired: true,
@@ -74,7 +122,7 @@ export class CarryForwardQueueManager {
   }
 
   /**
-   * Defer today's uncompleted clinic and Daily Test due to time shortage.
+   * Queue a teacher-evidenced deferral to the next verified student session.
    */
   public queueDeferralsForStudent(
     studentId: StudentId,
@@ -83,12 +131,20 @@ export class CarryForwardQueueManager {
     originDate: string,
     bookTitle: string,
     prestudyScope: string,
-    clinicItems: CarryForwardClinicItem[]
+    clinicItems: CarryForwardClinicItem[],
+    deferralId: string,
+    deferralReason: string,
+    calendar: VerifiedSessionCalendar
   ): DeferredSessionTask[] {
-    const targetNextSessionDate = CarryForwardQueueManager.resolveNextSessionDate(enrolledGroup, originDate);
+    if (!calendar.studentIds.includes(studentId) || !deferralId.trim()
+        || !deferralReason.trim()) {
+      throw new Error('Deferral identity, reason, or student calendar binding is missing');
+    }
+    const targetNextSessionDate = CarryForwardQueueManager.resolveNextSessionDate(
+      enrolledGroup, originDate, calendar);
 
     const clinicTask: DeferredSessionTask = {
-      taskId: `DEF_CLN_${targetNextSessionDate.replace(/-/g, '')}_${studentId}`,
+      taskId: `DEF_CLN_${studentId}_${deferralId}`,
       studentId,
       studentName,
       enrolledGroup,
@@ -97,14 +153,14 @@ export class CarryForwardQueueManager {
       taskType: 'prestudy_error_clinic',
       bookTitle,
       scope: prestudyScope,
-      deferralReason: 'time_shortage_due_to_grand_chapter_eval',
+      deferralReason,
       clinicItems,
       executionPriority: 1,
       status: 'deferred'
     };
 
     const dailyTestTask: DeferredSessionTask = {
-      taskId: `DEF_DT_${targetNextSessionDate.replace(/-/g, '')}_${studentId}`,
+      taskId: `DEF_DT_${studentId}_${deferralId}`,
       studentId,
       studentName,
       enrolledGroup,
@@ -113,12 +169,20 @@ export class CarryForwardQueueManager {
       taskType: 'daily_test',
       bookTitle,
       scope: `${prestudyScope} Daily Test`,
-      deferralReason: 'time_shortage_due_to_grand_chapter_eval',
+      deferralReason,
       executionPriority: 1,
       status: 'deferred'
     };
 
     const existing = this.deferredTaskStore.get(studentId) || [];
+    const prior = existing.filter(task => task.taskId === clinicTask.taskId
+                                 || task.taskId === dailyTestTask.taskId);
+    if (prior.length) {
+      if (prior.length !== 2 || JSON.stringify(prior) !== JSON.stringify([clinicTask, dailyTestTask])) {
+        throw new Error('Conflicting deferral retry');
+      }
+      return prior;
+    }
     existing.push(clinicTask, dailyTestTask);
     this.deferredTaskStore.set(studentId, existing);
 

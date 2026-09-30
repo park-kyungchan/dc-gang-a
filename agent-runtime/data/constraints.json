@@ -1,0 +1,81 @@
+{
+  "constraints": [
+    {
+      "id": "ZERO_GREP",
+      "policyStatus": "advisory",
+      "description": "Never scan directories, grep raw HTML dumps, or run background tasks to discover student IDs, class groups, or LMS backend routes. Use deterministic harness commands for instant O(1) lookups.",
+      "scope": "workspace",
+      "blockedTools": ["grep_search", "find_by_name", "run_command:grep"],
+      "allowedAlternatives": [
+        "bun run harness roster",
+        "python -B harness/cli.py roster",
+        "bun run harness routes"
+      ],
+      "severity": "error",
+      "sourceRule": "AGENTS.md#Deterministic Entity & Route Queries (Zero-Grep Invariant)"
+    },
+    {
+      "id": "NO_SESSION_COOKIE_PERSISTENCE",
+      "policyStatus": "advisory",
+      "description": "Session cookies, JSESSIONID values, and authentication tokens must remain in process memory only. Writing them to any persistent file (source code, artifacts, logs, fixtures) is forbidden.",
+      "scope": "global",
+      "blockedTools": [],
+      "allowedAlternatives": [
+        "Keep session values in process memory ($env: environment variables only)",
+        "Use authorized browser tool for bounded passive inspection"
+      ],
+      "severity": "error",
+      "sourceRule": "AGENTS.md#Actual academy data and production writes"
+    },
+    {
+      "id": "MAX_MUTATING_CALLS",
+      "policyStatus": "historical",
+      "description": "File modifications, creations, deletions, and command executions (mutating tool calls) are capped at 3 per single agent turn. Intermediate verification and self-reflection steps are mandatory between groups of mutating calls.",
+      "scope": "global",
+      "blockedTools": [],
+      "allowedAlternatives": [
+        "Batch at most 3 mutating calls per turn, then pause for verification"
+      ],
+      "severity": "error",
+      "sourceRule": "Legacy Antigravity runtime policy; see agent-runtime/README.md"
+    },
+    {
+      "id": "NO_HALLUCINATED_DATA",
+      "policyStatus": "advisory",
+      "description": "Unknown or unverified data (student records, route contracts, LMS backend joins) must be explicitly marked as unknown or pending. Inventing plausible-sounding values is forbidden.",
+      "scope": "workspace",
+      "blockedTools": [],
+      "allowedAlternatives": [
+        "Mark unknown data as unknown/pending",
+        "Use bun run harness verify to confirm data before use"
+      ],
+      "severity": "error",
+      "sourceRule": "AGENTS.md#Entry and ownership"
+    },
+    {
+      "id": "NO_SEND_TRIGGER",
+      "policyStatus": "advisory",
+      "description": "Triggering Kakao message sends programmatically is forbidden. The teacher retains sole send responsibility through the official sender. No automated send trigger may be invoked.",
+      "scope": "workspace",
+      "blockedTools": [],
+      "allowedAlternatives": [
+        "Prepare the message payload and present it to the teacher for manual send"
+      ],
+      "severity": "error",
+      "sourceRule": "AGENTS.md#Teacher and mobile workflow"
+    },
+    {
+      "id": "PREFER_SURGICAL_REPLACE",
+      "policyStatus": "historical",
+      "description": "Prefer replace_file_content for targeted, contiguous edits over full file rewrites via write_to_file (Overwrite: true). Full rewrites consume excessive tokens and risk context pollution.",
+      "scope": "global",
+      "blockedTools": [],
+      "allowedAlternatives": [
+        "Use replace_file_content for any edit to an existing file",
+        "Use write_to_file (Overwrite: true) only for brand-new files or complete structural refactors"
+      ],
+      "severity": "warn",
+      "sourceRule": "Legacy Antigravity runtime policy; see agent-runtime/README.md"
+    }
+  ]
+}

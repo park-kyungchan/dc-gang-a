@@ -1,5 +1,5 @@
 /**
- * LMS Deterministic Read Repository & Key Join Engine.
+ * Process-local assessment fixture and key join engine. It does not read the LMS.
  * 
  * Provides deterministic, reproducible, read-only queries for:
  * 1. LMS Exam Papers (indexed by pNo, e.g. "6343283")
@@ -45,7 +45,8 @@ export class LmsDeterministicReadRepository {
   }
 
   /**
-   * Initializes standard academy test papers and verified snapshot data.
+   * Initializes dated demonstration records. They are synthetic until an exact
+   * source receipt and immutable snapshot contract are separately verified.
    */
   private bootstrapStandardCatalog(): void {
     // 1. Yoo Ji-yeon's official test paper: pNo 6343283
@@ -74,7 +75,7 @@ export class LmsDeterministicReadRepository {
       totalQuestions: 25,
       timeLimitMinutes: 60,
       items: yooItems,
-      provenance: 'VERIFIED_SNAPSHOT',
+      provenance: 'SYNTHETIC_HARNESS',
       registeredAt: '2026-09-28T15:35:00+09:00',
       checksum: this.computeChecksum('6343283', yooItems)
     };
@@ -105,7 +106,7 @@ export class LmsDeterministicReadRepository {
       totalQuestions: 20,
       timeLimitMinutes: 60,
       items: shinItems,
-      provenance: 'VERIFIED_SNAPSHOT',
+      provenance: 'SYNTHETIC_HARNESS',
       registeredAt: '2026-09-28T15:35:00+09:00',
       checksum: this.computeChecksum('6725858', shinItems)
     };
@@ -139,7 +140,7 @@ export class LmsDeterministicReadRepository {
       totalQuestions: 20,
       timeLimitMinutes: 60,
       items: parkItems,
-      provenance: 'VERIFIED_SNAPSHOT',
+      provenance: 'SYNTHETIC_HARNESS',
       registeredAt: '2026-09-28T15:35:00+09:00',
       checksum: this.computeChecksum('6724304', parkItems)
     };
@@ -264,7 +265,7 @@ export class LmsDeterministicReadRepository {
       submissionMethod: params.submissionMethod,
       isVerifiedLive: false,
       verificationStatus: 'pending_verification',
-      dataSource: 'VERIFIED_SNAPSHOT',
+      dataSource: 'SYNTHETIC_HARNESS',
       score: null,
       totalQuestions: paper.totalQuestions,
       correctCount: null,
@@ -273,7 +274,7 @@ export class LmsDeterministicReadRepository {
       wrongItemNumbers: [],
       itemOutcomes: [],
       deviceInfo: params.deviceInfo,
-      teacherNotes: '학생 앱 제출 완료 확인됨; 실측 채점 데이터 강사 대면 검토 대기 중',
+      teacherNotes: '합성 보류 예시; 운영 앱 제출 여부 확인 불가',
       checksum
     };
 

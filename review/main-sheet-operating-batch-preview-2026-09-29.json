@@ -1,0 +1,234 @@
+{
+  "schemaVersion": 1,
+  "asOfUtc": "2026-09-29T10:37:05Z",
+  "purpose": "Approval preview for a one-time operating Park Main Sheet cutover; this file does not execute a Sheets write.",
+  "status": "blocked_pending_native_metadata_and_recovery_validation",
+  "target": {
+    "spreadsheetId": "1R8DoOOo5yg3M1hgHPA0Vuqp3Ng-K5bQgxdiy5dEeXOg",
+    "title": "대치강아 학생진도현황",
+    "sheetTitle": "박경찬",
+    "sheetId": 1754681846,
+    "sourceFormatSheetTitle": "김예원",
+    "sourceFormatSheetId": 0,
+    "sourceFormatRange": "김예원!A1:R47",
+    "targetLegacyRange": "박경찬!A1:R47",
+    "targetNewRange": "박경찬!A48:R110",
+    "designSpecPath": "src/sheets/parkMainSheetCutoverSpec.ts",
+    "designSpecSha256AtPreview": "5b55437a1d22784db8084c5a35d17688678d48a79dff201b2fbdd2dd0699f28c",
+    "designSpecSectionCount": 7,
+    "designSpecSectionCellCount": 173
+  },
+  "currentBefore": {
+    "driveModifiedTimeUtc": "2026-09-29T09:59:59.273Z",
+    "grid": { "rows": 72, "columns": 16, "frozenRows": 2, "frozenColumns": 0 },
+    "observedRange": "박경찬!A1:P63",
+    "digest": {
+      "algorithm": "fnv1a64-utf16-codeunits",
+      "value": "082df4a72a625822",
+      "input": "JSON.stringify(rowData cells in A1:P63, each as {r,c,v:userEnteredValue|null,d:dataValidation|null,n:note|null,f:userEnteredFormat|null}) in row-major order",
+      "purpose": "Drift check only; not a cryptographic integrity proof or a recovery image"
+    },
+    "enteredValueCells": 467,
+    "formulaCells": 110,
+    "validationCells": 18,
+    "noteCells": 5,
+    "footprints": [
+      { "range": "A1:P47", "enteredValueCells": 283, "formulaCells": 110, "validationCells": 8, "noteCells": 1, "formattedCells": 585 },
+      { "range": "A48:P63", "enteredValueCells": 184, "formulaCells": 0, "validationCells": 10, "noteCells": 4, "formattedCells": 256 },
+      { "range": "A64:P72", "enteredValueCells": 0, "formulaCells": 0, "validationCells": 0, "noteCells": 0, "formattedCells": 144 }
+    ],
+    "formulaCoordinateGroups": [
+      "K5", "M5", "O5", "C6:F6", "I6", "L6", "O6:P6", "C7:F7", "C8", "E8", "L8", "C9", "E9", "A13:F18", "A21:F21", "A25:F32"
+    ],
+    "validationCoordinateGroups": ["I5", "I8", "P40:P45", "P50:P54", "P59:P63"],
+    "noteCoordinates": ["A1", "E52", "B53", "E61", "B62"],
+    "sourceFormulaReferenceOccurrences": {
+      "DB_원생_SYNC": 94,
+      "DB_수업로그_SYNC": 110,
+      "DB_학생현황_캐시": 58
+    },
+    "beforeValuesIncluded": false,
+    "beforeValuesReviewLocation": "The current operating sheet itself; no raw student values are stored in this preview."
+  },
+  "sourceFormatBefore": {
+    "range": "김예원!A1:R47",
+    "enteredValuesToTransfer": 0,
+    "copyPasteType": "PASTE_FORMAT",
+    "formatDigest": {
+      "algorithm": "fnv1a64-utf16-codeunits",
+      "value": "54a85625163cdeda",
+      "input": "JSON.stringify(source A1:R47 row-major cells as {r,c,f:userEnteredFormat|null})"
+    },
+    "sourceFormulaCells": 0,
+    "sourceValidationCells": 0,
+    "sourceNotes": 0,
+    "sourceHyperlinks": 0,
+    "sourceDateFormat": { "type": "DATE", "pattern": "m/d", "formattedCells": 198 },
+    "sourceMergesDimensionsProtectionKnown": false
+  },
+  "proposedAfter": {
+    "minimumGrid": { "rows": 110, "columns": 18, "frozenRows": 3, "frozenColumns": 3 },
+    "legacyHeaderCellsRef": "src/sheets/parkMainSheetCutoverSpec.ts#legacy.genericHeaderCells",
+    "legacyHeaderCellCount": 20,
+    "legacyTeacherCell": { "cell": "A4", "value": "박경찬" },
+    "legacyGradeCells": [{ "cell": "B9", "value": "초5" }, { "cell": "B18", "value": "중1" }],
+    "legacyStudentCells": [
+      { "cell": "C9", "studentId": "1293032", "value": "신지우" },
+      { "cell": "C10", "studentId": "1293067", "value": "박세은" },
+      { "cell": "C18", "studentId": "1294174", "value": "이루한" },
+      { "cell": "C19", "studentId": "1293138", "value": "유지연" },
+      { "cell": "C20", "studentId": "1294575", "value": "이현승" }
+    ],
+    "legacyOtherValues": "blank in A4:R47 except reviewed teacher, grade, and student cells",
+    "newMainSectionRanges": ["A48:R56", "A58:R66", "A68:R75", "A77:R83", "A85:R91", "A93:R100", "A101:R110"],
+    "newMainCellsRef": "src/sheets/parkMainSheetCutoverSpec.ts#sections[*].cells",
+    "newMainPopulatedCellsInSpec": 173,
+    "dateScopedBoard2026_09_30": [
+      { "studentId": "1294174", "name": "이루한", "row": 51 },
+      { "studentId": "1294575", "name": "이현승", "row": 52 }
+    ],
+    "unknownEvidence": "Keep as 확인 불가 or blank according to the design spec; no app join or LMS save status is inferred.",
+    "preservedTabs": "Every existing 박경찬_DB_* tab and its current headers; no DB tab request is proposed."
+  },
+  "requestPreview": [
+    {
+      "order": 1,
+      "apiRequest": "appendDimension",
+      "body": { "sheetId": 1754681846, "dimension": "COLUMNS", "length": 2 },
+      "before": "Park grid has 16 columns A:P",
+      "after": "Park grid has 18 columns A:R"
+    },
+    {
+      "order": 2,
+      "apiRequest": "appendDimension",
+      "body": { "sheetId": 1754681846, "dimension": "ROWS", "length": 38 },
+      "before": "Park grid has 72 rows",
+      "after": "Park grid has at least 110 rows"
+    },
+    {
+      "order": 3,
+      "apiRequest": "unmergeCells",
+      "body": null,
+      "target": "only verified existing Park merged ranges intersecting A1:R110",
+      "blockedUntil": "Native source and target merge metadata is read and exact inverse merge requests are saved."
+    },
+    {
+      "order": 4,
+      "apiRequest": "updateCells",
+      "body": {
+        "range": { "sheetId": 1754681846, "startRowIndex": 0, "endRowIndex": 110, "startColumnIndex": 0, "endColumnIndex": 18 },
+        "rows": [],
+        "fields": "userEnteredValue,userEnteredFormat,dataValidation,note,textFormatRuns,chipRuns"
+      },
+      "before": "Existing A1:P63 content and A1:P72 formatting as counted above",
+      "after": "Cleared approved Park A1:R110 footprint before format and literal application",
+      "blockedUntil": "Exact original values and metadata have an approved recoverable snapshot; merge and protection effects are known."
+    },
+    {
+      "order": 5,
+      "apiRequest": "copyPaste",
+      "body": {
+        "source": { "sheetId": 0, "startRowIndex": 0, "endRowIndex": 47, "startColumnIndex": 0, "endColumnIndex": 18 },
+        "destination": { "sheetId": 1754681846, "startRowIndex": 0, "endRowIndex": 47, "startColumnIndex": 0, "endColumnIndex": 18 },
+        "pasteType": "PASTE_FORMAT",
+        "pasteOrientation": "NORMAL"
+      },
+      "guarantee": "No peer teacher/student value, formula, or validation is copied."
+    },
+    {
+      "order": 6,
+      "apiRequest": "updateCells",
+      "target": "A2:E2, M2, E3:R3, A4, B9, B18, C9:C10, C18:C20",
+      "bodyFrom": "src/sheets/parkMainSheetCutoverSpec.ts#legacy.genericHeaderCells,teacherCell,gradeCells,studentCells",
+      "after": "Exactly 20 generic headers, Park teacher, two verified grade markers and five verified roster names; all other peer body values absent."
+    },
+    {
+      "order": 7,
+      "apiRequest": "updateCells",
+      "target": "Park A48:R110",
+      "bodyFrom": "src/sheets/parkMainSheetCutoverSpec.ts#sections[*].cells",
+      "after": "Seven sections and 173 explicit cell plans; only two students appear in the 2026-09-30 date board."
+    },
+    {
+      "order": 8,
+      "apiRequest": "repeatCell",
+      "target": "B49, B101, H49, M51:M55, M70:M74, F103, F105, F107, J70:J74, B80",
+      "bodyFrom": "src/sheets/parkMainSheetCutoverSpec.ts#nativeFormats",
+      "after": "Native DATE, DATE_TIME and TIME formats, with no text date substitution."
+    },
+    {
+      "order": 9,
+      "apiRequest": "setDataValidation",
+      "target": "B49, D49, F49, B79, F79, B80",
+      "bodyFrom": "src/sheets/parkMainSheetCutoverSpec.ts#validations",
+      "blockedUntil": "Conceptual student/group sources compile to exact current list/range and the B80 CUSTOM_FORMULA is validated in a synthetic native Sheet."
+    },
+    {
+      "order": 10,
+      "apiRequest": "updateSheetProperties",
+      "body": {
+        "properties": { "sheetId": 1754681846, "gridProperties": { "frozenRowCount": 3, "frozenColumnCount": 3 } },
+        "fields": "gridProperties.frozenRowCount,gridProperties.frozenColumnCount"
+      },
+      "after": "Header rows 1:3 and identity columns A:C stay visible; native C/D freeze boundary."
+    },
+    {
+      "order": 11,
+      "apiRequest": "updateDimensionProperties_or_mergeCells_and_protection_requests",
+      "body": null,
+      "blockedUntil": "Source/target widths, heights, merges, conditional formatting and current protectedRanges are read natively and reviewed cell by cell."
+    }
+  ],
+  "readbackPlan": {
+    "exactRanges": ["박경찬!A1:R47", "박경찬!A48:R110"],
+    "mustVerify": [
+      "No source student values or source teacher name in target",
+      "Five canonical Park students in legacy positions and only two verified date-scope students in the 2026-09-30 board",
+      "20 common headers, 7 new sections, date/time formats and validation behavior",
+      "No old Park formulas, validations or notes silently remain in the replacement footprint",
+      "Grid, freeze line, widths, heights, merges, conditional formatting and protectedRanges match the approved target",
+      "Every existing 박경찬_DB_* tab keeps its header and data fingerprint",
+      "No LMS record or parent sender action occurred"
+    ]
+  },
+  "recovery": {
+    "status": "copy_created_partially_verified_not_yet_exact_restore_ready",
+    "copy": {
+      "spreadsheetId": "1EzvwIugptjzgLZD-KhWhzdzSuZ97Qh5yqgM_OsODzZg",
+      "title": "박경찬 Main Sheet 전환 전 복구 사본 2026-09-29 19-34 KST",
+      "tabTitle": "박경찬_전환전",
+      "sheetId": 1823064530,
+      "grid": { "rows": 72, "columns": 16, "frozenRows": 2 },
+      "drivePermissionSummaryAtRead": { "owner": 1, "otherPermissionsReturned": 0 },
+      "readbackComparisonA1P63": {
+        "valueCellDifferences": 0,
+        "formulaCellDifferences": 0,
+        "validationCellDifferences": 0,
+        "noteCellDifferences": 0,
+        "userEnteredFormatCellDifferences": 6,
+        "formatDifferenceCoordinates": ["A21", "B21", "C21", "D21", "E21", "F21"],
+        "formatDifference": "Copy adds textFormat.link metadata to existing HYPERLINK formula cells."
+      },
+      "protectionAndMergeParity": "unverified"
+    },
+    "requiredBeforeWrite": [
+      "Obtain native Sheets metadata including source/target merges, dimensions, row/column groups, conditionalFormats and protectedRanges.",
+      "Review the already-created teacher-only recovery copy and its six hyperlink-format differences; do not persist raw student values in this JSON.",
+      "Store a structured pre-cutover inverse request package in the authorized recovery location, including the original 72x16 grid, A1:P72 CellData, freeze, merges, dimensions, validations, notes and protections.",
+      "Verify that restoring the original sheetId 1754681846 and preserved 박경찬_DB_* consumers is possible."
+    ],
+    "onFailedReadback": "Stop dependent use; run the reviewed inverse requests against sheetId 1754681846, remove only newly appended rows/columns after confirming no intervening writes, then reread the original ranges and metadata.",
+    "noAutomaticDeletion": true
+  },
+  "approvalGate": {
+    "readyForApproval": false,
+    "reasons": [
+      "Native connector response omits current protectedRanges, merges, dimension sizes and row/column groups.",
+      "Exact before cell values are intentionally absent from this privacy-minimized preview and require owner review in the live Sheet or an authorized private recovery image.",
+      "The design spec may change; rehash it immediately before approval and execution.",
+      "Dynamic group/student validations still need exact current list/range compilation, and the B80 CUSTOM_FORMULA needs native Sheet verification.",
+      "New Main cell styling and legacy merge/dimension translation are not fully specified.",
+      "The recovery copy's values, formulas, validations and notes match, but six hyperlink text formats differ and protection/merge parity remains unverified."
+    ]
+  }
+}

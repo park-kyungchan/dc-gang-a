@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "observed_date_kst": "2026-09-29",
+  "collection": {
+    "surface": "authenticated teacher-site fixed GET views",
+    "method": "bounded in-memory structure probe; no form submission or download",
+    "collector": "harness/site_structure_probe.ts",
+    "session_persisted": false,
+    "raw_html_persisted": false,
+    "student_rows_persisted": false
+  },
+  "views": [
+    {
+      "route_id": "prestudy_waiting",
+      "http_status": 200,
+      "response_bytes": 47421,
+      "table_count": 1,
+      "tr_count": 8,
+      "observed_headers": ["학생이름", "단원명", "날 짜", "영상 상태"],
+      "meaning": "teacher-unconfirmed pre-study list currently contains rows",
+      "verified_scope": "default authenticated view only",
+      "unverified": ["canonical student ID in row", "book or edition", "lesson occurrence", "pagination completeness", "video playback or watch history"]
+    },
+    {
+      "route_id": "prestudy_completed",
+      "http_status": 200,
+      "response_bytes": 61223,
+      "table_count": 1,
+      "tr_count": 43,
+      "observed_headers": ["학생이름", "단원명", "날짜", "평점"],
+      "meaning": "teacher-confirmed pre-study list currently contains rows",
+      "verified_scope": "default authenticated view only",
+      "unverified": ["canonical student ID in row", "book or edition", "lesson occurrence", "pagination completeness", "video playback or watch history"]
+    },
+    {
+      "route_id": "textbook_answer_catalog",
+      "http_status": 200,
+      "response_bytes": 76976,
+      "active_tab": "중등부",
+      "table_count": 3,
+      "tr_count": 34,
+      "pdf_control_count": 101,
+      "observed_sample_pdf_filenames": ["g7_gauss_sample_1_1.pdf", "g7_gauss_sample_2_3.pdf"],
+      "meaning": "resource catalog contains two candidate middle-school Gauss sample PDFs",
+      "verified_scope": "fixed catalog view and exact two link filenames",
+      "unverified": ["PDF contents or table of contents", "student book assignment", "full catalog tab coverage"]
+    }
+  ],
+  "limits": [
+    "HTTP 200 and displayed rows establish only this teacher view, not a backend database schema or app API.",
+    "The fixed GET observations do not classify the current parameterized POST searches as safe reads.",
+    "No production LMS or Google Sheet data was written."
+  ]
+}

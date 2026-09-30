@@ -1,0 +1,58 @@
+{
+  "tiers": [
+    {
+      "tier": 1,
+      "policyStatus": "historical",
+      "name": "Rapid Path",
+      "maxFilesMutated": 1,
+      "requiresHITLGate": false,
+      "requiresAdversarialPipeline": false,
+      "autoVerificationRequired": false,
+      "description": "Simple file lookups, code/directory exploration, or a single minor edit to 1 file. Proceed immediately and report inline with a concise summary.",
+      "triggers": [
+        "Single file view (view_file)",
+        "Code or directory exploration",
+        "Single file minor edit (1 file only)"
+      ]
+    },
+    {
+      "tier": 2,
+      "policyStatus": "historical",
+      "name": "Test-Verified Sequential Path",
+      "maxFilesMutated": 2,
+      "requiresHITLGate": false,
+      "requiresAdversarialPipeline": false,
+      "autoVerificationRequired": true,
+      "description": "Interrelated edits across 2 files, internal component refactoring, or new unit test additions. Proceed sequentially with mandatory independent automated verification (bun test, lint) after each edit before moving to the next file. Halt immediately and report root cause on any failure.",
+      "triggers": [
+        "Two interrelated file edits",
+        "Internal function/component refactoring",
+        "New unit test additions"
+      ]
+    },
+    {
+      "tier": 3,
+      "policyStatus": "historical",
+      "name": "Adversarial HITL Gate",
+      "maxFilesMutated": 9007199254740991,
+      "requiresHITLGate": true,
+      "requiresAdversarialPipeline": true,
+      "autoVerificationRequired": true,
+      "description": "Three or more core files modified/created simultaneously; system architecture or database schema design/changes (*.prisma, *.sql, migrations); external API/network integration or auth/authorization structure changes; requirement branching or alternative selection. Must decompose into 3-5 independently verifiable phases. Activate the adversarial evaluation workflow (Researcher → Specialist → Auditor) and obtain explicit user approval (HITL Gate) before each phase.",
+      "triggers": [
+        "3 or more core files modified or created simultaneously",
+        "System architecture design or change",
+        "Database schema design or migration (*.prisma, *.sql, migrations)",
+        "External API/network integration or auth structure change",
+        "Requirement branching or alternative selection"
+      ]
+    }
+  ],
+  "tokenBudget": {
+    "policyStatus": "historical",
+    "maxMutatingCallsPerTurn": 3,
+    "artifactOffloadThresholdLines": 30,
+    "preferSurgicalReplace": true,
+    "maxParallelPhases": 3
+  }
+}

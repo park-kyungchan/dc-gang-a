@@ -213,8 +213,24 @@ console.log('  PASS: Park Se-eun individual DB record ingested (85점, 17/20, �
 console.log('\n--- [DIM-08: Carry-Forward Clinic & Daily Test Pipeline] ---');
 import { CarryForwardQueueManager } from '../../src/assessment/carryForwardQueue';
 
-const shinNextDate = CarryForwardQueueManager.resolveNextSessionDate('월수1부', '2026-09-28');
-const parkNextDate = CarryForwardQueueManager.resolveNextSessionDate('월금1부', '2026-09-28');
+const shinNextDate = CarryForwardQueueManager.resolveNextSessionDate('월수1부', '2026-09-28', {
+  group: '월수1부', studentIds: ['1293032'],
+  fromDate: '2026-09-28', throughDate: '2026-09-30',
+  coverage: 'complete', sourceRef: 'synthetic-rubric-calendar',
+  occurrences: [
+    { date: '2026-09-28', occurrenceId: 'synthetic-shin-origin', status: 'held' },
+    { date: '2026-09-30', occurrenceId: 'synthetic-shin', status: 'planned' }
+  ]
+});
+const parkNextDate = CarryForwardQueueManager.resolveNextSessionDate('월금1부', '2026-09-28', {
+  group: '월금1부', studentIds: ['1293067', '1293138'],
+  fromDate: '2026-09-28', throughDate: '2026-10-02',
+  coverage: 'complete', sourceRef: 'synthetic-rubric-calendar',
+  occurrences: [
+    { date: '2026-09-28', occurrenceId: 'synthetic-park-origin', status: 'held' },
+    { date: '2026-10-02', occurrenceId: 'synthetic-park', status: 'planned' }
+  ]
+});
 if (shinNextDate !== '2026-09-30' || parkNextDate !== '2026-10-02') {
   throw new Error('FAIL: Next class date resolution error.');
 }

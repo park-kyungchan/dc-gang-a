@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "auditDate": "2026-09-29",
+  "method": "Read-only metadata and safe structured counters from a bounded recent sample; no message text or command arguments retained.",
+  "scope": {
+    "sessionFilesTotal": 22,
+    "sessionFilesInRecentSample": 10,
+    "recentWindowDays": 14,
+    "recentFilesModifiedDate": "2026-09-29",
+    "recentSampleBytes": 12820307,
+    "recordsParsed": 3498,
+    "parseFailures": 0
+  },
+  "permissionTransition": {
+    "source": "bounded local Codex session metadata",
+    "initial": {
+      "startedAtUtcMinute": "2026-09-29T08:44Z",
+      "sandbox": "danger-full-access",
+      "approval": "never"
+    },
+    "changedAtUtc": "2026-09-29T09:13:55Z",
+    "event": "thread_settings_applied",
+    "newPermissionProfile": "managed_workspace",
+    "observedEffects": ["repository writable", "project .codex read-only", "outbound network restricted"],
+    "interpretation": "The restriction was applied at the thread/client layer during the session. This audit does not establish which UI or policy action triggered it."
+  },
+  "signals": {
+    "commandExecutions": 411,
+    "commandExitZero": 360,
+    "commandNonzero": 51,
+    "sessionsWithCommandNonzero": 10,
+    "sessionsInSample": 10,
+    "turnAbortedRecords": 1,
+    "contextCompactions": 1,
+    "fileChangeItems": 51,
+    "mcpToolItems": 16,
+    "collaborationToolCallItems": 10,
+    "subagentActivityItems": 68
+  },
+  "interpretation": {
+    "commandNonzeroRate": 0.1241,
+    "caveat": "A nonzero exit indicates a failed command process, but may represent an expected probe or check. The aggregate contains no command arguments and cannot identify recurring causes.",
+    "actionableImprovements": [
+      "Use deterministic harness queries for roster and route lookups instead of ad hoc discovery commands.",
+      "Keep shell invocations focused and report their exit status with a short safe summary.",
+      "Start from the dated current handoff and context map to avoid repeating prior exploration."
+    ]
+  }
+}

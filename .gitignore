@@ -41,3 +41,7 @@ node_modules/
 /lms-automation/config/
 /lms-automation/.git.backup/
 /spt/.openai/hosting.json
+
+# Private roster and browser captures stay local
+/data/canonical/
+/.playwright-mcp/

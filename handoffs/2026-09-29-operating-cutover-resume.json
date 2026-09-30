@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "asOfKst": "2026-09-29 evening",
+  "status": "resume_in_new_session_before_operating_cutover",
+  "requestedByTeacher": "Set Codex auto compaction to 872k; restart in a new session, remeasure actual project/live state, then continue.",
+  "config": {
+    "path": ".codex/config.toml",
+    "key": "model_auto_compact_token_limit",
+    "value": 872000,
+    "checkedBy": "Bun TOML parse; applies to a new Codex session",
+    "limitClaim": "Compaction threshold preference; not an increase in model context capacity."
+  },
+  "authority": {
+    "readFirst": [
+      "AGENTS.md",
+      "handoffs/current-state.json",
+      "docs/CODEX_CONTEXT.md",
+      "docs/WHOLE_LENS_DECISION.md"
+    ],
+    "noProductionSheetWriteYet": true,
+    "productionSheetBatchApprovalRequired": "Exact target, before/after values and recovery before changing academy-owned workbook; same-target readback after.",
+    "noProductionLmsWriteYet": true
+  },
+  "teacherCorrections": {
+    "date": "2026-09-30",
+    "classes": [
+      "수금2부 이루한(group 4)",
+      "월수금2부 이현승(group 5)"
+    ],
+    "iruhanPriorHeldLesson": "2026-09-23 DayRecord, per teacher because of Chuseok holiday gap",
+    "leeHyunseungFirstAttendance": true,
+    "leeHyunseungHomework": "가우스 1-1-1 첫 소단원만; 정확한 쪽·문항 범위는 미검증",
+    "evidenceSurface": "교사 웹 LMS 읽기 전용 조회를 Main Sheet에 시점별 스냅샷으로 표시",
+    "routingFailure": "Agent repeated questions already settled by teacher; preserve these facts as lead routing inputs and audit harness route guidance."
+  },
+  "liveRead": {
+    "dayRecord": "Bounded 2026-09-30 rows for both students observed, but occurrenceBinding and full coverage unverified. Iruhan 2026-09-23 row observed with attendance Y and homework text.",
+    "preStudyAttemptGradeCorrection": "Teacher web LMS intended source; exact read-only route contracts and joins unverified, retain unknown.",
+    "textbookTOCs": "Two sample TOCs image-reviewed in research/textbooks/book-catalog.json. Verify student textbook assignment and page/question coverage before projecting.",
+    "sessionSecret": "Ephemeral only, never persist, print or rediscover."
+  },
+  "sheets": {
+    "operatingWorkbookId": "1R8DoOOo5yg3M1hgHPA0Vuqp3Ng-K5bQgxdiy5dEeXOg",
+    "parkSheetId": 1754681846,
+    "sourceSheetTitle": "김예원",
+    "legacyPlan": "김예원!A1:R47의 서식/구조만 박경찬!A1:R47 같은 좌표에 이식하고 동료 학생 값은 복사하지 않음",
+    "newPlan": "Implement date-first Main Sheet below row 47; 2026-09-30 class view has only the two confirmed students.",
+    "layoutSpec": "src/sheets/parkMainSheetCutoverSpec.ts",
+    "batchPreview": "review/main-sheet-operating-batch-preview-2026-09-29.json",
+    "backup": {
+      "id": "1EzvwIugptjzgLZD-KhWhzdzSuZ97Qh5yqgM_OsODzZg",
+      "tab": "박경찬_전환전",
+      "access": "Owner-only Park account; readback verified",
+      "parity": "467 entered values, 110 formulas, 18 validations and 5 notes match operating A1:P72; six A21:F21 hyperlink format differences after copy; merge, protection and pixel dimensions not verified."
+    },
+    "auditLedger": {
+      "id": "118dnA8WDwrzwY3hFiQJLaur7uOjZkoBcQm_vk_ltIZM",
+      "access": "Owner-only Park account",
+      "policy": "Before each refresh store timestamped full previous displayed fields and field diffs; review raw LMS snapshot retention at semester end; no automatic deletion."
+    },
+    "protectedRangesMergesDimensions": "Not fully enumerated by current Drive connector; Chrome UI inspector exists at harness/sheet_ui_readonly_inspect.ts, but signed-in result still pending.",
+    "deployed": false
+  },
+  "localImplementation": {
+    "auditedRefreshCore": "src/sheets/auditedRefresh.ts, six synthetic tests pass; actual adapters and scheduler are not connected.",
+    "browserPath": "Project-scoped Playwright MCP Chrome DevTools configured; extension unavailable, isolated window loses login on close.",
+    "sheetBatchPreviewStatus": "Not ready for approval until actual protected ranges, merges, dimensions, native date/time behavior and full reversible request batch are verified."
+  },
+  "nextActions": [
+    "Run resume, verification, network and MCP checks; compare every time-sensitive handoff claim with current sources.",
+    "Audit harness lead routing so the teacher-confirmed class/prior-lesson/evidence-surface facts are consumed and not asked again.",
+    "Read exact 2026-09-23 Iruhan DayRecord and first-attendance Lee Hyunseung context with reviewed read contracts; bind textbook assignment and TOC where possible.",
+    "Use Chrome with an authenticated teacher tab for bounded passive teacher-LMS request-shape inspection; never probe unknown-effect routes.",
+    "Refresh operating Sheet metadata/protections, merged ranges, dimensions and backup recovery; prepare exact production batch preview and request its required approval once concrete.",
+    "Only after approval deploy the Park tab and read back exact ranges; wire audit-first live refresh separately and verify."
+  ]
+}
