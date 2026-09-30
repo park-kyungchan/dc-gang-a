@@ -29,3 +29,5 @@ jobs:
           if bun run harness roster --id synthetic-missing --json >/dev/null 2>&1; then
             exit 1
           fi
+      - name: Verify deterministic route lookup needs no private roster
+        run: bun run harness routes --id course_menu --json >/dev/null

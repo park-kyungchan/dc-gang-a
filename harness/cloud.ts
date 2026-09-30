@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { cpus, totalmem } from 'node:os';
 import { resolve } from 'node:path';
-import { safeProjectPath, validateCloudEnvironment } from './cloud_environment';
+import { safeProjectPath, validateCloudEnvironment, validateCloudStartSkill } from './cloud_environment';
 import { validateCurrentState } from './resume';
 const root = resolve(import.meta.dir, '..');
 const stamp = (base: string) => resolve(base, 'scratch/cloud-install-lock.sha256');
@@ -14,6 +14,7 @@ export function cloudReadiness(base = root, today = new Date().toLocaleDateStrin
   for (const ref of [c.sourceCheckpoint, c.startSkill, 'review/codex-cloud-readiness-2026-09-30.json']) {
     if (!existsSync(safeProjectPath(base, ref))) throw new Error('missing_cloud_reference');
   }
+  validateCloudStartSkill(readFileSync(safeProjectPath(base, c.startSkill), 'utf8'));
   const raw = JSON.parse(readFileSync(safeProjectPath(base, c.sourceCheckpoint), 'utf8')) as { asOf: string };
   // Archival integrity only: never renew dated academy-read authority.
   const state = validateCurrentState(raw, base, undefined, raw.asOf);
@@ -29,9 +30,18 @@ export function cloudReadiness(base = root, today = new Date().toLocaleDateStrin
     next: ['bun run cloud:check', 'Read handoffs/cloud-current-state.json'],
   };
 }
-function run(args: string[]): void {
+export type InstallRunner = (args: string[], extraEnv?: Record<string,string>) => void;
+export function installPinnedDependencies(base: string, run: InstallRunner, compilerReady: () => boolean): boolean {
+  run(['install','--frozen-lockfile','--ignore-scripts']);
+  if (compilerReady()) return false;
+  run(['install','--frozen-lockfile','--ignore-scripts','--force','--backend','copyfile'],
+    { BUN_INSTALL_CACHE_DIR: resolve(base, 'scratch/cloud-package-cache') });
+  if (!compilerReady()) throw new Error('native_typescript_compiler_unavailable_after_one_fresh_cache_retry');
+  return true;
+}
+function run(args: string[], extraEnv: Record<string,string> = {}): void {
   const p = Bun.spawnSync({ cmd: [process.execPath, ...args], cwd: root,
-    env: { ...process.env, PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1' }, stdout: 'inherit', stderr: 'inherit' });
+    env: { ...process.env, ...extraEnv, PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1' }, stdout: 'inherit', stderr: 'inherit' });
   if (p.exitCode !== 0) throw new Error('cloud_command_failed:' + args.join(' '));
 }
 async function main() {
@@ -41,9 +51,10 @@ async function main() {
   if (Bun.version !== c.runtime.bun) throw new Error('required_bun_version_' + c.runtime.bun);
   if (action === 'info') { console.log(JSON.stringify(c, null, 2)); return; }
   if (action === 'install') {
-    run(['install','--frozen-lockfile','--ignore-scripts']);
+    const freshCacheRetryUsed = installPinnedDependencies(root, run, () =>
+      Bun.spawnSync({ cmd: [process.execPath, 'node_modules/typescript/bin/tsc', '--version'], cwd: root, stdout: 'pipe', stderr: 'pipe' }).exitCode === 0);
     await Bun.write(stamp(root), lockHash(root) + '\n');
-    console.log(JSON.stringify({ ok: true, action, bun: Bun.version, browserDownloaded: false, pythonInstalled: false }));
+    console.log(JSON.stringify({ ok: true, action, bun: Bun.version, browserDownloaded: false, pythonInstalled: false, freshCacheRetryUsed }));
     return;
   }
   console.log(JSON.stringify(cloudReadiness(), null, 2));

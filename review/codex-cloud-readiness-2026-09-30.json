@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "asOf": "2026-09-30",
   "kind": "codex_cloud_readiness",
-  "status": "local_portable_gate_passed_clean_checkout_pending",
+  "status": "local_portable_and_clean_checkpoint_gates_passed_linux_ci_pending",
   "officialDocumentation": [
     {
       "url": "https://learn.chatgpt.com/docs/environments/cloud-environments",
@@ -39,16 +39,35 @@
         "harness",
         "agent-runtime"
       ],
-      "testBun": 68,
+      "testBun": 72,
       "testSynthetic": 61,
       "testAgentRuntime": 111,
       "backendMapFiles": 13,
       "importedSourceFiles": 329,
       "academyRequests": 0
     },
-    "cleanCheckoutWithoutPrivateData": "pending",
+    "cleanCheckoutWithoutPrivateData": {
+      "status": "pass",
+      "sourceCommit": "19f2fee",
+      "privateRosterPresent": false,
+      "localCodexConfigPresent": false,
+      "tests": [
+        68,
+        61,
+        111
+      ],
+      "sourcePins": [
+        13,
+        329
+      ],
+      "nativeCompiler": "inherited_cache_incomplete_fresh_project_cache_passed"
+    },
     "linuxCi": "pending",
-    "actualCodexCloud": "not_created_this_session"
+    "actualCodexCloud": "not_created_this_session",
+    "skill": {
+      "bunFrontmatterAndReferences": "pass_native_bun_yaml_same_frontmatter_checks_as_bundled_validator",
+      "bundledPythonValidator": "unavailable_missing_pyyaml_no_environment_installed"
+    }
   },
   "cloudSetup": {
     "environmentManifest": "harness/cloud-environment.json",
@@ -74,5 +93,9 @@
       "park-kyungchan/palantirkc"
     ],
     "readback": "verified_with_authenticated_cli"
+  },
+  "dependencyInstallRecovery": {
+    "behavior": "Probe native TypeScript executable after frozen install; one bounded retry from a project-local fresh cache if absent.",
+    "source": "https://bun.com/docs/pm/global-cache"
   }
 }

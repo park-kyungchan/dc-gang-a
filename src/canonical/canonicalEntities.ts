@@ -1,8 +1,15 @@
 /** Live-only facade. Missing local roster fails closed; there is no synthetic fallback. */
 import { CanonicalRegistry, type CanonicalRosterData, type CanonicalTeacher, type CanonicalGroup, type CanonicalStudent } from './canonicalRegistry';
 export * from './canonicalRegistry';
-// Global singleton instance initialized from canonical SSoT
-export const canonicalRegistry = new CanonicalRegistry();
+// Lazy live facade keeps route metadata usable without private data. Roster access still fails closed.
+let liveRegistry: CanonicalRegistry | undefined;
+export const canonicalRegistry = new Proxy({} as CanonicalRegistry, {
+  get(_target, key) {
+    const registry = liveRegistry ??= new CanonicalRegistry();
+    const value = Reflect.get(registry, key);
+    return typeof value === 'function' ? value.bind(registry) : value;
+  },
+});
 
 // Export convenience direct accessor functions
 export const getTeacher = (): CanonicalTeacher => canonicalRegistry.getTeacher();

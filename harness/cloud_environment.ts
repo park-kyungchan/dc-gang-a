@@ -33,3 +33,14 @@ export function validateCloudEnvironment(raw: unknown): CloudEnvironment {
   }
   return c;
 }
+
+export function validateCloudStartSkill(text: string): void {
+  const front = /^---\n([\s\S]*?)\n---/.exec(text)?.[1];
+  if (!front) throw new Error('invalid_cloud_skill_frontmatter');
+  const parsed = Bun.YAML.parse(front) as Record<string, unknown>;
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)
+    || parsed.name !== 'codex-cloud-start' || typeof parsed.description !== 'string'
+    || !parsed.description.trim() || parsed.description.length > 1024 || /[<>]/.test(parsed.description)
+    || Object.keys(parsed).some(key => !['name','description','license','allowed-tools','metadata'].includes(key))
+    || /^\[TODO:/m.test(text)) throw new Error('invalid_cloud_start_skill');
+}

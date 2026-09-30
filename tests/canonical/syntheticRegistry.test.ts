@@ -21,3 +21,11 @@ describe('explicit synthetic canonical registry', () => {
     expect(() => new CanonicalRegistry(resolve(import.meta.dir, 'missing-roster.json'))).toThrow(CanonicalLookupError);
   });
 });
+
+test('route CLI stays deterministic without loading a local academy roster', () => {
+  const result = Bun.spawnSync({ cmd: [process.execPath, 'run', resolve(import.meta.dir, '../../harness/cli.ts'), 'routes', '--id', 'course_menu', '--json'], stdout: 'pipe', stderr: 'pipe' });
+  expect(result.exitCode).toBe(0);
+  const payload = JSON.parse(new TextDecoder().decode(result.stdout));
+  expect(payload.total).toBe(1);
+  expect(payload.routes[0].id).toBe('course_menu');
+});

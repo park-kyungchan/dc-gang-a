@@ -1,8 +1,8 @@
 import { expect, test } from 'bun:test';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { cloudReadiness } from '../../harness/cloud';
-import { safeProjectPath, validateCloudEnvironment } from '../../harness/cloud_environment';
+import { cloudReadiness, installPinnedDependencies } from '../../harness/cloud';
+import { safeProjectPath, validateCloudEnvironment, validateCloudStartSkill } from '../../harness/cloud_environment';
 import { scanPublicationText } from '../../harness/tools/prepush_audit';
 const root = resolve(import.meta.dir, '../..');
 const source = JSON.parse(readFileSync(resolve(root, 'harness/cloud-environment.json'), 'utf8'));
@@ -33,4 +33,24 @@ test('publication scan refuses protected files and credential-shaped literals wi
   expect(scanPublicationText('src/example.ts', secret)).toEqual(['github_token']);
   expect(scanPublicationText('src/example.ts', 'JSESSIONID=' + 'a'.repeat(32))).toEqual(['literal_session']);
   expect(scanPublicationText('src/example.ts', 'const score = null;')).toEqual([]);
+});
+
+test('cached package metadata cannot mask a missing native compiler', () => {
+  const calls: Array<{ args: string[]; extraEnv?: Record<string,string> }> = [];
+  const ready = [false, true];
+  const repaired = installPinnedDependencies(root, (args, extraEnv) => calls.push({ args, extraEnv }), () => ready.shift()!);
+  expect(repaired).toBe(true);
+  expect(calls).toHaveLength(2);
+  expect(calls[1]!.args).toContain('--frozen-lockfile');
+  expect(calls[1]!.extraEnv?.BUN_INSTALL_CACHE_DIR).toBe(resolve(root, 'scratch/cloud-package-cache'));
+});
+test('dependency recovery stops after one fresh-cache retry', () => {
+  let calls = 0;
+  expect(() => installPinnedDependencies(root, () => { calls++; }, () => false)).toThrow('unavailable_after_one_fresh_cache_retry');
+  expect(calls).toBe(2);
+});
+
+test('Cloud start skill has valid native YAML and rejects unintended metadata', () => {
+  expect(() => validateCloudStartSkill(readFileSync(resolve(root, source.startSkill), 'utf8'))).not.toThrow();
+  expect(() => validateCloudStartSkill('---\nname: codex-cloud-start\ndescription: x\nunexpected: true\n---\n')).toThrow();
 });

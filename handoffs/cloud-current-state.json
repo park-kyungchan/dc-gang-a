@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "asOf": "2026-09-30",
   "kind": "cloud_development_handoff",
-  "status": "portable_gate_passed_clean_checkout_pending",
+  "status": "local_portable_and_clean_checkpoint_gates_passed_linux_ci_pending",
   "activeTask": "synthetic_whole_lens_development_in_codex_cloud",
   "environment": "harness/cloud-environment.json",
   "readiness": "review/codex-cloud-readiness-2026-09-30.json",

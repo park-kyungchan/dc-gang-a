@@ -1,9 +1,9 @@
 /**
  * Canonical Entity Registry & Dual-Runtime SSoT Wrapper (Bun / TypeScript)
- * 
+ *
  * Provides deterministic, typed, O(1) lookups for the Daechi Whole-Lens cohort.
  * Driven strictly by data/canonical/canonical_roster.json.
- * 
+ *
  * Invariants:
  * - Single Source of Truth (SSoT): canonical_roster.json
  * - Fail-Closed: Unknown queries throw CanonicalLookupError, never silent toxic fallbacks
@@ -287,4 +287,3 @@ export class CanonicalRegistry {
     return this._studentsById.has(String(studentId));
   }
 }
-
