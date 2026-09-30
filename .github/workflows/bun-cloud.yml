@@ -1,0 +1,31 @@
+name: Bun Cloud readiness
+on:
+  pull_request:
+  push:
+    branches: [main, codex/cloud-bun-handoff]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cloud-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  linux-clean-checkout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+        with:
+          bun-version: 1.4.2
+      - name: Install pinned development dependencies
+        run: bun run cloud:install
+      - name: Verify synthetic development and source integrity
+        run: bun run cloud:check
+      - name: Verify live roster command fails without private data
+        run: |
+          if bun run harness roster --id synthetic-missing --json >/dev/null 2>&1; then
+            exit 1
+          fi

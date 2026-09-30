@@ -1,11 +1,12 @@
 import { expect, test } from 'bun:test';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { planFullAccessConfig } from '../../harness/codex_full_access';
 import { inspectProjectConfig } from '../../harness/runtime_preflight';
 
 test('runtime preflight separates project declarations from session proof', () => {
   const root = resolve(import.meta.dir, '../..');
-  const parsed = Bun.TOML.parse(readFileSync(resolve(root, '.codex/config.toml'), 'utf8')) as unknown as {
+  const parsed = Bun.TOML.parse(planFullAccessConfig('')) as unknown as {
     mcp_servers: { chromeDevTools: { args: string[] }; localBrowser: { args: string[] } };
   };
   const declared = inspectProjectConfig(parsed);

@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig.json",
+  "include": [
+    "checkpoint.ts",
+    "resume.ts",
+    "runtime_preflight.ts",
+    "chrome_devtools_session.ts",
+    "lead.ts",
+    "feedback_coverage.ts",
+    "cloud.ts",
+    "cloud_environment.ts",
+    "tools/verify_evidence.ts",
+    "tools/prepush_audit.ts"
+  ],
+  "exclude": [
+    "../node_modules"
+  ]
+}

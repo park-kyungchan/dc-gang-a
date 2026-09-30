@@ -2,7 +2,6 @@
 
 import { existsSync, readFileSync } from 'node:fs';
 import { isAbsolute, relative, resolve, sep } from 'node:path';
-import { pilotBrief, validatePilotScope } from './lead';
 import { validateCheckpointPair } from './checkpoint';
 
 export interface CurrentState {
@@ -242,7 +241,7 @@ function parseArgs(args: string[]): { json: boolean; help: boolean } {
   return options;
 }
 
-export function runResumeCli(args = process.argv.slice(2)): number {
+export async function runResumeCli(args = process.argv.slice(2)): Promise<number> {
   let options: { json: boolean; help: boolean };
   try {
     options = parseArgs(args);
@@ -264,6 +263,7 @@ export function runResumeCli(args = process.argv.slice(2)): number {
   try {
     const source = JSON.parse(readFileSync(indexPath, 'utf8')) as unknown;
     const state = validateCurrentState(source, workspaceRoot);
+    const { pilotBrief, validatePilotScope } = await import('./lead');
     const scope = validatePilotScope(JSON.parse(readFileSync(resolve(workspaceRoot, state.teacherConfirmedNextClassScope.path), 'utf8')) as unknown);
     if (scope.date !== state.teacherConfirmedNextClassScope.date
         || JSON.stringify(scope.teacherConfirmedGroupIds) !== JSON.stringify(state.teacherConfirmedNextClassScope.groupIds)) {
@@ -312,4 +312,4 @@ export function runResumeCli(args = process.argv.slice(2)): number {
   }
 }
 
-if (import.meta.main) process.exit(runResumeCli());
+if (import.meta.main) process.exit(await runResumeCli());

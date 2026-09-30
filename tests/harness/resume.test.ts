@@ -8,7 +8,7 @@ const index = JSON.parse(readFileSync(resolve(workspaceRoot, 'handoffs/current-s
 
 describe('resume index', () => {
   test('accepts the current index when every referenced path exists', () => {
-    const state = validateCurrentState(index, workspaceRoot);
+    const state = validateCurrentState(index, workspaceRoot, undefined, '2026-09-29');
     expect(state.activeTask.id).toBe('academy_read_path_completion_and_class_pilot_preparation');
     expect(state.activeSubphase.phase).toBe('V1');
     expect(state.activeSubphase.status).toBe('checkpointed_for_next_session');
@@ -22,7 +22,7 @@ describe('resume index', () => {
   test('fails closed when a referenced file is missing', () => {
     const fakeExists = (path: string) => !path.endsWith('2026-09-30-class-pilot-kickoff.md');
     try {
-      validateCurrentState(index, workspaceRoot, fakeExists);
+      validateCurrentState(index, workspaceRoot, fakeExists, '2026-09-29');
       throw new Error('expected missing reference to fail');
     } catch (error) {
       expect(error).toBeInstanceOf(ResumeIndexError);

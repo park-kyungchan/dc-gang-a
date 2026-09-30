@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-09-30",
+  "kind": "codex_cloud_readiness",
+  "status": "local_portable_gate_passed_clean_checkout_pending",
+  "officialDocumentation": [
+    {
+      "url": "https://learn.chatgpt.com/docs/environments/cloud-environments",
+      "finding": "Current experience: Install script and Start skill; Publish captures prepared files, background repo refresh does not rerun setup; browser/computer use unsupported; repo skills available."
+    },
+    {
+      "url": "https://learn.chatgpt.com/docs/environments/cloud-environment",
+      "finding": "Legacy experience remains for Code Review and Linear/GitHub integrations. Its setup/maintenance scripts and cache rules are not current Cloud setup."
+    }
+  ],
+  "runtime": {
+    "bun": "1.4.2",
+    "typescript": "7.0.2",
+    "python": "exception_only_not_installed"
+  },
+  "sourceIntegration": {
+    "desktopCheckpointCommit": "182979e",
+    "mainBaseline": "d10ea7bbde93fc4e8b498b38501352bb8c8c8ae1",
+    "integrationCommit": "e1b6821",
+    "preserved": "Main's synthetic grading, teacher confirmation, single-tab bounded migration; desktop canonical route safeguards and dated checkpoint",
+    "legacyEntryPointsBlocked": [
+      "scripts/lms_reverse_engineer.ts",
+      "scripts/sync_row_grouped_main_sheet.ts"
+    ],
+    "recovery": "Original sources remain in Git commits 7139f0f and 182979e; no operational deployment or local records moved."
+  },
+  "validation": {
+    "windows": {
+      "status": "pass",
+      "bun": "1.4.2",
+      "typescript": "7.0.2",
+      "typechecks": [
+        "main",
+        "harness",
+        "agent-runtime"
+      ],
+      "testBun": 68,
+      "testSynthetic": 61,
+      "testAgentRuntime": 111,
+      "backendMapFiles": 13,
+      "importedSourceFiles": 329,
+      "academyRequests": 0
+    },
+    "cleanCheckoutWithoutPrivateData": "pending",
+    "linuxCi": "pending",
+    "actualCodexCloud": "not_created_this_session"
+  },
+  "cloudSetup": {
+    "environmentManifest": "harness/cloud-environment.json",
+    "installScript": "bun run cloud:install",
+    "startSkill": ".agents/skills/codex-cloud-start/SKILL.md",
+    "services": [],
+    "secretsRequired": [],
+    "published": false
+  },
+  "boundaries": [
+    "Private roster, academy authentication, browser profiles and raw media excluded from Git.",
+    "Source checkpoint is historical; expired task scope requires revalidation.",
+    "No Cloud browser/computer capability or live student/app join inferred.",
+    "Python remains preserved exception, not default setup.",
+    "No production LMS/Sheet/SPT write or deployment performed."
+  ],
+  "githubCleanup": {
+    "deletedCount": 14,
+    "retained": [
+      "park-kyungchan/dc-gang-a",
+      "park-kyungchan/park-kyungchan.github.io",
+      "park-kyungchan/bible-commentary-station",
+      "park-kyungchan/palantirkc"
+    ],
+    "readback": "verified_with_authenticated_cli"
+  }
+}

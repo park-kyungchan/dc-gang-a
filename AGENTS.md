@@ -1,5 +1,14 @@
 # Daechi Whole-Lens Workspace: Agent Instructions
 
+## Codex Cloud and portable development
+
+- In current Codex Cloud, read `harness/cloud-environment.json` and `handoffs/cloud-current-state.json`, then run `bun run cloud:start`. The repo-local `codex-cloud-start` skill supplies startup guidance. The September 29 academy checkpoint remains dated evidence; Cloud archival validation does not renew its student/date authority.
+- Use Bun 1.4.2 and TypeScript 7.0.2. Setup uses `bun run cloud:install`; the portable gate is `bun run cloud:check`. It runs synthetic tests and exact source-integrity checks without private roster, local .codex config, browser, Python installation, or academy network effects.
+- Current Cloud uses Install script, Start skill, Save and Publish/Republish. Repository refresh may change source without refreshing dependencies; rerun cloud:install after lockfile drift. No development service needs to start for the current domain-library scope. Local Chrome MCP and Windows permission templates are local-only.
+- Actual academy roster and authentication remain local. `bun run test:local-roster` and live resume/roster/lead commands require separately available verified local data; they must fail closed when absent. Do not seed invented students into data/canonical or treat an archival checkpoint as a current pilot.
+- Python is an exception for an unavoidable existing gate or unique verified reader. Preserve existing implementations and dual-runtime compatibility; do not add or install Python for Cloud convenience. Write new engineering and artifacts in TypeScript/Bun and machine-readable formats.
+- The existing current-state entry rules below apply to local academy continuation. Cloud's source-only workflow uses the separate Cloud pointer and never certifies LMS, Sheet, SPT, or physical-device acceptance.
+
 ## Entry and ownership
 
 - This is the shared entrypoint for coding agents. Run `bun run harness/resume.ts --json` and read `handoffs/current-state.json` for the active phase and latest evidence; fail if that index is missing or stale. Read `docs/CODEX_CONTEXT.md` (historical filename) for user intent and authority and `docs/WHOLE_LENS_DECISION.md` for product direction. Dated Markdown handoffs remain historical evidence, not the current-state pointer. Revalidate time-sensitive claims.
