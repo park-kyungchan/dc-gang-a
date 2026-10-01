@@ -4,7 +4,7 @@
   "observedAtUtc": "2026-10-01T07:52:48.421Z",
   "repository": "park-kyungchan/dc-gang-a",
   "userAuthorization": "Publish all phase-one and phase-two harness work through PR, merge and cleanup; request user action when needed",
-  "status": "write_restored_ready_for_pr_and_ci",
+  "status": "pr_created_awaiting_ci_and_merge",
   "source": {
     "branch": "codex/cloud-harness-continuity-2026-10-01",
     "head": "8cf7c8352114414d9293f8cc12a6007a22b79512",
@@ -76,7 +76,7 @@
     "action": "Review installation access and approve pending Contents/Pull requests write permission updates, then confirm completion",
     "tokenInChatRequested": false
   },
-  "remotePublication": "branch_pushed_pr_pending",
+  "remotePublication": "branch_and_pr_published",
   "merged": false,
   "recoveryObservedAtUtc": "2026-10-01T07:57:37.829Z",
   "recovery": {
@@ -84,5 +84,13 @@
     "remoteBranch": "codex/cloud-harness-continuity-2026-10-01",
     "pushedHead": "baf3ca9da484d3c6a4f826980e46a798129dac95",
     "userActionComplete": true
-  }
+  },
+  "pullRequest": {
+    "url": "https://github.com/park-kyungchan/dc-gang-a/pull/5",
+    "number": 5,
+    "createdThrough": "github_connector",
+    "attachedToCodexTask": true,
+    "headAtCreation": "9a5920ed6cf8eba82d29d5c63c09183daec502a2"
+  },
+  "stateSemantics": "Dated pre-merge evidence; current merge/CI status is authoritative at pullRequest.url and remote main. This file does not predict later outcomes."
 }
