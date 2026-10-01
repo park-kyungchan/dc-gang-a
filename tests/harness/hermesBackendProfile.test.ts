@@ -48,6 +48,33 @@ describe('Hermes Backend profile continuation contract', () => {
     expect(summary.executesNextStep).toBe(false);
     expect(checkpoint().engineeringContext!.dispatch).toEqual([]);
   });
+  test('P2 consumes current product intent without reopening completed setup', () => {
+    const state = checkpoint();
+    const decisions = new Map(state.engineeringContext!.confirmedDecisions.map(item => [item.id, item.statement]));
+    expect(state.activeStep.action).toBe('verify_current_academy_scope');
+    expect(state.engineeringContext!.nextSteps.map(item => item.id)).not.toContain('qualify_backend_profile');
+    expect(decisions.get('priority_order')).toContain('first real product Ontology consumer');
+    expect(decisions.get('preclass_source_coverage')).toContain('DayRecord');
+    expect(decisions.get('historical_approved_revision_views')).toContain('unknown');
+    expect(decisions.get('backend_harness_scope')).toContain('native vault');
+  });
+  test('all five observed tabs retain unknown ownership and non-executable migration', () => {
+    const disposition = JSON.parse(read('docs/main-sheet-trailing-five-disposition-2026-10-01.json'));
+    expect(disposition.selection.expectedCount).toBe(5);
+    expect(disposition.selection.verifiedSelectedCount).toBe(5);
+    expect(disposition.tabs).toHaveLength(5);
+    expect(new Set(disposition.tabs.map((tab: { sheetId: number }) => tab.sheetId)).size).toBe(5);
+    expect(disposition.target.mainSheetId).toBe(1754681846);
+    expect(disposition.readBoundary.rangePerTab).toBe('A1:P6');
+    expect(disposition.readBoundary.exclusiveParkOwnershipVerified).toBe(false);
+    expect(disposition.readBoundary.formulasAndDependenciesVerified).toBe(false);
+    expect(disposition.readBoundary.rawStudentValuesPersisted).toBe(false);
+    expect(disposition.readBoundary.rawStudentValuesEmitted).toBe(false);
+    expect(disposition.tabs.every((tab: { ownership: string }) => tab.ownership.startsWith('unknown;'))).toBe(true);
+    expect(Object.values(disposition.effects).every(value => value === 0)).toBe(true);
+    expect(disposition.grantsProductionWrites).toBe(false);
+    expect(disposition.establishesP2Acceptance).toBe(false);
+  });
   test('portable native entry retains AGENTS and distinguishes academy resume from engineering', () => {
     const agents = read('AGENTS.md');
     expect(agents).toContain('Hermes Linux Backend');

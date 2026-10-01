@@ -6,7 +6,7 @@
   "outcome": "academy_read_to_teacher_reviewed_main_sheet",
   "activeStep": {
     "owner": "lead",
-    "action": "report_verified_result"
+    "action": "verify_current_academy_scope"
   },
   "milestones": [
     {
@@ -139,12 +139,18 @@
       "location": "project_docs",
       "sha256": "524688266a90da40b9d1fe7f2d7dec5fb69f0ce8a83c5891cff51b14ec660422",
       "kind": "derived_preservation_preview"
+    },
+    {
+      "fileName": "main-sheet-trailing-five-disposition-2026-10-01.json",
+      "location": "project_docs",
+      "sha256": "dedc291f2fd4c2e3ee51121a3af8268854169965a7fde310dbdb85960e2115fe",
+      "kind": "derived_preservation_preview"
     }
   ],
   "engineeringContext": {
     "schemaVersion": 1,
-    "updatedAtUtc": "2026-10-01T08:52:47Z",
-    "objective": "Profile, native prose, selected Skills, pinned tooling and native continuity consumers are qualified on the Hermes Linux Backend. Complete or read back the current Git publication, then advance date-first all-student preclass review. Do not rebuild accepted setup or repeat settled interviews. Read native profile qualification and exact Git state separately; product KG queries, provider selection and current academy access remain unresolved.",
+    "updatedAtUtc": "2026-10-01T10:52:21Z",
+    "objective": "On the Hermes Linux Backend, P0 setup and P1 PR 7 are complete; preserve PR 6. P2 date-first all-student review is the first product Ontology consumer: academy DayRecord evidence plus attributable Main/profile supplements. Main is the frontend; retained history needs a separately selected protected Backend store. Verify current reads and all five trailing visible tabs before migration. Product Ontology starts now; expanded personal mathematics KG and provider comparison follow stable P2/Main operation. Academy access, complete live sources and production migration remain unverified.",
     "priorityOrder": [
       "continuity_lead_governance",
       "development_test_feedback",
@@ -169,7 +175,7 @@
     "confirmedDecisions": [
       {
         "id": "priority_order",
-        "statement": "The Lead orders qualified runtime and reused continuity first, verified Git lifecycle next, complete date-first preclass review next, then student KG/Ontology queries and provider comparison. These are current priorities, not completed outcomes.",
+        "statement": "P0 profile/runtime qualification and P1 PR 7 publication are complete and must not be rebuilt. P2 date-first preparation for every scheduled student is the first real product Ontology consumer. Product Ontology is not deferred. P3 expanded personal mathematics KG, atomic prerequisite queries and DB/provider comparison follow P2 and stable single-Main operation.",
         "source": "user_interview"
       },
       {
@@ -229,27 +235,27 @@
       },
       {
         "id": "preclass_source_coverage",
-        "statement": "First real user outcome: connect all related information for every student attending the refreshed date, including prestudy, homework, problem grading/corrections and teacher notes, and improve the complete Main Sheet UI/UX.",
+        "statement": "Use academy DayRecord records as the official homework basis; combine attributable additions entered in Park Main or dc-gang-a-dev sessions for regular-lesson preparation without rewriting source facts. Show every scheduled occurrence, homework range, matching prestudy, attempts/backend grading, correction/video and teacher notes. The user reports entering/finalizing DayRecord and sending parents; actual delivery receipts remain independently unverified.",
         "source": "user_interview"
       },
       {
         "id": "single_main_visibility",
-        "statement": "The user authorizes hiding Park Main related auxiliary Sheets so Park operates one visible Main. Two visible Park companions were hidden and re-read; all Park-related tabs except Main are now hidden. Shared and other instructor tabs are outside the recorded Park-only scope.",
+        "statement": "Park Main is the sole operational frontend in the shared academy workbook. Earlier Park auxiliary hiding is preserved evidence. Inspect all five trailing visible tabs and their exact contents/consumers before deciding which Park-owned functions belong in Main and which histories belong in a protected Backend DB. Generic titles, hidden state and a Park label do not establish exclusive ownership. Preserve other instructor/shared tabs and rollback originals; migration needs exact targets, parity and recovery.",
         "source": "current_user_request"
       },
       {
         "id": "student_database_direction",
-        "statement": "Investigate existing student DB granularity before reinterviewing. Recommend and proceed with maintainable scalable TypeScript/Bun storage rather than expanding hidden Sheets as a database. Shared keyed records preserve student/week/occurrence/edition/unit/page/question history; actual hosted provisioning still needs a verified target and access path.",
+        "statement": "Existing student/week/occurrence/edition/unit/page/question granularity is settled. Main is the frontend, not the canonical revision database. Classify retained teacher/source/review histories for a protected Hermes Backend store without copying raw sessions or creating per-student tabs. Production storage architecture, resource identity, access and restore policy remain unselected and require consequential interview before provisioning or data migration. Current synthetic SQLite is not production storage.",
         "source": "current_user_request"
       },
       {
         "id": "student_knowledge_graph_ontology",
-        "statement": "Future student DB must support individual mathematics Knowledge Graphs and atomic prerequisite auditing/tracing, with an Ontology Layer comparable in purpose to Palantir AIP/Foundry across academy backend and student knowledge. Choose the solution carefully; PostgreSQL is a candidate to assess and D1 is no longer the default.",
+        "statement": "The product is Ontology-driven from its first unit: connect meaning, verified evidence, logic, permitted Actions, teacher/agent UX, Evals and recovery. Reuse common Backend knowledge under its separate Wiki owner. This is Palantir-derived local engineering, not Foundry/AIP adoption or parity. Future individual mathematics KG and atomic prerequisite traceability remain required; expanded concept queries and PostgreSQL/graph/provider comparison follow stable P2/Main operation, with no default provider.",
         "source": "user_interview"
       },
       {
         "id": "preclass_cohort_presentation",
-        "statement": "Display all students scheduled for the selected lesson date and label absence and makeup status; preserve the complete date-first class before selected-student detail.",
+        "statement": "Display every student occurrence for the selected lesson date, including absence/makeup labels, before selected-student detail. The user selected an always-visible whole-class preparation table in Main cells, with selected-student detail/originals/review in a Main-launched companion panel. The Lead designs exact placement while preserving current assessment/progress meanings, teacher O/R plans and legacy consumers. This UX choice is not an exact production layout/write envelope.",
         "source": "user_interview"
       },
       {
@@ -264,12 +270,12 @@
       },
       {
         "id": "backend_repeat_operations",
-        "statement": "After initial approval of exact target, fields, change rules and recovery, repeated refresh/write operations may run inside that approved envelope with exact readback. Teacher judgment, official record finalization and final parent sending remain reserved. No concrete production envelope has yet been admitted.",
+        "statement": "Repeated effects require an initial approved exact target/field/change-rule/recovery envelope and same-target readback; none is active. Teacher judgment, official finalization and parent sending remain human-owned. No real student audit store, installed scheduler or production migration is established by these decisions.",
         "source": "user_interview"
       },
       {
         "id": "backend_harness_scope",
-        "statement": "This session must update the repo profile runtime, required Skill/plugin selection and all applicable native prose, including SOUL.md, USER.md, MEMORY.md and repo AGENTS.md, and exercise their native consumers. Shared/runtime owners and original evidence remain distinct.",
+        "statement": "The predecessor completed profile/runtime/native-prose qualification and PR 7. The user now owns closing predecessor session default/20261001_172008_38175d; the Lead must not retry its management login or edit native history. For admitted site workflows prefer the existing profile-scoped native vault, explain site and persistence before first Save & sign in, and preserve origin/2FA/approval checks. No new runtime enablement setting or session-cookie persistence follows.",
         "source": "user_interview"
       },
       {
@@ -280,6 +286,11 @@
       {
         "id": "backend_ontology_reuse",
         "statement": "Reuse the Ontology workstream’s already verified continuity procedures and shared foundation instead of rebuilding them. The Lead helps prioritize incomplete requests through Whole-Lens decisions; knowledge reuse is not proof of automatic cross-profile synchronization.",
+        "source": "user_interview"
+      },
+      {
+        "id": "historical_approved_revision_views",
+        "statement": "For a past lesson, show the attributable final approved revision relevant to that lesson and retain later approved corrections separately for audit. The Lead recommends distinct occurrence/event, source-observed, approved and recorded times plus predecessor revisions. Approval time alone cannot reconstruct missing academy history. Missing original version or approval evidence remains unknown. Retaining real student/source payloads in a Backend DB requires a separately admitted protected destination and retention scope.",
         "source": "user_interview"
       }
     ],
@@ -293,27 +304,36 @@
       },
       {
         "id": "ontology_acceptance_queries",
-        "question": "Which atomic prerequisite audits, student-evidence explanations and teacher decisions must the ontology answer in the prime-factorization example?",
+        "question": "After stable P2/Main operation, which atomic prerequisite audits, student-evidence explanations and teacher decisions must the expanded personal mathematics KG answer in the prime-factorization example?",
         "dependentWork": "student_ontology_architecture",
         "state": "not_asked"
       },
       {
         "id": "ontology_provider_selection",
-        "question": "Which relational/graph/semantic approach and hosted provider best meet the confirmed ontology, temporal audit, access, scale and cost requirements?",
+        "question": "After P2 acceptance, the Lead compares relational/graph/hybrid storage against teacher queries, temporal audit, access, scale and verified costs; which material operating risks or cost commitments require user admission before selecting a provider?",
         "dependentWork": "hosted_student_database",
+        "state": "not_asked"
+      },
+      {
+        "id": "protected_history_storage_boundary",
+        "question": "Before copying actual student/source history, what teacher-only audience and retention boundary should govern official-source snapshots, session/Main supplements, approvals and later corrections? The Lead will propose a resource, architecture and restore path rather than ask the teacher to design plumbing.",
+        "dependentWork": "production_history_storage",
         "state": "not_asked"
       }
     ],
     "dispatch": [],
     "nextSteps": [
       {
-        "id": "qualify_backend_profile",
+        "id": "verify_p2_source_and_sheet_contracts",
         "owner": "lead",
         "action": "validate_confirmed_changes",
         "referencePaths": [
-          "docs/hermes-backend-profile.ts",
-          "AGENTS.md",
-          "tests/harness/hermesBackendProfile.test.ts"
+          "research/backend-map/README.md",
+          "src/lms/endpointCatalog.ts",
+          "docs/main-sheet-live-input-map-2026-10-01.json",
+          "docs/main-sheet-live-refresh-wiring.json",
+          "docs/main-sheet-trailing-five-disposition-2026-10-01.json",
+          "tests/lms/endpointCatalog.test.ts"
         ],
         "dependsOnQuestionIds": []
       },
@@ -322,7 +342,7 @@
         "owner": "lead",
         "action": "resolve_continuation_source",
         "referencePaths": [
-          "handoffs/harness-phase-two-checkpoint-2026-10-01.json",
+          "docs/student-database-architecture-2026-10-01.json",
           "docs/learning/domain-design.json"
         ],
         "dependsOnQuestionIds": [

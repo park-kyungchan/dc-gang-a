@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "kind": "source_bounded_consolidation_disposition",
+  "status": "identities_and_top_six_rows_observed_ownership_and_migration_unverified",
+  "target": {
+    "spreadsheetId": "1R8DoOOo5yg3M1hgHPA0Vuqp3Ng-K5bQgxdiy5dEeXOg",
+    "mainSheetId": 1754681846,
+    "mainSheetTitle": "박경찬"
+  },
+  "selection": {
+    "meaning": "The last five visible sheet tabs, not the last five tabs including hidden recovery and compatibility tabs.",
+    "expectedCount": 5,
+    "verifiedSelectedCount": 5,
+    "observation": "Each visible tab was selected through the actual UI; selected title and gid were compared before any bounded header read.",
+    "domInventory": {
+      "sheetTabElements": 41,
+      "visibleSheetTabElements": 21,
+      "scope": "Observed DOM elements only; not authoritative whole-workbook API metadata or protection acceptance."
+    }
+  },
+  "readBoundary": {
+    "rangePerTab": "A1:P6",
+    "transport": "Existing Google browser origin; same-origin bounded gviz read with no credential extraction.",
+    "response": "HTTP 200 plus parsed wrapped JSON status ok for all five exact gids; only counts and an explicit header-term projection were retained.",
+    "computedValuesOnly": true,
+    "wholeTabCoverage": false,
+    "formulasAndDependenciesVerified": false,
+    "deployedScriptConsumersVerified": false,
+    "exclusiveParkOwnershipVerified": false,
+    "rawStudentValuesPersisted": false,
+    "rawStudentValuesEmitted": false,
+    "credentialsOrMediaPersisted": false
+  },
+  "tabs": [
+    {
+      "sheetId": 388341901,
+      "title": "DB_실무체크리스트",
+      "selectedIdentityVerified": true,
+      "headerObservation": {
+        "returnedRows": 6,
+        "returnedColumns": 13,
+        "nonEmptyCells": 76,
+        "detectedTerms": ["학생", "학생명", "과제", "강사", "메모", "상태"],
+        "parkLabelPresent": true
+      },
+      "ownership": "unknown; a Park label in a multi-instructor workbook does not prove exclusive ownership",
+      "mainCandidate": "An owner-filtered current task/checklist projection beside the complete date-first preparation table.",
+      "backendCandidate": "Attributable task state, notes, review/correction revisions and evidence references in an independently admitted protected store.",
+      "migrationDisposition": "blocked_pending_exact_row_owner_source_consumer_destination_and_recovery_contract"
+    },
+    {
+      "sheetId": 623815441,
+      "title": "[샘플1] 보강_월간캘린더",
+      "selectedIdentityVerified": true,
+      "headerObservation": {
+        "returnedRows": 4,
+        "returnedColumns": 8,
+        "nonEmptyCells": 24,
+        "detectedTerms": ["학생", "원생", "보강", "캘린더"],
+        "parkLabelPresent": false
+      },
+      "ownership": "unknown; sample title and absent Park label do not establish owner or synthetic data",
+      "mainCandidate": "A month view over verified Park makeup occurrences, without treating a sample calendar as official schedule evidence.",
+      "backendCandidate": "Verified makeup occurrence identities, source schedule relations and append-only reschedule/cancellation history.",
+      "migrationDisposition": "preserve_original_until_ownership_and_actual_consumers_are_verified"
+    },
+    {
+      "sheetId": 1393112027,
+      "title": "[샘플2] 보강_주간타임테이블",
+      "selectedIdentityVerified": true,
+      "headerObservation": {
+        "returnedRows": 6,
+        "returnedColumns": 8,
+        "nonEmptyCells": 38,
+        "detectedTerms": ["수업", "시간", "보강"],
+        "parkLabelPresent": false
+      },
+      "ownership": "unknown; no exact Park partition or current schedule authority was established",
+      "mainCandidate": "A week/time-slot view of the same verified occurrences used by the selected-date preparation table.",
+      "backendCandidate": "Occurrence and effective schedule keys, teacher plans separately labelled, and verified change history.",
+      "migrationDisposition": "preserve_original_until_ownership_and_actual_consumers_are_verified"
+    },
+    {
+      "sheetId": 1022937147,
+      "title": "[샘플3] 보강_원생별어젠다",
+      "selectedIdentityVerified": true,
+      "headerObservation": {
+        "returnedRows": 6,
+        "returnedColumns": 9,
+        "nonEmptyCells": 42,
+        "detectedTerms": ["학생", "원생", "요일", "결석", "보강", "메모", "상태"],
+        "parkLabelPresent": false
+      },
+      "ownership": "unknown; student display labels are not stable identity or owner bindings",
+      "mainCandidate": "Selected-student makeup/follow-up detail with absence, unresolved relations and source timestamps visible.",
+      "backendCandidate": "Exact student/occurrence relations, attributable follow-up notes and append-only review or correction events.",
+      "migrationDisposition": "preserve_original_until_ownership_and_actual_consumers_are_verified"
+    },
+    {
+      "sheetId": 1242787357,
+      "title": "SPIKE_출석노트_TEST",
+      "selectedIdentityVerified": true,
+      "headerObservation": {
+        "returnedRows": 4,
+        "returnedColumns": 16,
+        "nonEmptyCells": 24,
+        "detectedTerms": ["요일", "출석", "보강"],
+        "parkLabelPresent": false
+      },
+      "ownership": "unknown; TEST in a title is not proof that all values are synthetic or disposable",
+      "mainCandidate": "Only a reviewed interaction pattern; never promote test attendance into official LMS attendance.",
+      "backendCandidate": "No production ingestion until each record's source, identity, owner and actual purpose are verified.",
+      "migrationDisposition": "no_production_promotion_or_deletion_from_title_alone"
+    }
+  ],
+  "consumerReview": {
+    "reviewedSourcePath": "spt/integrations",
+    "operation": "Literal source search for these five tab titles returned no matches in imported .gs files.",
+    "limitation": "This does not prove there is no deployed Apps Script, formula, named-range or other instructor consumer. Imported source is not installed code."
+  },
+  "confirmedProductDecisions": {
+    "homework": "Official academy DayRecord is the basis; attributable Main and profile-session additions are separate supplements for regular-lesson preparation.",
+    "experience": "Main cells keep the whole-class preparation table visible; a Main-launched panel holds selected-student detail, original links and teacher review.",
+    "historicalView": "Keep lesson/event, source observation, approval and recording times distinct. Preserve approved revisions and later corrections without rewriting the past or inventing missing academy versions.",
+    "ontology": "P2 connects meaning, evidence, logic, permissioned Actions, teacher/agent UX, Evals and recovery now. A database or this document alone is not product Ontology acceptance.",
+    "storage": "Main is the frontend. Protected production Backend storage, access and recovery remain unselected; existing synthetic SQLite is not the destination."
+  },
+  "currentAccessBoundary": {
+    "academyHome": "Earlier unauthenticated navigation returned a generic error screen; no teacher or lesson read was established.",
+    "nativeVault": "The user saved an origin-bound academy login through the native masked UI. Encrypted persistence and password-field fill were observed; no password or temporary session was copied into this artifact.",
+    "academyAuthentication": "Unverified: the normal login control has not produced a teacher-bound authenticated read. A successful vault fill is not a successful login.",
+    "directAcademyDatabase": "No approved direct DB schema/read interface was established; reviewed website/app operations remain the source-access boundary."
+  },
+  "effects": {
+    "sheetValueWrites": 0,
+    "sheetMetadataWrites": 0,
+    "sheetMigrations": 0,
+    "sheetDeletes": 0,
+    "academyRecordWrites": 0,
+    "parentSends": 0,
+    "productionDatabasesCreated": 0,
+    "schedulersOrGatewaysStarted": 0
+  },
+  "requiredBeforeMigration": [
+    "Verify the exact Park-owned records and complete selected field/history coverage, preserving all shared and other-instructor records.",
+    "Review current formulas, named ranges, protections and actual deployed script/consumer bindings.",
+    "Select and admit a teacher-only durable data destination, retention scope, authentication and restore policy before copying student history.",
+    "Preview an exact source/destination manifest with row/revision counts, unresolved joins, before/after consumer map and owned recovery.",
+    "Apply only the approved batch or recurring envelope, then read back the exact destination histories and preserve the original until parity and recovery pass."
+  ],
+  "sourceReferences": [
+    "handoffs/workflow-current-state.json",
+    "docs/main-sheet-live-input-map-2026-10-01.json",
+    "docs/main-sheet-live-refresh-wiring.json",
+    "docs/student-database-architecture-2026-10-01.json",
+    "research/backend-map/sheet-topology.json",
+    "spt/integrations/tracker/Tracker.gs",
+    "spt/integrations/tracker/SPTBridge.gs"
+  ],
+  "validation": {
+    "observedAtUtc": "2026-10-01T10:52:21Z",
+    "focusedCommand": "bun --no-env-file test --dots tests/harness/workflowCheckpoint.test.ts tests/harness/contextRouting.test.ts tests/harness/hermesBackendProfile.test.ts",
+    "focusedResult": { "passed": 48, "failed": 0, "assertions": 291 },
+    "earlierFailure": "An earlier focused run had 45 passes and one failure because the updated objective omitted the load-bearing Hermes Linux Backend execution boundary. The objective was corrected; the original regression assertion was preserved.",
+    "portableCommand": "bun --no-env-file run cloud:check",
+    "portableResult": { "passedTestExecutions": 727, "failedTestExecutions": 0, "skippedTestExecutions": 1 },
+    "typechecks": "Root, harness and agent-runtime checks passed in the portable gate; the additional root check passed.",
+    "sourceIntegrity": { "backendFiles": 13, "canonicalOperations": 54, "importedSourceFiles": 329 },
+    "nativeConsumer": "workflow:context validated the canonical owner, selected the P2 source step and retained false production-effect authority.",
+    "scope": "Source/discovery continuity and synthetic/source-integrity regression only; no all-student live read, teacher acceptance, migration or deployment acceptance."
+  },
+  "grantsProductionWrites": false,
+  "establishesP2Acceptance": false
+}
