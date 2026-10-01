@@ -1,0 +1,565 @@
+{
+  "schemaVersion": 1,
+  "asOfUtc": "2026-10-01",
+  "purpose": "User-owned workflow routing and evidence observability for the academy-to-Main-Sheet project.",
+  "scope": "Project files and supported task tools. This contract does not control the managed assistant, its model, permissions, context window, security, or network settings.",
+  "commands": {
+    "status": "bun run harness/workflow_checkpoint.ts status",
+    "doctor": "bun run harness/workflow_checkpoint.ts doctor",
+    "tests": "bun test --dots tests/harness/workflowCheckpoint.test.ts",
+    "dependencyDoctor": "bun run harness/backend_dependencies.ts doctor",
+    "context": "bun run workflow:context [continuation|interview|dependencies|main_sheet|google_integration|academy_local|spt_mobile]"
+  },
+  "execution": [
+    "Use the existing pinned Bun executable. If bun is absent from PATH, invoke its already verified executable path or prepend its bin directory for the current command only.",
+    "The workflow command never installs dependencies or launches a service, browser, sign-in, API call, next action, or file manager.",
+    "Status reads only its fixed checkpoint. Doctor additionally reads the fixed integration registry and two fixed project pointer dates, and reuses the existing backend dependency doctor. It never follows referenced commands or files.",
+    "Thunar is a file manager. Executable presence does not establish a running desktop, access to an arbitrary path, or managed-runtime control.",
+    "A successful exit means the requested local check passed. It does not mean the academy pipeline is complete or currently authorized.",
+    "Context reads its fixed canonical checkpoint and routing contract, then checks and hashes only selected allowlisted project sources. It emits required-read metadata, never source bodies or linked references; byte hashing does not establish agent reading or understanding. It never dispatches agents, executes referenced commands, calls APIs, or installs hooks."
+  ],
+  "checkpoint": {
+    "path": "handoffs/workflow-current-state.json",
+    "contract": "harness/workflow_checkpoint.ts",
+    "owner": "The task lead updates this small snapshot after a verified state change; no background writer is installed.",
+    "relationship": "This separate operational snapshot does not replace or rewrite the existing archival Cloud/evaluation pointers, roster authority, or production effect gates.",
+    "content": "Sanitized milestone enums, one step owner, one next-action enum, observation time, optional filename/hash references to sanitized evidence, and explicit unavailable context metrics. References are never automatically read by status or doctor. No credentials, authorization codes, process handles, student names/IDs, raw source data, or private session material.",
+    "evidenceRule": "reported_verified records another owner's report; verified is reserved for directly checked evidence. Synthetic substrate, live access, and user outcomes remain separate.",
+    "freshnessRule": "Even a same-day snapshot requires revalidation at an action transition. A historical snapshot is useful orientation, never current student/date or permission authority. Future-dated snapshots fail the CLI.",
+    "contextRule": "Used tokens and maximum context remain null unless a supported future product interface actually supplies them. This schema deliberately rejects guessed values; supporting real metrics would require an explicit schema revision.",
+    "engineeringContext": "Optional bounded typed Lead continuity: confirmed user answers, explicitly unresolved assumptions, pending interview questions, disjoint ownership, and next-step references. It has its own update timestamp and preserves all dated operational evidence fields. Capability blockers remain separate from unanswered interview questions and never imply approval or host access."
+  },
+  "integrationRegistry": {
+    "path": "docs/workflow-integration-registry.json",
+    "rule": "Use the one operational project/bot baseline explicitly per action. Preserve the second project while its intended role is unresolved. Consolidation here means one routing and evidence contract; no physical cloud merger, deletion, IAM migration, API enabling, or default-project change is performed."
+  },
+  "routes": [
+    {
+      "need": "Known source or metadata read",
+      "first": "Existing exact-target connector or verified backend read contract",
+      "fallback": "Authorized UI only for authentication, genuinely unexposed metadata, or source/visual verification"
+    },
+    {
+      "need": "Authentication continuation",
+      "first": "The task that owns the live sign-in process",
+      "fallback": "Recover through that owner after its verified result; a foreign process-handle error is not a sign-in failure"
+    },
+    {
+      "need": "Runtime or package health",
+      "first": "Existing backend dependency doctor",
+      "fallback": "Report its specific failure; use the reviewed bootstrap only when separately needed and authorized"
+    },
+    {
+      "need": "Current resource access",
+      "first": "Exact scoped read by the access owner",
+      "fallback": "Identify the missing resource/scope; successful GCP sign-in alone does not establish Drive/Sheets or LMS access"
+    },
+    {
+      "need": "Production mutation",
+      "first": "Refresh metadata/protections, review exact before/after/recovery, obtain batch approval",
+      "fallback": "Keep the source-backed draft available until approved, then read back the same target"
+    }
+  ],
+  "reviewTriggers": [
+    "A capability or route fails and the next fallback could duplicate a completed or failed attempt.",
+    "A process/task owner changes or an existing task unexpectedly becomes inactive.",
+    "A completed implementation or test milestone does not advance the chosen user outcome.",
+    "Resource scope, target, permission, or student/date evidence changes.",
+    "A milestone completes and the next exact acceptance condition must be chosen."
+  ],
+  "reviewOutput": [
+    "Observed obstruction",
+    "Smallest supported correction",
+    "One owner",
+    "Required evidence",
+    "Stopping condition"
+  ],
+  "acceptanceValidation": {
+    "contract": "Typed validators must follow the actual service response contract, including optional or incomplete configuration. Do not turn a desired deployment-readiness invariant into a transport-schema requirement.",
+    "separation": [
+      "HTTP/transport result",
+      "Response identity and scope",
+      "Independent metadata section validation",
+      "User-facing deployment readiness"
+    ],
+    "receiptRule": "Before aggregate acceptance, retain only the allowed minimized receipt for transport and each independently validated section. A failed chart section must not erase successful transport or already validated unrelated sections. Never persist tokens, authorization codes, or raw student data to recover evidence.",
+    "partialRule": "Report partial acceptance explicitly. If source bytes are unavailable, do not reconstruct missing fields or mark unvalidated sections verified.",
+    "retryRule": "Failure after a successful read does not itself authorize a new token or repeated read. Reconcile existing evidence and fix the pure validator first, then follow the current action-specific authorization.",
+    "observedTrigger": "On October 1, an approved metadata GET succeeded but aggregate acceptance failed on basic_chart_incomplete because populated chart domains/series were required. The known UI already showed an unconfigured axis/series. The correction is schema-faithful validation plus independent section receipts."
+  },
+  "nextUserOutcomeContract": {
+    "preview": "docs/main-sheet-native-preservation-preview.json",
+    "generator": "bun run harness/native_preservation_preview.ts",
+    "scope": "A preservation-first 48-row insertion preview derived from the existing sanitized receipt. The generator has no API, auth, cell-read, or production-write path.",
+    "review": "Separate verified before-state from arithmetic relocation expectations and unverified native behavior. Preserve whole-sheet protection semantics; do not infer new editable top-input cells, exact freeze behavior, or Q:R expansion from row insertion.",
+    "acceptance": "A readable exact-coordinate preview with explicit remaining native object, recovery rehearsal, and consumer-rebinding gaps. This is a review deliverable, not migration acceptance or deployment."
+  },
+  "sourceReferences": [
+    "harness/backend_dependencies.ts",
+    "docs/backend-tooling-contract.json",
+    "docs/workflow-integration-registry.json",
+    "harness/checkpoint.ts",
+    "harness/resume.ts",
+    "handoffs/current-state.json",
+    "handoffs/cloud-current-state.json"
+  ],
+  "developmentPolicy": {
+    "authority": "handoffs/workflow-current-state.json engineeringContext stores current user decisions and pending questions; routing remains a command-selection contract rather than another progress pointer.",
+    "ambiguity": "Ask for missing context before dependent implementation. Keep unanswered questions pending and dependent next steps blocked; proceed with independent confirmed setup and checks. Do not invent risk thresholds or promote assumptions automatically.",
+    "ownership": "One Lead owns integration. Delegate explicit objectives, file or directory ownership, validation references, and changed-path/evidence outputs through available host collaboration tools. Concurrent editors must own disjoint paths; read-only reviews may overlap.",
+    "nativeContext": "Root AGENTS.md and native skills direct the Lead to workflow:context at task start, after compaction and before interview/dispatch. Follow entryReadPlan to read durable intent and selected scoped contracts; hashes establish source presence, not agent comprehension. No native per-turn injection adapter or hooks are installed.",
+    "metrics": "Model family is a user preference. Actual host model and capacity remain unavailable in this project metadata; configured values and inherited model selection are not observations.",
+    "commandSelection": [
+      {
+        "need": "Task continuity or subagent dispatch",
+        "command": "bun run workflow:context",
+        "effects": "fixed_checkpoint_read_only"
+      },
+      {
+        "need": "Workflow contract change",
+        "command": "bun test --dots tests/harness/workflowCheckpoint.test.ts",
+        "effects": "focused_synthetic_test"
+      },
+      {
+        "need": "Changed feature scope",
+        "command": "Select explicit relevant package scripts or exact test paths from package.json; the Lead records the choice and its evidence.",
+        "effects": "scope_selected_validation"
+      },
+      {
+        "need": "Integrated portable environment validation",
+        "command": "bun run cloud:check",
+        "effects": "synthetic_and_source_integrity"
+      },
+      {
+        "need": "Unresolved requirement or Google resource scope",
+        "command": "Interview the user; keep dependent implementation pending until answered.",
+        "effects": "no_automatic_execution"
+      }
+    ],
+    "configurationScope": "Current user authorization is repository Cloud .codex/config.toml only. Windows/local-host connection and local global configuration work are cancelled. Repository file readback does not establish effective managed context capacity."
+  },
+  "contextReadRouting": {
+    "schemaVersion": 1,
+    "commonSourceIds": [
+      "agent_instructions",
+      "user_intent",
+      "product_direction",
+      "engineering_checkpoint",
+      "routing_contract"
+    ],
+    "sources": [
+      {
+        "id": "agent_instructions",
+        "path": "AGENTS.md",
+        "authority": "native_instructions",
+        "role": "Entry, effect boundaries, task ownership and subtree instruction policy.",
+        "declaredAsOf": null
+      },
+      {
+        "id": "user_intent",
+        "path": "docs/CODEX_CONTEXT.md",
+        "authority": "durable_intent",
+        "role": "Established instructor purpose, user-answer provenance and authority map; read before asking product basics.",
+        "declaredAsOf": "2026-09-27"
+      },
+      {
+        "id": "product_direction",
+        "path": "docs/WHOLE_LENS_DECISION.md",
+        "authority": "durable_intent",
+        "role": "Whole-Lens product priorities and teacher acceptance; dated readiness claims require separate revalidation.",
+        "declaredAsOf": "2026-09-27"
+      },
+      {
+        "id": "engineering_checkpoint",
+        "path": "handoffs/workflow-current-state.json",
+        "authority": "current_engineering",
+        "role": "Current engineering objective, confirmed answers, pending questions and dispatch ownership; engineering timestamp is separate from operational evidence.",
+        "declaredAsOf": null
+      },
+      {
+        "id": "routing_contract",
+        "path": "docs/workflow-routing.json",
+        "authority": "scope_contract",
+        "role": "This purpose-based source index and evidence/command boundaries.",
+        "declaredAsOf": "2026-10-01"
+      },
+      {
+        "id": "cloud_environment",
+        "path": "harness/cloud-environment.json",
+        "authority": "scope_contract",
+        "role": "Cloud setup and archival source boundaries; no live academy readiness claim.",
+        "declaredAsOf": "2026-09-30"
+      },
+      {
+        "id": "cloud_checkpoint",
+        "path": "handoffs/cloud-current-state.json",
+        "authority": "dated_evidence",
+        "role": "Preserved Cloud setup checkpoint, not a replacement for the current engineering objective.",
+        "declaredAsOf": "2026-09-30"
+      },
+      {
+        "id": "cloud_start_skill",
+        "path": ".agents/skills/codex-cloud-start/SKILL.md",
+        "authority": "native_instructions",
+        "role": "Pinned runtime activation and source-only Cloud continuation.",
+        "declaredAsOf": null
+      },
+      {
+        "id": "runtime_capabilities",
+        "path": "harness/runtime-capabilities.json",
+        "authority": "dated_evidence",
+        "role": "Prior declared/observed capability inventory; recheck current tool availability rather than inheriting old connections.",
+        "declaredAsOf": "2026-09-29"
+      },
+      {
+        "id": "backend_tooling",
+        "path": "docs/backend-tooling-contract.json",
+        "authority": "scope_contract",
+        "role": "Current bounded backend tooling and existing dependency doctor.",
+        "declaredAsOf": "2026-10-01"
+      },
+      {
+        "id": "package_scripts",
+        "path": "package.json",
+        "authority": "source_reference",
+        "role": "Existing pinned dependencies and exact validation scripts.",
+        "declaredAsOf": null
+      },
+      {
+        "id": "main_sheet_design",
+        "path": "docs/main-sheet-design.json",
+        "authority": "scope_contract",
+        "role": "Learning-view product design and mobile pause; historical grid/selectors must be reconciled with live wiring.",
+        "declaredAsOf": "2026-10-01"
+      },
+      {
+        "id": "main_sheet_live_wiring",
+        "path": "docs/main-sheet-live-refresh-wiring.json",
+        "authority": "scope_contract",
+        "role": "Scoped current template/read/refresh contract, recorded preparation time, blockers and mutation gates.",
+        "declaredAsOf": "2026-10-01"
+      },
+      {
+        "id": "main_sheet_live_input",
+        "path": "docs/main-sheet-live-input-map-2026-10-01.json",
+        "authority": "dated_evidence",
+        "role": "Sanitized observed template semantics; observation does not establish current resource access or projection authority.",
+        "declaredAsOf": "2026-10-01"
+      },
+      {
+        "id": "native_preservation",
+        "path": "docs/main-sheet-native-preservation-preview.json",
+        "authority": "dated_evidence",
+        "role": "Bounded earlier native-preservation preview and its explicit execution gaps.",
+        "declaredAsOf": "2026-10-01"
+      },
+      {
+        "id": "learning_domain",
+        "path": "docs/learning/domain-design.json",
+        "authority": "scope_contract",
+        "role": "Learning hierarchy, exact identity, source observation and teacher plan separation.",
+        "declaredAsOf": null
+      },
+      {
+        "id": "weekly_audit",
+        "path": "docs/learning/weekly-audit.json",
+        "authority": "scope_contract",
+        "role": "Implemented offline weekly learning increment and known acceptance boundaries.",
+        "declaredAsOf": "2026-10-01"
+      },
+      {
+        "id": "google_api_proposal",
+        "path": "docs/google-api-enablement-proposal-2026-10-01.json",
+        "authority": "scope_contract",
+        "role": "Proposal-only Google service dependencies, confirmed cost/refresh intent and unresolved decisions.",
+        "declaredAsOf": "2026-10-01"
+      },
+      {
+        "id": "integration_registry",
+        "path": "docs/workflow-integration-registry.json",
+        "authority": "scope_contract",
+        "role": "One operational project baseline and preserved unresolved secondary-project role.",
+        "declaredAsOf": "2026-10-01"
+      },
+      {
+        "id": "academy_checkpoint",
+        "path": "handoffs/current-state.json",
+        "authority": "dated_evidence",
+        "role": "Local academy phase and teacher scope; fail-closed local resume validates its current authority window.",
+        "declaredAsOf": "2026-09-29"
+      },
+      {
+        "id": "academy_read_contracts",
+        "path": "docs/WHOLE_LENS_READ_CONTRACTS.md",
+        "authority": "scope_contract",
+        "role": "Verified source and exact-occurrence read requirements; unavailable joins stay unknown.",
+        "declaredAsOf": null
+      },
+      {
+        "id": "backend_map",
+        "path": "research/backend-map/README.md",
+        "authority": "source_reference",
+        "role": "Canonical source/effect map entrypoint; do not rediscover routes by scanning dumps.",
+        "declaredAsOf": null
+      },
+      {
+        "id": "academy_routes",
+        "path": "research/backend-map/route-registry.json",
+        "authority": "source_reference",
+        "role": "Reviewed exact backend operation registry; query through deterministic harness routes.",
+        "declaredAsOf": null
+      },
+      {
+        "id": "main_sheet_skill",
+        "path": ".agents/skills/park-main-sheet/SKILL.md",
+        "authority": "native_instructions",
+        "role": "Main Sheet review and native-edit workflow.",
+        "declaredAsOf": null
+      },
+      {
+        "id": "spt_instructions",
+        "path": "spt/AGENTS.md",
+        "authority": "native_instructions",
+        "role": "SPT subtree boundaries; source import and running service are separate authorities.",
+        "declaredAsOf": null
+      },
+      {
+        "id": "source_imports",
+        "path": "docs/source-import-manifest.json",
+        "authority": "dated_evidence",
+        "role": "Pinned imported-source provenance, not deployment or device acceptance.",
+        "declaredAsOf": "2026-09-28"
+      },
+      {
+        "id": "student_database_architecture",
+        "path": "docs/student-database-architecture-2026-10-01.json",
+        "authority": "scope_contract",
+        "role": "Phase-two proposed student database and cross-source identity/history architecture; design is not a deployed database or verified live join.",
+        "declaredAsOf": "2026-10-01"
+      },
+      {
+        "id": "preclass_main_sheet_ux",
+        "path": "docs/preclass-main-sheet-ux-2026-10-01.json",
+        "authority": "scope_contract",
+        "role": "Phase-two proposed all-date-attending-student review UX and first teacher acceptance; plan is not deployed UI or live source completion.",
+        "declaredAsOf": "2026-10-01"
+      },
+      {
+        "id": "phase_two_dependencies",
+        "path": "review/harness-phase-two-dependencies-2026-10-01.json",
+        "authority": "dated_evidence",
+        "role": "Phase-two bounded dependency audit separating declared, installed, verified and untested capabilities; not resource or deployment authority.",
+        "declaredAsOf": "2026-10-01"
+      },
+      {
+        "id": "main_sheet_tab_visibility",
+        "path": "review/main-sheet-tab-visibility-2026-10-01.json",
+        "authority": "dated_evidence",
+        "role": "Exact approved auxiliary-tab visibility change and readback: all Park-only tabs except Main hidden; receipt is not deletion, access restriction or future write authority.",
+        "declaredAsOf": "2026-10-01"
+      },
+      {
+        "id": "phase_two_checkpoint",
+        "path": "handoffs/harness-phase-two-checkpoint-2026-10-01.json",
+        "authority": "current_engineering",
+        "role": "Latest user-requested pause and new-session KG/Ontology interview checkpoint. Provider selection is unresolved; SQLite/UX are prior synthetic prototypes.",
+        "declaredAsOf": "2026-10-01"
+      }
+    ],
+    "purposes": [
+      {
+        "id": "continuation",
+        "sourceIds": [
+          "cloud_environment",
+          "cloud_checkpoint",
+          "cloud_start_skill",
+          "main_sheet_live_wiring",
+          "student_database_architecture",
+          "preclass_main_sheet_ux",
+          "phase_two_dependencies",
+          "main_sheet_tab_visibility",
+          "phase_two_checkpoint"
+        ],
+        "entryRule": "For source-only Cloud continuation use cloud:start and the engineering checkpoint. Local academy resume belongs to academy_local and remains fail-closed; expired academy evidence must not block reading durable product intent.",
+        "commandReferences": [
+          "bun run cloud:start",
+          "bun run workflow:context"
+        ],
+        "interviewRule": "Read durable intent and current scoped contracts before interviewing or dispatch. Ask only unresolved differences, changed priorities or missing decisions; preserve confirmed answers."
+      },
+      {
+        "id": "interview",
+        "sourceIds": [
+          "main_sheet_design",
+          "main_sheet_live_wiring",
+          "learning_domain",
+          "weekly_audit",
+          "google_api_proposal",
+          "integration_registry",
+          "student_database_architecture",
+          "preclass_main_sheet_ux",
+          "phase_two_dependencies",
+          "main_sheet_tab_visibility",
+          "phase_two_checkpoint"
+        ],
+        "entryRule": "Reconstruct established product and engineering purpose from source first. Reconcile scoped conflicts by owner and decision provenance; do not require fresh academy access to read repository intent.",
+        "commandReferences": [
+          "bun run workflow:context"
+        ],
+        "interviewRule": "Read phase-two database/UX/audit records and current confirmed answers before questions. Core purpose, accepted Mon-Fri 13:15-14:00 Asia/Seoul preparation/manual-any-day intent, first all-attending-student checklist, and approved Park auxiliary-tab hiding are already recorded; ask only unresolved dependent details."
+      },
+      {
+        "id": "dependencies",
+        "sourceIds": [
+          "cloud_environment",
+          "runtime_capabilities",
+          "backend_tooling",
+          "package_scripts",
+          "google_api_proposal",
+          "student_database_architecture",
+          "phase_two_dependencies",
+          "phase_two_checkpoint"
+        ],
+        "entryRule": "Use pinned runtime, package scripts and the existing dependency doctor. Separate installed packages, callable tools, live resource access and prospective hosted prerequisites.",
+        "commandReferences": [
+          "bun run harness/backend_dependencies.ts doctor",
+          "bun run cloud:check"
+        ],
+        "interviewRule": "Tie each proposed dependency to a verified task gap and the user outcome. Ask unresolved hosting, operating scope, scheduling or cost decisions before dependent provisioning."
+      },
+      {
+        "id": "main_sheet",
+        "sourceIds": [
+          "main_sheet_skill",
+          "main_sheet_design",
+          "main_sheet_live_wiring",
+          "main_sheet_live_input",
+          "native_preservation",
+          "learning_domain",
+          "weekly_audit",
+          "student_database_architecture",
+          "preclass_main_sheet_ux",
+          "main_sheet_tab_visibility",
+          "phase_two_checkpoint"
+        ],
+        "entryRule": "Read product design and exact live-template semantics together. Refresh exact target metadata before any production action; dated source hashes and previews are not live acceptance or write approval.",
+        "commandReferences": [
+          "bun run workflow:context"
+        ],
+        "interviewRule": "Read the phase-two UX/database design and tab-visibility receipt with scoped template wiring. First acceptance covers every date-attending student: pre-study, homework, grading, correction and teacher notes. Auxiliary tabs are hidden, not deleted; ask only unrecorded field/UX acceptance details."
+      },
+      {
+        "id": "google_integration",
+        "sourceIds": [
+          "google_api_proposal",
+          "integration_registry",
+          "main_sheet_live_wiring",
+          "backend_tooling",
+          "student_database_architecture",
+          "phase_two_dependencies",
+          "phase_two_checkpoint"
+        ],
+        "entryRule": "Treat the API artifact as a proposal. Revalidate the explicit project, identity, resource, current APIs and free-tier feasibility for each action; preserve the secondary project until its role is resolved.",
+        "commandReferences": [
+          "bun run harness/backend_dependencies.ts doctor",
+          "bun run workflow:context"
+        ],
+        "interviewRule": "Consult confirmed preparation_refresh_schedule for Mon-Fri 13:15-14:00 Asia/Seoul plus manual refresh any day, and preserve the Free Tier preference. Ask only unresolved source coverage, failure handling, runtime implementation and secondary-project role before dependent provisioning."
+      },
+      {
+        "id": "academy_local",
+        "sourceIds": [
+          "academy_checkpoint",
+          "academy_read_contracts",
+          "backend_map",
+          "academy_routes",
+          "runtime_capabilities"
+        ],
+        "entryRule": "Local academy continuation requires successful fail-closed resume with current teacher/student/date scope and verified read/authentication contracts. Source-only Cloud continuation must not bypass this gate or invent a roster.",
+        "commandReferences": [
+          "bun run harness/resume.ts --json",
+          "bun run harness roster --json",
+          "bun run harness routes --json"
+        ],
+        "interviewRule": "Investigate exact source contracts through deterministic harness queries before asking the teacher for source facts. Ask only teacher decisions or truly missing authority; unknown joins remain unknown."
+      },
+      {
+        "id": "spt_mobile",
+        "sourceIds": [
+          "spt_instructions",
+          "source_imports",
+          "main_sheet_design",
+          "cloud_environment"
+        ],
+        "entryRule": "Read SPT subtree instructions and distinguish imported source from the operational checkout/service. Reconcile the web-first candidate with the later documented mobile pause before dependent mobile work.",
+        "commandReferences": [
+          "bun run workflow:context"
+        ],
+        "interviewRule": "Do not reopen paid Apple membership or assume current device acceptance. Ask whether the recorded mobile pause should change only if the requested work depends on that choice."
+      }
+    ],
+    "scopeConflicts": [
+      {
+        "id": "preparation_schedule_scope",
+        "purposes": [
+          "continuation",
+          "interview",
+          "google_integration",
+          "dependencies"
+        ],
+        "sourceIds": [
+          "engineering_checkpoint",
+          "main_sheet_live_wiring",
+          "google_api_proposal"
+        ],
+        "topic": "Dated wiring/proposal preserves the earlier 13:30 and 13:15-13:45 window; the current confirmed preparation_refresh_schedule answer sets Mon-Fri 13:15-14:00 Asia/Seoul, with manual refresh any day.",
+        "resolutionRule": "Consult engineeringContext.confirmedDecisions preparation_refresh_schedule and its current-user provenance. Do not re-ask accepted weekdays, time window or manual refresh availability. Exact source coverage, runtime activation and failure handling remain separate; a confirmed request is not an installed schedule."
+      },
+      {
+        "id": "mobile_candidate_and_pause",
+        "purposes": [
+          "continuation",
+          "interview",
+          "spt_mobile"
+        ],
+        "sourceIds": [
+          "product_direction",
+          "main_sheet_design"
+        ],
+        "topic": "Durable direction selects an iPhone web-app candidate; scoped Main Sheet design records mobile paused until backend and operating Sheet contracts stabilize.",
+        "resolutionRule": "Preserve the web-first/no-paid-Apple preference and the scoped pause together. Reconcile an intended change before dependent mobile implementation; a newer date alone does not reopen or withdraw the route."
+      },
+      {
+        "id": "main_sheet_layout_scope",
+        "purposes": [
+          "continuation",
+          "interview",
+          "main_sheet"
+        ],
+        "sourceIds": [
+          "main_sheet_design",
+          "main_sheet_live_wiring",
+          "main_sheet_live_input",
+          "native_preservation"
+        ],
+        "topic": "The historical design/preview describes 160 by 16 and I5/I8; scoped deployed wiring describes 133 by 18, C4:R47 and removed selectors.",
+        "resolutionRule": "Use exact template semantics and linked observed receipt for that scoped layout, preserving teacher-owned O/R plans. Refresh current metadata before a real action; do not apply a historical renderer or declare live access from a newer file."
+      },
+      {
+        "id": "official_field_grouping",
+        "purposes": [
+          "interview",
+          "main_sheet",
+          "academy_local"
+        ],
+        "sourceIds": [
+          "product_direction",
+          "main_sheet_live_wiring",
+          "academy_read_contracts"
+        ],
+        "topic": "Whole-Lens describes eight official save fields while current wiring groups six business fields and defaults to selected_fields.",
+        "resolutionRule": "Reconcile field-specific wire contracts and business grouping before an official save. Counts alone neither prove a contradiction nor broaden approved exact values or production authority."
+      }
+    ]
+  }
+}

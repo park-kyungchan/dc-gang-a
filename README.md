@@ -4,7 +4,7 @@ This repository holds the Main Sheet workbench, a source snapshot of SPT, and th
 
 ## Start on another Windows PC
 
-Clone the [private GitHub repository](https://github.com/park-kyungchan/dc-gang-a), open its root in a coding agent, and read [AGENTS.md](AGENTS.md), the [portable workspace guide](docs/PORTABLE_WORKSPACE.md), and the [active handoff](handoffs/2026-09-28-antigravity-session-recovery.md). Antigravity CLI reads root `AGENTS.md`. Authentication, student records, and local runtime installations are not carried by Git.
+Clone the [GitHub repository](https://github.com/park-kyungchan/dc-gang-a), open its root in a coding agent, and read [AGENTS.md](AGENTS.md), the [portable workspace guide](docs/PORTABLE_WORKSPACE.md), and the [active handoff](handoffs/2026-09-28-antigravity-session-recovery.md). Antigravity CLI reads root `AGENTS.md`. Authentication, student records, and local runtime installations are not carried by Git. An access-controlled repository is recommended; this guide does not verify its current visibility.
 
 ```powershell
 bun install --frozen-lockfile

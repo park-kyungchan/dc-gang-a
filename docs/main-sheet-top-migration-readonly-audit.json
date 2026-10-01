@@ -1,0 +1,1382 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-01T02:05:51Z",
+  "scope": "read_only_top_migration_audit",
+  "productionWrites": 0,
+  "realStudentRecordsCopied": 0,
+  "target": {
+    "spreadsheetId": "1R8DoOOo5yg3M1hgHPA0Vuqp3Ng-K5bQgxdiy5dEeXOg",
+    "sheetId": 1754681846,
+    "sheetName": "박경찬",
+    "nativeGrid": {
+      "rows": 160,
+      "columns": 16
+    },
+    "frozenRows": 2
+  },
+  "intendedChange": {
+    "insertRows": {
+      "startIndex": 0,
+      "endIndex": 48
+    },
+    "originalBefore": "A1:P160",
+    "originalAfter": "A49:P208",
+    "template": "A1:R47",
+    "spacer": "A48:R48",
+    "studentAreaBlank": "C4:R47",
+    "selectorTranslation": {
+      "I5": "I53",
+      "I8": "I56"
+    },
+    "addColumns": "Q:R",
+    "preserveExistingColumnWidths": "A:P"
+  },
+  "commonTemplate": {
+    "sourceSheetId": 0,
+    "sourceRange": "A1:R47",
+    "allowedValues": {
+      "A2": {
+        "stringValue": "선생님"
+      },
+      "B2": {
+        "stringValue": "학년"
+      },
+      "C2": {
+        "stringValue": "학생이름"
+      },
+      "D2": {
+        "stringValue": "LCAD\n점수"
+      },
+      "E2": {
+        "stringValue": "지난과정 학기 인증 평가"
+      },
+      "M2": {
+        "stringValue": "현재 진도현황"
+      },
+      "E3": {
+        "stringValue": "선행"
+      },
+      "F3": {
+        "stringValue": "학습기간"
+      },
+      "G3": {
+        "stringValue": "평가일"
+      },
+      "H3": {
+        "stringValue": "점수"
+      },
+      "I3": {
+        "stringValue": "심화"
+      },
+      "J3": {
+        "stringValue": "학습기간"
+      },
+      "K3": {
+        "stringValue": "평가일"
+      },
+      "L3": {
+        "stringValue": "점수"
+      },
+      "M3": {
+        "stringValue": "선행"
+      },
+      "N3": {
+        "stringValue": "시작일"
+      },
+      "O3": {
+        "stringValue": "예상종료일"
+      },
+      "P3": {
+        "stringValue": "심화"
+      },
+      "Q3": {
+        "stringValue": "시작일"
+      },
+      "R3": {
+        "stringValue": "예상종료일"
+      },
+      "A4": {
+        "stringValue": "박경찬"
+      },
+      "B4": {
+        "stringValue": "초3"
+      },
+      "B9": {
+        "stringValue": "초4"
+      },
+      "B18": {
+        "stringValue": "초5"
+      },
+      "B31": {
+        "stringValue": "초6"
+      }
+    },
+    "merges": [
+      "B4:B8",
+      "B9:B17",
+      "B18:B30",
+      "B31:B47",
+      "A2:A3",
+      "B2:B3",
+      "C2:C3",
+      "D2:D3",
+      "E2:L2",
+      "M2:R2",
+      "A4:A47"
+    ],
+    "allRowsHeightPixels": 21,
+    "sourceFormulaCount": 0
+  },
+  "targetGeometry": {
+    "sourceFormat": "XLSX export",
+    "nativePixelsNotVerified": true,
+    "defaultColumnWidthXlsx": 12.63,
+    "columns": [
+      {
+        "customWidth": "1",
+        "min": "1",
+        "max": "1",
+        "width": "10.75"
+      },
+      {
+        "customWidth": "1",
+        "min": "2",
+        "max": "2",
+        "width": "13.88"
+      },
+      {
+        "customWidth": "1",
+        "min": "3",
+        "max": "3",
+        "width": "12.0"
+      },
+      {
+        "customWidth": "1",
+        "min": "4",
+        "max": "4",
+        "width": "21.38"
+      },
+      {
+        "customWidth": "1",
+        "min": "5",
+        "max": "5",
+        "width": "30.13"
+      },
+      {
+        "customWidth": "1",
+        "min": "6",
+        "max": "6",
+        "width": "12.63"
+      },
+      {
+        "customWidth": "1",
+        "min": "7",
+        "max": "7",
+        "width": "2.63"
+      },
+      {
+        "customWidth": "1",
+        "min": "8",
+        "max": "8",
+        "width": "12.0"
+      },
+      {
+        "customWidth": "1",
+        "min": "9",
+        "max": "9",
+        "width": "13.25"
+      },
+      {
+        "customWidth": "1",
+        "min": "10",
+        "max": "11",
+        "width": "10.75"
+      },
+      {
+        "customWidth": "1",
+        "min": "12",
+        "max": "12",
+        "width": "12.0"
+      },
+      {
+        "customWidth": "1",
+        "min": "13",
+        "max": "13",
+        "width": "8.25"
+      },
+      {
+        "customWidth": "1",
+        "min": "14",
+        "max": "14",
+        "width": "10.75"
+      },
+      {
+        "customWidth": "1",
+        "min": "15",
+        "max": "15",
+        "width": "17.0"
+      },
+      {
+        "customWidth": "1",
+        "min": "16",
+        "max": "16",
+        "width": "8.88"
+      }
+    ],
+    "rows": [
+      {
+        "row": 1,
+        "heightPoints": 28.5,
+        "heightPixels": 38,
+        "hidden": false
+      },
+      {
+        "row": 2,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 3,
+        "heightPoints": 9,
+        "heightPixels": 12,
+        "hidden": false
+      },
+      {
+        "row": 4,
+        "heightPoints": 21,
+        "heightPixels": 28,
+        "hidden": false
+      },
+      {
+        "row": 5,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 6,
+        "heightPoints": 22.5,
+        "heightPixels": 30,
+        "hidden": false
+      },
+      {
+        "row": 7,
+        "heightPoints": 22.5,
+        "heightPixels": 30,
+        "hidden": false
+      },
+      {
+        "row": 8,
+        "heightPoints": 22.5,
+        "heightPixels": 30,
+        "hidden": false
+      },
+      {
+        "row": 9,
+        "heightPoints": 22.5,
+        "heightPixels": 30,
+        "hidden": false
+      },
+      {
+        "row": 10,
+        "heightPoints": 18,
+        "heightPixels": 24,
+        "hidden": false
+      },
+      {
+        "row": 11,
+        "heightPoints": 42,
+        "heightPixels": 56,
+        "hidden": false
+      },
+      {
+        "row": 12,
+        "heightPoints": 18,
+        "heightPixels": 24,
+        "hidden": false
+      },
+      {
+        "row": 13,
+        "heightPoints": 42,
+        "heightPixels": 56,
+        "hidden": false
+      },
+      {
+        "row": 14,
+        "heightPoints": 18,
+        "heightPixels": 24,
+        "hidden": false
+      },
+      {
+        "row": 15,
+        "heightPoints": 45,
+        "heightPixels": 60,
+        "hidden": false
+      },
+      {
+        "row": 16,
+        "heightPoints": 45,
+        "heightPixels": 60,
+        "hidden": false
+      },
+      {
+        "row": 17,
+        "heightPoints": 18,
+        "heightPixels": 24,
+        "hidden": false
+      },
+      {
+        "row": 18,
+        "heightPoints": 48.75,
+        "heightPixels": 65,
+        "hidden": false
+      },
+      {
+        "row": 19,
+        "heightPoints": 48.75,
+        "heightPixels": 65,
+        "hidden": false
+      },
+      {
+        "row": 20,
+        "heightPoints": 48.75,
+        "heightPixels": 65,
+        "hidden": false
+      },
+      {
+        "row": 21,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 22,
+        "heightPoints": 9,
+        "heightPixels": 12,
+        "hidden": false
+      },
+      {
+        "row": 23,
+        "heightPoints": 19.5,
+        "heightPixels": 26,
+        "hidden": false
+      },
+      {
+        "row": 24,
+        "heightPoints": 21,
+        "heightPixels": 28,
+        "hidden": false
+      },
+      {
+        "row": 25,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 26,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 27,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 28,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 29,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 30,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 31,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 32,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 33,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 34,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 35,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 36,
+        "heightPoints": 12,
+        "heightPixels": 16,
+        "hidden": false
+      },
+      {
+        "row": 37,
+        "heightPoints": 28.5,
+        "heightPixels": 38,
+        "hidden": false
+      },
+      {
+        "row": 38,
+        "heightPoints": 21,
+        "heightPixels": 28,
+        "hidden": false
+      },
+      {
+        "row": 39,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 40,
+        "heightPoints": 34.5,
+        "heightPixels": 46,
+        "hidden": false
+      },
+      {
+        "row": 41,
+        "heightPoints": 34.5,
+        "heightPixels": 46,
+        "hidden": false
+      },
+      {
+        "row": 42,
+        "heightPoints": 34.5,
+        "heightPixels": 46,
+        "hidden": false
+      },
+      {
+        "row": 43,
+        "heightPoints": 34.5,
+        "heightPixels": 46,
+        "hidden": false
+      },
+      {
+        "row": 44,
+        "heightPoints": 34.5,
+        "heightPixels": 46,
+        "hidden": false
+      },
+      {
+        "row": 45,
+        "heightPoints": 34.5,
+        "heightPixels": 46,
+        "hidden": false
+      },
+      {
+        "row": 46,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 47,
+        "heightPoints": 28.5,
+        "heightPixels": 38,
+        "hidden": false
+      },
+      {
+        "row": 48,
+        "heightPoints": 21,
+        "heightPixels": 28,
+        "hidden": false
+      },
+      {
+        "row": 49,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 50,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 51,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 52,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 53,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 54,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 55,
+        "heightPoints": 12,
+        "heightPixels": 16,
+        "hidden": false
+      },
+      {
+        "row": 56,
+        "heightPoints": 28.5,
+        "heightPixels": 38,
+        "hidden": false
+      },
+      {
+        "row": 57,
+        "heightPoints": 21,
+        "heightPixels": 28,
+        "hidden": false
+      },
+      {
+        "row": 58,
+        "heightPoints": 24,
+        "heightPixels": 32,
+        "hidden": false
+      },
+      {
+        "row": 59,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 60,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 61,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 62,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 63,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 64,
+        "heightPoints": 12,
+        "heightPixels": 16,
+        "hidden": false
+      },
+      {
+        "row": 65,
+        "heightPoints": 12,
+        "heightPixels": 16,
+        "hidden": false
+      },
+      {
+        "row": 66,
+        "heightPoints": 12,
+        "heightPixels": 16,
+        "hidden": false
+      },
+      {
+        "row": 67,
+        "heightPoints": 12,
+        "heightPixels": 16,
+        "hidden": false
+      },
+      {
+        "row": 68,
+        "heightPoints": 12,
+        "heightPixels": 16,
+        "hidden": false
+      },
+      {
+        "row": 69,
+        "heightPoints": 12,
+        "heightPixels": 16,
+        "hidden": false
+      },
+      {
+        "row": 70,
+        "heightPoints": 12,
+        "heightPixels": 16,
+        "hidden": false
+      },
+      {
+        "row": 71,
+        "heightPoints": 12,
+        "heightPixels": 16,
+        "hidden": false
+      },
+      {
+        "row": 72,
+        "heightPoints": 12,
+        "heightPixels": 16,
+        "hidden": false
+      },
+      {
+        "row": 73,
+        "heightPoints": 12,
+        "heightPixels": 16,
+        "hidden": false
+      },
+      {
+        "row": 74,
+        "heightPoints": 12,
+        "heightPixels": 16,
+        "hidden": false
+      },
+      {
+        "row": 75,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 76,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 77,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 78,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 79,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 80,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 81,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 82,
+        "heightPoints": 84,
+        "heightPixels": 112,
+        "hidden": false
+      },
+      {
+        "row": 83,
+        "heightPoints": 84,
+        "heightPixels": 112,
+        "hidden": false
+      },
+      {
+        "row": 84,
+        "heightPoints": 84,
+        "heightPixels": 112,
+        "hidden": false
+      },
+      {
+        "row": 85,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 86,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 87,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 88,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 89,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 90,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 91,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 92,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 93,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 94,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 95,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 96,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 97,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 98,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 99,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 100,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 101,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 102,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 103,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 104,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 105,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 106,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 107,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 108,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 109,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 110,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 111,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 112,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 113,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 114,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 115,
+        "heightPoints": 84,
+        "heightPixels": 112,
+        "hidden": false
+      },
+      {
+        "row": 116,
+        "heightPoints": 84,
+        "heightPixels": 112,
+        "hidden": false
+      },
+      {
+        "row": 117,
+        "heightPoints": 84,
+        "heightPixels": 112,
+        "hidden": false
+      },
+      {
+        "row": 118,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 119,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 120,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 121,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 122,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 123,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 124,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 125,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 126,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 127,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 128,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 129,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 130,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 131,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 132,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 133,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 134,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 135,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 136,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 137,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 138,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 139,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 140,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 141,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 142,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 143,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 144,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 145,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 146,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 147,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 148,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 149,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 150,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 151,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 152,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 153,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 154,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 155,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 156,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 157,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 158,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 159,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      },
+      {
+        "row": 160,
+        "heightPoints": 36,
+        "heightPixels": 48,
+        "hidden": false
+      }
+    ],
+    "merges": [
+      "A1:P1",
+      "A2:P2",
+      "A4:F4",
+      "H4:P4",
+      "O5:P5",
+      "I6:J6",
+      "L6:M6",
+      "I8:J8",
+      "O8:P8",
+      "H10:P10",
+      "A11:F11",
+      "H11:P11",
+      "H12:P12",
+      "H13:P13",
+      "H14:P14",
+      "H15:P16",
+      "H17:P17",
+      "H18:P20",
+      "A19:F19",
+      "A20:F20",
+      "H21:P21",
+      "A23:F23",
+      "A75:P75",
+      "A77:P77",
+      "A78:P78",
+      "A80:P80",
+      "A89:P89",
+      "A97:P97",
+      "A99:P99",
+      "D100:P100",
+      "D101:P101",
+      "D102:P102",
+      "D103:P103",
+      "D104:P104",
+      "D105:P105",
+      "A122:P122",
+      "A123:C123",
+      "D123:P123",
+      "A124:P124",
+      "A129:P129",
+      "A131:P131",
+      "D106:P106",
+      "D107:P107",
+      "D108:P108",
+      "D109:P109",
+      "A110:P110",
+      "A111:P111",
+      "A113:P113"
+    ]
+  },
+  "nativeObjects": {
+    "chartIds": [
+      1728410094
+    ],
+    "title": "학반별 2-Matrix 콤보 차트 (수업로그 건수 vs 과제 완료율)",
+    "chartSpec": "unexposed_by_read_connector",
+    "chartPosition": "unexposed_by_read_connector",
+    "images": "unverified",
+    "nativeProtectionAndExceptions": "unexposed_by_read_connector"
+  },
+  "exportLimitations": {
+    "nativeChartPresentButExportDrawingEmpty": true,
+    "exportSheetProtectionAbsent": true,
+    "exportAbsenceDoesNotProveNativeAbsence": true,
+    "notASafeRestorationArtifact": true,
+    "rawExportsDeleted": true
+  },
+  "blockers": [
+    {
+      "id": "native_protection_and_exceptions",
+      "status": "unverified",
+      "needed": "Exact current protected range IDs, mode, editors, and unprotectedRanges plus native insertion/readback behavior. Never save/change the protection while inspecting."
+    },
+    {
+      "id": "native_chart_and_image_inventory",
+      "status": "unverified",
+      "needed": "Native chart1728410094 spec/ranges/anchor/size; any embedded images or drawings; before/after native readback. Empty exported drawing is not absence."
+    },
+    {
+      "id": "live_consumer_inventory_and_quiescence",
+      "status": "unverified",
+      "needed": "Find actual Apps Script deployments/triggers, SPT consumers and outstanding sync leases. Source import and user SPT pause do not establish runtime inactivity."
+    },
+    {
+      "id": "post_insert_identity_rebinding",
+      "status": "unverified",
+      "needed": "Fresh student-ID/name/source-row confirmation; reviewed D1 settings and roster provenance update before any sync resumes. Do not blindly shift saved mappings."
+    },
+    {
+      "id": "native_reference_relocation_rehearsal",
+      "status": "unverified",
+      "needed": "Same-sheet, absolute, cross-tab, named/indirect/string formulas, validation/conditional-rule references, merged cells, notes, and chart source range behavior must survive insertion in a synthetic native rehearsal."
+    },
+    {
+      "id": "recovery_and_concurrency",
+      "status": "unverified",
+      "needed": "Verify reversible inverse row removal before concurrent edits or resumed consumers; check preserved cells/objects/protections and exact new-label block without logging real values."
+    },
+    {
+      "id": "top_layout",
+      "status": "unverified",
+      "needed": "Source47-row common block plus spacer above preserved original. Keep old A:P widths; very narrowG needs explicit native visual review/wrapping adaptation. Verify freeze after insertion."
+    }
+  ],
+  "consumerSourceHashes": [
+    {
+      "path": "spt/integrations/tracker/SPTBridge.gs",
+      "sha256": "59c7ff7f3684cd2d3235afc522175996416c07267a4efca2ce0b5fa829f5c0d1"
+    },
+    {
+      "path": "spt/lib/sheet-bridge.ts",
+      "sha256": "48b6e81dfa098d6ac4f987bc8105c405133efda95bdca0f04edba599b54a4f84"
+    },
+    {
+      "path": "spt/app/api/sheet/route.ts",
+      "sha256": "4e40affb28465020b6f8ecf5d262a8e03da5d9592c5e2b549fef9e79a0aaaa35"
+    },
+    {
+      "path": "spt/lib/roster.ts",
+      "sha256": "ca9d3fe5ab16a0f5c7ce351249bf45195161549193f237b13a346f6d528fc664"
+    }
+  ],
+  "sourceFindings": [
+    {
+      "path": "spt/integrations/tracker/SPTBridge.gs",
+      "lines": "176-183",
+      "finding": "Snapshot emits every nonempty column-C row after row3, including non-student labels."
+    },
+    {
+      "path": "spt/lib/sheet-bridge.ts",
+      "lines": "42-62",
+      "finding": "Persisted mappings use absolute mainRow. Unchanged mapping is rejected after+48 by the exact imported validateMappings function."
+    },
+    {
+      "path": "spt/app/api/sheet/route.ts",
+      "lines": "14-23",
+      "finding": "Connect persists mapping settings and roster revisions; reconnect is a consequential external write requiring a reviewed batch."
+    },
+    {
+      "path": "spt/lib/roster.ts",
+      "lines": "5-14",
+      "finding": "Roster source provenance persists mainRow, confirmedAt and snapshot hash."
+    },
+    {
+      "path": "src/sheets/parkMainSheetCutoverSpec.ts",
+      "finding": "Historical clear-and-rebuild sequence is not valid for preserving all original160rows."
+    }
+  ],
+  "safeNextSequence": [
+    "Complete exact native inventory and affected consumer inventory with read-only tools.",
+    "Use synthetic-only native rehearsal for insert48 at top, template write, preservation/readback, freeze and inverse rollback.",
+    "Review exact production batch against the fresh source revision; stop on any changed target or unknown preservation behavior.",
+    "Insert48 rows natively, addQ:R if still missing, then write only sanitized static labels/styles/merges inA1:R47. Preserve original cells by native shift, never clear or copy real records.",
+    "Read back shifted original content and native structures in memory without raw record logs; verify original objects and protections remained correct.",
+    "Keep consumer sync paused pending separately reviewed identity remapping and source-bound validation.",
+    "Do not blindly retry or reverse an uncertain batch. Re-read target state; require concurrency and preservation guards before inverse rollback."
+  ],
+  "tests": {
+    "file": "tests/sheets/parkMainTopMigrationAudit.test.ts",
+    "kind": "synthetic_nonexecuting_source_sandbox",
+    "actualLegacyFunctionsExecuted": true,
+    "liveSheetCalls": false,
+    "passed": 10,
+    "failed": 0,
+    "typecheck": "passed",
+    "doesNotEstablish": "native Google Sheets insertion, live integration state, preservation or deployment readiness",
+    "aggregateCloudCheck": {
+      "status": "passed",
+      "scope": "synthetic_and_source_integrity",
+      "testGroupPassCounts": [
+        246,
+        75,
+        111,
+        19,
+        69,
+        43
+      ],
+      "typechecks": [
+        "root",
+        "harness",
+        "agent-runtime"
+      ],
+      "backendFiles": 13,
+      "importedSourceFiles": 329,
+      "productionWrites": 0,
+      "afterReviewerFixes": true
+    },
+    "assertions": 219,
+    "regressionFixes": [
+      "reversed_column_range_rejected",
+      "strict_timezone_explicit_calendar_valid_instants"
+    ]
+  }
+}

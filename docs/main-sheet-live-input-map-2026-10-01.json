@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "status": "deployed_layout_semantic_map_not_projection_authority",
+  "observedAtUtc": "2026-10-01T05:24:00Z",
+  "spreadsheetId": "1R8DoOOo5yg3M1hgHPA0Vuqp3Ng-K5bQgxdiy5dEeXOg",
+  "sheetId": 1754681846,
+  "sheetTitle": "박경찬",
+  "url": "https://docs.google.com/spreadsheets/d/1R8DoOOo5yg3M1hgHPA0Vuqp3Ng-K5bQgxdiy5dEeXOg/edit?gid=1754681846#gid=1754681846",
+  "nativeState": {
+    "rows": 133,
+    "columns": 18,
+    "frozenRows": 3,
+    "gWidthPixels": 96,
+    "qrWidthPixels": 85,
+    "protectionCount": 0,
+    "chartCount": 0,
+    "formulaCount": 0,
+    "validationCount": 0,
+    "noteCount": 0,
+    "mergeCount": 37
+  },
+  "regions": {
+    "commonTemplate": {
+      "range": "A1:R47",
+      "teacherLabel": {
+        "anchor": "A4",
+        "merge": "A4:A47",
+        "value": "박경찬"
+      },
+      "headers": "A2:R3",
+      "studentSlots": {
+        "range": "C4:R47",
+        "count": 44,
+        "allBlankAtDeployment": true,
+        "gradeGroups": [
+          {
+            "grade": "초3",
+            "rows": "4:8",
+            "count": 5,
+            "gradeLabelMerge": "B4:B8"
+          },
+          {
+            "grade": "초4",
+            "rows": "9:17",
+            "count": 9,
+            "gradeLabelMerge": "B9:B17"
+          },
+          {
+            "grade": "초5",
+            "rows": "18:30",
+            "count": 13,
+            "gradeLabelMerge": "B18:B30"
+          },
+          {
+            "grade": "초6",
+            "rows": "31:47",
+            "count": 17,
+            "gradeLabelMerge": "B31:B47"
+          }
+        ]
+      }
+    },
+    "legacy": {
+      "range": "A48:P133",
+      "sourceBefore": "A75:P160",
+      "mapping": "newRow = oldRow - 27 for oldRow75..160 only",
+      "rows": 86,
+      "cells": 1376,
+      "cellMetadataPreservedExactly": true,
+      "ownership": "preserved_teacher_owned_or_unclassified; no auto-write ownership established",
+      "projectionPolicy": "read_only_until_exact_field_identity_and_ownership_binding",
+      "gWidthIntentionalChange": {
+        "before": 20,
+        "after": 96
+      },
+      "manualSelectors": "Former I5/I8 were deleted with old rows1:74; there are no native validations/selectors in the deployed main",
+      "notesAndPlans": "No cell notes remain; do not infer a notes/plans write area from legacy text or empty cells"
+    },
+    "extraColumns": {
+      "range": "Q48:R133",
+      "blank": true,
+      "ownership": "unassigned; not an automatic backend reservation"
+    },
+    "spacerRow": null
+  },
+  "columns": [
+    {
+      "column": "C",
+      "label": "학생이름",
+      "meaning": "student display name",
+      "kind": "text",
+      "identityWarning": "Name is not a stable student ID"
+    },
+    {
+      "column": "D",
+      "label": "LCAD 점수",
+      "meaning": "LCAD score",
+      "kind": "score"
+    },
+    {
+      "column": "E",
+      "label": "지난과정 학기 인증 평가 / 선행",
+      "meaning": "previous advance-course assessment course or level",
+      "kind": "text"
+    },
+    {
+      "column": "F",
+      "label": "학습기간",
+      "meaning": "previous advance-course learning period",
+      "kind": "period_text"
+    },
+    {
+      "column": "G",
+      "label": "평가일",
+      "meaning": "previous advance-course assessment date",
+      "kind": "date"
+    },
+    {
+      "column": "H",
+      "label": "점수",
+      "meaning": "previous advance-course assessment score",
+      "kind": "score"
+    },
+    {
+      "column": "I",
+      "label": "심화",
+      "meaning": "previous enrichment-course assessment course or level",
+      "kind": "text"
+    },
+    {
+      "column": "J",
+      "label": "학습기간",
+      "meaning": "previous enrichment-course learning period",
+      "kind": "period_text"
+    },
+    {
+      "column": "K",
+      "label": "평가일",
+      "meaning": "previous enrichment-course assessment date",
+      "kind": "date"
+    },
+    {
+      "column": "L",
+      "label": "점수",
+      "meaning": "previous enrichment-course assessment score",
+      "kind": "score"
+    },
+    {
+      "column": "M",
+      "label": "현재 진도현황 / 선행",
+      "meaning": "current advance-course progress",
+      "kind": "text"
+    },
+    {
+      "column": "N",
+      "label": "시작일",
+      "meaning": "current advance-course start date",
+      "kind": "date"
+    },
+    {
+      "column": "O",
+      "label": "예상종료일",
+      "meaning": "expected advance-course end date",
+      "kind": "planned_date",
+      "authorityWarning": "Expected date is a plan, not an observed official fact"
+    },
+    {
+      "column": "P",
+      "label": "심화",
+      "meaning": "current enrichment-course progress",
+      "kind": "text"
+    },
+    {
+      "column": "Q",
+      "label": "시작일",
+      "meaning": "current enrichment-course start date",
+      "kind": "date"
+    },
+    {
+      "column": "R",
+      "label": "예상종료일",
+      "meaning": "expected enrichment-course end date",
+      "kind": "planned_date",
+      "authorityWarning": "Expected date is a plan, not an observed official fact"
+    }
+  ],
+  "projectionGates": {
+    "autoOwnedRanges": [],
+    "studentRowsBound": false,
+    "sourceFieldContractsBound": false,
+    "studentIdsStoredInVisibleTop": false,
+    "existingManualValuesMustNeverBeOverwrittenBlindly": true,
+    "sourceFactsTeacherPlansAndNotesMustRemainDistinct": true,
+    "missingValuesMustNotBecomeZeroOrFalse": true,
+    "refreshWriteRequiresReviewedDiff": true,
+    "mainRowMappingMustBeReconfirmed": true,
+    "offsetAloneDoesNotProveIdentity": true
+  },
+  "rollback": {
+    "sheetId": 1946100518,
+    "sheetTitle": "_박경찬_배포전복구_20261001_0518",
+    "hidden": true,
+    "unprotected": true,
+    "range": "A1:P160",
+    "purpose": "native pre-deployment rollback only; not an active projection target"
+  },
+  "doesNotEstablish": [
+    "live academy reads",
+    "LMS-to-student/course/event joins",
+    "automatic refresh deployment",
+    "SPT synchronization or resumed runtime",
+    "installed trigger inventory",
+    "classroom or physical-device acceptance"
+  ],
+  "grantsProductionWrites": false
+}

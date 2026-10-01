@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact_tab_visibility_readback",
+  "observedAtUtc": "2026-10-01T07:25:00Z",
+  "observationTimePrecision": "minute_approximate",
+  "authorization": "Explicit current user request to hide Park Main linked auxiliary Sheets",
+  "spreadsheetId": "1R8DoOOo5yg3M1hgHPA0Vuqp3Ng-K5bQgxdiy5dEeXOg",
+  "mainSheetId": 1754681846,
+  "changes": [
+    {
+      "sheetId": 960975918,
+      "title": "박경찬_DB_문항",
+      "beforeHidden": false,
+      "afterHidden": true
+    },
+    {
+      "sheetId": 1651563591,
+      "title": "박경찬_문항관제",
+      "beforeHidden": false,
+      "afterHidden": true
+    }
+  ],
+  "verification": {
+    "connectorWriteSucceeded": true,
+    "metadataReadbackSucceeded": true,
+    "unrelatedMetadataUnchanged": true,
+    "parkRelatedTabs": 17,
+    "visibleParkTabs": [
+      {
+        "sheetId": 1754681846,
+        "title": "박경찬"
+      }
+    ],
+    "studentCellsRead": 0,
+    "studentCellsWritten": 0,
+    "formulasOrFormatsChanged": false
+  },
+  "recovery": [
+    {
+      "updateSheetProperties": {
+        "properties": {
+          "sheetId": 960975918,
+          "hidden": false
+        },
+        "fields": "hidden"
+      }
+    },
+    {
+      "updateSheetProperties": {
+        "properties": {
+          "sheetId": 1651563591,
+          "hidden": false
+        },
+        "fields": "hidden"
+      }
+    }
+  ],
+  "scopeSource": "docs/MAIN_SHEET_ONE_TAB_CUTOVER.md: 15 Park companion tabs; shared DB and other teacher tabs excluded",
+  "limits": [
+    "Hide is display organization and does not improve database concurrency or confidentiality.",
+    "Live automation and DB migration remain unimplemented; native source tabs and consumers preserved."
+  ]
+}

@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "kind": "lesson_journal_postclass_hitl_domain_design",
+  "asOf": "2026-10-01",
+  "status": "synthetic_non_executing_capability",
+  "source": {
+    "contractCandidates": "docs/lesson-journal-hitl-source-contracts.json",
+    "rowBindingEvidence": "docs/dayrecord-row-binding-source-evidence.json",
+    "existingPatterns": [
+      "src/learning/model.ts",
+      "src/learning/revisions.ts",
+      "src/sheets/auditedRefresh.ts"
+    ],
+    "interpretation": "Static source declarations and DOM binding evidence establish candidate shapes only. They do not establish a current exact target, complete wire contract, ownership, persistence, or permission to write.",
+    "methodSafety": "GET can mutate. The four prepared field actions are explicitly classified as mutation regardless of method."
+  },
+  "businessRequirements": {
+    "academyWriteBoundary": "Only lesson-journal changes may be considered. All other academy operations remain read-only.",
+    "mandatoryReviewFields": [
+      {
+        "field": "attendance",
+        "label": "출석",
+        "candidateShape": "inspected_static_candidate"
+      },
+      {
+        "field": "progress",
+        "label": "진도",
+        "candidateShape": "inspected_static_candidate"
+      },
+      {
+        "field": "homework",
+        "label": "숙제",
+        "candidateShape": "inspected_static_candidate"
+      },
+      {
+        "field": "lessonMemo",
+        "label": "수업 메모",
+        "candidateShape": "inspected_static_candidate"
+      },
+      {
+        "field": "previousHomeworkAssessment",
+        "label": "지난 숙제 평가",
+        "candidateShape": "blocked_unverified_previous_occurrence_adapter"
+      },
+      {
+        "field": "dailyTestAssessment",
+        "label": "일일테스트 평가",
+        "candidateShape": "blocked_unverified_assessment_adapter"
+      }
+    ],
+    "meaning": "The six fields are required product coverage, not per-field production write approval. A selected action may contain only a verified, explicitly policy-allowed change. Unmapped required fields remain visible as blocked drafts.",
+    "timing": "Supports post-class draft review. Real-time SPT/classroom UI integration is deferred.",
+    "defaultPolicy": {
+      "allowedFieldRules": [],
+      "automaticWriteApproval": false,
+      "maxSourceAgeMs": 300000,
+      "maxApprovalAgeMs": 300000,
+      "timingMeaning": "Configurable conservative domain freshness and approval-expiry defaults, not an instructor waiting-time threshold or proof of site behavior."
+    }
+  },
+  "files": {
+    "implementation": "src/lms/lessonJournalHitl.ts",
+    "tests": "tests/lms/lessonJournalHitl.test.ts"
+  },
+  "dataModel": {
+    "exactTarget": [
+      "teacherId",
+      "studentId",
+      "courseId",
+      "recordId",
+      "cmId",
+      "occurrenceId",
+      "lessonDate"
+    ],
+    "proof": "A separate independently verified teacher-and-occurrence proof must bind the entire target, with distinct teacher and occurrence evidence references and a validity interval. DOM row position, view date, current session, names, std_date, and non-date std_ymd are not substitutes.",
+    "sourceSnapshot": "Carries target proof, independent read origin, observation identity/time, source version, read-contract reference and source-contract version, plus typed known/unknown field values. Blank, numeric zero, string zero, false, missing and unknown remain distinct.",
+    "teacherPlan": "Carries separate target, teacher, plan/revision identity, source basis, proposed values and provenance references. Its approved status is ordinary plan data and cannot approve an academy write.",
+    "fieldPolicy": "An explicit allowlist plus local value-validation rules is required. Unknown fields, unknown before-values, disallowed fields and invalid values cannot become selected actions. Policy domains do not assert the site's unverified encoding, length or attendance semantics.",
+    "draft": "Immutable, canonical-hashed input and sorted per-field differences. Noop, changed and blocked states remain distinct. Draft editing creates a new revision linked to its predecessor; approval never transfers to it.",
+    "review": "An explicitly selected, nonempty subset of changed eligible fields. Each action binds destination, GET method, mutation effect, operation and selector, parameter name, source trigger, exact target, known before, proposed after and source version. The review hash also binds the complete draft, policy, source/provenance and recovery reference.",
+    "canonicalization": "Object-property order, field-selection order, policy-rule order, enumeration-domain order, source evidence-reference order and plan-reference order do not change equivalent results. No caller input is mutated.",
+    "audit": "Append-only, hash-linked metadata with target/draft/review/evidence digests, receipt and attempt references, observation/time and status. Exact before/after are retained in the immutable plan for review/recovery rather than copied into audit messages. No auth/header/cookie fields are accepted by the schemas. References must never contain secrets."
+  },
+  "lifecycle": [
+    {
+      "function": "createLessonJournalDraft",
+      "outcome": "Build a draft even with the default empty policy or unmapped mandatory assessment fields. Unsupported actions remain blocked; changed fields, noops and unknown before-state are explicit."
+    },
+    {
+      "function": "reviseLessonJournalDraft",
+      "outcome": "Append a linked immutable draft revision. Any payload, target, policy, source basis or teacher-plan change invalidates the old review digest."
+    },
+    {
+      "function": "prepareLessonJournalReview",
+      "outcome": "Select concrete eligible fields and freeze the exact before/after review. A review is not approval. Editing live controls is outside this function because focus-out/change may autosave."
+    },
+    {
+      "function": "gateLessonJournalReview",
+      "outcome": "Require a trusted approval verifier port plus independent fresh post-approval same-target read. Reject expiry, revocation, replay, edited reviews, changed source/version/contract, mismatched tuple/date and an unreconciled prior attempt. Return prepared_non_executing_journal_plan with execution=not_supported and persistence=not_established."
+    },
+    {
+      "function": "recordLessonJournalOutcomes",
+      "outcome": "Record caller-supplied future or synthetic per-field observations once. All reported successes still await readback. Missing, mixed, failed or unknown reports require reconciliation. This function never dispatches a write."
+    },
+    {
+      "function": "verifyLessonJournalReadback",
+      "outcome": "Only a distinct, fresh, independently authoritative post-attempt observation with the same exact target and read contract can establish currently persisted values. Report persisted, partial_persistence, not_persisted or unresolved. A UI echo, response status, callback or request dispatch cannot confirm persistence."
+    }
+  ],
+  "approvalBoundary": {
+    "requiredPort": "JournalApprovalVerifierPort.verify",
+    "defaultVerifier": "none",
+    "requiredTrustedResponsibilities": [
+      "Authenticate the approving person and their authority for this exact teacher/record scope",
+      "Retrieve the actual explicit approval of the presented selected before/after changes, recovery plan and exact digest",
+      "Return the matching receipt, attempt, draft/review digests, target, approval/expiry times and freshly checked revocation/use state",
+      "Supply current authoritative time and complete durable append-only history when a future integration exists",
+      "Durably serialize/consume receipts and recheck approval immediately before any future separately authorized live effect"
+    ],
+    "notAccepted": [
+      "caller approved:true",
+      "teacherPlan.status=approved",
+      "field requirement confirmation",
+      "source handler availability",
+      "a hash by itself"
+    ],
+    "trustLimitation": "This I/O-free layer validates supplied evidence and a required verifier port; it cannot authenticate a malicious implementation, invent missing live evidence, enforce a trusted clock, detect omitted history, or provide durable cross-process receipt consumption. No production verifier or executor is supplied."
+  },
+  "failureAndRecovery": {
+    "sourceChangedAfterApproval": "Require a new draft and exact review, even if an unselected source field or read/source contract changed.",
+    "partialOrUnknownEffect": "Never automatically repeat a field, batch or receipt. A new attempt/receipt on the same target cannot bypass an un-reconciled prior attempt in retained history.",
+    "readOnlyReconciliation": "Later distinct, newer independent reads may resolve partial or unknown persistence without any write retry. Reusing the old observation is rejected.",
+    "newChangeAfterReadback": "A new modification needs a newly read before-state after the previous reconciliation, a new draft and an independently verified new exact approval. No automatic rollback is issued; restoring a before-value is itself a new change.",
+    "attribution": "Matching readback values establish current same-target state, not that this attempt caused it.",
+    "raceLimit": "Before-read comparison is a preflight check only. The source exposes no verified conditional-write contract. No distributed CAS, backend transaction, atomic multi-field save, exactly-once effect, or race-free write is claimed.",
+    "logging": "Errors contain bounded reason codes rather than input values or provider exception details. A future trusted adapter must preserve blocked/rejected outcomes and full history without credentials or raw authentication."
+  },
+  "assessmentCautions": {
+    "previousHomeworkAssessment": "The previous-progress dialog references a different record with the same membership. A current lesson tuple or approval cannot authorize that previous record; an independently proven previous occurrence/date and field contract are required.",
+    "dailyTestAssessment": "The current-progress dialog is separate from a verified save contract. Same record/membership does not establish its input domain, reviewer ownership, persistence or side effects.",
+    "importedSourceConflict": "Historical source candidates name CourseCommonServlet mutating POST commands SetDailyTest and SetHomeWorkRate. Imported endpoint metadata uses daily_test_no/homework_rate_no while an old workflow uses daily_test_radio and a questionable current-record homework target. These disagree and are not adopted as current executable mappings.",
+    "remainingGaps": [
+      "complete current request payload and target bindings",
+      "teacher ownership",
+      "exact previous lesson/date",
+      "complete encoding and failure/response semantics",
+      "independent same-target before/readback",
+      "possible notification coupling"
+    ],
+    "latestSourceObservation": {
+      "observedOn": "2026-10-01",
+      "status": "current_source_observed_complete_contract_and_readback_pending",
+      "event": "Checked radio click calls jQuery.ajax POST to CourseCommonServlet. Human review must precede selecting the live radio.",
+      "controls": [
+        "homework_radio",
+        "daily_test_radio"
+      ],
+      "previousHomeworkDomain": [
+        {
+          "value": -1,
+          "label": "unknown"
+        },
+        {
+          "value": 0,
+          "label": "not_done"
+        },
+        {
+          "value": 1,
+          "label": "C"
+        },
+        {
+          "value": 2,
+          "label": "B"
+        },
+        {
+          "value": 3,
+          "label": "B+"
+        },
+        {
+          "value": 4,
+          "label": "A"
+        },
+        {
+          "value": 5,
+          "label": "A+"
+        }
+      ],
+      "dailyTestDomain": {
+        "unknown": -1,
+        "notDone": 0,
+        "scoreCodeRange": [
+          1,
+          10
+        ],
+        "displayedPointsRange": [
+          10,
+          100
+        ]
+      },
+      "authority": "Observed UI domains are descriptive evidence, not automatic field policy grants or write approval. The two domain adapters remain unsupported."
+    }
+  },
+  "explicitlyExcluded": [
+    "network transports or executable request URLs",
+    "browser control or live autosaving field edits",
+    "cookie, session or credential collection/binding",
+    "backend edits or production academy writes",
+    "Google Sheets writes",
+    "notification, Kakao, parent-send or delivery routes",
+    "schedulers, automatic batch execution or background retries",
+    "real-time SPT UI or deployment",
+    "automatic recovery writes or rollback",
+    "distributed locks, conditional-write tokens or transaction claims"
+  ],
+  "validation": {
+    "runtime": "Bun 1.4.2 / TypeScript 7.0.2",
+    "focusedCommand": "bun test --dots tests/lms/lessonJournalHitl.test.ts",
+    "focusedTestsPassed": 107,
+    "focusedTestsFailed": 0,
+    "focusedAssertions": 202,
+    "rootTypecheck": "passed",
+    "fixtures": "synthetic only; no private student values or authentication",
+    "coverage": [
+      "default denial and unsupported mandatory fields",
+      "source versus teacher-plan separation",
+      "exact teacher/student/course/record/cm/occurrence/date proof",
+      "known before, blank versus zero, noop and selected fields",
+      "stable immutable hashes and reordered equivalent inputs",
+      "missing verifier, caller booleans, tampered/rehashed actions and changed payload",
+      "expiry, revocation, receipt mismatch/replay and stale source after approval",
+      "partial, unknown, missing and reported-success outcomes",
+      "new IDs cannot bypass unresolved prior effects",
+      "independent same-target fresh readback and repeated read-only reconciliation",
+      "newly based draft and exact approval after reconciled partial effects"
+    ],
+    "priorV2DriveSnapshot": {
+      "testExecutions": 439,
+      "status": "unchanged_previous_milestone",
+      "includesThisIncrement": false,
+      "meaning": "Do not retroactively relabel the earlier snapshot or add these focused tests to it. The coordinator records the new aggregate gate separately."
+    },
+    "liveApprovalOrAcceptance": false,
+    "academyWritesPerformed": 0,
+    "deploymentPerformed": false,
+    "adjacentRegression": {
+      "command": "bun test --dots tests/learning tests/lms/lessonJournalHitl.test.ts tests/lms/dayRecordDomBinding.test.ts tests/sheets/auditedRefresh.test.ts",
+      "testsPassed": 248,
+      "testsFailed": 0,
+      "assertions": 654,
+      "files": 5
+    }
+  }
+}

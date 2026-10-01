@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "status": "reviewable_preview_blocked_for_execution",
+  "observedAtUtc": "2026-10-01T03:57:19.025Z",
+  "canonicalCheckpoint": "handoffs/workflow-current-state.json",
+  "evidence": {
+    "fileName": "sheet-native-preservation-repeat-receipts-2026-10-01.jsonl",
+    "location": "workspace_parent",
+    "receiptSha256": "c641630c9967baed1e3152e60b519cf488cc855ddd089fae995221dda6a4f48c",
+    "metadataSha256": "4e6131816114ee219c47aa9da5837ba9037a24cdfef9400cd77562c9f6b42a77",
+    "meaning": "Verified bounded metadata read, not preservation or deployment acceptance"
+  },
+  "target": {
+    "spreadsheetId": "1R8DoOOo5yg3M1hgHPA0Vuqp3Ng-K5bQgxdiy5dEeXOg",
+    "sheetId": 1754681846,
+    "title": "박경찬"
+  },
+  "verifiedBefore": {
+    "grid": {
+      "rows": 160,
+      "columns": 16,
+      "frozenRows": 2
+    },
+    "mergeCount": 48,
+    "chart": {
+      "id": 1728410094,
+      "type": "COMBO",
+      "domain": "A6:A9",
+      "series": "absent",
+      "anchor": "G21",
+      "offsetsPixels": {
+        "x": 20,
+        "y": 27
+      },
+      "sizePixels": {
+        "width": 818,
+        "height": 350
+      },
+      "specSha256": "4d856827febd01d8894e5378683b5a13a147aa0df9a8dcf84b160cb2c728ddc6",
+      "positionSha256": "44c780bd75a7f8236b3b9282176f2ade6e1d141fe7a58e9769ba0d17e70bc7f5",
+      "interpretation": "Absent series is an observed state; do not invent a series or replace/rebuild this chart"
+    },
+    "protection": {
+      "id": 1054892822,
+      "scope": "entire_sheet",
+      "enforced": true,
+      "unprotectedCells": [
+        "I5",
+        "I8"
+      ],
+      "explicitUsers": 3,
+      "groups": 0,
+      "domainUsersCanEdit": false,
+      "botIsExplicitEditor": true,
+      "connectedUserIsExplicitEditor": true,
+      "requestingUserCanEdit": true,
+      "requestingPrincipal": "canonical_sheet_bot",
+      "spreadsheetOwnerVerified": false
+    }
+  },
+  "declaredCandidate": {
+    "source": "src/sheets/parkMainTopMigrationAudit.ts",
+    "insertion": {
+      "dimension": "ROWS",
+      "startIndex": 0,
+      "endIndex": 48
+    },
+    "template": "A1:R47",
+    "spacer": "A48:R48",
+    "originalContent": {
+      "before": "A1:P160",
+      "expectedAfter": "A49:P208"
+    },
+    "rowInsertionOnlyGrid": {
+      "rows": 208,
+      "columns": 16
+    },
+    "candidateFinalGrid": {
+      "rows": 208,
+      "columns": 18
+    },
+    "separateColumnDecision": "The 18-column template needs Q:R expansion; a 48-row insertion alone does not add columns",
+    "studentValuesToWrite": 0
+  },
+  "machineCheckedCoordinateExpectations": {
+    "verification": "Arithmetic only; actual native relocation has not been rehearsed",
+    "shifts": [
+      {
+        "subject": "chart_anchor",
+        "before": "G21",
+        "after": "G69"
+      },
+      {
+        "subject": "chart_domain",
+        "before": "A6:A9",
+        "after": "A54:A57"
+      },
+      {
+        "subject": "protection_exception",
+        "before": "I5",
+        "after": "I53"
+      },
+      {
+        "subject": "protection_exception",
+        "before": "I8",
+        "after": "I56"
+      }
+    ],
+    "zeroBasedChartAnchor": {
+      "before": {
+        "rowIndex": 20,
+        "columnIndex": 6
+      },
+      "expectedAfter": {
+        "rowIndex": 68,
+        "columnIndex": 6
+      }
+    },
+    "zeroBasedChartDomain": {
+      "before": {
+        "sheetId": 1754681846,
+        "startRowIndex": 5,
+        "endRowIndex": 9,
+        "startColumnIndex": 0,
+        "endColumnIndex": 1
+      },
+      "expectedAfter": {
+        "sheetId": 1754681846,
+        "startRowIndex": 53,
+        "endRowIndex": 57,
+        "startColumnIndex": 0,
+        "endColumnIndex": 1
+      }
+    },
+    "chartIdentityPixelsAndUnconfiguredSeries": "Preserve chart ID, spec semantics, offsets, size, and absent-series state; verify native source-reference relocation"
+  },
+  "protectionDecision": {
+    "preserve": "Keep the original whole-sheet protection semantics and existing editor set, including any expanded grid",
+    "expectedOriginalExceptions": [
+      "I53",
+      "I56"
+    ],
+    "nativeRelocationVerified": false,
+    "newTopManualInputCells": "Not approved or inferred. A new editable top block requires an exact separately reviewed exception set",
+    "prohibitedInference": "Do not shrink protection to A49:P208 or unlock A1:R48 simply because rows were inserted"
+  },
+  "freezeDecision": {
+    "verifiedBeforeCount": 2,
+    "approvedAfterCount": null,
+    "rule": "Native insertion might adjust frozen boundaries. Neither keeping 2 nor inheriting 50 is accepted without native rehearsal and visual review"
+  },
+  "mergeDecision": {
+    "verifiedOriginalCount": 48,
+    "exactOriginalRangesAvailableInReceipt": false,
+    "rule": "Existing merges must relocate without loss. Original count is not an exact merge map; template merges are declared source, not verified native results"
+  },
+  "remainingAcceptance": [
+    "Native image/drawing inventory and preservation, beyond the verified chart",
+    "Native backup fidelity and inverse rollback rehearsal; digests and summaries are not restorable backups",
+    "Native reference relocation for formulas, names, chart sources, merge coordinates, validations, notes, and protection exceptions",
+    "Live SPT/other-consumer inventory and quiescence, then fresh identity rebinding rather than blindly adding 48 to persisted mainRow values",
+    "Teacher review of freeze behavior, Q:R expansion, template layout, and any new manual-input exceptions",
+    "Fresh exact-target checks and approval of the complete reversible production batch before any write"
+  ],
+  "minimalUserOutcome": "Review this preservation-first transition preview and the remaining native rehearsal decisions; no production mutation is needed to review it",
+  "authorization": {
+    "apiRequestsPerformed": 0,
+    "cellReadsPerformed": 0,
+    "writesPerformed": 0,
+    "nativeBehaviorVerified": false,
+    "preservationAcceptanceEstablished": false,
+    "deploymentPerformed": false,
+    "executableMutationBatchProduced": false,
+    "grantsFurtherTokenOrReadApproval": false
+  }
+}

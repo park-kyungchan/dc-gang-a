@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "kind": "studycourse_current_search_source_and_client_prerequisite_evidence",
+  "observedOn": "2026-10-01",
+  "observationTimezone": "Etc/UTC",
+  "observationWindowUtc": {
+    "start": "2026-10-01T02:54:49Z",
+    "end": "2026-10-01T03:00:49Z"
+  },
+  "supersedesOnly": {
+    "evidenceRef": "docs/current-read-and-textbook-binding-evidence.json",
+    "claim": "fresh_authenticated_assignment_read_blocked_by_expired_session",
+    "newStatus": "authentication_restored_but_course_search_blocked_by_native_install_layer",
+    "priorObservationRewritten": false,
+    "priorHistoryMismatchResolved": false
+  },
+  "scope": {
+    "goal": "Verify current Park student to course and textbook-edition assignment through exact source keys.",
+    "sourceUrl": "https://dc.gang-a.kr/servlet/controller.coursemanage.CourseManageServlet?reqCmd=StudyCourse",
+    "verifiedRegistryId": "study_course",
+    "browser": "dot_cloud_chrome",
+    "separateWorkerOwnedTab": true,
+    "sourceInspectionOnlyAfterBlockedClick": true,
+    "actualStudentReadCompleted": false
+  },
+  "authenticationObservation": {
+    "freshFixedShellNavigation": true,
+    "expectedRouteMatched": true,
+    "signedInParkAndLogoutMarkersPresent": true,
+    "passwordInputPresent": false,
+    "principalField": "userForm.pri_no",
+    "pageContextField": "form1.g_pri_no",
+    "bothNonempty": true,
+    "inPageIdentifierEquality": true,
+    "serverTeacherOwnershipOrIsolationProof": false,
+    "actualValuesPersisted": false
+  },
+  "formSchema": {
+    "name": "form1",
+    "method": "POST",
+    "actionPath": "/servlet/controller.coursemanage.CourseManageServlet",
+    "onsubmitAttribute": null,
+    "fields": [
+      { "name": "reqCmd", "type": "hidden" },
+      { "name": "g_clg_no", "type": "hidden" },
+      { "name": "g_mem_type", "type": "hidden" },
+      { "name": "g_pri_no", "type": "hidden" },
+      { "name": "grade_no", "type": "select-one" },
+      { "name": "cls_no", "type": "select-one" },
+      { "name": "student_name", "type": "text" }
+    ],
+    "searchControl": {
+      "selector": "#search-btn",
+      "tag": "SPAN",
+      "label": "검색",
+      "event": "onclick",
+      "handler": "onSearch"
+    }
+  },
+  "searchSourceContract": {
+    "handler": "onSearch",
+    "sourceDefinitionCount": 1,
+    "parameterNames": [],
+    "effectClassification": "read_search_source_and_historical_operation_evidence",
+    "currentRequestExecuted": false,
+    "guard": "Require a positive selected cls_no or a nonempty student_name; otherwise alert and return.",
+    "actionPath": "/servlet/controller.coursemanage.CourseManageServlet",
+    "selector": { "key": "reqCmd", "literal": "StudyCourse" },
+    "selectorPlacement": "query_on_form_action",
+    "method": "POST",
+    "queryBindings": [
+      { "key": "clg_no", "source": "document.getElementById(\"g_clg_no\").value" },
+      { "key": "cls_no", "source": "$(\"#cls_no option:selected\").val()" },
+      { "key": "student_name", "source": "$(\"#student_name\").val()" },
+      { "key": "grade_no", "source": "$(\"#grade_no option:selected\").val()" }
+    ],
+    "dispatch": "Set document.form1.action to the constructed query URL, then document.form1.submit().",
+    "explicitTutorQueryKey": false,
+    "formBodyContextIncludesGpriNo": true,
+    "serverParameterPrecedenceVerified": false,
+    "mutationOrSendOperationInInspectedHandler": false,
+    "encodingAndCurrentNetworkPayloadVerified": false
+  },
+  "classFilterEvidence": {
+    "totalRenderedClassOptions": 44,
+    "parkLabelOptionCount": 7,
+    "parkLabelDistinctValueCount": 7,
+    "allParkValuesPositiveDecimal": true,
+    "optionAttributes": ["value"],
+    "classSelectOnchangeAttribute": null,
+    "teacherPrincipalToClassIdentifierMapping": "not_exposed_by_inspected_read_handler",
+    "duplicateTeacherLabelsTreatedAsEquivalentIdentifiers": false,
+    "studentOwnershipEstablishedByLabelAlone": false,
+    "gradeChange": {
+      "eventHandler": "onChangeGrade",
+      "differentDependentOperationObserved": "GradeChange",
+      "effectAndScopeVerified": false,
+      "triggered": false
+    }
+  },
+  "boundedInteraction": {
+    "classSelections": 1,
+    "selectionSource": "first exact Park-labelled option from the observed DOM, retained only in memory",
+    "distinctClassesQueriedSuccessfully": 0,
+    "searchLocatorClickAttempts": 1,
+    "sourceHandlerInvokedThroughEvaluate": false,
+    "formSubmittedProgrammatically": false,
+    "observedActionQueryKeysAfterClick": ["reqCmd"],
+    "expectedConstructedSearchKeysPresentAfterClick": false,
+    "activeJavascriptDialog": false,
+    "renderedResultTableCount": 0,
+    "renderedCoursePeriodOrVersionHeadersPresent": false,
+    "resultMeaning": "Search did not dispatch because an install layer intercepted the search control. This is not an empty assignment or roster result.",
+    "coverage": "zero_of_seven_class_selectors_successfully_queried"
+  },
+  "clientPrerequisite": {
+    "readOnlyDomDiagnosis": true,
+    "searchControlVisibleAndEnabled": true,
+    "elementAtSearchCenterIsSearchControl": false,
+    "blockingSelector": ".install-backdrop-container",
+    "blockingChildSelector": ".install-backdrop",
+    "position": "fixed_full_page",
+    "computedZIndex": "2147483647",
+    "sourceFunction": "showInstallLayer",
+    "sourceTrigger": "MODULE.NativeCallManager.getInstallInfo() returns undefined",
+    "runtimeNativeBridgeStateRead": false,
+    "sourceDeclaredBehavior": "Create backdrop and image-based installation panel and append to top.document.body.",
+    "buttonImagePath": "/renwal/common/img/ax_popup_button.jpg",
+    "backgroundImagePath": "/renwal/common/img/ax_popup_bg.jpg",
+    "buttonEffect": "location.href = /setup/install.jsp",
+    "dismissHandlerInInspectedSource": false,
+    "buttonClicked": false,
+    "installationPageOpened": false,
+    "softwareInstalled": false,
+    "overlayRemovedOrHidden": false,
+    "overlayBypassed": false,
+    "blockedModuleAssetRetrieved": false,
+    "botDetectionClaimed": false
+  },
+  "textbookBindingStatus": {
+    "actualStudentCourseRowsRead": 0,
+    "actualStudentKeysMatched": 0,
+    "actualDayRecordCourseRelationsMatched": 0,
+    "actualPrintedBookEditionMatches": 0,
+    "sampleCatalogRef": "docs/textbook-sample-catalog.json",
+    "sampleCatalogMeaning": "Candidate catalog links and sample cover identifiers only; no student assignment is inferred.",
+    "requiredRemainingEvidence": [
+      "Authorized current course-search result through a supported read transport or compatible client without bypassing the site prerequisite.",
+      "Exact source-key student match and independent teacher/class ownership or task-bounded scope evidence.",
+      "Explicit DayRecord course_seq to course_key/user_course_key relation when binding a lesson occurrence.",
+      "Effective period, curriculum revision, series, material grade/semester, volume, exact printed book code and printed edition/version.",
+      "Separate assigned lesson unit/problem/page range before deriving preparation requirements from a sample."
+    ]
+  },
+  "sourceKnownAlternativeAssessment": {
+    "sourceRef": "research/backend-map/assignment-live.md",
+    "newAlternativeNetworkReads": 0,
+    "candidates": [
+      {
+        "operation": "StudySchedule",
+        "status": "fixed_read_shell_only",
+        "limitation": "Selected-student use depends on StudentGetList/CourseGetList whose current effect and scope contracts are unverified; no equivalent assignment read is established."
+      },
+      {
+        "operation": "DayRecord Main",
+        "status": "exact_occurrence_and_course_relation_unverified",
+        "limitation": "Rendered course/progress labels and consistent row keys do not establish printed-book code or edition, and the retained default row is not a complete Park roster."
+      },
+      {
+        "operation": "GaStudyAnswer",
+        "status": "sample_catalog_only",
+        "limitation": "Sample links and covers contain no verified student assignment relation."
+      }
+    ],
+    "equivalentVerifiedAlternativeFound": false,
+    "nextTransportRequirement": "A supported authenticated read transport that keeps credentials inside the approved session boundary, implements the current POST StudyCourse form/action contract without browser handler or fetch injection, verifies fresh instructor and exact source-key scope, and returns bounded in-memory results. No raw-cookie extraction or pasted-cookie workflow is authorized.",
+    "transportAvailability": "not_exposed_in_this_worker"
+  },
+  "validation": {
+    "artifactType": "sanitized_source_evidence_only",
+    "newRuntimeImplementation": false,
+    "newTransportImplemented": false,
+    "catalogOrRegistryActivation": false,
+    "productionWrites": 0,
+    "journalFieldChanges": 0,
+    "radioSelections": 0,
+    "rawStudentRecordsPersisted": false,
+    "actualIdentifiersPersisted": false,
+    "parameterizedStudentUrlsPersisted": false,
+    "cookieTokenPasswordOrStorageInspection": false,
+    "screenshots": 0
+  }
+}

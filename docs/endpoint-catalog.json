@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "static_endpoint_catalog_contract",
+  "baselineRevision": "992d6c4e8b379bed38e13d76cc960e84645eac09",
+  "scope": "Canonical evidence plus explicitly referenced source candidates; no deployed-backend completeness claim",
+  "entrypoint": "bun run harness/endpoints.ts",
+  "supplementalEvidence": ["docs/academy-dom-source-evidence.json"],
+  "examples": [
+    "bun run harness/endpoints.ts --projection summary",
+    "bun run harness/endpoints.ts --id day_record_read --projection full",
+    "bun run harness/endpoints.ts --origin source_candidate --family assessment",
+    "bun run harness/endpoints.ts --callable-only",
+    "bun run harness/endpoints.ts --metrics"
+  ],
+  "evidence": {
+    "canonicalSource": "research/backend-map/route-registry.json",
+    "baselineCanonicalEntries": 54,
+    "sourceCandidates": "src/lms/endpointCandidates.ts",
+    "candidateReferenceAnchors": "Unmodified imported source and documentation use path:line anchors. Mutable TypeScript legacy evidence uses path#legacyRoutes/SYMBOL anchors, verified against the preserved symbol, method, operation and path. Semantic effect and exact request binding remain unverified.",
+    "extensionPolicy": "Validate nonempty unique IDs, typed methods/effects and evidence fields; never use an exact count as the schema",
+    "readSafety": "safe_to_probe is historical metadata, not live permission. No live adapter or callable entry is activated"
+  },
+  "readerRequirements": [
+    "Explicit authorized scoped authentication channel; no credentials in output or provenance",
+    "Verified instructor ownership, selector contract, exact student/course/record/curriculum/occurrence binding",
+    "Timestamp, adapter revision, page/cursor coverage, expected and observed counts, no duplicate keys",
+    "Partial and unknown remain explicit; empty output does not prove no records"
+  ],
+  "outputMetrics": "UTF-8 JSON bytes for identical query and different projections. Compact omits detail fields; summary omits all endpoint rows. These are projection savings, not lossless compression, token counts or live speed claims.",
+  "runtimeBoundary": {
+    "expandedCatalog": "TypeScript/Bun-only metadata inventory; every entry noncallable",
+    "legacyPython": "Unmodified harness/routes.py and harness/cli.py retain exact-54 count checks. Existing 54 canonical records still work as before, but expanded-catalog dual-runtime parity is not claimed.",
+    "futureDiscovery": "Structured HTML, forms, links, documented source and sanitized DevTools metadata only; no screenshot-driven discovery, credential extraction or session export"
+  },
+  "excludedEffects": ["LMS requests", "Sheet requests", "registration", "writes", "sends", "paper generation", "authentication discovery"],
+  "pending": ["Current approved live read contracts", "Native app API and identity joins", "Sheet ownership/storage decisions", "13:30 durable scheduling"]
+}

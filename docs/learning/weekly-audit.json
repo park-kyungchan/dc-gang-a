@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-01",
+  "status": "implemented_offline_weekly_domain_increment",
+  "sourceFiles": [
+    "src/learning/calendar.ts",
+    "src/learning/weekly.ts",
+    "src/learning/reconciliation.ts"
+  ],
+  "testFile": "tests/learning/weeklyLearning.test.ts",
+  "auditHierarchy": [
+    "student",
+    "local-calendar week",
+    "exact lesson occurrence and lesson/makeup lane",
+    "textbook edition",
+    "major unit",
+    "middle unit",
+    "minor unit",
+    "printed page",
+    "question"
+  ],
+  "weekContract": {
+    "startsOn": "monday",
+    "configuration": "Monday is the documented default and the only supported v1 start; changing the convention requires an explicit contract extension",
+    "selector": "weekStart: YYYY-MM-DD that is a Monday in the lesson-local calendar",
+    "range": "Monday through Sunday inclusive",
+    "crossMonthYear": "The same week may include dates from two months or two years; the key is the actual Monday date plus time zone",
+    "arithmetic": "UTC date methods are used only for Gregorian calendar arithmetic, never to convert source timestamps or foreign-zone lessons"
+  },
+  "queryContract": {
+    "asOfDate": "Explicit local calendar date used only to label historical/current/future weeks",
+    "timeZone": "Required for projectLearningWeeks, optional on compatibility filters; foreign zones remain unresolved before temporal comparisons",
+    "intersection": "weekStart AND month AND day AND local time AND student AND edition; contradictory exact selectors yield no matches in the core selector",
+    "unresolved": "selectLearningEntries and projectLearningWeeks retain uncertain filter matches; filterLearningEntries and projectLearningTimeline keep their matched-only compatibility behavior"
+  },
+  "identityAndProvenance": {
+    "sourcePlanSeparation": "Each edition group has separate sourceFacts and teacherPlans containing original entityId/revisionId/recordedAt/entry",
+    "unknownLesson": "Unverified source joins or unknown occurrence keys are isolated by entity, never joined on student/date/name alone",
+    "unknownEdition": "An unknown edition gets its own entity group instead of a shared unknown book",
+    "makeup": "Regular and makeup compatibility lanes remain separate even when an input reuses an occurrence string",
+    "originalScope": "Every row retains the original ContentScope and evidence references so the shared catalog can resolve the deeper hierarchy without copying it",
+    "latestOnly": "Current grouping uses validated currentRevisions; full history remains unchanged for retrospective audit"
+  },
+  "noInference": [
+    "A historical approved plan is still an approved plan, not proof of work",
+    "Current/future weekly labels do not imply attendance or completion",
+    "An observed source timestamp does not set the lesson week",
+    "No foreign-zone conversion or missing date/time is guessed",
+    "No live source join, pagination completeness, persistence or deployment is certified"
+  ],
+  "acceptanceCoverage": [
+    "Monday/Sunday boundaries",
+    "Cross-month/year weeks",
+    "Leap-year and daylight-saving-date calendar arithmetic",
+    "Invalid/non-Monday selectors and impossible dates",
+    "Week/month/day/time/student/edition intersections",
+    "Foreign-zone and unknown exact filter matches",
+    "Historical/current/future plan preservation",
+    "Week to lesson to edition envelope grouping",
+    "Unknown source joins and editions isolated",
+    "Regular/makeup lanes isolated",
+    "Latest revision and original history preservation",
+    "Deterministic ordinal opaque-key ordering"
+  ],
+  "deployment": {
+    "environment": "Offline synthetic code/tests and separately verified private Google Drive development only",
+    "production": "No testing or preview writes to the staff-visible operational workbook; exact final target and final deployment approval still required",
+    "v1Artifact": "The prior private Drive review ZIP remains a valid earlier milestone, not the latest weekly implementation"
+  },
+  "verification": {
+    "command": "bun run test:learning",
+    "pass": 69,
+    "fail": 0,
+    "assertions": 215,
+    "weeklyTests": 23,
+    "rootTypecheck": "pass"
+  }
+}

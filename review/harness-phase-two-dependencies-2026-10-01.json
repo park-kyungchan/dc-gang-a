@@ -1,0 +1,1057 @@
+{
+  "schemaVersion": 1,
+  "kind": "phase_two_non_skill_plugin_dependency_audit",
+  "asOfKst": "2026-10-01",
+  "observedAtUtc": "2026-10-01T07:22:08Z",
+  "owner": "lead/dependency_audit",
+  "scope": "Read-only audit of the current root Bun workflow and conditional Whole-Lens integration dependencies; this file is the only audit-owned write.",
+  "stateVocabulary": {
+    "declared": "A source contract or manifest names the dependency; current installation or connection is not established.",
+    "installed": "Package metadata or a host executable is present; successful workload execution is not implied.",
+    "verified": "The named observation or bounded synthetic workload was checked in this session; verification applies only to its stated scope.",
+    "not_checked": "No current-session check establishes this capability or resource state. Historical declarations do not promote it to verified."
+  },
+  "executionBoundary": {
+    "packageInstallationsPerformed": 0,
+    "credentialContentsRead": false,
+    "authConfigurationRead": false,
+    "externalApiCallsPerformedByAudit": 0,
+    "browserOrMcpServersStarted": 0,
+    "productionWritesPerformed": 0,
+    "sourceChangesPerformed": 0,
+    "gitCommitsPerformed": 0,
+    "privateRosterOrLmsRouteDiscoveryPerformed": false,
+    "testFixtures": "Original synthetic PDF and mocked Google API responses only.",
+    "doesNotEstablish": [
+      "Current Google project/IAM/API/billing access",
+      "LMS authentication",
+      "Current student joins",
+      "SPT deployment or D1/R2 access",
+      "Physical-device or teacher acceptance",
+      "Effective managed model capacity"
+    ]
+  },
+  "currentDependencies": [
+    {
+      "id": "root_runtime_and_compiler",
+      "category": "runtime",
+      "state": "verified",
+      "requiredFor": "Current root TypeScript/Bun development and synthetic validation",
+      "observed": {
+        "bun": "1.4.2",
+        "typescript": "7.0.2",
+        "platform": "linux",
+        "architecture": "x64"
+      },
+      "evidenceIds": [
+        "backend_doctor",
+        "cloud_start",
+        "backend_tests"
+      ],
+      "sourceRefIds": [
+        "root_package",
+        "backend_doctor_source",
+        "cloud_manifest"
+      ],
+      "action": "Retain pinned versions. No runtime or compiler installation is needed now."
+    },
+    {
+      "id": "root_locked_packages",
+      "category": "package",
+      "state": "verified",
+      "observed": {
+        "packages": [
+          {
+            "name": "@modelcontextprotocol/sdk",
+            "declared": "1.31.0",
+            "installed": "1.31.0"
+          },
+          {
+            "name": "@playwright/mcp",
+            "declared": "0.0.83",
+            "installed": "0.0.83"
+          },
+          {
+            "name": "@types/bun",
+            "declared": "1.4.2",
+            "installed": "1.4.2"
+          },
+          {
+            "name": "chrome-devtools-mcp",
+            "declared": "1.10.1",
+            "installed": "1.10.1"
+          },
+          {
+            "name": "typescript",
+            "declared": "7.0.2",
+            "installed": "7.0.2"
+          }
+        ],
+        "bunLockSha256": "b31c1bf6333c899dc5509aef0a402b2ae19426d9eb364d7e05badcde05ecab8a",
+        "installedStampMatches": true
+      },
+      "connectionBoundary": "Browser/MCP package versions are verified inventory only; no server connection, browser session or authentication was checked.",
+      "evidenceIds": [
+        "backend_doctor"
+      ],
+      "sourceRefIds": [
+        "root_package",
+        "backend_doctor_source",
+        "cloud_installer"
+      ],
+      "action": "Preserve the existing frozen lockfile. Refresh via cloud:install only after actual lockfile drift or a failed dependency check."
+    },
+    {
+      "id": "native_http_hashing_and_tests",
+      "category": "runtime_native_api",
+      "state": "verified",
+      "observed": {
+        "fetch": true,
+        "sha256": true,
+        "abortSignalTimeout": true,
+        "bunTest": true
+      },
+      "requiredFor": "Bounded Google reads, byte/shape limits, source hashes and synthetic tests",
+      "sourceRefIds": [
+        "backend_contract",
+        "google_read_adapter",
+        "backend_doctor_source"
+      ],
+      "evidenceIds": [
+        "backend_doctor",
+        "backend_tests"
+      ],
+      "packagesNotRequired": [
+        "Google API SDK",
+        "Axios",
+        "additional HTTP/process library",
+        "additional test framework",
+        "additional schema-validation framework"
+      ],
+      "action": "Use existing native APIs and domain validators. A Google SDK or Axios does not resolve the separate auth, network or exact-target gates."
+    },
+    {
+      "id": "pdf_tools",
+      "category": "os_cli_pdf",
+      "state": "verified",
+      "requiredFor": "Bounded local text/layout/bounding-box extraction from approved PDF bytes",
+      "observed": {
+        "pdftotext": "25.03.0",
+        "pdfinfo": "26.05.0",
+        "pdftoppm": "26.05.0",
+        "actualSyntheticExtractionPassed": true
+      },
+      "requiredCommands": [
+        "pdftotext",
+        "pdfinfo"
+      ],
+      "conditionalCommand": "pdftoppm for separately requested visual review",
+      "evidenceIds": [
+        "backend_doctor",
+        "backend_tests"
+      ],
+      "sourceRefIds": [
+        "backend_contract",
+        "pdf_extractor",
+        "pdf_tests"
+      ],
+      "limits": {
+        "maximumSourceBytes": 33554432,
+        "maximumPagesPerCall": 20,
+        "maximumOutputBytes": 4194304,
+        "perProcessTimeoutMilliseconds": 15000
+      },
+      "action": "Reuse installed Poppler. Record each actual extractor version and PDF hash with derived evidence; the binaries are not pinned together by bun.lock.",
+      "unknowns": [
+        "Image-only PDF requirement",
+        "OCR quality target",
+        "Printed-page identity for a real approved sample"
+      ]
+    },
+    {
+      "id": "general_host_cli",
+      "category": "os_cli",
+      "state": "installed",
+      "observed": {
+        "node": "24.19.0",
+        "npm": "11.9.0",
+        "git": "2.52.0",
+        "flockOnPath": true,
+        "timeoutOnPath": true,
+        "curlOnPath": true,
+        "sha256sumOnPath": true,
+        "gcloudOnPath": false
+      },
+      "evidenceIds": [
+        "host_cli_inventory"
+      ],
+      "limits": "gcloud absent from current PATH does not establish absence from every host filesystem path. No Google CLI auth or remote Git permission was inspected.",
+      "action": "No additional CLI installation for the root Bun workflow. Check callable host connectors and the selected integration path before deciding whether gcloud is necessary."
+    },
+    {
+      "id": "portable_ci",
+      "category": "ci",
+      "state": "declared",
+      "observed": {
+        "bunPinned": "1.4.2",
+        "frozenInstall": true,
+        "lifecycleScriptsIgnored": true,
+        "browserDownloadDisabled": true,
+        "popplerProvisioningDeclared": false,
+        "currentRemoteCiRunChecked": false
+      },
+      "sourceRefIds": [
+        "ci_workflow",
+        "cloud_installer",
+        "doctor_tests",
+        "pdf_tests"
+      ],
+      "coverageBoundary": "The portable gate intentionally establishes synthetic/source-integrity readiness. The real PDF test skips when Poppler is absent, and dependencyDoctor.test checks coreReady rather than full PDF readiness.",
+      "action": "If PDF readiness becomes a required outcome, record backend doctor state and extraction pass/skip explicitly, then make the PDF gate required in an environment that provisions Poppler. Do not broaden the current source-only claim."
+    },
+    {
+      "id": "cloud_environment_configuration",
+      "category": "environment",
+      "state": "verified",
+      "observed": {
+        "cloudStartSucceeded": true,
+        "dependencyRefresh": "lockfile_unchanged",
+        "servicesToStart": [],
+        "manifestRequiredSecrets": [],
+        "academyAccess": "not_configured",
+        "currentResourceAccessChecked": false
+      },
+      "evidenceIds": [
+        "cloud_start"
+      ],
+      "sourceRefIds": [
+        "cloud_manifest",
+        "cloud_handoff"
+      ],
+      "action": "Keep source-only development service-free and secret-free. Do not treat archival checkpoint validation as current academy acceptance."
+    },
+    {
+      "id": "cloud_network_and_identity_configuration",
+      "category": "network_auth_environment",
+      "state": "verified",
+      "evidenceMode": "lead_relay_current_session",
+      "observed": {
+        "officialCloudAndAgentsDocumentationAccessible": true,
+        "configuredGcpIdentitiesPresent": false,
+        "configuredSecretsPresent": false,
+        "gcpCloudApiDomainsPresentInAllowedHosts": false
+      },
+      "evidenceIds": [
+        "lead_runtime_revalidation"
+      ],
+      "sourceRefIds": [
+        "historical_runtime_research",
+        "historical_cloud_optimization"
+      ],
+      "limits": "The Lead verified these current-session environment observations; this dependency auditor did not repeat external requests or inspect auth files. Cloud API requests were not attempted by the audit. Configured identities/secrets absence does not describe a connector account's separate access.",
+      "action": "Retire the prior documentation-egress blocker as a current blocker. Treat Google API egress and auth configuration as separate unsatisfied integration gates requiring exact endpoint/path selection."
+    },
+    {
+      "id": "operating_workbook_connector",
+      "category": "connected_resource_auth_metadata_edit",
+      "state": "verified",
+      "evidenceMode": "Lead live connector result and auditor-read sanitized same-target receipt",
+      "observed": {
+        "operatingMainSheetId": 1754681846,
+        "nativeWorkbookMetadataReadSucceeded": true,
+        "hiddenOnlySheetMetadataWriteSucceeded": true,
+        "sameTargetHiddenStateReadbackSucceeded": true,
+        "newlyHiddenAuxiliarySheetIds": [
+          960975918,
+          1651563591
+        ],
+        "parkNamespaceAndRecoveryTabsExceptMainHidden": true,
+        "mainRemainsVisible": true,
+        "spreadsheetId": "1R8DoOOo5yg3M1hgHPA0Vuqp3Ng-K5bQgxdiy5dEeXOg",
+        "parkRelatedTabs": 17,
+        "studentCellsReadByVisibilityBatch": 0,
+        "studentCellsWrittenByVisibilityBatch": 0,
+        "formulasOrFormatsChangedByVisibilityBatch": false
+      },
+      "sourceRefIds": [
+        "workbook_visibility_receipt"
+      ],
+      "evidenceIds": [
+        "lead_workbook_visibility"
+      ],
+      "limits": "Proves exact-workbook connected native metadata access and the approved hidden-only edit/readback. It does not establish GCP IAM, enabled APIs, billing, LMS source access, source joins, Sheet value write capability, installed scheduling or a working production refresh.",
+      "action": "Use the verified connector for exact workbook metadata/protection checks within the current operation scope. Preserve Main and teacher-owned/native content; separate future cell batches and refresh implementation from this visibility receipt."
+    },
+    {
+      "id": "google_authentication_and_authorization",
+      "category": "gcp_auth",
+      "state": "not_checked",
+      "sourceRefIds": [
+        "integration_registry",
+        "google_proposal",
+        "backend_contract"
+      ],
+      "historicalOnly": {
+        "operationalProject": "ganga-daechi-260927-p0723",
+        "operationalBot": "main-sheet-bot@ganga-daechi-260927-p0723.iam.gserviceaccount.com",
+        "secondaryProject": "dc-gang-a",
+        "secondaryBot": "sheets-bot@dc-gang-a.iam.gserviceaccount.com",
+        "baselineKeylessFlowReported": true
+      },
+      "requiredBeforeLiveOperation": [
+        "Selected explicit project/identity",
+        "Supported current source identity and keyless short-lived token path",
+        "Minimum OAuth scopes for the exact operation",
+        "Current exact file/range allowlist",
+        "Current metadata/protection checks",
+        "Operation-specific authorization"
+      ],
+      "action": "Reuse the verified exact-workbook connector path for its supported approved operations. Check any independently needed GCP/keyless-token path separately; historical IAM records do not establish current Cloud access.",
+      "knownConnectorCapability": "Current connected Google Drive/Sheets capability for the exact operating workbook is recorded separately; it does not establish GCP identity, IAM, API inventory or billing."
+    },
+    {
+      "id": "google_api_inventory",
+      "category": "api",
+      "state": "not_checked",
+      "sourceRefIds": [
+        "google_proposal",
+        "integration_registry",
+        "google_read_adapter"
+      ],
+      "implementedReadOperations": [
+        "Drive files.get metadata",
+        "Sheets spreadsheets.get metadata/protections",
+        "Sheets spreadsheets.values.get bounded A1 rectangle"
+      ],
+      "adapterBounds": {
+        "maximumCells": 5000,
+        "maximumResponseBytes": 1048576,
+        "timeoutMilliseconds": 15000,
+        "automaticRetries": 0
+      },
+      "candidateInventoryApis": [
+        "serviceusage.googleapis.com",
+        "cloudresourcemanager.googleapis.com"
+      ],
+      "limits": "No live enabled-services inventory, quota, API access, IAM grant, token issuance or billing check was performed by this audit. Historical baseline reports remain dated evidence.",
+      "action": "Verify and reuse only the selected existing API/identity path. Do not enable the whole proposal or change a global default project.",
+      "knownConnectorCapability": "Exact operating-workbook native metadata and hidden-only write/readback verified by Lead; Google Cloud API service inventory remains not_checked."
+    },
+    {
+      "id": "scheduled_and_manual_hosting",
+      "category": "hosting_scheduling",
+      "state": "declared",
+      "sourceRefIds": [
+        "google_proposal",
+        "workflow_checkpoint",
+        "refresh_source"
+      ],
+      "confirmedIntent": {
+        "scheduledRefresh": true,
+        "teacherTriggeredManualRefresh": true,
+        "automaticDays": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "automaticWindowStartLocal": "13:15",
+        "automaticWindowEndLocal": "14:00",
+        "timeZone": "Asia/Seoul",
+        "manualRefreshAnyDay": true,
+        "installedScheduler": false,
+        "manualProductionRefreshEndpointInstalled": false,
+        "manualProductionRefreshLiveVerified": false
+      },
+      "confirmedIntentEvidenceMode": "Latest explicit user decisions supplied by Lead supersede the prior preparation-window interpretation. Time, weekdays, all-attending-student scope and manual-any-day behavior are confirmed, not pending interviews.",
+      "unresolved": [
+        "Refresh cadence and failure visibility/manual recovery",
+        "Execution host and permitted minimized inputs",
+        "Current exact source binding/transport verification",
+        "Secondary Google project role"
+      ],
+      "action": "Implement one idempotent refresh contract for the confirmed all-attending-student preparation scope and share it between automatic Monday-Friday 13:15-14:00 Asia/Seoul and manual-any-day entry points. Functional approval does not establish an installed scheduler or working production refresh.",
+      "deploymentEvidenceMode": "Current deployment gap supplied by Lead; approved functions are not installed production services."
+    },
+    {
+      "id": "source_authority_and_contracts",
+      "category": "source_contract",
+      "state": "declared",
+      "sourceRefIds": [
+        "root_agents",
+        "backend_contract",
+        "workflow_checkpoint",
+        "integration_registry",
+        "spt_agents"
+      ],
+      "authorities": {
+        "officialLessonRecords": "LMS",
+        "classroomEvents": "SPT D1",
+        "originalAudio": "SPT R2",
+        "teacherReviewAndDrafts": "Main Sheet",
+        "finalParentDelivery": "Teacher/official sender"
+      },
+      "currentSessionLiveJoinsVerified": false,
+      "required": [
+        "Canonical deterministic roster/routes queries",
+        "Exact semantic-effect/read contract",
+        "Current date/student/task scope",
+        "Source timestamps and occurrence keys",
+        "Unknown joins remain unknown",
+        "Teacher visual review where needed"
+      ],
+      "action": "Keep these contracts separate from synthetic transport tests. Do not move academy authentication or raw student/media archives into Cloud as an implicit implementation dependency."
+    },
+    {
+      "id": "persistence_and_recovery",
+      "category": "persistence",
+      "state": "declared",
+      "sourceRefIds": [
+        "root_agents",
+        "spt_agents",
+        "spt_wrangler",
+        "google_proposal",
+        "learning_domain_design",
+        "synthetic_learning_sqlite_source"
+      ],
+      "existingAuthorities": [
+        "LMS official records",
+        "Main Sheet teacher review/drafts",
+        "SPT D1 events",
+        "SPT R2 original audio",
+        "Git branches/commits/PRs for source continuity"
+      ],
+      "currentRemotePersistenceChecked": false,
+      "newDatabaseRequiredForCurrentScope": "Synthetic durable storage is now explicitly authorized for the existing learning-domain model; production database/provider selection remains separate.",
+      "action": "Proceed with the authorized synthetic learning storage adapter and compare Bun SQLite, D1 and Postgres against existing domain invariants. Keep production data, provider provisioning and migration separate; preserve LMS/SPT source authority and recovery history.",
+      "studentDomainGranularity": [
+        "student",
+        "local_calendar_week",
+        "lesson_occurrence",
+        "textbook_edition",
+        "major_unit",
+        "middle_unit",
+        "minor_unit",
+        "printed_page",
+        "problem"
+      ],
+      "studentDomainBehavior": [
+        "Append-only revisions",
+        "Teacher notes/teacher-plan lane",
+        "Immutable bounded source-observation lane",
+        "Idempotency",
+        "Atomic compare-and-swap at a durable boundary",
+        "Logical export/import for migration"
+      ]
+    },
+    {
+      "id": "synthetic_learning_storage",
+      "category": "authorized_synthetic_database",
+      "state": "declared",
+      "sourceRefIds": [
+        "learning_domain_design",
+        "synthetic_learning_sqlite_source"
+      ],
+      "evidenceMode": "Existing domain-design read and implementation source read; database agent owns implementation and test acceptance.",
+      "observed": {
+        "implementationFilePresent": true,
+        "driver": "bun:sqlite",
+        "additionalDriverPackageRequired": false,
+        "productionStudentRecordsUsedByAudit": false,
+        "independentStorageTestsRunByAudit": false
+      },
+      "intendedBehavior": [
+        "Existing student/week/occurrence/edition/unit/page/question hierarchy",
+        "Append-only revisions and teacher notes",
+        "Transaction-bound idempotency and compare-and-swap",
+        "Same-target append readback",
+        "Logical migration/export contract"
+      ],
+      "alternativesUnderComparison": [
+        "Bun SQLite",
+        "Cloudflare D1",
+        "Postgres"
+      ],
+      "limits": "The synthetic adapter is being implemented by its owner. Reading its source does not certify full acceptance, production isolation, provider provisioning, live student ingestion or migration.",
+      "action": "Use native Bun SQLite for the authorized synthetic adapter without adding a driver package. Evaluate D1/Postgres only against agreed production concurrency, hosting, tenancy, backup and scale requirements."
+    },
+    {
+      "id": "observability",
+      "category": "observability",
+      "state": "declared",
+      "sourceRefIds": [
+        "google_proposal",
+        "backend_contract",
+        "spt_wrangler"
+      ],
+      "currentHostedLoggingOrMonitoringChecked": false,
+      "minimumProposedEvidence": [
+        "Sanitized request/outcome IDs",
+        "Source timestamps and refresh freshness",
+        "Bounded failure reason",
+        "Exact-target readback receipt",
+        "Retry/recovery owner"
+      ],
+      "action": "Define workflow-specific failure visibility and retention before provisioning hosted Logging/Monitoring. Do not log tokens, raw student text or original-media URLs, or invent alert thresholds."
+    },
+    {
+      "id": "spt_imported_stack",
+      "category": "conditional_application_stack",
+      "state": "declared",
+      "sourceRefIds": [
+        "spt_package",
+        "spt_installer",
+        "spt_agents",
+        "spt_wrangler"
+      ],
+      "evidenceIds": [
+        "spt_package_inventory",
+        "host_cli_inventory"
+      ],
+      "observed": {
+        "nodeModulesPresent": false,
+        "requiredNode": ">=22.13.0",
+        "hostNode": "24.19.0",
+        "reactDeclared": "19.2.6",
+        "nextDeclared": "16.2.6",
+        "vinextDeclared": "0.0.50",
+        "viteDeclared": "8.0.13",
+        "wranglerDeclared": "4.92.0",
+        "drizzleOrmDeclared": "0.45.2",
+        "typescriptDeclared": "5.9.3"
+      },
+      "conditionalDependencies": [
+        "Dedicated npm package-lock installation",
+        "Bash/Linux helper environment",
+        "Cloudflare D1/R2 bindings and scoped authentication",
+        "Backend session-token contract",
+        "Build and runtime-specific tests"
+      ],
+      "action": "Prepare this separate stack only when SPT source work is selected. Do not unify its compiler with the root compiler or claim imported source establishes remote parity."
+    },
+    {
+      "id": "preserved_python_and_lms_stack",
+      "category": "conditional_legacy_runtime",
+      "state": "declared",
+      "sourceRefIds": [
+        "root_agents",
+        "optional_live_requirements",
+        "lms_requirements"
+      ],
+      "currentPythonOrOptionalEnvironmentChecked": false,
+      "currentRootPythonInstallationRequired": false,
+      "existingReferences": [
+        "Dual-runtime roster/routes/verify compatibility",
+        "Unique reviewed Python reader if still necessary",
+        "Existing scoped legacy gates"
+      ],
+      "action": "Preserve existing implementations without installing or extending Python for Cloud convenience. Do not revive cookie discovery or broaden optional live probes."
+    },
+    {
+      "id": "physical_device_and_teacher_acceptance",
+      "category": "physical_device",
+      "state": "not_checked",
+      "sourceRefIds": [
+        "root_agents",
+        "spt_agents"
+      ],
+      "declaredFirstCandidate": "iPhone Home Screen web app",
+      "paidAppleMembershipOrTestFlightRequired": false,
+      "androidScope": "Conditional on a confirmed classroom device",
+      "requiredEvidenceWhenSelected": [
+        "Actual device/browser/version",
+        "Authentication and exact teacher/student identity",
+        "Recording student separated from viewed student",
+        "Outbox preservation",
+        "Same-event/audio server receipt",
+        "Teacher classroom acceptance"
+      ],
+      "action": "Treat device hardware, connectivity and human acceptance as dependencies separate from local builds, synthetic tests and deployment."
+    }
+  ],
+  "conditionalDependencies": [
+    {
+      "id": "hosted_gcp_projection",
+      "condition": "Authenticated hosted projection is selected and the current cost/data-boundary constraints are resolved",
+      "dependencies": [
+        "Cloud Run API",
+        "Runtime/invoker IAM",
+        "Billing prerequisite assessment",
+        "Explicit region",
+        "Container/image build route",
+        "Artifact Registry if that build route uses it",
+        "Cloud Build only if the selected source-build route requires it"
+      ],
+      "provisionedByAudit": false
+    },
+    {
+      "id": "hosted_gcp_schedule",
+      "condition": "Cloud Scheduler is selected after preparation days, coverage and failure behavior are answered",
+      "dependencies": [
+        "Scheduler API",
+        "Billing prerequisite assessment",
+        "OIDC invoker",
+        "Authenticated endpoint",
+        "Idempotency and freshness contract"
+      ],
+      "provisionedByAudit": false
+    },
+    {
+      "id": "async_notifications",
+      "condition": "Direct refresh proves insufficient and async consumer/retry isolation is required",
+      "dependencies": [
+        "Pub/Sub producer/consumer",
+        "Deduplication",
+        "Original IDs",
+        "Replay owner",
+        "Retention/egress assessment"
+      ],
+      "provisionedByAudit": false
+    },
+    {
+      "id": "secret_storage",
+      "condition": "An approved secret is demonstrably necessary and workload identity cannot replace it",
+      "dependencies": [
+        "Secret Manager",
+        "Scoped accessor IAM",
+        "Rotation owner",
+        "Version/access cost assessment"
+      ],
+      "excludedDefaults": [
+        "LMS cookies",
+        "Browser profiles",
+        "Service-account JSON keys"
+      ],
+      "provisionedByAudit": false
+    },
+    {
+      "id": "derived_artifact_storage",
+      "condition": "A specific derived/recovery artifact needs hosted persistence",
+      "dependencies": [
+        "Artifact definition",
+        "Location/access policy",
+        "Retention",
+        "Restore owner",
+        "Capacity/operations/egress assessment"
+      ],
+      "excludedDefaults": [
+        "Raw student archive",
+        "Original audio migration",
+        "SPT D1/R2 migration"
+      ],
+      "provisionedByAudit": false,
+      "studentDatabaseScope": "The prior blanket new-student-database exclusion is superseded: synthetic domain storage is authorized; production provider/data migration still requires its exact reviewed design and action scope."
+    },
+    {
+      "id": "image_pdf_ocr",
+      "condition": "An approved image-only PDF sample demonstrates insufficient existing extraction",
+      "dependencies": [
+        "Measured extraction failure",
+        "OCR quality/locale/page requirement",
+        "Local versus remote data boundary",
+        "Selected OCR implementation"
+      ],
+      "provisionedByAudit": false
+    },
+    {
+      "id": "production_learning_database",
+      "condition": "Synthetic invariants are accepted and a production database provider/host is explicitly selected",
+      "dependencies": [
+        "Verified minimized source-ingestion contracts",
+        "Provider-specific driver only if needed",
+        "Transaction/idempotency/compare-and-swap contract",
+        "Tenant/student partitioning",
+        "Schema/migration versioning",
+        "Backup/restore owner",
+        "Connection/runtime access",
+        "Retention and free-tier assessment"
+      ],
+      "providerCandidates": [
+        "Bun SQLite",
+        "Cloudflare D1",
+        "Postgres"
+      ],
+      "currentAdditionalPackageRequirement": "None for the native Bun SQLite synthetic adapter",
+      "provisionedByAudit": false
+    }
+  ],
+  "freeTierConstraint": {
+    "state": "unresolved_hosting_feasibility",
+    "confirmedCurrentPolicy": "Free Tier only; no paid resource or billing changes",
+    "policySourceRefId": "google_proposal",
+    "currentBillingChecked": false,
+    "currentQuotasAndPricesChecked": false,
+    "historicalBillingReports": "Both projects reported billing disabled; this audit does not establish their current billing state.",
+    "candidateConflict": "The existing proposal records billing prerequisites for Cloud Run and Cloud Scheduler. A free usage allowance does not itself satisfy a prohibition on billing changes.",
+    "currentImplementationPermission": "No billing link, paid resource provisioning or hosted candidate activation follows from this proposal.",
+    "nextDecision": "Choose a scheduling execution host compatible with the existing no-billing-change policy. If the user explicitly wants a billing-dependent host, resolve that policy change before dependent provisioning.",
+    "zeroBillGuarantee": false
+  },
+  "minimumOrderedProposals": [
+    {
+      "order": 1,
+      "id": "retain_ready_root_toolchain",
+      "action": "Retain verified Bun/TypeScript/lockfile/native APIs/Poppler and native bun:sqlite. Install no additional packages now.",
+      "dependsOnQuestionIds": [],
+      "effect": "Confirmed development and synthetic storage scope"
+    },
+    {
+      "order": 2,
+      "id": "build_confirmed_preclass_outcome",
+      "action": "Proceed with the all-attending-student preclass preparation/homework/grading/wrong-answer/teacher-note projection and the authorized synthetic learning storage adapter, preserving unknown source joins.",
+      "dependsOnQuestionIds": [],
+      "effect": "Synthetic/domain implementation under confirmed scope"
+    },
+    {
+      "order": 3,
+      "id": "make_pdf_readiness_explicit_when_required",
+      "action": "For selected textbook/PDF evidence, record doctor and actual extraction pass/skip separately from source-only Cloud readiness; add OCR only after an approved sample demonstrates need.",
+      "dependsOnQuestionIds": [
+        "pdf_source_type"
+      ],
+      "effect": "Conditional PDF dependency choice"
+    },
+    {
+      "order": 4,
+      "id": "reuse_verified_workbook_connector",
+      "action": "Reuse exact operating-workbook metadata access, preserving the verified Main/hidden-tab layout. Validate current exact source contracts and any cell/projection write batch separately; do not infer GCP or LMS access.",
+      "dependsOnQuestionIds": [],
+      "effect": "Current connector capability with separate future production effects"
+    },
+    {
+      "order": 5,
+      "id": "preserve_secondary_project_until_role_answered",
+      "action": "Keep the historical operational baseline explicit and preserve dc-gang-a without repurposing or deleting it.",
+      "dependsOnQuestionIds": [
+        "secondary_google_project_role"
+      ],
+      "effect": "Architecture decision before resource changes"
+    },
+    {
+      "order": 6,
+      "id": "implement_confirmed_refresh_functions",
+      "action": "Implement the approved automatic Monday-Friday 13:15-14:00 Asia/Seoul and manual-any-day function contract. Resolve cadence/failure behavior, execution host and minimized-data retention before installing a production schedule.",
+      "dependsOnQuestionIds": [
+        "refresh_cadence_and_failure",
+        "hosted_evidence_boundary",
+        "schedule_execution_host"
+      ],
+      "effect": "Reviewable implementation/design; no scheduler installation is established yet"
+    },
+    {
+      "order": 7,
+      "id": "provision_only_selected_conditional_stack",
+      "action": "After the synthetic adapter comparison, prepare only the selected production database/hosting/storage/observability dependency chain, preserving authority, recovery and exact action approval boundaries.",
+      "dependsOnQuestionIds": [
+        "schedule_execution_host",
+        "hosted_evidence_boundary"
+      ],
+      "effect": "Future provider provisioning; no broad API activation or real-data migration"
+    }
+  ],
+  "unresolvedInterview": [
+    {
+      "id": "secondary_google_project_role",
+      "question": "What retained purpose should the Google Cloud project dc-gang-a serve relative to the existing operational baseline: development/verification, a separate workload, or preserved reserve?",
+      "blocks": "Google project architecture; no repurposing inferred"
+    },
+    {
+      "id": "refresh_cadence_and_failure",
+      "acknowledgedConfirmedDecision": "Automatic Monday-Friday 13:15-14:00 Asia/Seoul; manual refresh any day; ALL attending students preparation/homework/grading/wrong-answer/teacher notes",
+      "question": "Within the confirmed automatic window, what refresh cadence is useful, and what should the teacher see or do after a partial source failure or failed refresh?",
+      "blocks": "Cadence/failure/recovery contract; confirmed time/days/scope are not reopened"
+    },
+    {
+      "id": "hosted_evidence_boundary",
+      "question": "Which minimized derived inputs/artifacts may the selected execution host receive, and who owns retention and restoration?",
+      "blocks": "Hosted data contract and production storage/observability choices; student-domain granularity is already established"
+    },
+    {
+      "id": "schedule_execution_host",
+      "question": "Under the existing no-paid-resource/no-billing-change policy, where should scheduled execution live? If a billing-dependent host is explicitly desired, that policy decision must be resolved first.",
+      "blocks": "Production scheduler/runtime activation; function scope is already approved"
+    },
+    {
+      "id": "pdf_source_type",
+      "question": "Does the selected textbook evidence require image-only scanned PDFs, or text-layer PDFs only?",
+      "blocks": "OCR dependency selection; existing Poppler remains sufficient for the tested synthetic text-layer PDF"
+    }
+  ],
+  "validation": [
+    {
+      "id": "workflow_context",
+      "command": "bun run workflow:context",
+      "exitCode": 0,
+      "observed": "Typed phase-one engineering context present; continuation requirements read; this CLI establishes metadata only."
+    },
+    {
+      "id": "cloud_start",
+      "command": "bun run cloud:start",
+      "exitCode": 0,
+      "observed": {
+        "dependencyRefresh": "lockfile_unchanged",
+        "servicesToStart": [],
+        "currentResourceAccessChecked": false,
+        "academyAccess": "not_configured",
+        "sourceCheckpointStaleForAcademyReads": true
+      }
+    },
+    {
+      "id": "backend_doctor",
+      "command": "bun run harness/backend_dependencies.ts doctor",
+      "exitCode": 0,
+      "observed": {
+        "ok": true,
+        "coreReady": true,
+        "lockfileReady": true,
+        "pdfReady": true,
+        "newPackagesRequired": []
+      }
+    },
+    {
+      "id": "backend_tests",
+      "command": "bun test --dots tests/backend",
+      "exitCode": 0,
+      "observed": {
+        "passed": 12,
+        "failed": 0,
+        "expectCalls": 86,
+        "files": 3,
+        "elapsedMillisecondsReported": 236,
+        "realSyntheticPdfExtractionSkipped": false
+      },
+      "scope": "Mocked read adapter, dependency primitives and actual bounded extraction of an original synthetic PDF; no live API or student data."
+    },
+    {
+      "id": "host_cli_inventory",
+      "command": "Version checks for node/npm/git and command -v for gcloud/flock/timeout/curl/sha256sum",
+      "observed": "Installed versions and current PATH presence only; no external request or auth read."
+    },
+    {
+      "id": "spt_package_inventory",
+      "command": "Read known spt/package.json and known spt/node_modules package metadata paths with Bun",
+      "exitCode": 0,
+      "observed": "spt/node_modules absent; selected imported stack declarations recorded; no install/build/runtime probe."
+    },
+    {
+      "id": "lead_runtime_revalidation",
+      "command": null,
+      "evidenceMode": "Lead message in this phase-two session",
+      "observed": "Official Cloud/AGENTS docs accessible; environment status contains no configured GCP identities/secrets and allowed hosts contain no GCP Cloud API domains.",
+      "replacesCurrentBlocker": "Historical official-documentation egress 403",
+      "doesNotEstablish": "Current Google IAM, billing, API or connector resource access"
+    },
+    {
+      "id": "artifact_json_validation",
+      "command": "Bun JSON.parse plus sourceRefs path existence, sourceRefIds resolution and sanitized visibility-receipt validation",
+      "exitCode": 0,
+      "observed": {
+        "dependencies": 19,
+        "conditionalDependencies": 7,
+        "orderedProposals": 7,
+        "interviewQuestions": 5,
+        "sourceReferences": 27,
+        "missingSavedSourceFiles": 0,
+        "pendingLeadReceiptFiles": 0,
+        "unknownSourceRefIds": 0
+      }
+    },
+    {
+      "id": "lead_workbook_visibility",
+      "command": null,
+      "evidenceMode": "Lead exact live connector result; dependency auditor read the saved sanitized receipt without contacting Google",
+      "observed": {
+        "nativeMetadataRead": "succeeded",
+        "hiddenOnlyMetadataEdit": "succeeded",
+        "sameTargetReadback": "succeeded",
+        "mainSheetId": 1754681846,
+        "newlyHiddenSheetIds": [
+          960975918,
+          1651563591
+        ],
+        "allParkNamespaceAndRecoveryTabsExceptMainHidden": true
+      },
+      "receiptPath": "review/main-sheet-tab-visibility-2026-10-01.json",
+      "receiptSaveStatus": "saved_and_sanitized_metadata_read",
+      "doesNotEstablish": [
+        "GCP IAM",
+        "Enabled Cloud APIs",
+        "Billing",
+        "LMS source access",
+        "Real source joins",
+        "Sheet values mutation",
+        "Installed scheduler",
+        "Working manual production refresh"
+      ],
+      "receiptSha256": "82cc315586d522311eb14d099884230b799c0388283aafb1e90542352094a61a"
+    }
+  ],
+  "sourceRefs": [
+    {
+      "id": "root_agents",
+      "path": "AGENTS.md"
+    },
+    {
+      "id": "root_package",
+      "path": "package.json",
+      "line": 32
+    },
+    {
+      "id": "backend_doctor_source",
+      "path": "harness/backend_dependencies.ts",
+      "line": 13
+    },
+    {
+      "id": "backend_contract",
+      "path": "docs/backend-tooling-contract.json",
+      "line": 5
+    },
+    {
+      "id": "cloud_manifest",
+      "path": "harness/cloud-environment.json",
+      "line": 6
+    },
+    {
+      "id": "cloud_handoff",
+      "path": "handoffs/cloud-current-state.json"
+    },
+    {
+      "id": "cloud_installer",
+      "path": "harness/cloud.ts",
+      "line": 67
+    },
+    {
+      "id": "ci_workflow",
+      "path": ".github/workflows/bun-cloud.yml",
+      "line": 25
+    },
+    {
+      "id": "doctor_tests",
+      "path": "tests/backend/dependencyDoctor.test.ts",
+      "line": 3
+    },
+    {
+      "id": "pdf_tests",
+      "path": "tests/backend/pdfExtraction.test.ts",
+      "line": 32
+    },
+    {
+      "id": "google_read_adapter",
+      "path": "src/backend/googleReadAdapter.ts"
+    },
+    {
+      "id": "pdf_extractor",
+      "path": "src/backend/pdfExtraction.ts"
+    },
+    {
+      "id": "google_proposal",
+      "path": "docs/google-api-enablement-proposal-2026-10-01.json",
+      "line": 24
+    },
+    {
+      "id": "integration_registry",
+      "path": "docs/workflow-integration-registry.json"
+    },
+    {
+      "id": "workflow_checkpoint",
+      "path": "handoffs/workflow-current-state.json"
+    },
+    {
+      "id": "refresh_source",
+      "path": "src/sheets/deployedMainRefresh.ts"
+    },
+    {
+      "id": "spt_agents",
+      "path": "spt/AGENTS.md"
+    },
+    {
+      "id": "spt_package",
+      "path": "spt/package.json",
+      "line": 5
+    },
+    {
+      "id": "spt_installer",
+      "path": "spt/scripts/install-ci.sh"
+    },
+    {
+      "id": "spt_wrangler",
+      "path": "spt/backend/wrangler.json"
+    },
+    {
+      "id": "optional_live_requirements",
+      "path": "harness/requirements-live.txt"
+    },
+    {
+      "id": "lms_requirements",
+      "path": "lms-automation/requirements.txt"
+    },
+    {
+      "id": "historical_runtime_research",
+      "path": "review/codex-runtime-research-2026-10-01.json",
+      "use": "Historical blocker evidence only; current official-documentation access revalidated by Lead."
+    },
+    {
+      "id": "historical_cloud_optimization",
+      "path": "review/cloud-optimization-2026-10-01.json",
+      "use": "Historical network-draft observation only; not current runtime status."
+    },
+    {
+      "id": "learning_domain_design",
+      "path": "docs/learning/domain-design.json",
+      "use": "Established hierarchy and revision model; historical durable-store absence is superseded by current synthetic implementation."
+    },
+    {
+      "id": "synthetic_learning_sqlite_source",
+      "path": "src/storage/syntheticLearningSqlite.ts",
+      "use": "Current source under database-agent implementation; test acceptance owned by that agent."
+    },
+    {
+      "id": "workbook_visibility_receipt",
+      "path": "review/main-sheet-tab-visibility-2026-10-01.json",
+      "availability": "saved",
+      "use": "Current exact-workbook connector/hidden-only readback receipt; save owned by Lead."
+    }
+  ],
+  "handoffBoundary": "The Lead owns skills/plugin mapping, canonical checkpoint integration, final Cloud validation, Git continuity and publication. This artifact performs no activation or authorization.",
+  "updatedAtUtc": "2026-10-01T07:28:40Z",
+  "confirmedPhaseTwoDecisions": [
+    {
+      "id": "first_outcome",
+      "source": "new_explicit_user_decision_relayed_by_lead",
+      "value": "Preclass overview for ALL attending students: preparation, homework, grading, wrong-answer/correction evidence and teacher notes."
+    },
+    {
+      "id": "refresh_window",
+      "source": "new_explicit_user_decision_relayed_by_lead",
+      "value": {
+        "automaticDays": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "automaticWindowStartLocal": "13:15",
+        "automaticWindowEndLocal": "14:00",
+        "timeZone": "Asia/Seoul",
+        "manualRefreshAnyDay": true
+      },
+      "supersedes": "The prior 13:30 plus/minus 15-minute interpretation ending at 13:45 is no longer the active window.",
+      "establishesInstalledScheduler": false,
+      "establishesManualProductionRefresh": false
+    },
+    {
+      "id": "student_domain_storage",
+      "source": "new_explicit_user_decision_relayed_by_lead",
+      "value": "Proceed with synthetic student-domain storage using the existing student/week/occurrence/edition/unit/page/question hierarchy, append-only revisions and teacher notes; compare Bun SQLite, D1 and Postgres.",
+      "establishesProductionStudentDatabase": false
+    },
+    {
+      "id": "main_sheet_visibility",
+      "source": "new_explicit_user_decision_and_exact_connector_result_relayed_by_lead",
+      "value": "Keep operating Main sheet 1754681846 visible; all Park namespace and recovery tabs except Main are hidden, including auxiliary sheets 960975918 and 1651563591.",
+      "effect": "Sheet visibility metadata only; exact hidden-state write/readback performed by Lead."
+    }
+  ]
+}

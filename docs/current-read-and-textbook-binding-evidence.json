@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "kind": "current_main_teacher_selector_and_textbook_assignment_read_boundary",
+  "observedOn": "2026-10-01",
+  "observationTimezone": "Etc/UTC",
+  "status": "fresh_authenticated_assignment_read_blocked",
+  "observations": [
+    {
+      "windowUtc": {
+        "start": "2026-10-01T02:44:14Z",
+        "end": "2026-10-01T02:45:22Z"
+      },
+      "surface": "existing_dayrecord_main_dom",
+      "sourceUrl": "https://dc.gang-a.kr/servlet/controller.cct.tutor.DayRecordServlet?p_process=Main",
+      "browser": "dot_cloud_chrome",
+      "method": "read_only_dom_backed_inline_source_inspection",
+      "routeMatchedMain": true,
+      "passwordInputPresent": false,
+      "freshServerResponseVerified": false,
+      "handler": "onOpenDaysMain",
+      "parameterNames": ["student_pri_no"],
+      "localBindings": [
+        {
+          "symbol": "date",
+          "expression": "$(\"#std_date\").val().split(\"-\")"
+        },
+        {
+          "symbol": "std_ym",
+          "expression": "date[0]+\"\"+date[1]"
+        },
+        {
+          "symbol": "tutor_pri_no",
+          "expression": "$(\"#teacher_pri_no\").val()",
+          "literalIdentifierInHandler": false
+        },
+        {
+          "symbol": "grp_seq",
+          "expression": "$(\"#grp_seq\").val()"
+        },
+        {
+          "symbol": "student_pri_no",
+          "expression": "student_pri_no",
+          "meaning": "function_parameter"
+        }
+      ],
+      "constructedDestination": {
+        "path": "/servlet/controller.cct.tutor.DayRecordServlet",
+        "selector": { "key": "p_process", "literal": "DaysMain" },
+        "queryKeySources": {
+          "std_ym": "std_ym",
+          "grp_seq": "grp_seq",
+          "tutor_pri_no": "tutor_pri_no",
+          "student_pri_no": "student_pri_no"
+        },
+        "dispatchHelper": "MODULE.Commons.showPopUp",
+        "helperImplementationInspected": false,
+        "handlerExecuted": false,
+        "destinationOpened": false
+      },
+      "relevantFormControls": [
+        { "name": "course_seq", "id": "", "type": "hidden" },
+        { "name": "std_ymd", "id": "std_ymd", "type": "hidden" },
+        { "name": "teacher_pri_no", "id": "teacher_pri_no", "type": "hidden" },
+        { "name": "std_date", "id": "std_date", "type": "text" },
+        { "name": "grp_seq", "id": "grp_seq", "type": "select-one" }
+      ],
+      "interpretation": "The retained Main inline handler directly uses the same hidden teacher_pri_no field used by the assessment callbacks. No alternate teacher-ID domain mapping appears in this handler. This is source provenance, not a verified fresh teacher/student scope or backend authorization proof."
+    },
+    {
+      "windowUtc": {
+        "start": "2026-10-01T02:45:36Z",
+        "end": "2026-10-01T02:45:55Z"
+      },
+      "surface": "study_course_fixed_shell",
+      "requestedUrl": "https://dc.gang-a.kr/servlet/controller.coursemanage.CourseManageServlet?reqCmd=StudyCourse",
+      "verifiedRouteId": "study_course",
+      "requestMethod": "ordinary_browser_navigation",
+      "outcomeUrl": "https://dc.gang-a.kr/error/normal_session_error.jsp",
+      "outcome": "site_requests_login_after_connection_ended",
+      "siteMessageCategories": ["inactivity_or_simultaneous_login_limit", "login_required"],
+      "exactCauseEstablished": false,
+      "botDetectionInferred": false,
+      "studentSearchExecuted": false,
+      "studentRowsInspected": false,
+      "loginInteractionPerformed": false,
+      "retainedMainDomIsFreshAuthenticatedEvidence": false
+    }
+  ],
+  "priorHistoryMismatch": {
+    "evidenceRef": "docs/dayrecord-event-label-and-history-scope-evidence.json",
+    "priorFact": "History URL tutor_pri_no differed from the privately compared Main teacher/principal value while student selector matched the current row.",
+    "newFact": "Current retained inline source binds history tutor_pri_no directly to Main hidden teacher_pri_no.",
+    "resolved": false,
+    "claimsNotEstablished": [
+      "alternate teacher identifier domain",
+      "account change",
+      "authorization flaw",
+      "wrong-teacher disclosure",
+      "helper rewrite",
+      "corrected safe history URL"
+    ],
+    "historyInspectedAgain": false,
+    "urlParametersChanged": false,
+    "blockedModuleAssetRetrieved": false
+  },
+  "textbookAssignmentBoundary": {
+    "historicalSource": "research/backend-map/assignment-live.md",
+    "historicalObservationDate": "2026-09-27",
+    "historicalLessonDate": "2026-09-21",
+    "historicalResultMeaning": "Dated longitudinal course association for source-key-matched students; not current roster, exact lesson assignment or printed edition proof.",
+    "courseVersionIsPrintedEdition": false,
+    "sampleCatalogIsStudentAssignment": false,
+    "currentParkStudentBinding": "unverified",
+    "dayRecordCourseToStudyCourseKeyRelation": "unverified",
+    "printedEditionBinding": "unverified",
+    "nextSafeReadSequence": [
+      "Restore the authorized academy browser session through the single coordinated secure login flow; never export or paste cookies.",
+      "Revalidate the current authenticated instructor on a fresh permitted source and bound Main teacher selector; hidden equality alone is not ownership proof.",
+      "Obtain an exact authorized student/lesson occurrence and its course_seq, stu_pri_no, record_seq and cm_seq with current date/group/coverage evidence; never promote a default row or displayed name to a complete Park roster.",
+      "Inspect the current StudyCourse form and onSearch source before using its read search. Retain required selectors only in memory and accept returned rows only after exact source student-key matching.",
+      "Verify an explicit source relation from DayRecord course_seq to StudyCourse course_key/user_course_key and effective period; matching names or date-valid labels do not establish that relation.",
+      "Match the assigned material to the sample catalog using separately evidenced series, curriculum revision, material grade/semester, volume and printed edition. Keep StudyCourse version distinct from edition.",
+      "Verify the lesson-specific assigned unit/problem/page range separately before using sample section names as preparation requirements."
+    ],
+    "privacy": "Actual student keys, names, assignments, record text, dates and parameterized URLs stay transient. This artifact carries schema, source references, booleans and blockers only."
+  },
+  "validation": {
+    "cloudStart": "passed_with_archival_checkpoint_expiry_disclosed",
+    "runtime": "Bun 1.4.2",
+    "newRuntimeImplementation": false,
+    "productionTransportImplemented": false,
+    "registryActivated": false,
+    "productionWrites": 0,
+    "fieldEdits": 0,
+    "radioSelections": 0,
+    "screenshots": 0,
+    "cookieTokenPasswordOrStorageReads": 0,
+    "rawHtmlOrScriptPersisted": false,
+    "actualIdentifierValuesPersisted": false
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "kind": "harness_phase_two_new_session_checkpoint",
+  "savedAtUtc": "2026-10-01T07:40:46Z",
+  "timeZone": "Asia/Seoul",
+  "status": "checkpoint_requested_pause_new_implementation",
+  "canonicalEngineeringContext": "handoffs/workflow-current-state.json",
+  "sourceChat": {
+    "threadId": "01a0f651-7168-73f0-ac53-d6bec41f90b2",
+    "hostId": "durable",
+    "purpose": "Retrieve the latest user-supplied student example and Ontology intent through native read_thread when needed. Student name is kept in chat and is not copied to Git."
+  },
+  "userIntent": {
+    "priority": "Cross-session continuity and purpose-based agent routing first",
+    "firstProductOutcome": "Date-first preclass preparation for all scheduled students, displaying absence/makeup status, homework/prestudy/problem grading/correction and teacher notes in one Park Main",
+    "studentDatabaseGoal": "A personal mathematics Knowledge Graph for each student, with prerequisites auditable and traceable down to atomic concepts and evidence",
+    "ontologyGoal": "Interest in Palantir AIP/Foundry-level Ontology spanning official academy backend, personal learning graph, teacher judgments and future actions",
+    "solutionSelection": "Compare carefully before selecting database and solution; PostgreSQL suitability is a next-session architectural question. Prior D1-first proposal is now provisional.",
+    "pauseInstruction": "Save checkpoint first; conduct the related interviews in a new session. Do not begin another implementation or interview in this session."
+  },
+  "confirmedRefreshPolicy": {
+    "timeZone": "Asia/Seoul",
+    "weekdays": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "window": {
+      "start": "13:15",
+      "end": "14:00"
+    },
+    "manual": "Any day on demand",
+    "installedScheduler": false,
+    "installedManualProductionEndpoint": false
+  },
+  "studentExample": {
+    "studentReference": "User-named actual student; recover exact name only from source chat for an explicitly bounded authorized read",
+    "topic": "prime factorization",
+    "lessonDate": "2026-09-30",
+    "weekday": "Wednesday",
+    "reportedFacts": [
+      "Registered as the user's student in academy backend",
+      "Lesson was held",
+      "Lesson journal was delivered to parent"
+    ],
+    "provenance": "user_report",
+    "backendVerification": "not_performed",
+    "deliveryReceiptVerified": false
+  },
+  "completedWork": {
+    "routing": [
+      "Purpose-based workflow:context routes with durable intent sources and scoped conflict reconciliation",
+      "Fixed /workspace/AGENTS.md discovery bridge integrated into cloud:install; no existing guidance overwritten",
+      "Current interview answers and old evidence retained separately"
+    ],
+    "sheetVisibility": {
+      "receipt": "review/main-sheet-tab-visibility-2026-10-01.json",
+      "changedSheetIds": [
+        960975918,
+        1651563591
+      ],
+      "mainSheetId": 1754681846,
+      "parkVisibleTabs": 1,
+      "metadataReadbackVerified": true,
+      "studentCellsRead": 0,
+      "studentCellsWritten": 0
+    },
+    "refresh": "Pure weekday/manual dispatch updated with legacy idempotency compatibility; no scheduler/writer installed",
+    "storage": {
+      "implementation": "src/storage/syntheticLearningSqlite.ts",
+      "tests": "tests/storage/syntheticLearningSqlite.test.ts",
+      "scope": "Synthetic existing learning revision history only; not a production DB or a complete Knowledge Graph/Ontology",
+      "selectedHostedProvider": null
+    },
+    "dependencies": "review/harness-phase-two-dependencies-2026-10-01.json",
+    "runtime": "review/harness-phase-two-runtime-2026-10-01.json",
+    "preclassUx": {
+      "plan": "docs/preclass-main-sheet-ux-2026-10-01.json",
+      "preview": "docs/preclass-main-sheet-preview.synthetic.html",
+      "status": "generated_synthetic_draft_not_native_visual_acceptance"
+    }
+  },
+  "architectureBaseline": {
+    "existingHierarchy": "student -> local week -> exact regular/makeup occurrence -> textbook edition -> unit -> page -> question",
+    "missingForNewGoal": [
+      "Explicit atomic concept ontology, independently versioned from textbook hierarchy",
+      "Typed prerequisite and other semantic relations with provenance/version/time",
+      "Per-student observations, assessment evidence and teacher interpretation separated from inferred mastery",
+      "Integrated source adapters, teacher raw notes/drafts/media reference lanes and ontology actions",
+      "Verified hosted persistence, identity/access, recovery and audit policy"
+    ],
+    "databaseCandidates": [
+      {
+        "candidate": "PostgreSQL + explicit Ontology layer",
+        "assessment": "Strong relational/temporal/audit base; recursive traversal possible; graph and ontology APIs still need deliberate design",
+        "selection": "unresolved"
+      },
+      {
+        "candidate": "Property graph database",
+        "assessment": "Evaluate graph traversal and pedagogy queries against relational source/audit/history needs",
+        "selection": "unresolved"
+      },
+      {
+        "candidate": "RDF/semantic knowledge graph",
+        "assessment": "Evaluate ontology semantics and reasoning needs rather than assuming all edges are generic graph links",
+        "selection": "unresolved"
+      },
+      {
+        "candidate": "Cloudflare D1",
+        "assessment": "Existing SPT infrastructure reference and potential bounded adapter; no longer the presumptive student-KG production choice",
+        "selection": "deferred_pending_comparison"
+      }
+    ],
+    "currentFreeTierConstraint": "Preserve current Free Tier preference; no billing/account/API/IAM change authorized by a database comparison",
+    "cloudBoundary": "Codex Cloud isolated task filesystem is a development workspace, not a durable shared production database or always-running scheduler"
+  },
+  "nextSessionInterview": [
+    {
+      "order": 1,
+      "topic": "Ontology outcomes",
+      "question": "Which teacher questions and decisions must the ontology answer, starting with auditing prerequisites before prime factorization?",
+      "purpose": "Choose representative queries and acceptance evidence before provider selection"
+    },
+    {
+      "order": 2,
+      "topic": "Atomic concept definition",
+      "question": "What is an atomic concept or skill, how are prerequisites authored/versioned, and who can approve or correct the graph?",
+      "purpose": "Separate textbook units, concepts, skills and evidence claims"
+    },
+    {
+      "order": 3,
+      "topic": "Student evidence and inference",
+      "question": "Which LMS/app/teacher evidence may establish each concept state, and how should uncertain or inferred mastery differ from teacher-reviewed facts?",
+      "purpose": "Define traceability and prevent unsupported mastery conclusions"
+    },
+    {
+      "order": 4,
+      "topic": "Ontology actions and temporal semantics",
+      "question": "Should the system only explain/visualize, or also propose plans and reviewed actions; how should historical changes and explanations be retained?",
+      "purpose": "Scope Foundry-like ontology behavior beyond graph storage"
+    },
+    {
+      "order": 5,
+      "topic": "Provider evaluation",
+      "question": "What present and future scale, graph-query depth, collaboration, reliability, migration and Free Tier constraints should decide PostgreSQL versus graph or hybrid solutions?",
+      "purpose": "Evaluate actual required capabilities, not choose from prior infrastructure alone"
+    },
+    {
+      "order": 6,
+      "topic": "Bounded real example",
+      "question": "After current source access is verified, compare the user-supplied 2026-09-30 example with exact source and delivery evidence; ask only remaining pedagogical decisions.",
+      "purpose": "Keep user reports distinct from independently verified backend facts"
+    }
+  ],
+  "resumeInstructions": [
+    "Read root AGENTS.md, activate pinned Bun and run cloud:start.",
+    "Run workflow:context interview and read every required source, especially this checkpoint and the student DB architecture.",
+    "Recover the user's latest concrete example from the source chat when needed; never rediscover identities by raw scans.",
+    "Start interviews from the confirmed KG/Ontology goal; do not reask project purpose, hierarchy, schedule or cohort display.",
+    "Treat SQLite and the preclass UX as prototypes. Keep provider selection open and perform no migration/provisioning before the design and target are concrete.",
+    "Check the final validation/Git receipt; local Git push403 and connector account permissions are separate observations."
+  ],
+  "validation": {
+    "status": "passed_721_test_executions_three_typechecks_and_source_integrity",
+    "artifact": "review/harness-phase-two-validation-2026-10-01.json"
+  },
+  "sourceContinuity": {
+    "localBranch": "codex/cloud-harness-continuity-2026-10-01",
+    "remotePush": "dry_run_403",
+    "remoteMainAtLastRead": "992d6c4e8b379bed38e13d76cc960e84645eac09",
+    "connectedGitHubAccount": "park-kyungchan",
+    "connectorPushPermissionReported": true,
+    "pullRequest": "not_created",
+    "remotePublication": "not_performed",
+    "localCommitMessage": "Checkpoint phase-two routing and student ontology interviews"
+  }
+}

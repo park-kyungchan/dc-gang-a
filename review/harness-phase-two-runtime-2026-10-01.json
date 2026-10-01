@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "kind": "phase_two_runtime_observations",
+  "observedAtUtc": "2026-10-01T07:35:53Z",
+  "scope": "current_managed_cloud_session",
+  "officialDocumentation": [
+    {
+      "url": "https://learn.chatgpt.com/docs/environments/cloud-environments.md",
+      "retrieved": true,
+      "sha256": "94343705b3f9a527dd824f873f86a2dbbf0f0b3fe430ee62132becf29969e536",
+      "findings": [
+        "New tasks use isolated published filesystem; existing tasks keep own files.",
+        "Repository refresh preserves dependencies without running installation.",
+        "Install script and Start skill are current setup fields.",
+        "Browser and computer use remain unsupported; repository skills available."
+      ]
+    },
+    {
+      "url": "https://developers.openai.com/codex/guides/agents-md.md",
+      "retrieved": true,
+      "sha256": "9d1f87a2d1cb55b4782b95abe710692b35b9659789c2db31a22c7074a3383e8e",
+      "findings": [
+        "Native instructions follow global and project-root-to-cwd path.",
+        "Child repository instructions are not discovered from the parent cwd.",
+        "Default project instruction byte limit is32KiB; source pointers require explicit reading."
+      ]
+    }
+  ],
+  "nativeConfiguration": {
+    "storedContextWindow": 1050000,
+    "storedAutoCompactTokenLimit": 787500,
+    "readback": "verified",
+    "effectiveManagedModel": null,
+    "effectiveManagedCapacity": null,
+    "effectiveManagedCompaction": null
+  },
+  "entryDiscovery": {
+    "sessionCwd": "/workspace",
+    "repositoryRoot": "/workspace/dc-gang-a",
+    "parentEntryBefore": "absent",
+    "parentEntryAfter": "created_and_read_back",
+    "generator": "harness/workspace_entry.ts",
+    "installIntegration": "bun run cloud:install",
+    "effectivePromptLoaded": "unverified",
+    "overwritesExistingGuidance": false
+  },
+  "network": {
+    "officialDocumentationSpecificRequests": "verified_success",
+    "statusPolicyState": "unknown",
+    "statusCurrent": true,
+    "configuredGcpIdentities": 0,
+    "configuredSecrets": 0,
+    "googleApiNetworkAccess": "not_checked",
+    "academyAccess": "not_configured",
+    "changesMade": 0
+  },
+  "git": {
+    "remoteMainRead": "verified",
+    "remoteMainAtRead": "992d6c4e8b379bed38e13d76cc960e84645eac09",
+    "connectedUser": "park-kyungchan",
+    "connectorPermissionSnapshot": {
+      "pull": true,
+      "push": true,
+      "admin": true
+    },
+    "pushExecution": "not_yet_revalidated",
+    "priorPush": "403_in_phase_one"
+  },
+  "plugins": {
+    "installedRelevant": [
+      "GitHub",
+      "Google Drive"
+    ],
+    "googleCloudSearch": "No directly applicable GCP infrastructure connector returned; Drive installed.",
+    "cloudflareSearch": "No matching plugin returned by search; directory result not exhaustive.",
+    "newConnectionsMade": 0,
+    "recommendation": "Use existing GitHub and Drive connectors for exact tasks; validate hosted database account path separately."
+  },
+  "sourceOnlyBoundaries": {
+    "liveLmsAccepted": false,
+    "scheduledRefreshInstalled": false,
+    "productionDatabaseProvisioned": false,
+    "operatingMainUiRewritten": false,
+    "tabHideReceipt": "review/main-sheet-tab-visibility-2026-10-01.json"
+  }
+}

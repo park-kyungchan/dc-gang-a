@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "kind": "git_publication_cycle",
+  "observedAtUtc": "2026-10-01T07:52:48.421Z",
+  "repository": "park-kyungchan/dc-gang-a",
+  "userAuthorization": "Publish all phase-one and phase-two harness work through PR, merge and cleanup; request user action when needed",
+  "status": "pr_created_awaiting_ci_and_merge",
+  "source": {
+    "branch": "codex/cloud-harness-continuity-2026-10-01",
+    "head": "8cf7c8352114414d9293f8cc12a6007a22b79512",
+    "base": "992d6c4e8b379bed38e13d76cc960e84645eac09",
+    "commits": [
+      "fd30f37",
+      "05bde97",
+      "8cf7c83"
+    ],
+    "changedFiles": 106
+  },
+  "diagnosis": {
+    "authenticatedLogin": "park-kyungchan",
+    "repositoryPermissionMetadata": {
+      "admin": true,
+      "push": true,
+      "pull": true
+    },
+    "gitFetch": "success",
+    "gitPushDryRun": "403_permission_denied",
+    "connectorCreateBranch": "403_Resource_not_accessible_by_integration",
+    "cliApiCreateBranch": "403_Resource_not_accessible_by_integration",
+    "installationId": 104508836,
+    "repositorySelection": "all",
+    "installationSettings": "https://github.com/settings/installations/104508836",
+    "installationPermissions": "not_returned_by_available_installation_metadata",
+    "interpretation": "Installation suspension was the confirmed operational cause; earlier missing-grant hypothesis was not established",
+    "networkPolicy": "enforced_restricted",
+    "credentialContentsRead": false,
+    "credentialsModified": false,
+    "rootCause": "User reported ChatGPT Codex Connector installation suspended since 2026-07-22, despite read/write grants and all-repository selection",
+    "resolution": "User unsuspended installation; actual CLI git push succeeded without credential or network changes"
+  },
+  "verification": {
+    "cloudCheck": {
+      "exitCode": 0,
+      "passedTestExecutions": 721,
+      "failed": 0,
+      "typeChecks": 3
+    },
+    "publicationAudit": {
+      "files": 106,
+      "bytes": 2651996,
+      "findings": [],
+      "limit": "Credential-pattern/protected-path guard, not comprehensive privacy clearance"
+    },
+    "diffCheck": "passed",
+    "existingOpenPullRequests": [],
+    "remoteBranchCreated": false
+  },
+  "pullRequestDraft": {
+    "head": "codex/cloud-harness-continuity-2026-10-01",
+    "base": "main",
+    "title": "Complete phase-one and phase-two harness continuity and preclass foundations",
+    "body": "New Cloud sessions need a reliable route to project intent, confirmed user decisions and current source contracts. This change restores the phase-one learning/backend/Sheet source checkpoint and adds typed context routing, a safe managed-workspace entry bridge, dependency evidence, weekday/manual refresh rules and a synthetic revision-history SQLite adapter.\n\nThe preclass preview covers all scheduled students and records absence/makeup presentation. Student Knowledge Graph and Ontology requirements are checkpointed; hosted DB selection remains open. No scheduler, production DB or LMS writer is deployed. The recorded live Sheet operation only hid two approved Park auxiliary tabs, with metadata readback.\n\nValidation: bun run cloud:check passed all three typechecks and 721 test executions, plus source-integrity verification. The complete 106-file publication diff passed the credential-pattern/protected-path guard and git diff --check. Live joins and native visual acceptance remain unverified."
+  },
+  "resumeSequence": [
+    "After user confirms installation permission update, recheck actual branch creation and git push; do not treat repository permission metadata as proof.",
+    "Fetch origin and verify main ancestry; preserve all local commits and dirty work. Never force push main.",
+    "Push the complete reviewed branch; verify remote SHA and file/tree parity.",
+    "Create or reuse the same head/base PR; attach it to this Codex task immediately.",
+    "Wait for CI on the exact PR head, inspect failures and fix before merge. Revalidate mergeability and unresolved review requirements.",
+    "Merge with expected head SHA using merge commit to retain phase-one/two commit ancestry; no bypass of branch protection.",
+    "Read back merged PR and remote main; verify source commits are ancestors and expected files retained.",
+    "Only after verified merge, fast-forward local main, switch to it and delete the merged feature branches; preserve unrelated branches, worktrees and caches."
+  ],
+  "userAction": {
+    "requested": false,
+    "action": "Review installation access and approve pending Contents/Pull requests write permission updates, then confirm completion",
+    "tokenInChatRequested": false
+  },
+  "remotePublication": "branch_and_pr_published",
+  "merged": false,
+  "recoveryObservedAtUtc": "2026-10-01T07:57:37.829Z",
+  "recovery": {
+    "gitPush": "success",
+    "remoteBranch": "codex/cloud-harness-continuity-2026-10-01",
+    "pushedHead": "baf3ca9da484d3c6a4f826980e46a798129dac95",
+    "userActionComplete": true
+  },
+  "pullRequest": {
+    "url": "https://github.com/park-kyungchan/dc-gang-a/pull/5",
+    "number": 5,
+    "createdThrough": "github_connector",
+    "attachedToCodexTask": true,
+    "headAtCreation": "9a5920ed6cf8eba82d29d5c63c09183daec502a2"
+  },
+  "stateSemantics": "Dated pre-merge evidence; current merge/CI status is authoritative at pullRequest.url and remote main. This file does not predict later outcomes."
+}

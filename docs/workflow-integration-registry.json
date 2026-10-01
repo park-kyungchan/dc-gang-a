@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "observedAtUtc": "2026-10-01T03:44:36Z",
+  "evidence": "Verified access-owner findings relayed by the task lead; this local registry performs no access checks.",
+  "canonicalCheckpoint": "handoffs/workflow-current-state.json",
+  "routingContract": "docs/workflow-routing.json",
+  "purpose": "Consolidate project/bot/workflow selection around one operational baseline while preserving unresolved resources.",
+  "projects": [
+    {
+      "projectId": "ganga-daechi-260927-p0723",
+      "projectNumber": "948206701032",
+      "displayName": "GangaDaechiMainSheet",
+      "state": "ACTIVE",
+      "role": "operational_baseline",
+      "serviceAccount": "main-sheet-bot@ganga-daechi-260927-p0723.iam.gserviceaccount.com",
+      "verifiedServicesEnabled": ["Sheets", "Drive", "IAMCredentials"],
+      "reportedAccess": ["The connected user has Token Creator on the bot", "The bot is a writer and protected-range editor on the operating Sheet"],
+      "billingEnabled": false,
+      "userManagedServiceAccountKeys": 0,
+      "physicalChangeAuthorized": false
+    },
+    {
+      "projectId": "dc-gang-a",
+      "projectNumber": "752251627540",
+      "state": "ACTIVE",
+      "role": "role_unresolved_preserve",
+      "serviceAccount": "sheets-bot@dc-gang-a.iam.gserviceaccount.com",
+      "serviceAccountEnabled": true,
+      "reportedAccess": ["The connected user is a project Owner", "No service-account-level bindings were returned; this does not establish absence of inherited access"],
+      "servicesNotEnabledInInventory": ["Drive", "IAMCredentials"],
+      "billingEnabled": false,
+      "intendedRole": "Unresolved; do not infer retirement, migration, or deletion from the consolidation request",
+      "physicalChangeAuthorized": false
+    }
+  ],
+  "selectionRules": [
+    "Use ganga-daechi-260927-p0723 and main-sheet-bot for the existing Main Sheet workflow, subject to the exact action's current approval and access checks.",
+    "Specify the project and service account explicitly per operation; do not mutate a global/default project setting.",
+    "Never fall back silently to the other bot or project when a scoped operation fails.",
+    "GCP sign-in and IAM findings do not by themselves grant OAuth token creation, current Sheet/Drive reads, LMS access, or production writes.",
+    "Keep keyless flow; no service-account key is generated, discovered, read, or stored by these project tools.",
+    "This registry owns identities and roles only. The canonical checkpoint owns current progress, owner, and next action; this registry is not a second task-status log."
+  ],
+  "approvalBoundary": {
+    "boundedOperation": "One short-lived 600-second metadata-only impersonated token for bounded Google metadata reads",
+    "stateAuthority": "handoffs/workflow-current-state.json",
+    "instruction": "Check the live approval conversation before acting. Token lifetime or existing IAM capability does not substitute for required approval. No token value or code belongs in this registry.",
+    "retryRule": "A validation failure does not authorize another token or broader reads. Preserve available sanitized receipts; request any additional authorization needed for a new attempt."
+  },
+  "historicalReferences": [
+    { "path": "handoffs/current-state.json", "asOf": "2026-09-29", "use": "Preserved academy/evaluation evidence; no renewed student/date authority" },
+    { "path": "handoffs/cloud-current-state.json", "asOf": "2026-09-30", "use": "Preserved source-only Cloud setup evidence; not current integration progress" },
+    { "path": "harness/cloud-environment.json", "use": "Existing portable source-only setup contract, not a declaration of this session's live access" }
+  ],
+  "changesPerformedByRegistry": []
+}

@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "status": "implemented_pure_domain_first_slice",
+  "language": "TypeScript",
+  "runtime": "Bun 1.4.2",
+  "authority": {
+    "sourceObservation": "An immutable observation of a bounded source record. exactBinding remains unknown until an adapter supplies evidence for the exact student, date and occurrence. An observed row, source label or HTTP success alone is not join evidence.",
+    "teacherPlan": "A teacher-authored present/future intention. Draft, approval, revision and cancellation remain in the plan lane. No plan changes an LMS fact, attendance, correctness, completion or parent-delivery state.",
+    "bookAssignment": "A student-to-shared-edition edge with effective dates and source/teacher authorship. A teacher-authored assignment does not become an official source observation.",
+    "makeup": "A source makeup occurrence is distinct from a regular lesson. makeupForOccurrenceId retains its original relation, including an explicit unknown. Reconciliation requires the makeup occurrence itself, not a date or textbook-title approximation."
+  },
+  "hierarchy": {
+    "path": [
+      "student",
+      "local_calendar_week",
+      "lesson_occurrence",
+      "textbook_edition",
+      "major_unit",
+      "middle_unit",
+      "minor_unit",
+      "printed_page",
+      "problem"
+    ],
+    "catalogReuse": "Editions, units, pages and problems are catalog entities shared across students; assignments and histories carry student identities.",
+    "stableIds": "stableId hashes a namespace plus an ordered tuple of verified opaque source keys using canonical JSON. Edition version belongs in the edition key. Never generate a real mapping from a display name, label, array index or ambiguous title.",
+    "unknowns": "Knowledge<T> is either a value with nonempty evidence references or an explicit unknown reason. Missing unit ancestry, page identity, problem identity, source time or lesson binding is not fabricated.",
+    "scopeSemantics": "A known nonempty problem list is the most specific target; otherwise a known nonempty page list is the target. Unit-only or entirely unresolved scope is not enough for page/problem reconciliation. Known unit/page/problem bindings are conjunctive constraints; validateScope with the catalog rejects known contradictions. Unknown ancestry neither establishes nor disproves the join.",
+    "printedVsPdf": "Page.printedLabel is a printed-book label, not a PDF page index. Non-numeric printed labels are supported.",
+    "weeklyGrouping": "Week and lesson are audit-view groups over latest revision envelopes. StudentBookAssignment remains a separate effective-dated edge to a shared edition, not a copied per-week catalog."
+  },
+  "audit": {
+    "records": "LearningRevision preserves the whole payload, actor, caller-supplied timestamp, reason, entity, sequence, prior revision ID and prior digest.",
+    "immutableSnapshots": "Creation defensively copies and deeply freezes JSON data. The caller cannot mutate an accepted snapshot via a retained reference.",
+    "idempotency": "The caller persists one idempotency key per identical command. Replaying that command returns its original revision even after later revisions. Reusing the key for changed data returns a conflict.",
+    "optimisticConcurrency": "expectedRevisionId must equal the entity's latest revision. appendRevision recomputes preview against its supplied current ledger; a stale preview is not sufficient.",
+    "conflicts": [
+      "stale base",
+      "changed retry payload",
+      "changed source/plan lane",
+      "changed student partition",
+      "changed source record identity",
+      "backwards observation time",
+      "backwards recording time"
+    ],
+    "compensation": "Undo is a new command whose payload restores the reviewed earlier value, expectedRevisionId points at the latest revision, and reason explains the compensation. History is never replaced or deleted.",
+    "limits": "Hashes are unkeyed integrity checks, not signatures or authorization. An attacker who rewrites every digest, or truncates a valid tail, is not detected without an independently trusted head. No durable store, multi-process lock, compare-and-swap transaction, signed audit log or production approval channel is implemented here."
+  },
+  "reconciliation": {
+    "join": "Require an approved plan, exact student/date/occurrence, known edition, matching lesson/makeup kind, and concrete targets. Exclude unverified or foreign joins.",
+    "coverage": [
+      "unknown",
+      "not_observed",
+      "partially_observed",
+      "fully_observed",
+      "conflict"
+    ],
+    "completion": [
+      "not_established",
+      "reported_only",
+      "teacher_inspected"
+    ],
+    "conservativeRules": [
+      "Assigned work does not count as attempted work.",
+      "Missing supplied evidence is not proof that work was not done.",
+      "Problem observations do not establish that an entire page was completed.",
+      "Reported completion does not establish teacher inspection.",
+      "Teacher-inspected completion requires an explicit teacher observation and a known positive correction check for every target.",
+      "Conflicting attendance and work evidence is surfaced rather than choosing a source implicitly.",
+      "No correctness, mastery, accuracy, pace or future schedule recommendation is inferred.",
+      "A scalar correctness/correction value over multiple questions must not be copied to each question. Per-question presentation needs a single exact question or a future explicitly itemized evidence contract.",
+      "Call currentRevisions before a current view; passing superseded observations directly is not a latest-source projection."
+    ]
+  },
+  "query": {
+    "filters": [
+      "month",
+      "weekStart (Monday YYYY-MM-DD)",
+      "day",
+      "lesson local time",
+      "timeZone",
+      "student ID",
+      "edition ID"
+    ],
+    "combination": "All supplied filters are ANDed. A cross-month/year week is allowed; month and exact day narrow the actual lesson dates rather than the Monday label. Unknown times/editions are not exact matches. selectLearningEntries retains them in an unresolved queue; the older filterLearningEntries wrapper returns only exact matches.",
+    "timeline": "Latest revisions retain their entity and revision envelopes even when two payloads are identical. Historical audit queries should retain the full validated revision history.",
+    "freshness": "The pure domain does not invent a freshness threshold. The caller's reviewed projection policy must show stale or expired source evidence separately.",
+    "weekly": {
+      "contract": "Week starts on Monday in v1. weekStart is a local-calendar Monday date, never an ISO week number or a UTC source timestamp.",
+      "exports": [
+        "weekStartForLocalDate",
+        "assertWeekStart",
+        "localCalendarWeek",
+        "selectLearningEntries",
+        "projectLearningWeeks"
+      ],
+      "grouping": "Latest revision -> timezone-qualified week -> same-student/date/occurrence and lesson/makeup lane -> edition. Original unit/page/problem scopes and source/plan revision envelopes remain attached.",
+      "relativePeriod": "historical/current/future classifies weeks relative to the explicitly supplied local asOfDate. It never changes plan status, infers attendance, or establishes completion.",
+      "unknowns": "Foreign-zone records receive no guessed week or period and remain unresolved even if their foreign date/time would fall outside the selected calendar. Unknown source occurrence bindings and unknown editions are isolated by entity rather than merged by labels.",
+      "timeZone": "An explicit IANA time zone is required by the weekly projection. No timestamp conversion or time-zone-alias normalization is performed. Missing exact time is unresolved only when a time selector requires it.",
+      "ordering": "Opaque identifiers and serialized keys use ordinal JavaScript string order, independent of host locale or ICU. This is not display-name linguistic collation.",
+      "catalog": "Use the existing validated shared catalog and resolveProblemPath for major/middle/minor/page/question expansion. Weekly grouping never invents absent catalog relationships.",
+      "boundaries": "Invalid/non-Monday week selectors and impossible calendar dates fail closed. A week extending outside the supported four-digit YYYY-MM-DD range is rejected."
+    }
+  },
+  "legacyMigration": {
+    "resolver": "resolveLegacyIdentity accepts a source row key and explicit verified opaque mappings. Zero or multiple candidates remain unresolved. It has no student-name/textbook-label/unit-string matching inputs.",
+    "requiredReview": "A legacy question row lacking student ID, edition ID, page ID or problem ID must stay in an unresolved migration queue until the exact mapping is reviewed. Existing rows or tabs are not merged, overwritten or deleted by this module."
+  },
+  "integration": {
+    "entrypoint": "src/learning/index.ts",
+    "existingKeyBridge": "contextFromLessonKey uses a type-only import of the existing src/wholeLens/domain.ts LessonKey. It does not import raw-session schemas, roster loaders, source clients or filesystem fixtures.",
+    "adapterSequence": [
+      "Read only through an independently verified, scoped source contract.",
+      "Map source fields to minimized opaque identities and Knowledge states; retain evidence references and exact observation timestamps.",
+      "Validate the catalog and validateScope against it before projecting hierarchical claims.",
+      "Build an explicit RevisionCommand and present preview before any separately authorized production persistence action.",
+      "At a durable write boundary, reload current heads, enforce atomic compare-and-swap and idempotency, and append without replacing history.",
+      "Read back the same bounded target after a separately approved production write.",
+      "Project source, teacher plan and actual-evidence lanes with unknown/conflict states visible."
+    ],
+    "notImplemented": [
+      "LMS wire adapters",
+      "live API requests",
+      "durable audit database",
+      "Sheet cell writer",
+      "production migration",
+      "authentication",
+      "deployment",
+      "iPhone workflow"
+    ]
+  },
+  "privacy": {
+    "fixtures": "All new tests use invented identifiers, dates and books and have no external fixture reads.",
+    "retention": "No raw roster, credentials, source payload, media or real student labels are copied by this module. Opaque IDs and evidence pointers may still be private; do not publish them without appropriate authorization.",
+    "freeText": "Reason, labels and reference strings are not a DLP boundary. Upstream adapters must minimize private content and avoid logging raw payloads."
+  },
+  "verification": {
+    "focusedCommand": "bun run test:learning",
+    "focusedResult": {
+      "pass": 69,
+      "fail": 0,
+      "assertions": 215,
+      "files": 2
+    },
+    "typecheckCommand": "bun run typecheck",
+    "typecheckResult": "pass",
+    "liveAcceptance": "not attempted; synthetic tests do not establish live source, Sheet, deployment or physical-device acceptance",
+    "weeklyCommand": "bun test --dots tests/learning/weeklyLearning.test.ts",
+    "weeklyResult": {
+      "pass": 23,
+      "fail": 0,
+      "assertions": 89
+    }
+  }
+}

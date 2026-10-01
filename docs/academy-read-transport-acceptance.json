@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "kind": "academy_read_transport_and_acceptance_boundary",
+  "observedOn": "2026-10-01",
+  "observationTimezone": "Etc/UTC",
+  "status": "paused_for_user_requested_codex_cloud_handoff",
+  "runtime": {
+    "browser": "dot_cloud_chrome",
+    "documentedAuthenticatedHttpApi": false,
+    "documentedReadOnlyDomApi": true,
+    "secureBrowserAuthAvailable": true,
+    "secureBackendCredentialInputAvailable": false,
+    "eligibleAcademyPluginFound": false,
+    "pluginDiscoveryQuery": "강의하는 아이들 gang-a academy",
+    "pluginDiscoveryIsExhaustive": false,
+    "standaloneBunBackendSession": "not_authenticated_secure_input_unresolved",
+    "unattendedReadTransport": "not_connected",
+    "directBunPublicHttp": {
+      "verified": true,
+      "sourceUrl": "https://dc.gang-a.kr/c_login.jsp",
+      "status": 200,
+      "contentType": "text/html;charset=UTF-8",
+      "publicLoginFormObserved": true,
+      "networkOrPolicyBlockObserved": false,
+      "authenticatedRequestExecuted": false
+    },
+    "browserApiBoundaryDoesNotImplyHttpNetworkUnavailable": true
+  },
+  "freshnessCheck": {
+    "retainedPage": "textbook_answer_catalog",
+    "retainedPageHadLogoutMarker": true,
+    "retainedDomAcceptedAsFresh": false,
+    "freshNavigationRouteId": "course_menu",
+    "freshNavigationAtUtc": "2026-10-01T05:27:46Z",
+    "result": "normal_session_error",
+    "resultPath": "/error/normal_session_error.jsp",
+    "exactExpiryCauseEstablished": false,
+    "botDetectionInferred": false
+  },
+  "authenticationAttempt": {
+    "method": "documented_browserAuth_secure_form",
+    "attempts": 1,
+    "result": "site_reported_password_mismatch",
+    "submittedMeansLoginSucceeded": false,
+    "credentialSourceOrStalenessEstablished": false,
+    "credentialsVisibleToAgent": false,
+    "credentialRetryPerformed": false,
+    "manualHandoffRequested": true,
+    "intermediateManualStateInspected": false,
+    "manualHandoffCompleted": true,
+    "manualSignInResult": "fresh_Park_account_and_logout_marker_verified",
+    "accountVerificationAtUtc": "2026-10-01T05:39:36Z"
+  },
+  "minimumSupportedContinuation": {
+    "userStep": null,
+    "nextReadSteps": [],
+    "backendEffect": "Browser login restores only a browser read fallback; it does not authenticate Bun or create a scheduled API connection.",
+    "backendRequirement": "Direct HTTP network access is verified. Before any future authenticated backend read, use a supported secure user-input/session provider in the explicitly chosen execution runtime; do not export browser cookies or credentials. Work is currently paused.",
+    "status": "superseded_by_backend_only_direction_then_work_pause"
+  },
+  "currentSourceCoverage": {
+    "freshDayRecordRowsReadThisPass": 1,
+    "freshDayRecordRowsAcceptedThisPass": 0,
+    "studyCourseSearchesExecutedThisPass": 0,
+    "historyReadsExecutedThisPass": 0,
+    "academicWritesExecuted": 0,
+    "productionSheetWritesExecuted": 0,
+    "sourceOnlyReferences": [
+      "docs/dayrecord-row-binding-source-evidence.json",
+      "docs/dayrecord-event-label-and-history-scope-evidence.json",
+      "docs/studycourse-current-search-source-evidence.json",
+      "docs/lesson-journal-hitl-source-contracts.json"
+    ],
+    "knownUnresolvedBoundaries": [
+      "History teacher parameter mismatch remains unresolved; do not follow or repair the mis-scoped URL.",
+      "StudyCourse read search remains behind the native-install UI layer; no layer removal or bypass was attempted.",
+      "A resolved current-row tuple alone does not establish independent teacher ownership or lesson occurrence date.",
+      "Previous homework assessment belongs to a separately dated previous record."
+    ],
+    "latestObservedRow": {
+      "teacherMatchesFreshParkPrincipal": true,
+      "fourCurrentHandlerTuplesAgree": true,
+      "coreKeysPositive": true,
+      "nineSourceSignaturesUnique": true,
+      "attendanceControlRead": true,
+      "currentProgressHomeworkMemoRead": true,
+      "currentTextFieldsNonemptyCount": 0,
+      "assessmentIconSourcesObserved": 2,
+      "assessmentValuesInterpreted": false,
+      "viewDateMatchesObservationDate": true,
+      "groupSelection": "placeholder",
+      "independentOccurrenceProof": "incomplete",
+      "actualIdentifiersOrTextPersisted": false
+    },
+    "scheduleCorroboration": {
+      "performedBeforeStop": true,
+      "scopePrincipalMatched": true,
+      "exactTupleMatchVerified": false,
+      "parserLimitation": "Schedule fifth identifier argument was an unquoted decimal, unlike the initial all-quoted matcher; no corrected retry performed after the user stopped browser reads.",
+      "dateAndGroupAccepted": false
+    }
+  },
+  "implementation": {
+    "module": "src/lms/academyReadAcceptance.ts",
+    "test": "tests/lms/academyReadAcceptance.test.ts",
+    "kind": "pure_receipt_validation_not_a_live_reader",
+    "discriminants": [
+      "blocked",
+      "partial",
+      "accepted"
+    ],
+    "requires": [
+      "supported execution transport",
+      "fresh authenticated response",
+      "exact scope and consistent DayRecord row tuple",
+      "independent ownership and occurrence evidence",
+      "bounded complete requested-scope coverage",
+      "six explicit field coverage entries with unknown preserved",
+      "separate prior-occurrence lineage for previous-homework assessment"
+    ],
+    "backendTransportImplemented": false,
+    "credentialHandlingAdded": false,
+    "writeCapabilitiesAdded": false,
+    "syntheticTestsPassed": 10,
+    "syntheticAssertions": 97,
+    "typecheck": "passed",
+    "diffCheck": "passed",
+    "liveTestsPassed": 0
+  },
+  "privacy": {
+    "cookiesTokensSecretsReadOrExported": false,
+    "rawStudentRecordsPersisted": false,
+    "actualStudentIdentifiersPersisted": false,
+    "authenticationScreenshotPurpose": "mandatory secure-login form inspection only",
+    "academicScreenshotExtraction": false,
+    "rawPublicHtmlPersisted": false,
+    "credentialValuesPersisted": false
+  },
+  "asOfUtc": "2026-10-01T05:49:07Z",
+  "latestDirection": {
+    "browserAcademicReads": "stopped_by_user",
+    "liveAcademyAndAuthenticationWork": "paused_by_user",
+    "nextTask": "Optimize repository for Codex Cloud after official runtime research",
+    "noResumeWithoutCurrentTaskAuthority": true
+  },
+  "publicHttpLoginContract": {
+    "source": "fresh unauthenticated HTTPS response",
+    "browserUsed": false,
+    "credentialValuesUsed": false,
+    "sessionCookieInspectedOrExported": false,
+    "form": {
+      "name": "loginForm",
+      "id": "loginForm",
+      "method": "post",
+      "staticAction": null,
+      "staticOnsubmit": null
+    },
+    "visibleWebFields": [
+      {
+        "name": "webUserId",
+        "type": "text"
+      },
+      {
+        "name": "webUserPass",
+        "type": "password"
+      }
+    ],
+    "hiddenFieldNames": [
+      "p_process",
+      "p_prino",
+      "p_groupno",
+      "userpwd",
+      "userid",
+      "cf_pc",
+      "cf_user",
+      "autoLoginCheck",
+      "autoLoginKey"
+    ],
+    "hiddenValuesNonemptyCount": 0,
+    "sourceHandler": {
+      "name": "formCheck",
+      "parameters": [
+        "type"
+      ],
+      "webInputSelection": [
+        "webUserId",
+        "webUserPass"
+      ],
+      "outgoingHiddenMapping": {
+        "userpwd": "Base64.encode(userpwd + randNum())",
+        "userid": "Base64.encode(userid + randNum())"
+      },
+      "autoLoginAssignment": "commented_out_in_observed_function"
+    },
+    "unknowns": [
+      "Current submit action/p_process binding",
+      "randNum semantics",
+      "Base64 helper implementation/encoding",
+      "CSRF requirements beyond this source observation",
+      "Authenticated response/session and exact target ownership acceptance"
+    ],
+    "externalScriptsFetched": false,
+    "authenticationAttemptPerformed": false
+  }
+}

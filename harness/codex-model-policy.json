@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "scope": "repository",
+  "configPath": ".codex/config.toml",
+  "modelContextWindow": 1050000,
+  "autoCompactRatio": 0.75,
+  "modelAutoCompactTokenLimit": 787500,
+  "activation": "new_session_subject_to_managed_overrides",
+  "effectiveRuntime": "unverified",
+  "schemaSource": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/core/config.schema.json"
+}

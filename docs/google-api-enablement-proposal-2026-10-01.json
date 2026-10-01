@@ -1,0 +1,139 @@
+{
+ "schemaVersion": 1,
+ "kind": "whole_lens_google_api_proposal",
+ "asOfKst": "2026-10-01",
+ "status": "proposal_only",
+ "owner": "lead",
+ "intent": "Lead proposes APIs for Whole-Lens preparation, classroom evidence, teacher review and official records.",
+ "execution": {
+  "liveInspectionPerformed": false,
+  "apiEnablementPerformed": false,
+  "deploymentPerformed": false,
+  "credentialsRead": false,
+  "officialDocumentationFetchedForThisProposal": false
+ },
+ "projectRouting": {
+  "operationalProject": "ganga-daechi-260927-p0723",
+  "existingBot": "main-sheet-bot@ganga-daechi-260927-p0723.iam.gserviceaccount.com",
+  "currentProjectAndBotAccess": "unverified",
+  "secondaryProject": "dc-gang-a",
+  "secondaryRole": "unresolved_preserve_until_interview",
+  "rule": "Explicit project/identity per operation; preserve unresolved secondary role."
+ },
+ "costPolicy": {
+  "currentStage": "Free Tier only; no paid resource or billing changes",
+  "freeTierFeasibility": "Unverified pending actual service/config checks; no zero-bill guarantee.",
+  "futureArchitecture": "Maintainability/scalability first for larger services; budget constrains deployment.",
+  "paidCandidates": "Deferred capabilities; no provisioning requested."
+ },
+ "serviceStateDefaults": {
+  "currentEnabled": null,
+  "liveInspectionPerformed": false,
+  "enablementPerformed": false
+ },
+ "historicalEvidence": {
+  "reportedEnabledOn": "2026-09-27",
+  "apis": [
+   "sheets.googleapis.com",
+   "drive.googleapis.com",
+   "iam.googleapis.com",
+   "iamcredentials.googleapis.com"
+  ],
+  "laterRelay": "2026-10-01 registry reports baseline services; no live verification here.",
+  "billing": "reported disabled; current state unverified"
+ },
+ "workflow": [
+  {
+   "step": "prepare",
+   "goal": "Date-first whole-class checklist, then selected-student judgment; source timestamps and unknown joins."
+  },
+  {
+   "step": "classroom",
+   "goal": "Verified SPT event/audio receipts and original IDs; D1/R2 remains authoritative."
+  },
+  {
+   "step": "review",
+   "goal": "Source facts, teacher notes and versioned drafts; preserve teacher-owned/native content."
+  },
+  {
+   "step": "record",
+   "goal": "Exact teacher-reviewed changes and same-target readback; teacher/official sender owns final delivery."
+  }
+ ],
+ "services": [
+  {"api":"sheets.googleapis.com","phase":"bounded_reads","recommendation":"verify_and_reuse","purpose":"Exact Main metadata/ranges and reviewed patches preserving native content.","dependencies":"Keyless token; current target/protection; range ownership.","billingCondition":"Baseline API needs no billing link; verify quotas.","decisionCondition":"Bounded reads first; reviewed values and readback before writes."},
+  {"api":"drive.googleapis.com","phase":"bounded_reads","recommendation":"verify_and_reuse","purpose":"Exact workbook identity/capabilities and sharing metadata.","dependencies":"Keyless token; exact file; minimal fields.","billingCondition":"Baseline API needs no billing link; check quotas/storage.","decisionCondition":"Separate academy/prototype; no broad discovery or sharing changes."},
+  {"api":"iam.googleapis.com","phase":"inventory","recommendation":"verify_and_reuse","purpose":"Inspect bot/grants; define hosted runtime and invoker roles.","dependencies":"Explicit project/identity; scoped permissions.","billingCondition":"Inventory alone needs no paid hosting.","decisionCondition":"Keyless identity; no default JSON key or broad impersonation."},
+  {"api":"iamcredentials.googleapis.com","phase":"bounded_reads","recommendation":"verify_and_reuse","purpose":"Scoped short-lived bot credentials.","dependencies":"Verified source identity; scoped impersonation; minimal OAuth scopes.","billingCondition":"Review current quotas.","decisionCondition":"Select supported hosted identity; local auth is dated evidence."},
+  {"api":"serviceusage.googleapis.com","phase":"inventory","recommendation":"verify_inventory","purpose":"Read API inventory; enable only a later selected set.","dependencies":"Project access; read permission; scoped enable permission when needed.","billingCondition":"Inventory/enablement differ from billable resource use.","decisionCondition":"Lead selects from live inventory and records readback."},
+  {"api":"cloudresourcemanager.googleapis.com","phase":"inventory","recommendation":"verify_inventory","purpose":"Verify explicit project lifecycle and IAM.","dependencies":"Scoped project metadata permission.","billingCondition":"Inventory alone needs no paid hosting.","decisionCondition":"Interview secondary role before repurposing; no deletion/creation."},
+  {"api":"run.googleapis.com","phase":"hosted_projection","recommendation":"candidate","purpose":"Authenticated preparation/review projector and manual endpoint.","dependencies":"Billing; runtime/invoker IAM; build route; verified input contract.","billingCondition":"Billing needed; compute/requests, images and egress.","decisionCondition":"Defer until Free Tier feasibility/data boundary checked. Artifact Registry and optional source-build Cloud Build depend on build route; no assumed Cloud LMS session."},
+  {"api":"cloudscheduler.googleapis.com","phase":"refresh_and_events","recommendation":"justified_candidate_schedule_pending","purpose":"Scheduled preparation refresh sharing the manual entry point.","dependencies":"Endpoint; OIDC invoker; idempotency/freshness.","billingCondition":"Billing needed; jobs plus endpoint execution.","decisionCondition":"Scheduled+manual confirmed. Next session: exact time/weekdays/timezone; 13:30 code is not an installed schedule."},
+  {"api":"pubsub.googleapis.com","phase":"refresh_and_events","recommendation":"conditional_candidate","purpose":"Minimized notifications if async consumer/retry isolation is needed.","dependencies":"Producer/consumer; original IDs; deduplication; replay owner.","billingCondition":"Verify billing; volume, retention and egress.","decisionCondition":"Direct refresh default; tolerate duplicates; preserve D1/R2."},
+  {"api":"logging.googleapis.com","phase":"hosted_projection","recommendation":"candidate","purpose":"Sanitized failures, request IDs and readbacks for recovery.","dependencies":"Schema/redaction; access/retention owner.","billingCondition":"Check ingestion/retention pricing and allowances.","decisionCondition":"No raw student text, tokens or media URLs; agree retention."},
+  {"api":"monitoring.googleapis.com","phase":"hosted_projection","recommendation":"candidate","purpose":"Detect refresh failure, stale projections and backlog.","dependencies":"Sanitized metrics; alert owner; workflow expectations.","billingCondition":"Check metrics/alerts/uptime pricing.","decisionCondition":"Interview timing/destination; no invented thresholds."},
+  {"api":"secretmanager.googleapis.com","phase":"conditional_storage","recommendation":"conditional_candidate","purpose":"Approved secret not replaceable by workload identity.","dependencies":"Demonstrated need; accessor IAM; rotation owner.","billingCondition":"Verify billing; versions/access operations.","decisionCondition":"No default LMS cookies, browser profiles or SA keys."},
+  {"api":"storage.googleapis.com","phase":"conditional_storage","recommendation":"conditional_candidate","purpose":"Agreed derived review/projection artifacts or recovery exports.","dependencies":"Specific artifact; location/access; retention/restore owner.","billingCondition":"Verify billing; capacity/operations/retention/egress.","decisionCondition":"No default raw archive/student DB/audio migration; preserve D1/R2."}
+ ],
+ "decisionInputs": [
+  {
+   "id": "refresh_trigger",
+   "status": "confirmed",
+   "answer": "Scheduled preparation refresh plus teacher-triggered manual refresh",
+   "nextSession": "Exact time/weekdays/timezone and failure handling"
+  },
+  {
+   "id": "cost",
+   "status": "confirmed_current_stage",
+   "answer": "Free Tier only; no paid/billing changes",
+   "nextSession": "Future budget/currency if paid deployment is reconsidered"
+  },
+  {
+   "id": "secondary_project_role",
+   "status": "next_session_interview",
+   "question": "What retained workload or staging role belongs to dc-gang-a?"
+  },
+  {
+   "id": "hosted_evidence_boundary",
+   "status": "next_session_design",
+   "question": "Minimized input contract, region, recovery and retention owner"
+  }
+ ],
+ "sessionBoundary": "Close phase 1 now; resume candidate design and pending interviews after reload/new session.",
+ "excludedByDefault": [
+  "Vertex AI",
+  "Document AI",
+  "remote academy browser services",
+  "broad unrelated API enablement",
+  "D1/R2 migration",
+  "automatic parent sending"
+ ],
+ "references": {
+  "gcp_bootstrap": "research/gcp/README.md",
+  "integration_registry": "docs/workflow-integration-registry.json",
+  "whole_lens": "docs/WHOLE_LENS_DECISION.md",
+  "native_preview": "docs/main-sheet-native-preservation-preview.json",
+  "refresh_source": "src/sheets/deployedMainRefresh.ts",
+  "sheets_limits": "https://developers.google.com/workspace/sheets/api/limits",
+  "drive_overview": "https://developers.google.com/workspace/drive/api/guides/about-sdk",
+  "iam_tokens": "https://docs.cloud.google.com/iam/docs/create-short-lived-credentials-direct",
+  "service_usage": "https://docs.cloud.google.com/service-usage/docs/overview",
+  "resource_manager": "https://docs.cloud.google.com/resource-manager/docs/creating-managing-projects",
+  "cloud_run": "https://docs.cloud.google.com/run/docs/deploying",
+  "scheduler": "https://docs.cloud.google.com/scheduler/docs/http-target-auth",
+  "pubsub": "https://docs.cloud.google.com/pubsub/docs/subscriber",
+  "logging": "https://docs.cloud.google.com/logging/docs/overview",
+  "monitoring": "https://docs.cloud.google.com/monitoring/docs/monitoring-overview",
+  "secret_manager": "https://docs.cloud.google.com/secret-manager/docs/overview",
+  "storage": "https://docs.cloud.google.com/storage/docs/introduction",
+  "pricing": "https://cloud.google.com/products/calculator"
+ },
+ "referenceStatus": "Repository evidence and unfetched official documentation pointers.",
+ "phaseOrder": [
+  "inventory",
+  "bounded_reads",
+  "hosted_projection",
+  "refresh_and_events",
+  "conditional_storage"
+ ]
+}

@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 1,
+  "kind": "user_owned_workflow_checkpoint",
+  "observedAtUtc": "2026-10-01T05:24:00Z",
+  "source": "verified_sanitized_receipt",
+  "outcome": "academy_read_to_teacher_reviewed_main_sheet",
+  "activeStep": {
+    "owner": "lead",
+    "action": "report_verified_result"
+  },
+  "milestones": [
+    {
+      "id": "backend_dependency_gate",
+      "stage": "substrate",
+      "state": "reported_verified"
+    },
+    {
+      "id": "bounded_google_read_adapter",
+      "stage": "substrate",
+      "state": "reported_verified"
+    },
+    {
+      "id": "google_sign_in",
+      "stage": "live_access",
+      "state": "reported_verified"
+    },
+    {
+      "id": "gcp_project_identity",
+      "stage": "live_access",
+      "state": "reported_verified"
+    },
+    {
+      "id": "canonical_sheet_bot_iam",
+      "stage": "live_access",
+      "state": "reported_verified"
+    },
+    {
+      "id": "metadata_token_approval",
+      "stage": "live_access",
+      "state": "reported_verified"
+    },
+    {
+      "id": "current_academy_read",
+      "stage": "user_outcome",
+      "state": "unknown"
+    },
+    {
+      "id": "source_backed_sheet_preview",
+      "stage": "user_outcome",
+      "state": "not_started"
+    },
+    {
+      "id": "approved_sheet_write_readback",
+      "stage": "user_outcome",
+      "state": "verified"
+    },
+    {
+      "id": "approved_repeat_metadata_read",
+      "stage": "live_access",
+      "state": "verified"
+    },
+    {
+      "id": "metadata_section_acceptance",
+      "stage": "live_access",
+      "state": "verified"
+    },
+    {
+      "id": "metadata_preservation_preview",
+      "stage": "user_outcome",
+      "state": "verified"
+    },
+    {
+      "id": "native_image_drawing_inventory",
+      "stage": "user_outcome",
+      "state": "unknown"
+    },
+    {
+      "id": "native_backup_and_rollback_rehearsal",
+      "stage": "user_outcome",
+      "state": "verified"
+    },
+    {
+      "id": "legacy_spt_consumer_rebinding",
+      "stage": "user_outcome",
+      "state": "not_started"
+    },
+    {
+      "id": "main_sheet_deployment",
+      "stage": "user_outcome",
+      "state": "verified"
+    },
+    {
+      "id": "main_sheet_layout_deployment",
+      "stage": "user_outcome",
+      "state": "verified"
+    },
+    {
+      "id": "backend_projection_live",
+      "stage": "user_outcome",
+      "state": "not_started"
+    },
+    {
+      "id": "full_workflow_acceptance",
+      "stage": "user_outcome",
+      "state": "unknown"
+    }
+  ],
+  "contextMetrics": {
+    "status": "unavailable",
+    "usedTokens": null,
+    "maximumTokens": null
+  },
+  "permissions": {
+    "grantsAccess": false,
+    "grantsProductionWrites": false,
+    "changesManagedRuntime": false
+  },
+  "evidenceReferences": [
+    {
+      "fileName": "sheet-native-preservation-repeat-receipts-2026-10-01.jsonl",
+      "location": "workspace_parent",
+      "sha256": "c641630c9967baed1e3152e60b519cf488cc855ddd089fae995221dda6a4f48c",
+      "kind": "sanitized_live_metadata_receipt"
+    },
+    {
+      "fileName": "main-sheet-native-preservation-preview.json",
+      "location": "project_docs",
+      "sha256": "a35412c6228d0e91333ae4a68c06844fe0c3828c3fed22c3a8bfc1eec46624fe",
+      "kind": "derived_preservation_preview"
+    },
+    {
+      "fileName": "park-production-layout-deployment-receipt-2026-10-01.json",
+      "location": "workspace_parent",
+      "sha256": "c07bdf3a25f2da1d795003795cb8f35ef7d1e6e1089c8a0efa9e919cc7e7e089",
+      "kind": "sanitized_live_metadata_receipt"
+    },
+    {
+      "fileName": "main-sheet-live-input-map-2026-10-01.json",
+      "location": "project_docs",
+      "sha256": "524688266a90da40b9d1fe7f2d7dec5fb69f0ce8a83c5891cff51b14ec660422",
+      "kind": "derived_preservation_preview"
+    }
+  ],
+  "engineeringContext": {
+    "schemaVersion": 1,
+    "updatedAtUtc": "2026-10-01T07:40:46Z",
+    "objective": "Checkpoint saved at user request; pause new implementation and resume interviews in a new session. The decisive goal is personal mathematics Knowledge Graphs with atomic prerequisite tracing and an AIP/Foundry-level Ontology spanning academy data and teacher/student evidence. PostgreSQL is a candidate foundation, not a selected solution; D1-first recommendation is provisional. Read handoffs/harness-phase-two-checkpoint-2026-10-01.json before continuing.",
+    "priorityOrder": [
+      "continuity_lead_governance",
+      "development_test_feedback",
+      "google_api_integration"
+    ],
+    "ambiguityPolicy": "interview_before_dependent_implementation",
+    "modelPreference": {
+      "preferredFamilies": [
+        "gpt-6.1",
+        "gpt-6"
+      ],
+      "selection": "inherit_host_supported",
+      "activeModel": null,
+      "activeContextCapacity": null,
+      "configurationRequest": {
+        "contextWindow": 1050000,
+        "autoCompactionRatio": 0.75,
+        "autoCompactTokenLimit": 787500,
+        "application": "repo_file_verified_effective_runtime_unverified"
+      }
+    },
+    "confirmedDecisions": [
+      {
+        "id": "priority_order",
+        "statement": "Second-phase user prioritizes continuity and purpose routing first, followed by the complete preclass user outcome and useful development/test feedback, then Google integration dependencies.",
+        "source": "user_interview"
+      },
+      {
+        "id": "model_family",
+        "statement": "Prefer GPT-6.1 or GPT-6 family models; inherit the actual host-supported model without inventing active model or context capacity.",
+        "source": "current_user_request"
+      },
+      {
+        "id": "lead_structure",
+        "statement": "Use one Lead and its SubAgents, with explicit file ownership and Lead integration responsibility.",
+        "source": "user_interview"
+      },
+      {
+        "id": "validation_selection",
+        "statement": "The Lead chooses useful validation according to actual changed scope and risk; no numeric threshold is prescribed.",
+        "source": "user_interview"
+      },
+      {
+        "id": "artifact_format",
+        "statement": "Write new engineering and artifacts in TypeScript or JSON; reserve Markdown for native runtime filenames.",
+        "source": "user_interview"
+      },
+      {
+        "id": "ambiguity_handling",
+        "statement": "Interview first to resolve incomplete context before dependent implementation. Do not over-infer, invent precision thresholds, or treat unanswered choices as approval. Independent confirmed setup and validation may proceed.",
+        "source": "user_interview"
+      },
+      {
+        "id": "q7_continuation_source",
+        "statement": "Use Git repository branches, commits and PRs as the continuation source. Published Cloud setup and the ZIP are dated evidence rather than competing current-state authorities.",
+        "source": "user_interview"
+      },
+      {
+        "id": "q8_google_api_scope",
+        "statement": "The user authorizes operating Google resources from Cloud and asks the Lead to propose API enablement from the complete Whole-Lens workflow. Preserve existing projects and the unresolved secondary-project role; the current artifact is a proposal, not an activation request.",
+        "source": "user_interview"
+      },
+      {
+        "id": "requested_context_configuration",
+        "statement": "Cloud filesystem only: context window 1,050,000 and 75 percent compaction at 787,500. Do not connect or change local Windows work. Repository TOML readback is verified; effective managed runtime capacity remains unverified and must be checked in a new session.",
+        "source": "current_user_request"
+      },
+      {
+        "id": "google_refresh_trigger",
+        "statement": "Use scheduled refresh during lesson preparation plus teacher-triggered manual refresh. Exact preparation schedule and source coverage remain a next-session interview topic.",
+        "source": "user_interview"
+      },
+      {
+        "id": "google_cost_scope",
+        "statement": "Current work must remain within Free Tier. For a later large service, prioritize maintainability and scalability at the architecture level instead of cost-driven shortcuts. Actual service billing/free-tier feasibility is not yet verified.",
+        "source": "user_interview"
+      },
+      {
+        "id": "phase_two_purpose_routing",
+        "statement": "Read existing repository product purpose, current scoped source contracts and confirmed answers before interviewing. Optimize agent routing so a new session does not ask the user to restate recorded intent.",
+        "source": "user_interview"
+      },
+      {
+        "id": "preparation_refresh_schedule",
+        "statement": "Automatic preparation refresh Monday-Friday between 13:15 and14:00 Asia/Seoul; manual refresh any day on demand. This latest user answer supersedes the earlier13:15-13:45 window; it does not prove an installed scheduler.",
+        "source": "user_interview"
+      },
+      {
+        "id": "preclass_source_coverage",
+        "statement": "First real user outcome: connect all related information for every student attending the refreshed date, including prestudy, homework, problem grading/corrections and teacher notes, and improve the complete Main Sheet UI/UX.",
+        "source": "user_interview"
+      },
+      {
+        "id": "single_main_visibility",
+        "statement": "The user authorizes hiding Park Main related auxiliary Sheets so Park operates one visible Main. Two visible Park companions were hidden and re-read; all Park-related tabs except Main are now hidden. Shared and other instructor tabs are outside the recorded Park-only scope.",
+        "source": "current_user_request"
+      },
+      {
+        "id": "student_database_direction",
+        "statement": "Investigate existing student DB granularity before reinterviewing. Recommend and proceed with maintainable scalable TypeScript/Bun storage rather than expanding hidden Sheets as a database. Shared keyed records preserve student/week/occurrence/edition/unit/page/question history; actual hosted provisioning still needs a verified target and access path.",
+        "source": "current_user_request"
+      },
+      {
+        "id": "student_knowledge_graph_ontology",
+        "statement": "Future student DB must support individual mathematics Knowledge Graphs and atomic prerequisite auditing/tracing, with an Ontology Layer comparable in purpose to Palantir AIP/Foundry across academy backend and student knowledge. Choose the solution carefully; PostgreSQL is a candidate to assess and D1 is no longer the default.",
+        "source": "user_interview"
+      },
+      {
+        "id": "preclass_cohort_presentation",
+        "statement": "Display all students scheduled for the selected lesson date and label absence and makeup status; preserve the complete date-first class before selected-student detail.",
+        "source": "user_interview"
+      },
+      {
+        "id": "phase_two_checkpoint_pause",
+        "statement": "Save a checkpoint first and prepare the KG/Ontology interview for a new session due to imminent auto-compaction. Stop new implementation and new interviews in this session.",
+        "source": "current_user_request"
+      }
+    ],
+    "assumptions": [],
+    "pendingInterview": [
+      {
+        "id": "secondary_google_project_role",
+        "question": "What operational role should the existing secondary dc-gang-a project have relative to the preserved baseline project?",
+        "dependentWork": "google_project_architecture",
+        "state": "not_asked"
+      },
+      {
+        "id": "ontology_acceptance_queries",
+        "question": "Which atomic prerequisite audits, student-evidence explanations and teacher decisions must the ontology answer in the prime-factorization example?",
+        "dependentWork": "student_ontology_architecture",
+        "state": "not_asked"
+      },
+      {
+        "id": "ontology_provider_selection",
+        "question": "Which relational/graph/semantic approach and hosted provider best meet the confirmed ontology, temporal audit, access, scale and cost requirements?",
+        "dependentWork": "hosted_student_database",
+        "state": "not_asked"
+      }
+    ],
+    "dispatch": [],
+    "nextSteps": [
+      {
+        "id": "resume_phase_two_checkpoint",
+        "owner": "lead",
+        "action": "validate_confirmed_changes",
+        "referencePaths": [
+          "handoffs/harness-phase-two-checkpoint-2026-10-01.json",
+          "docs/student-database-architecture-2026-10-01.json",
+          "review/harness-phase-two-runtime-2026-10-01.json"
+        ],
+        "dependsOnQuestionIds": []
+      },
+      {
+        "id": "resolve_ontology_continuation",
+        "owner": "lead",
+        "action": "resolve_continuation_source",
+        "referencePaths": [
+          "handoffs/harness-phase-two-checkpoint-2026-10-01.json",
+          "docs/learning/domain-design.json"
+        ],
+        "dependsOnQuestionIds": [
+          "ontology_acceptance_queries",
+          "ontology_provider_selection"
+        ]
+      }
+    ],
+    "runtimeBoundary": {
+      "nativeHooks": "not_installed",
+      "automaticPerTurnInjection": "not_installed_by_project",
+      "dispatchExecution": "host_tools_only",
+      "executesNextStep": false,
+      "changesManagedRuntime": false
+    },
+    "historicalDecisionReferences": [
+      "review/cloud-optimization-2026-10-01.json",
+      "docs/google-api-enablement-proposal-2026-10-01.json"
+    ]
+  }
+}

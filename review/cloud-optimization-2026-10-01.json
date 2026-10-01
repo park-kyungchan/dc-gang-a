@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "kind": "cloud_development_optimization_validation",
+  "validatedAtUtc": "2026-10-01T06:52:21Z",
+  "branch": "codex/cloud-harness-continuity-2026-10-01",
+  "baseCommit": "992d6c4e8b379bed38e13d76cc960e84645eac09",
+  "checkpointTransfer": {
+    "sourceManifestSha256": "4769efc6d127f1e7aba47d0a14550cc417cac1f073052d56a7e81a2de2963115",
+    "validatedArtifacts": 90,
+    "restoredSourceFiles": 82,
+    "matchingOverlayFiles": 81,
+    "matchingMinimalPatch": 1,
+    "checkApplyVerifyPassed": true,
+    "reviewOnlyPatchApplied": false
+  },
+  "validation": {
+    "aggregateCommand": "bun run cloud:check",
+    "exitCode": 0,
+    "typechecks": 3,
+    "passingTestExecutions": 681,
+    "failingTestExecutions": 0,
+    "skippedTestExecutions": 0,
+    "countIsUniqueTests": false,
+    "suites": [
+      {
+        "passed": 250,
+        "failed": 0
+      },
+      {
+        "passed": 103,
+        "failed": 0
+      },
+      {
+        "passed": 111,
+        "failed": 0
+      },
+      {
+        "passed": 19,
+        "failed": 0
+      },
+      {
+        "passed": 69,
+        "failed": 0
+      },
+      {
+        "passed": 43,
+        "failed": 0
+      },
+      {
+        "passed": 12,
+        "failed": 0
+      },
+      {
+        "passed": 63,
+        "failed": 0
+      },
+      {
+        "passed": 11,
+        "failed": 0
+      }
+    ],
+    "backendSourceFiles": 13,
+    "importedSourceFiles": 329,
+    "logSha256": "70215e69746b90b1095cdce8c9241d9c46057535cd928c2cc734bcae48210a26",
+    "installationRepeat": {
+      "exitCode": 0,
+      "dependenciesUnchanged": true,
+      "modelSettingsUnchangedOnRepeat": true
+    }
+  },
+  "modelConfiguration": {
+    "policy": "harness/codex-model-policy.json",
+    "localFile": ".codex/config.toml",
+    "readbackVerified": true,
+    "modelContextWindow": 1050000,
+    "autoCompactRatio": 0.75,
+    "autoCompactTokenLimit": 787500,
+    "effectiveManagedCapacity": "unverified",
+    "windowsTask": "cancelled_by_user"
+  },
+  "continuity": {
+    "canonicalCheckpoint": "handoffs/workflow-current-state.json",
+    "command": "bun run workflow:context",
+    "automaticNativeInjectionInstalled": false,
+    "operationalDatesPreserved": true,
+    "finishedDispatchAssignmentsRetired": true
+  },
+  "effects": {
+    "liveAcademyRequests": 0,
+    "liveGoogleApiRequests": 0,
+    "productionWrites": 0,
+    "cloudPublicationPerformed": false
+  },
+  "limitations": [
+    "Official Cloud documentation and GitHub API CONNECT requests returned network-policy 403; their destination additions are saved in the environment draft, without an observed runtime change.",
+    "Stored native model settings do not establish the effective capacity of the running managed model.",
+    "Google API activation is a proposed architecture step; exact resource access and costs are not established by synthetic checks."
+  ],
+  "phase": "phase_one_complete",
+  "continuationRequested": "session_reload_or_new_cloud_session",
+  "apiProposal": "docs/google-api-enablement-proposal-2026-10-01.json",
+  "costDirection": {
+    "current": "free_tier_only",
+    "future": "maintainability_and_scalability_first",
+    "paidServiceOrBillingChangePerformed": false
+  },
+  "configurationDraft": {
+    "status": "saved_and_read_back",
+    "fields": [
+      "install_script",
+      "start_skill",
+      "network.allowed_domains"
+    ],
+    "domains": [
+      "api.github.com",
+      "developers.openai.com",
+      "learn.chatgpt.com"
+    ],
+    "runtimeNetworkUpdate": "unverified"
+  },
+  "gitPublication": {
+    "branch": "codex/cloud-harness-continuity-2026-10-01",
+    "sourceImplementationCommit": "fd30f37",
+    "localCommitted": true,
+    "remoteReadVerified": true,
+    "remotePush": "blocked_permission_denied_403",
+    "pullRequest": "not_created",
+    "requiresSupportedRepositoryWriteAccess": true
+  }
+}

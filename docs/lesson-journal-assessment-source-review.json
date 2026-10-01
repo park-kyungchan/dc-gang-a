@@ -1,0 +1,467 @@
+{
+  "schemaVersion": 1,
+  "kind": "lesson_journal_assessment_source_contract_review",
+  "reviewedAt": "2026-10-01T02:14:30Z",
+  "artifactSequence": {
+    "afterV2Snapshot": true,
+    "includedInV2Snapshot": false,
+    "priorEvidenceRewritten": false
+  },
+  "scope": {
+    "requirement": "Latest owner request includes attendance, progress, homework, lesson memo, previous-homework evaluation and daily-test evaluation.",
+    "backendMandatoryValidationProven": false,
+    "exactValueBatchApproved": false,
+    "otherAcademyFunctions": "read_only"
+  },
+  "sources": [
+    {
+      "path": "docs/lesson-journal-hitl-source-contracts.json",
+      "sha256": "810dd66852c0c4a574101221aa504c3aeb7a3e8e78b71bd55e31ca9e5d1ddf32"
+    },
+    {
+      "path": "docs/dayrecord-row-binding-source-evidence.json",
+      "sha256": "6edf21111864a6b557a5371ec3c8b0f3dc9c9ce097df58eccd9d51a3eec3e056"
+    },
+    {
+      "path": "docs/dayrecord-event-label-and-history-scope-evidence.json",
+      "sha256": "bfa5596d0649be19ebc1c4f0a288c83a516171fd9c0324497ea2a6df8a15b6fd"
+    },
+    {
+      "path": "lms-automation/ganga/lms/endpoints.py",
+      "sha256": "376df9e63c30591b94311e2ea19625e14d81e654357d66d59f3e1cdb52d9576a"
+    },
+    {
+      "path": "lms-automation/ganga/lms/reader.py",
+      "sha256": "6bc2df5395018ca162c87251be9358d4a8e6ed056a5d1056dd13cdd41a1ff58f"
+    },
+    {
+      "path": "research/remote-2026-09-27/gang-a/core/day_record_sync.py",
+      "sha256": "a0df4e9c410fdeabb25358b80297bf61663afd41b7f71f84b36eed3bba57b4ee"
+    },
+    {
+      "path": "research/backend-map/route-registry.json",
+      "sha256": "c442309b342252ad2d25890c6bd267ed08182ceea50086f8634b73af527d7437"
+    }
+  ],
+  "currentObservation": {
+    "sourceUrl": "https://dc.gang-a.kr/servlet/controller.cct.tutor.DayRecordServlet?p_process=Main",
+    "browser": "dot cloud Chrome",
+    "tabId": "9",
+    "startUtc": "2026-10-01T02:07:26Z",
+    "endUtc": "2026-10-01T02:13:38Z",
+    "method": "read-only DOM-backed extraction of named dialog controls and inline source; no handler execution",
+    "expectedMain": true,
+    "passwordInputPresent": false,
+    "teacherFieldPresent": true,
+    "dialogCount": 2,
+    "radioCounts": {
+      "homework": 7,
+      "dailyTest": 12
+    },
+    "currentSelectedValuesRead": false,
+    "staticEnumLabelsRead": true,
+    "rawScriptStored": false,
+    "rawPageStored": false,
+    "sourceExtractionLimits": "Direct inline functions and exact radio-click callbacks only; external/global/server behavior was not inspected."
+  },
+  "contracts": [
+    {
+      "evidence": "current_dom_inline_source_schema_verified",
+      "requestExecuted": false,
+      "networkCapturePerformed": false,
+      "persistenceVerified": false,
+      "functionParameterNames": [
+        "record_seq",
+        "cm_seq",
+        "count"
+      ],
+      "openerEvent": "onclick",
+      "openerDirectRequestDispatch": false,
+      "teacherParameterSource": {
+        "parameter": "tutor_pri_no",
+        "domField": "teacher_pri_no",
+        "expression": "document.getElementById(\"teacher_pri_no\").value"
+      },
+      "targetBodyKeys": [
+        "cm_seq",
+        "record_seq",
+        "tutor_pri_no"
+      ],
+      "targetSources": {
+        "cm_seq": "opener parameter cm_seq",
+        "record_seq": "opener parameter record_seq",
+        "tutor_pri_no": "Main hidden teacher_pri_no"
+      },
+      "sharedUiState": {
+        "requestDataSymbol": "g_param",
+        "resetToEmptyInOpener": true,
+        "indexSymbol": "g_count",
+        "indexSource": "count",
+        "runtimeGlobalStateRead": false,
+        "limitation": "The source uses shared mutable UI variables; no isolated concurrency/retry contract was established."
+      },
+      "trigger": {
+        "selectorApi": "jQuery .click(function(){...})",
+        "guard": "$(this).is(\":checked\")",
+        "valueSource": "$(this).val()",
+        "autosaveOnCheckedRadioClick": true,
+        "separateSaveButtonRequired": false,
+        "approvalMustPrecedeSelection": true
+      },
+      "method": "POST",
+      "sourceMethodLiteral": "post",
+      "path": "/servlet/controller.cct.common.CourseCommonServlet",
+      "ajaxCallsPerCallback": 1,
+      "payloadEncoding": {
+        "dataPropertySymbol": "g_param",
+        "construction": "concatenated query-key string built in opener plus appended rating key",
+        "explicitCurrentContentTypeOverrideObserved": false,
+        "serverDecodeBehaviorVerified": false
+      },
+      "responseSource": {
+        "successCallbackParameter": "data",
+        "successComparison": {
+          "property": "data.result",
+          "operator": "==",
+          "literal": "OK"
+        },
+        "businessFailureProperty": "data.fail_message",
+        "businessFailureAlertReferencesFailureProperty": true,
+        "errorCallbackParameter": "e",
+        "errorCallbackCallsWindowAlert": true,
+        "actualErrorMessagesObserved": false,
+        "localUiActions": [
+          "write hidden rating value",
+          "change rating image",
+          "remove checked attribute",
+          "unblock overlay"
+        ],
+        "independentAuthoritativeReadbackRequestFound": false,
+        "notificationNamedCallFoundInCallback": false,
+        "serverSideNotificationCoupling": "unknown",
+        "uiEchoIsPersistenceProof": false
+      },
+      "unknowns": [
+        "exact current/prior occurrence date and independently verified teacher ownership",
+        "server authorization and persistence behavior",
+        "authoritative same-target readback",
+        "recovery behavior and concurrency guarantees",
+        "server-side notification coupling"
+      ],
+      "status": "source_contract_candidate_only_live_execution_blocked",
+      "businessField": "previousHomeworkEvaluation",
+      "userLabel": "지난 숙제 평가",
+      "handler": "openHomeWorkRate",
+      "dialogSelector": "#homework_rate",
+      "radioInputName": "homework_radio",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "SetHomeWorkRate"
+      },
+      "valueParameter": "homework_rate_no",
+      "valueAppendedToGParam": true,
+      "readControlPattern": "h_homework_rate_{count}",
+      "imageSelectorPattern": "#imgHomeworkRate_{g_count}",
+      "currentStaticOptions": [
+        {
+          "code": "-1",
+          "label": "미확인"
+        },
+        {
+          "code": "0",
+          "label": "미실시"
+        },
+        {
+          "code": "1",
+          "label": "숙제 수행도 C"
+        },
+        {
+          "code": "2",
+          "label": "숙제 수행도 B"
+        },
+        {
+          "code": "3",
+          "label": "숙제 수행도 B⁺"
+        },
+        {
+          "code": "4",
+          "label": "숙제 수행도 A"
+        },
+        {
+          "code": "5",
+          "label": "숙제 수행도 A⁺"
+        }
+      ],
+      "targetBinding": {
+        "column": "지난진도",
+        "columnGroup": "previous_progress",
+        "sameMembershipAsCurrent": true,
+        "sameRecordAsCurrent": false,
+        "priorDateIndependentlyEstablished": false,
+        "priorTeacherOwnershipIndependentlyEstablished": false,
+        "requirement": "Use the separately bound previous record; never reuse current-record approval solely because cm_seq matches."
+      },
+      "canonicalRegistryId": "course_common_sethomeworkrate",
+      "safeToProbe": false
+    },
+    {
+      "evidence": "current_dom_inline_source_schema_verified",
+      "requestExecuted": false,
+      "networkCapturePerformed": false,
+      "persistenceVerified": false,
+      "functionParameterNames": [
+        "record_seq",
+        "cm_seq",
+        "count"
+      ],
+      "openerEvent": "onclick",
+      "openerDirectRequestDispatch": false,
+      "teacherParameterSource": {
+        "parameter": "tutor_pri_no",
+        "domField": "teacher_pri_no",
+        "expression": "document.getElementById(\"teacher_pri_no\").value"
+      },
+      "targetBodyKeys": [
+        "cm_seq",
+        "record_seq",
+        "tutor_pri_no"
+      ],
+      "targetSources": {
+        "cm_seq": "opener parameter cm_seq",
+        "record_seq": "opener parameter record_seq",
+        "tutor_pri_no": "Main hidden teacher_pri_no"
+      },
+      "sharedUiState": {
+        "requestDataSymbol": "g_param",
+        "resetToEmptyInOpener": true,
+        "indexSymbol": "g_count",
+        "indexSource": "count",
+        "runtimeGlobalStateRead": false,
+        "limitation": "The source uses shared mutable UI variables; no isolated concurrency/retry contract was established."
+      },
+      "trigger": {
+        "selectorApi": "jQuery .click(function(){...})",
+        "guard": "$(this).is(\":checked\")",
+        "valueSource": "$(this).val()",
+        "autosaveOnCheckedRadioClick": true,
+        "separateSaveButtonRequired": false,
+        "approvalMustPrecedeSelection": true
+      },
+      "method": "POST",
+      "sourceMethodLiteral": "post",
+      "path": "/servlet/controller.cct.common.CourseCommonServlet",
+      "ajaxCallsPerCallback": 1,
+      "payloadEncoding": {
+        "dataPropertySymbol": "g_param",
+        "construction": "concatenated query-key string built in opener plus appended rating key",
+        "explicitCurrentContentTypeOverrideObserved": false,
+        "serverDecodeBehaviorVerified": false
+      },
+      "responseSource": {
+        "successCallbackParameter": "data",
+        "successComparison": {
+          "property": "data.result",
+          "operator": "==",
+          "literal": "OK"
+        },
+        "businessFailureProperty": "data.fail_message",
+        "businessFailureAlertReferencesFailureProperty": true,
+        "errorCallbackParameter": "e",
+        "errorCallbackCallsWindowAlert": true,
+        "actualErrorMessagesObserved": false,
+        "localUiActions": [
+          "write hidden rating value",
+          "change rating image",
+          "remove checked attribute",
+          "unblock overlay"
+        ],
+        "independentAuthoritativeReadbackRequestFound": false,
+        "notificationNamedCallFoundInCallback": false,
+        "serverSideNotificationCoupling": "unknown",
+        "uiEchoIsPersistenceProof": false
+      },
+      "unknowns": [
+        "exact current/prior occurrence date and independently verified teacher ownership",
+        "server authorization and persistence behavior",
+        "authoritative same-target readback",
+        "recovery behavior and concurrency guarantees",
+        "server-side notification coupling"
+      ],
+      "status": "source_contract_candidate_only_live_execution_blocked",
+      "businessField": "dailyTestEvaluation",
+      "userLabel": "일일테스트 평가",
+      "handler": "setDailyTest",
+      "dialogSelector": "#daily_test",
+      "radioInputName": "daily_test_radio",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "SetDailyTest"
+      },
+      "valueParameter": "daily_test_no",
+      "valueAppendedToGParam": true,
+      "readControlPattern": "h_daily_test_{count}",
+      "imageSelectorPattern": "#imgDailyTest_{g_count}",
+      "currentStaticOptions": [
+        {
+          "code": "-1",
+          "label": "미확인"
+        },
+        {
+          "code": "0",
+          "label": "미실시"
+        },
+        {
+          "code": "1",
+          "label": "일일 테스트 10점"
+        },
+        {
+          "code": "2",
+          "label": "일일 테스트 20점"
+        },
+        {
+          "code": "3",
+          "label": "일일 테스트 30점"
+        },
+        {
+          "code": "4",
+          "label": "일일 테스트 40점"
+        },
+        {
+          "code": "5",
+          "label": "일일 테스트 50점"
+        },
+        {
+          "code": "6",
+          "label": "일일 테스트 60점"
+        },
+        {
+          "code": "7",
+          "label": "일일 테스트 70점"
+        },
+        {
+          "code": "8",
+          "label": "일일 테스트 80점"
+        },
+        {
+          "code": "9",
+          "label": "일일 테스트 90점"
+        },
+        {
+          "code": "10",
+          "label": "일일 테스트 100점"
+        }
+      ],
+      "targetBinding": {
+        "column": "금일진도",
+        "columnGroup": "current_progress",
+        "sameMembershipAsCurrent": true,
+        "sameRecordAsCurrent": true,
+        "occurrenceDateIndependentlyEstablished": false,
+        "requirement": "Corroborate the current row, retain independent lesson-occurrence proof."
+      },
+      "scaleMeaning": {
+        "zero": "미실시, not a completed test with zero points",
+        "unknown": "미확인",
+        "positiveCodes": "1..10 correspond to displayed 10..100 points",
+        "attemptScoreEquivalent": false
+      },
+      "canonicalRegistryId": "course_common_setdailytest",
+      "safeToProbe": false
+    }
+  ],
+  "sourceResolution": [
+    {
+      "source": "lms-automation/ganga/lms/endpoints.py:424-434",
+      "finding": "Archived POST field keys daily_test_no and homework_rate_no are corroborated by current inline source."
+    },
+    {
+      "source": "research/remote-2026-09-27/gang-a/core/day_record_sync.py:150-161",
+      "finding": "Older writer sends daily_test_radio as a body key. Current inline source confirms this is the radio input name, while the appended body key is daily_test_no.",
+      "resolvedForSourceSchema": true,
+      "oldWriterExecuted": false
+    },
+    {
+      "source": "research/remote-2026-09-27/gang-a/core/day_record_sync.py:163-174",
+      "finding": "Older writer reuses a current record for homework rating. Current DOM evidence binds the homework opener to the previous-progress record; shared cm_seq does not permit reuse of current occurrence.",
+      "oldWriterExecuted": false
+    },
+    {
+      "source": "lms-automation/ganga/lms/endpoints.py:334-341",
+      "finding": "Current DOM corroborates DT labels and establishes all homework radio labels, including -1 미확인. Archived homework range 0..5 omitted this visible unknown-state option.",
+      "minusOneServerAcceptanceTested": false
+    },
+    {
+      "source": "lms-automation/ganga/lms/reader.py:308-323,371-372",
+      "finding": "Archived reader extracts h_daily_test_{i}/h_homework_rate_{i}, but its five-field completeness helper omits homework evaluation and its flat current-row model omits separate previous identity. These historical rules do not implement the latest six-field requirement."
+    }
+  ],
+  "passiveParser": {
+    "path": "src/lms/dayRecordDomBinding.ts",
+    "sourceAnchors": [
+      "DAY_RECORD_HANDLER_SIGNATURES",
+      "GROUPS",
+      "bindDayRecordDomRow corroboration setDailyTest",
+      "previousProgress separate_previous_column_binding"
+    ],
+    "existingCoverage": [
+      "current daily-test tuple mismatch fails closed",
+      "same-membership different previous record remains separate",
+      "previous handler cannot repair missing current handlers or masquerade as current group"
+    ],
+    "schemaChangeNeededForObservedHandlerArguments": false,
+    "sourceChangedInThisReview": false,
+    "newExecutableTransport": false,
+    "ratingCodesAreNotHandlerCountArgument": true
+  },
+  "boundedHistoryClosure": {
+    "source": "docs/dayrecord-event-label-and-history-scope-evidence.json",
+    "exactEvidenceStage": "After one ordinary Main-row history click: browser tab inventory URL metadata; before any history body, schema or records were inspected.",
+    "equalityBooleans": {
+      "sourceTeacherEqualsFreshPrincipal": true,
+      "scheduleTeacherEqualsFreshPrincipal": true,
+      "historyStudentEqualsCurrentRowStudent": true,
+      "historyTutorParameterEqualsVerifiedSourceTeacher": false
+    },
+    "historyBodyInspected": false,
+    "scopeUnresolved": true,
+    "liveNavigationAfterMismatch": false,
+    "alternateSemanticId": {
+      "possible": true,
+      "established": false,
+      "note": "Another tutor-domain identifier or stale/different source binding could explain the mismatch. No source evidence currently establishes which interpretation applies."
+    },
+    "sourceOnlyEvidenceNeeded": [
+      "Trace the onOpenDaysMain tutor_pri_no expression to its exact source symbol or DOM field without outputting values.",
+      "Obtain an authorized explicit source/schema mapping between that selector domain and the principal/teacher identity domain.",
+      "Return only authorized equality booleans; parameter names alone cannot establish equivalence."
+    ],
+    "stopRule": "Do not correct the URL, treat selectors as equivalent, or inspect the resulting history until scope is resolved."
+  },
+  "executionGates": [
+    "Verify exact previous and current lesson-occurrence targets separately.",
+    "Establish independent teacher ownership and occurrence date.",
+    "Review exact before/after field values and recovery plan before radio selection or any autosaving edit.",
+    "Require field-specific current-source validation and authoritative same-target readback after any future approved save.",
+    "Do not count result OK or hidden value/image updates as persisted server state."
+  ],
+  "remainingAccessBlocker": null,
+  "remainingEvidenceBlocker": "Source-level request schema and labels are available; independent exact-target occurrence/ownership/readback evidence remains unresolved.",
+  "validation": {
+    "jsonSyntax": "pass",
+    "codeChanged": false,
+    "newParserTestsRequired": false,
+    "reason": "No handler grammar or target tuple changed; existing synthetic parser tests cover both current and previous assessment handler identities.",
+    "sourceInspectionOnly": true,
+    "productionWrites": 0,
+    "formChanges": 0,
+    "radioClicks": 0,
+    "dialogsOpened": 0,
+    "historyTraversal": 0,
+    "blockedAssetRetrieval": 0,
+    "networkReplay": 0,
+    "liveRequestProofAdded": false,
+    "actualIdentifiersPersisted": false,
+    "studentContentPersisted": false,
+    "catalogCallableEntriesActivated": 0
+  }
+}

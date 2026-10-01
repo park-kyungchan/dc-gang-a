@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "asOfUtc": "2026-10-01",
+  "purpose": "Minimal, reproducible TypeScript/Bun backend tooling; synthetic checks do not establish live access or authorize writes.",
+  "dependencies": {
+    "runtime": "Bun 1.4.2",
+    "compiler": "TypeScript 7.0.2",
+    "schemaValidation": "Existing domain validators and focused runtime checks; no additional validation framework needed.",
+    "http": "Bun native fetch, URL, Headers, AbortSignal; no Google SDK required for the three bounded GET operations.",
+    "hashing": "Bun.CryptoHasher SHA-256",
+    "pdf": "Existing Poppler pdftotext and pdfinfo for local text/layout/bounding boxes; pdftoppm available for separately requested visual review.",
+    "testing": "Existing bun:test; mocked API responses and an original synthetic PDF fixture.",
+    "newPackagesRequired": [],
+    "notRequired": ["Python installation", "OCR framework", "Google API SDK", "Axios", "new MCP server", "browser automation package installation"],
+    "existingBrowserPackages": "Preserved in the lockfile, inventoried only, and never launched by these scripts."
+  },
+  "commands": {
+    "doctor": "bun run harness/backend_dependencies.ts doctor",
+    "bootstrap": "bun run harness/backend_dependencies.ts bootstrap",
+    "focusedTests": "bun test --dots tests/backend",
+    "typecheck": "bun run typecheck",
+    "existingPortableGate": "bun run cloud:check"
+  },
+  "bootstrapBehavior": [
+    "Run with the repository-pinned Bun on PATH. If using a workspace-local Bun binary, prepend its bin directory only for the current command or shell.",
+    "Doctor reads package metadata and invokes compiler/Poppler version commands; it never reads auth files, starts browser tools, or calls live APIs.",
+    "When the required JavaScript packages/compiler are already usable and the existing Cloud install stamp matches bun.lock, bootstrap installs nothing.",
+    "If pinned JavaScript packages are missing or the lockfile install stamp is absent/stale, bootstrap reuses harness/cloud.ts install: frozen lockfile, ignored lifecycle scripts, browser download disabled, one existing fresh-cache compiler repair attempt.",
+    "A Bun version mismatch fails closed. Missing Poppler is reported for approved environment provisioning; the script does not install OS packages, change system settings, or alter network policy.",
+    "Poppler binaries can have different versions on PATH. Store the actual extractor version and PDF hash with derived evidence instead of assuming a single suite version.",
+    "No authentication setup is attempted. CLI installation, account login, Workspace OAuth scopes, current resource access, and approval to mutate are separate gates."
+  ],
+  "backendOwns": [
+    "Exact-target source reads, semantic-effect checks, bounded transport, response-shape validation, timestamps, source identity, and hashes.",
+    "Domain projections and validation with synthetic fixtures; preserve missing joins and unobserved outcomes as unknown.",
+    "Local extraction of approved PDF bytes with explicit PDF-file page windows, output bounds, tool version, and no raw-text logs.",
+    "Preparation of reviewable mutation plans only through existing reviewed domain builders; these new HTTP adapters expose no mutation method."
+  ],
+  "uiOwns": [
+    "Interactive login and secure authentication handoff when required; the backend never discovers browser cookies or credentials.",
+    "Teacher visual judgment, source-page and printed-page verification, and current tab/identity confirmation.",
+    "Review of exact target, before/after values, recovery plan, and required user approval before production effects.",
+    "The teacher's final parent-message send and physical-device acceptance."
+  ],
+  "routing": {
+    "googleRead": "Prefer the connected Drive/Sheets connector when it supports the exact read. The official HTTP adapter is available for an independently authorized ephemeral-token path and a current exact-target allowlist; it grants no permission itself.",
+    "lmsRead": "Use the canonical route registry and existing reviewed TypeScript reader. Classify by actual semantic effect; never infer that GET is safe or that POST mutates. Resolve roster/routes through the deterministic harness only.",
+    "unverifiedLmsRoute": "Stop at unknown. Use authorized UI observation to establish the exact contract, not guessed URLs or broad probes.",
+    "pdf": "Use backend extraction for bounded text/bounding boxes, then visual review where layout matters. Missing text requires an explicit OCR decision rather than silently installing an OCR dependency.",
+    "productionWrite": "Not implemented here. Current authorization, exact target/before-after/recovery, metadata/protection refresh, and same-target readback remain mandatory."
+  },
+  "googleReadAdapter": {
+    "module": "src/backend/googleReadAdapter.ts",
+    "operations": ["Drive files.get metadata", "Sheets spreadsheets.get metadata and protection ranges", "Sheets spreadsheets.values.get exact bounded A1 rectangle"],
+    "bounds": { "maximumCells": 5000, "maximumResponseBytes": 1048576, "timeoutMilliseconds": 15000, "automaticRetries": 0 },
+    "safety": ["Fixed Google origins and field masks", "Exact target allowlist copied before async operations", "No redirects or arbitrary request body", "No credential acquisition, persistence, logs, or refresh", "No file listing, export, content download, or write API", "Target and response-shape checks", "Omitted permissions remain unknown and never grant approval"]
+  },
+  "pdfExtraction": {
+    "module": "src/backend/pdfExtraction.ts",
+    "bounds": { "maximumSourceBytes": 33554432, "maximumPagesPerCall": 20, "maximumOutputBytes": 4194304, "perProcessTimeoutMilliseconds": 15000 },
+    "safety": ["Local files only", "Exact hashed bytes sent to Poppler over stdin", "Verified page count before extraction", "No shell interpolation", "No download, raw-text logging, output persistence, or OCR", "PDF-file coordinates are not printed-page identity"]
+  },
+  "sources": [
+    { "url": "https://developers.google.com/workspace/drive/api/reference/rest/v3/files/get", "supports": "Fixed Drive metadata GET route and fields/metadata distinction" },
+    { "url": "https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/get", "supports": "Spreadsheet metadata GET and explicit field masks; grid data is excluded by default" },
+    { "url": "https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets.values/get", "supports": "Exact spreadsheet/range GET and render options" },
+    { "url": "https://bun.com/docs/runtime/networking/fetch", "supports": "Native fetch, streaming response reads, AbortSignal.timeout" },
+    { "url": "https://bun.com/docs/runtime/child-process", "supports": "Native subprocess execution without adding a process library" },
+    { "url": "https://poppler.freedesktop.org/", "supports": "Official Poppler upstream" },
+    { "localReference": "AGENTS.md", "supports": "Source authority, production approval gates, TypeScript/Bun preference, and deterministic roster/route query boundary" },
+    { "localReference": "harness/cloud.ts", "supports": "Existing pinned/frozen dependency installation and source-only portable checks" }
+  ]
+}

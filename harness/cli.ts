@@ -3,7 +3,7 @@
  * Deterministic Dual-Runtime Harness CLI (TypeScript / Bun)
  * 
  * Provides instantaneous (<50ms), fail-closed queries for the Daechi Whole-Lens cohort
- * and 54 canonical LMS backend routes without grepping directories or probing networks.
+ * and canonical LMS backend routes without grepping directories or probing networks.
  * 
  * Invariants:
  * - SLA: Strictly <50ms execution (RUB-06)
@@ -92,7 +92,7 @@ Subcommands:
       --all                 List teacher, all students, and all groups
       --json                Output clean, parseable JSON
 
-  routes    Query LMS backend route registry (54 canonical routes)
+  routes    Query the canonical LMS backend route registry
     Flags:
       --id <routeId>        Query route by canonical ID
       --op <operation>      Query route by operation name
@@ -394,8 +394,8 @@ export function handleVerify(flags: Record<string, string | boolean>): number {
   try {
     const routes = getAllRoutes();
     checks.routeCount = routes.length;
-    if (routes.length !== 54) {
-      errors.push(`Expected 54 routes, got: ${routes.length}`);
+    if (routes.length === 0 || new Set(routes.map(route => route.id)).size !== routes.length) {
+      errors.push('Canonical route registry must be nonempty with unique operation IDs');
     }
   } catch (err) {
     errors.push(`Route count verification failed: ${err instanceof Error ? err.message : String(err)}`);
@@ -459,7 +459,7 @@ export function handleVerify(flags: Record<string, string | boolean>): number {
       : `[FAIL] Cohort Students (Count: ${checks.cohortCount})`
   );
   lines.push(checks.groupCount === 5 ? '[PASS] Groups: 5 verified (Groups 1, 2, 3, 4, 5)' : `[FAIL] Groups (Count: ${checks.groupCount})`);
-  lines.push(checks.routeCount === 54 ? '[PASS] Routes: 54 canonical routes loaded' : `[FAIL] Routes (Count: ${checks.routeCount})`);
+  lines.push(checks.routeCount > 0 ? `[PASS] Routes: ${checks.routeCount} canonical routes loaded` : '[FAIL] Routes: no validated operations');
   lines.push(checks.failClosedStudent ? '[PASS] Fail-Closed Guard: Unknown student query rejected' : '[FAIL] Fail-Closed Guard: Student');
   lines.push(
     checks.failClosedMutatingGet
