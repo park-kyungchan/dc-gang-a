@@ -143,8 +143,8 @@
   ],
   "engineeringContext": {
     "schemaVersion": 1,
-    "updatedAtUtc": "2026-10-01T07:40:46Z",
-    "objective": "Checkpoint saved at user request; pause new implementation and resume interviews in a new session. The decisive goal is personal mathematics Knowledge Graphs with atomic prerequisite tracing and an AIP/Foundry-level Ontology spanning academy data and teacher/student evidence. PostgreSQL is a candidate foundation, not a selected solution; D1-first recommendation is provisional. Read handoffs/harness-phase-two-checkpoint-2026-10-01.json before continuing.",
+    "updatedAtUtc": "2026-10-01T08:52:47Z",
+    "objective": "Profile, native prose, selected Skills, pinned tooling and native continuity consumers are qualified on the Hermes Linux Backend. Complete or read back the current Git publication, then advance date-first all-student preclass review. Do not rebuild accepted setup or repeat settled interviews. Read native profile qualification and exact Git state separately; product KG queries, provider selection and current academy access remain unresolved.",
     "priorityOrder": [
       "continuity_lead_governance",
       "development_test_feedback",
@@ -169,7 +169,7 @@
     "confirmedDecisions": [
       {
         "id": "priority_order",
-        "statement": "Second-phase user prioritizes continuity and purpose routing first, followed by the complete preclass user outcome and useful development/test feedback, then Google integration dependencies.",
+        "statement": "The Lead orders qualified runtime and reused continuity first, verified Git lifecycle next, complete date-first preclass review next, then student KG/Ontology queries and provider comparison. These are current priorities, not completed outcomes.",
         "source": "user_interview"
       },
       {
@@ -179,7 +179,7 @@
       },
       {
         "id": "lead_structure",
-        "statement": "Use one Lead and its SubAgents, with explicit file ownership and Lead integration responsibility.",
+        "statement": "One Hermes Backend Lead owns integration and final merge judgment. No other PC/Cloud editor remains assigned. Workers require fresh effective native controls; model-facing delegate_task is excluded; eligible workers use gpt-6.1-sol/xhigh or gpt-6-luna/xhigh, with Luna only for low judgment.",
         "source": "user_interview"
       },
       {
@@ -211,11 +211,6 @@
         "id": "requested_context_configuration",
         "statement": "Cloud filesystem only: context window 1,050,000 and 75 percent compaction at 787,500. Do not connect or change local Windows work. Repository TOML readback is verified; effective managed runtime capacity remains unverified and must be checked in a new session.",
         "source": "current_user_request"
-      },
-      {
-        "id": "google_refresh_trigger",
-        "statement": "Use scheduled refresh during lesson preparation plus teacher-triggered manual refresh. Exact preparation schedule and source coverage remain a next-session interview topic.",
-        "source": "user_interview"
       },
       {
         "id": "google_cost_scope",
@@ -258,9 +253,34 @@
         "source": "user_interview"
       },
       {
-        "id": "phase_two_checkpoint_pause",
-        "statement": "Save a checkpoint first and prepare the KG/Ontology interview for a new session due to imminent auto-compaction. Stop new implementation and new interviews in this session.",
-        "source": "current_user_request"
+        "id": "backend_lead_authority",
+        "statement": "The user delegates sole repo development and operations leadership. Once a task goal is approved, commit, push, PR, review/CI, merge, exact readback and owned cleanup may complete autonomously. No force-push main, protection bypass or foreign-work deletion follows.",
+        "source": "user_interview"
+      },
+      {
+        "id": "backend_execution_scope",
+        "statement": "All work executes on the Hermes Linux Backend. Windows Desktop is remote-only; no Windows-local or Host/other-container administration is admitted by repo leadership. The official profile creation callback may register its stopped container-local s6 gateway, without starting it or restarting existing services.",
+        "source": "user_interview"
+      },
+      {
+        "id": "backend_repeat_operations",
+        "statement": "After initial approval of exact target, fields, change rules and recovery, repeated refresh/write operations may run inside that approved envelope with exact readback. Teacher judgment, official record finalization and final parent sending remain reserved. No concrete production envelope has yet been admitted.",
+        "source": "user_interview"
+      },
+      {
+        "id": "backend_harness_scope",
+        "statement": "This session must update the repo profile runtime, required Skill/plugin selection and all applicable native prose, including SOUL.md, USER.md, MEMORY.md and repo AGENTS.md, and exercise their native consumers. Shared/runtime owners and original evidence remain distinct.",
+        "source": "user_interview"
+      },
+      {
+        "id": "backend_autonomous_goals",
+        "statement": "Use autonomous completion of each approved goal, intervening only for consequential decisions, authority change or an actual blocker. Operating schedules must be separately verified before activation; no unbounded background development or new worker/job admission follows.",
+        "source": "user_interview"
+      },
+      {
+        "id": "backend_ontology_reuse",
+        "statement": "Reuse the Ontology workstream’s already verified continuity procedures and shared foundation instead of rebuilding them. The Lead helps prioritize incomplete requests through Whole-Lens decisions; knowledge reuse is not proof of automatic cross-profile synchronization.",
+        "source": "user_interview"
       }
     ],
     "assumptions": [],
@@ -287,13 +307,13 @@
     "dispatch": [],
     "nextSteps": [
       {
-        "id": "resume_phase_two_checkpoint",
+        "id": "qualify_backend_profile",
         "owner": "lead",
         "action": "validate_confirmed_changes",
         "referencePaths": [
-          "handoffs/harness-phase-two-checkpoint-2026-10-01.json",
-          "docs/student-database-architecture-2026-10-01.json",
-          "review/harness-phase-two-runtime-2026-10-01.json"
+          "docs/hermes-backend-profile.ts",
+          "AGENTS.md",
+          "tests/harness/hermesBackendProfile.test.ts"
         ],
         "dependsOnQuestionIds": []
       },
@@ -320,7 +340,8 @@
     },
     "historicalDecisionReferences": [
       "review/cloud-optimization-2026-10-01.json",
-      "docs/google-api-enablement-proposal-2026-10-01.json"
+      "docs/google-api-enablement-proposal-2026-10-01.json",
+      "handoffs/harness-phase-two-checkpoint-2026-10-01.json"
     ]
   }
 }
