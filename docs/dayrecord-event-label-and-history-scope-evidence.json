@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "kind": "dayrecord_event_label_and_bounded_history_scope_evidence",
+  "observedOn": "2026-10-01",
+  "observationTimezone": "Etc/UTC",
+  "observationWindowsUtc": {
+    "statementDiagnosis": {
+      "start": "2026-10-01T01:41:21Z",
+      "end": "2026-10-01T01:43:38Z"
+    },
+    "bindingAndHistory": {
+      "start": "2026-10-01T01:47:22Z",
+      "end": "2026-10-01T01:55:51Z"
+    }
+  },
+  "artifactSequence": {
+    "nextBatchAfterV2": true,
+    "includedInPriorV2Snapshot": false,
+    "priorBundlesRewritten": false,
+    "priorEvidence": [
+      {
+        "path": "docs/dayrecord-row-binding-source-evidence.json",
+        "sha256": "6edf21111864a6b557a5371ec3c8b0f3dc9c9ce097df58eccd9d51a3eec3e056"
+      },
+      {
+        "path": "docs/bounded-history-read-attempt.json",
+        "sha256": "e8049c07ceb1bd4d869b5d5186fd41ef1a9847b1b9970871fdad51850cb9c343"
+      }
+    ]
+  },
+  "sources": {
+    "main": "https://dc.gang-a.kr/servlet/controller.cct.tutor.DayRecordServlet?p_process=Main",
+    "principalPage": "https://dc.gang-a.kr/servlet/controller.cct.tutor.CourseScheduleServlet?p_process=Main",
+    "historyRoute": {
+      "origin": "https://dc.gang-a.kr",
+      "path": "/servlet/controller.cct.tutor.DayRecordServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "DaysMain"
+      },
+      "actualParameterizedUrlPersisted": false
+    }
+  },
+  "statementDiagnosis": {
+    "priorIssueCode": "unsupported_statement_shape",
+    "cause": "one literal javascript: statement label before each core handler call",
+    "eventContext": "HTML event-attribute JavaScript body; not href/URL navigation",
+    "coreHandlers": [
+      "onAttn",
+      "onFoPrg",
+      "onFoHw",
+      "onFoMm"
+    ],
+    "perHandlerArgumentCount": 5,
+    "allCoreArgumentsQuotedDecimal": true,
+    "allFourIdentityArgumentsPositive": true,
+    "uiIndexZero": true,
+    "studentNameSpanNonempty": true,
+    "studentNamePlaceholderMarker": false,
+    "recordLikeRowCount": 1,
+    "directDataCellCount": 13,
+    "groupSelectionCategory": "choose_placeholder",
+    "formWideCourseSeqNonempty": false,
+    "meaning": "Not an empty placeholder-row diagnosis; the strict wrapper grammar rejected a supported identity tuple. Group placeholder does not establish that a rendered row is empty."
+  },
+  "parserIncrement": {
+    "path": "src/lms/dayRecordDomBinding.ts",
+    "sha256": "2621ede29edc04e39356145a2ec5cb723cb557a1e99feb3e6587bdec085bec70",
+    "acceptedAddition": "Exactly one literal javascript: label before an allowlisted single call in an HTML event attribute",
+    "reportedPrefixKinds": [
+      "none",
+      "return",
+      "javascript_label"
+    ],
+    "executionMechanismAdded": false,
+    "hrefContextAccepted": false,
+    "guardsPreserved": [
+      "known handler and event/column matching",
+      "current source-signature confirmation",
+      "four complete equal current-row tuples",
+      "quoted decimal strings remain opaque including leading zeroes",
+      "unquoted numerals must be canonical safe integers",
+      "no escapes/templates/expressions/comments/additional statements",
+      "same-line return guard prevents automatic-semicolon-insertion ambiguity"
+    ],
+    "explicitRejections": [
+      "nested labels",
+      "unknown/case-variant labels",
+      "encoded or escaped labels",
+      "label plus return combinations",
+      "extra expressions or statements",
+      "href event context"
+    ],
+    "catalogOrRegistryChanged": false,
+    "callableEntriesActivated": 0
+  },
+  "validation": {
+    "runtime": "Bun 1.4.2",
+    "focusedCommand": "bun test --dots tests/lms/dayRecordDomBinding.test.ts",
+    "focusedTests": 66,
+    "focusedPass": 66,
+    "focusedFail": 0,
+    "assertions": 195,
+    "typecheckCommand": "bun run typecheck",
+    "typecheck": "pass",
+    "diffCheck": "pass",
+    "testPath": "tests/lms/dayRecordDomBinding.test.ts",
+    "testSha256": "7df19804c1635ef17bb77e279fa19d8c08e7a75dbfe38c23e440396f35449ea4",
+    "fixturePolicy": "synthetic identifiers and dates only",
+    "standalonePopupRegression": "A prefixed consistent row can resolve while principal metadata is absent; no instructor ownership proof is inferred."
+  },
+  "freshPreClickChecks": {
+    "mainPasswordInputPresent": false,
+    "mainTeacherFieldNonempty": true,
+    "recordLikeRows": 1,
+    "currentColumnAndCoreSourceSignaturesMatched": true,
+    "allFourCurrentRowTuplesEqual": true,
+    "allCoreIdentityArgumentsPositive": true,
+    "historyControlCount": 1,
+    "historyControlVisible": true,
+    "historyControlStudentEqualsCurrentRow": true,
+    "studentNameNonempty": true,
+    "activeEditableControl": false
+  },
+  "privateCrossPageTeacherCheck": {
+    "comparisonMethod": "Only nonsecret hidden DOM identifier values were held transiently in private browser runtime; only booleans returned",
+    "popupField": "form1.teacher_pri_no",
+    "freshPrincipalField": "userForm.pri_no",
+    "scheduleTeacherField": "form1.tutor_pri_no",
+    "freshScheduleAuthenticatedMarker": true,
+    "principalNonempty": true,
+    "popupTeacherEqualsFreshPrincipal": true,
+    "scheduleTeacherEqualsFreshPrincipal": true,
+    "valuesPersisted": false,
+    "serverAuthorizationProof": false
+  },
+  "ordinaryHistoryNavigation": {
+    "action": "One documented locator click on the unique observed span whose onclick invokes onOpenDaysMain",
+    "clickCount": 1,
+    "independentReadActionAuthorized": true,
+    "sourceSignal": "Known DaysMain read-view URL construction with date/group/teacher/student selectors and popup setup",
+    "siteFunctionInvokedThroughEvaluate": false,
+    "rawHttpOrFetchReplay": false,
+    "fieldEdit": false,
+    "filterChange": false,
+    "formSubmission": false,
+    "newPopupCount": 1
+  },
+  "postClickObservation": {
+    "bodyInspection": "not_obtained",
+    "popupAttachmentError": "Protocol error (Emulation.setLocaleOverride): Another locale override is already in effect",
+    "existingBrowserBindingRecoveryAttemptAlsoFailed": true,
+    "observedPopupUrlPresent": true,
+    "expectedOrigin": true,
+    "expectedDayRecordPath": true,
+    "daysMainSelectorPresent": true,
+    "onlyExpectedQueryKeys": true,
+    "queryParameterNames": [
+      "p_process",
+      "std_ym",
+      "grp_seq",
+      "tutor_pri_no",
+      "student_pri_no"
+    ],
+    "historyStudentParameterEqualsCurrentRowStudent": true,
+    "historyTeacherParameterEqualsVerifiedPopupTeacher": false,
+    "historyTeacherParameterShape": {
+      "present": true,
+      "nonempty": true,
+      "positiveDecimal": true,
+      "placeholderMarker": false
+    },
+    "rawParameterizedUrlPersisted": false,
+    "interpretation": "A scope parameter mismatch is unresolved evidence, not proof of an account change, authorization flaw or wrong-teacher data disclosure."
+  },
+  "stop": {
+    "reason": "Observed history tutor_pri_no did not equal the verified source-popup teacher/principal; stop rather than infer equivalent identifiers or repair the URL",
+    "followOrReplayAfterMismatch": false,
+    "historyResultRecordsInspected": false,
+    "historySchemaAndCounts": null,
+    "historyRecordCourseMembershipDateCorroboration": null,
+    "readCompletionClaimed": false,
+    "transientIdentifierAndUrlMaterialCleared": true
+  },
+  "boundaries": {
+    "moduleJsRetrievedAgain": false,
+    "alternateBlockedAssetRetrieval": false,
+    "wholeSiteDenialInferred": false,
+    "screenshots": false,
+    "credentialsCookiesTokensOrStorageRead": false,
+    "studentNamesOrRecordTextPersisted": false,
+    "actualIdentifierValuesPersisted": false,
+    "actualLessonDateValuesPersisted": false,
+    "productionWrites": 0,
+    "journalFieldsApproved": false,
+    "liveWriteTransportImplemented": false,
+    "genericRouteActivation": false,
+    "operationalSheetAccess": false
+  },
+  "nextRequiredEvidence": "Resolve the semantic source of the different history teacher selector and revalidate exact teacher/student scope through an authorized read-only observation before any further history navigation or journal operation. Do not replace the query parameter by guessing."
+}

@@ -1,0 +1,2089 @@
+{
+  "schemaVersion": 1,
+  "kind": "academy_menu_dom_source_metadata_evidence",
+  "observedOn": "2026-10-01",
+  "observationTimezone": "Etc/UTC",
+  "origin": "https://dc.gang-a.kr",
+  "observationWindowsUtc": {
+    "menuShells": {
+      "start": "2026-10-01T00:42:17Z",
+      "end": "2026-10-01T00:46:20Z"
+    },
+    "scopeAndSchema": {
+      "start": "2026-10-01T00:35:37Z",
+      "end": "2026-10-01T00:39:26Z"
+    }
+  },
+  "artifactSequence": {
+    "status": "subsequent_research_artifact",
+    "includedInPriorV1ReviewBundle": false,
+    "priorDomEvidencePath": "docs/academy-dom-source-evidence.json",
+    "priorArtifactModified": false
+  },
+  "collection": {
+    "browser": "authenticated dot cloud browser",
+    "method": "read-only DOM attributes and minimized inline-script literal extraction",
+    "navigation": "only previously observed top-level menu shells and previously observed CCT shells",
+    "screenshotDrivenDiscovery": false,
+    "childOperationNavigation": false,
+    "formSubmission": false,
+    "networkCapture": false,
+    "programmaticFetchOrReplay": false,
+    "externalScriptSourceFetched": false,
+    "cookiesTokensPasswordsOrStorageRead": false,
+    "credentialValuesPersisted": false,
+    "studentRecordsPersisted": false,
+    "principalIdentifierValuesPersisted": false,
+    "operationalSheetAccess": false,
+    "remoteUpload": false
+  },
+  "counts": {
+    "menuBranchesReviewed": 7,
+    "branchLevelChildRouteObservations": 43,
+    "normalizedCrossBranchSignatures": 41,
+    "handlerOnlyDeclarations": 1,
+    "normalization": "path + p_process/reqCmd literal + query-key names; nonselector values omitted",
+    "assNoValuesIncluded": false,
+    "assNoNormalizationCaveat": "Shared UserByMain links from DA/FA/NA collapse despite withheld ass_no values; normalized signatures are not unique verified requests",
+    "existingCatalogCountReportedByParent": 95,
+    "existingCatalogCountRecomputed": false,
+    "additionsToExistingCatalog": 0,
+    "callableEntriesActivated": 0,
+    "additiveToExistingCatalog": false
+  },
+  "evidenceLayers": {
+    "renderedDom": "Observed link route literals, form names and methods, presence flags, headers and structural counts",
+    "inlineSource": "Static route and command literals only; nearest preceding named function is a source-location hint, not an executed call trace",
+    "semantic": "Label-based effect caution and suggested domain groupings are interpretation, not backend effect or authorization proof",
+    "network": "Unavailable; no HTTP response/request capture or replay evidence",
+    "dates": "Observation time is UTC; current lesson/month input values were checked only for nonemptiness and not persisted"
+  },
+  "menuBranches": [
+    {
+      "branch": "BaseManageIndex",
+      "menuLabel": "사용자관리",
+      "sourceAnchor": {
+        "url": "https://dc.gang-a.kr/servlet/controller.tutor.TutorMenuIndexServlet?p_process=BaseManageIndex",
+        "dom": "rendered a[href] menu anchors; duplicates collapsed by normalized route signature"
+      },
+      "authenticatedPageMarker": {
+        "logoutMarkerPresent": true,
+        "passwordInputPresent": false
+      },
+      "childRoutes": [
+        {
+          "observationId": "BaseManageIndex:1",
+          "linkLabel": "사용자검색",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.base.UserSearchServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "unbounded_search_scope_unverified",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "BaseManageIndex:2",
+          "linkLabel": "학생승인&반편성",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.base.UserClsManageServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "approval_and_class_assignment_workflow",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "BaseManageIndex:3",
+          "linkLabel": "학습패드관리",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.base.UserSearchServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "GetCertificateMain"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "device_management_workflow",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "BaseManageIndex:4",
+          "linkLabel": "교재요청관리",
+          "labelMissing": false,
+          "path": "/servlet/controller.bookorder.tutor.PreOrderServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "ClgMain"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "order_management_workflow",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        }
+      ]
+    },
+    {
+      "branch": "DAIndex",
+      "menuLabel": "학력인증평가",
+      "sourceAnchor": {
+        "url": "https://dc.gang-a.kr/servlet/controller.tutor.TutorMenuIndexServlet?p_process=DAIndex",
+        "dom": "rendered a[href] menu anchors; duplicates collapsed by normalized route signature"
+      },
+      "authenticatedPageMarker": {
+        "logoutMarkerPresent": true,
+        "passwordInputPresent": false
+      },
+      "childRoutes": [
+        {
+          "observationId": "DAIndex:1",
+          "linkLabel": "새로 만들기",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.da.TestPageRegServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Auto"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "creation_workflow",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "DAIndex:2",
+          "linkLabel": "시험지 목록 / 출제",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.da.TestPageListGrpServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "mixed_listing_and_assignment_workflow",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "DAIndex:3",
+          "linkLabel": "시험별 응시결과",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.da.TestPageListServlet",
+          "selector": null,
+          "literalQueryKeys": [],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "DAIndex:4",
+          "linkLabel": "기간별 응시결과",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.da.MarksResultDigestServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "DAIndex:5",
+          "linkLabel": "학생별 응시결과",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.base.TestPageListServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "UserByMain"
+          },
+          "literalQueryKeys": [
+            "p_process",
+            "ass_no"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "DAIndex:6",
+          "linkLabel": "시험지 목록",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.diag.DiagnostManageServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "TestPaperList"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "DAIndex:7",
+          "linkLabel": "시험 결과",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.diag.DiagnostManageServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "TestResultList"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "DAIndex:8",
+          "linkLabel": null,
+          "labelMissing": true,
+          "path": "/servlet/controller.tutor.da.TestPageListOurclgServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "unlabeled_unknown",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        }
+      ]
+    },
+    {
+      "branch": "FAIndex",
+      "menuLabel": "형성평가",
+      "sourceAnchor": {
+        "url": "https://dc.gang-a.kr/servlet/controller.tutor.TutorMenuIndexServlet?p_process=FAIndex",
+        "dom": "rendered a[href] menu anchors; duplicates collapsed by normalized route signature"
+      },
+      "authenticatedPageMarker": {
+        "logoutMarkerPresent": true,
+        "passwordInputPresent": false
+      },
+      "childRoutes": [
+        {
+          "observationId": "FAIndex:1",
+          "linkLabel": "새로 만들기",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.fa.TestPageRegServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Auto"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "creation_workflow",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "FAIndex:2",
+          "linkLabel": "시험지 목록 / 출제",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.fa.TestPageListGrpServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "mixed_listing_and_assignment_workflow",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "FAIndex:3",
+          "linkLabel": "시험별 응시결과",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.fa.TestPageListServlet",
+          "selector": null,
+          "literalQueryKeys": [],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "FAIndex:4",
+          "linkLabel": "기간별 응시결과",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.fa.MarksResultDigestServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "FAIndex:5",
+          "linkLabel": "학생별 응시결과",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.base.TestPageListServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "UserByMain"
+          },
+          "literalQueryKeys": [
+            "p_process",
+            "ass_no"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "FAIndex:6",
+          "linkLabel": null,
+          "labelMissing": true,
+          "path": "/servlet/controller.tutor.fa.TestPageListOurclgServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "unlabeled_unknown",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        }
+      ]
+    },
+    {
+      "branch": "NAIndex",
+      "menuLabel": "수시평가",
+      "sourceAnchor": {
+        "url": "https://dc.gang-a.kr/servlet/controller.tutor.TutorMenuIndexServlet?p_process=NAIndex",
+        "dom": "rendered a[href] menu anchors; duplicates collapsed by normalized route signature"
+      },
+      "authenticatedPageMarker": {
+        "logoutMarkerPresent": true,
+        "passwordInputPresent": false
+      },
+      "childRoutes": [
+        {
+          "observationId": "NAIndex:1",
+          "linkLabel": "새로 만들기",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.na.TestPageRegServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Auto"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "creation_workflow",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "NAIndex:2",
+          "linkLabel": "채점도우미",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.na.TestPageRegServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "NonePaper"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "grading_workflow",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "NAIndex:3",
+          "linkLabel": "시험지 목록 / 출제",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.na.TestPageListOurclgServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "mixed_listing_and_assignment_workflow",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "NAIndex:4",
+          "linkLabel": "시험별 응시결과",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.na.TestPageListServlet",
+          "selector": null,
+          "literalQueryKeys": [],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "NAIndex:5",
+          "linkLabel": "기간별 응시결과",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.na.MarksResultDigestServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "NAIndex:6",
+          "linkLabel": "학생별 응시결과",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.base.TestPageListServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "UserByMain"
+          },
+          "literalQueryKeys": [
+            "p_process",
+            "ass_no"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "NAIndex:7",
+          "linkLabel": null,
+          "labelMissing": true,
+          "path": "/servlet/controller.tutor.na.TestPageListGrpServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "unlabeled_unknown",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        }
+      ]
+    },
+    {
+      "branch": "TestPoolIndex",
+      "menuLabel": "문제지제작",
+      "sourceAnchor": {
+        "url": "https://dc.gang-a.kr/servlet/controller.tutor.TutorMenuIndexServlet?p_process=TestPoolIndex",
+        "dom": "rendered a[href] menu anchors; duplicates collapsed by normalized route signature"
+      },
+      "authenticatedPageMarker": {
+        "logoutMarkerPresent": true,
+        "passwordInputPresent": false
+      },
+      "childRoutes": [
+        {
+          "observationId": "TestPoolIndex:1",
+          "linkLabel": "문제지 조회",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.etest.TestPoolServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "TestPoolIndex:2",
+          "linkLabel": "문제지 제작 이력조회",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.etest.TestPoolServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "LogViewList"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        }
+      ]
+    },
+    {
+      "branch": "CourseMainIndex",
+      "menuLabel": "학습관리",
+      "sourceAnchor": {
+        "url": "https://dc.gang-a.kr/servlet/controller.tutor.TutorMenuIndexServlet?p_process=CourseMainIndex",
+        "dom": "rendered a[href] menu anchors; duplicates collapsed by normalized route signature"
+      },
+      "authenticatedPageMarker": {
+        "logoutMarkerPresent": true,
+        "passwordInputPresent": false
+      },
+      "childRoutes": [
+        {
+          "observationId": "CourseMainIndex:1",
+          "linkLabel": "강아학습결과",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.base.TestPageListServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "CourseMainIndex:2",
+          "linkLabel": "교재리포트 생성",
+          "labelMissing": false,
+          "path": "/servlet/controller.coursemanage.TextBookManageServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "getTextBookMain"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "report_generation_workflow",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "CourseMainIndex:3",
+          "linkLabel": "DT / ZT 목록",
+          "labelMissing": false,
+          "path": "/servlet/controller.dailyzerotest.DailyZeroTestServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "DailyZeroTestMain"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "CourseMainIndex:4",
+          "linkLabel": "DT / ZT 결과",
+          "labelMissing": false,
+          "path": "/servlet/controller.dailyzerotest.DailyZeroTestServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "DailyZeroTestResult"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "CourseMainIndex:5",
+          "linkLabel": "진도현황표",
+          "labelMissing": false,
+          "path": "/servlet/controller.coursemanage.CourseManageServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "StudyMain"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "CourseMainIndex:6",
+          "linkLabel": "학습과정별 개념진도현황",
+          "labelMissing": false,
+          "path": "/servlet/controller.coursemanage.CourseManageServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "StudyPro"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "CourseMainIndex:7",
+          "linkLabel": "학생별 진도현황",
+          "labelMissing": false,
+          "path": "/servlet/controller.coursemanage.CourseManageServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "StudySchedule"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "CourseMainIndex:8",
+          "linkLabel": "학생별 학습과정 관리",
+          "labelMissing": false,
+          "path": "/servlet/controller.coursemanage.CourseManageServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "StudyCourse"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "student_course_management_workflow",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "CourseMainIndex:9",
+          "linkLabel": "학습과정 조회",
+          "labelMissing": false,
+          "path": "/servlet/controller.coursemanage.CourseManageServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "CourseStudyManager"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "CourseMainIndex:10",
+          "linkLabel": "교재정답지 & 일일학습",
+          "labelMissing": false,
+          "path": "/servlet/controller.coursemanage.CourseManageServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "GaStudyAnswer"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "CourseMainIndex:11",
+          "linkLabel": "예습 확인",
+          "labelMissing": false,
+          "path": "/servlet/controller.coursemanage.CourseManageServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "WebUnPreStudy"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "CourseMainIndex:12",
+          "linkLabel": "예습영상 현황",
+          "labelMissing": false,
+          "path": "/servlet/controller.coursemanage.CourseManageServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "TeacherPrestudySummary"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "CourseMainIndex:13",
+          "linkLabel": "알림톡 목록",
+          "labelMissing": false,
+          "path": "/servlet/controller.appui.alimtalk.AlimtalkServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "AlimtalkList"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "message_domain_listing_only",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "CourseMainIndex:14",
+          "linkLabel": null,
+          "labelMissing": true,
+          "path": "/servlet/controller.coursemanage.CourseManageServlet",
+          "selector": {
+            "key": "reqCmd",
+            "literal": "PreStudyDownloadList"
+          },
+          "literalQueryKeys": [
+            "reqCmd"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "unlabeled_unknown",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        }
+      ]
+    },
+    {
+      "branch": "SmartBookMainIndex",
+      "menuLabel": "스마트북",
+      "sourceAnchor": {
+        "url": "https://dc.gang-a.kr/servlet/controller.tutor.TutorMenuIndexServlet?p_process=SmartBookMainIndex",
+        "dom": "rendered a[href] menu anchors; duplicates collapsed by normalized route signature"
+      },
+      "authenticatedPageMarker": {
+        "logoutMarkerPresent": true,
+        "passwordInputPresent": false
+      },
+      "childRoutes": [
+        {
+          "observationId": "SmartBookMainIndex:1",
+          "linkLabel": "스마트북 목록",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.wb.WorkbookManageServlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "Main"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        },
+        {
+          "observationId": "SmartBookMainIndex:2",
+          "linkLabel": "스마트북 시험결과",
+          "labelMissing": false,
+          "path": "/servlet/controller.tutor.wb.WbTeachList1Servlet",
+          "selector": {
+            "key": "p_process",
+            "literal": "SmartBookResultMain"
+          },
+          "literalQueryKeys": [
+            "p_process"
+          ],
+          "nonSelectorQueryValuesCaptured": false,
+          "evidenceLevel": "rendered_dom_href_declaration",
+          "childNavigationPerformed": false,
+          "requestCaptured": false,
+          "callableActivated": false,
+          "effectAssessment": {
+            "basis": "conservative_label_semantics_only_not_backend_verification",
+            "labelSignal": "no_explicit_effect_in_label",
+            "executionDisposition": "excluded_pending_exact_scope_and_effect_contract"
+          }
+        }
+      ]
+    }
+  ],
+  "normalizedSignatures": [
+    {
+      "signatureId": "menu-signature-1",
+      "path": "/servlet/controller.tutor.base.UserSearchServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "BaseManageIndex"
+      ],
+      "observationIds": [
+        "BaseManageIndex:1"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-2",
+      "path": "/servlet/controller.tutor.base.UserClsManageServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "BaseManageIndex"
+      ],
+      "observationIds": [
+        "BaseManageIndex:2"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-3",
+      "path": "/servlet/controller.tutor.base.UserSearchServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "GetCertificateMain"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "BaseManageIndex"
+      ],
+      "observationIds": [
+        "BaseManageIndex:3"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-4",
+      "path": "/servlet/controller.bookorder.tutor.PreOrderServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "ClgMain"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "BaseManageIndex"
+      ],
+      "observationIds": [
+        "BaseManageIndex:4"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-5",
+      "path": "/servlet/controller.tutor.da.TestPageRegServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Auto"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "DAIndex"
+      ],
+      "observationIds": [
+        "DAIndex:1"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-6",
+      "path": "/servlet/controller.tutor.da.TestPageListGrpServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "DAIndex"
+      ],
+      "observationIds": [
+        "DAIndex:2"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-7",
+      "path": "/servlet/controller.tutor.da.TestPageListServlet",
+      "selector": null,
+      "literalQueryKeys": [],
+      "observedInBranches": [
+        "DAIndex"
+      ],
+      "observationIds": [
+        "DAIndex:3"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-8",
+      "path": "/servlet/controller.tutor.da.MarksResultDigestServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "DAIndex"
+      ],
+      "observationIds": [
+        "DAIndex:4"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-9",
+      "path": "/servlet/controller.tutor.base.TestPageListServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "UserByMain"
+      },
+      "literalQueryKeys": [
+        "p_process",
+        "ass_no"
+      ],
+      "observedInBranches": [
+        "DAIndex",
+        "FAIndex",
+        "NAIndex"
+      ],
+      "observationIds": [
+        "DAIndex:5",
+        "FAIndex:5",
+        "NAIndex:6"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-10",
+      "path": "/servlet/controller.tutor.diag.DiagnostManageServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "TestPaperList"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "DAIndex"
+      ],
+      "observationIds": [
+        "DAIndex:6"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-11",
+      "path": "/servlet/controller.tutor.diag.DiagnostManageServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "TestResultList"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "DAIndex"
+      ],
+      "observationIds": [
+        "DAIndex:7"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-12",
+      "path": "/servlet/controller.tutor.da.TestPageListOurclgServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "DAIndex"
+      ],
+      "observationIds": [
+        "DAIndex:8"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-13",
+      "path": "/servlet/controller.tutor.fa.TestPageRegServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Auto"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "FAIndex"
+      ],
+      "observationIds": [
+        "FAIndex:1"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-14",
+      "path": "/servlet/controller.tutor.fa.TestPageListGrpServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "FAIndex"
+      ],
+      "observationIds": [
+        "FAIndex:2"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-15",
+      "path": "/servlet/controller.tutor.fa.TestPageListServlet",
+      "selector": null,
+      "literalQueryKeys": [],
+      "observedInBranches": [
+        "FAIndex"
+      ],
+      "observationIds": [
+        "FAIndex:3"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-16",
+      "path": "/servlet/controller.tutor.fa.MarksResultDigestServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "FAIndex"
+      ],
+      "observationIds": [
+        "FAIndex:4"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-17",
+      "path": "/servlet/controller.tutor.fa.TestPageListOurclgServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "FAIndex"
+      ],
+      "observationIds": [
+        "FAIndex:6"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-18",
+      "path": "/servlet/controller.tutor.na.TestPageRegServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Auto"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "NAIndex"
+      ],
+      "observationIds": [
+        "NAIndex:1"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-19",
+      "path": "/servlet/controller.tutor.na.TestPageRegServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "NonePaper"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "NAIndex"
+      ],
+      "observationIds": [
+        "NAIndex:2"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-20",
+      "path": "/servlet/controller.tutor.na.TestPageListOurclgServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "NAIndex"
+      ],
+      "observationIds": [
+        "NAIndex:3"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-21",
+      "path": "/servlet/controller.tutor.na.TestPageListServlet",
+      "selector": null,
+      "literalQueryKeys": [],
+      "observedInBranches": [
+        "NAIndex"
+      ],
+      "observationIds": [
+        "NAIndex:4"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-22",
+      "path": "/servlet/controller.tutor.na.MarksResultDigestServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "NAIndex"
+      ],
+      "observationIds": [
+        "NAIndex:5"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-23",
+      "path": "/servlet/controller.tutor.na.TestPageListGrpServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "NAIndex"
+      ],
+      "observationIds": [
+        "NAIndex:7"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-24",
+      "path": "/servlet/controller.tutor.etest.TestPoolServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "TestPoolIndex"
+      ],
+      "observationIds": [
+        "TestPoolIndex:1"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-25",
+      "path": "/servlet/controller.tutor.etest.TestPoolServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "LogViewList"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "TestPoolIndex"
+      ],
+      "observationIds": [
+        "TestPoolIndex:2"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-26",
+      "path": "/servlet/controller.tutor.base.TestPageListServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:1"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-27",
+      "path": "/servlet/controller.coursemanage.TextBookManageServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "getTextBookMain"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:2"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-28",
+      "path": "/servlet/controller.dailyzerotest.DailyZeroTestServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "DailyZeroTestMain"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:3"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-29",
+      "path": "/servlet/controller.dailyzerotest.DailyZeroTestServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "DailyZeroTestResult"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:4"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-30",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "StudyMain"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:5"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-31",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "StudyPro"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:6"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-32",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "StudySchedule"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:7"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-33",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "StudyCourse"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:8"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-34",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "CourseStudyManager"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:9"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-35",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "GaStudyAnswer"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:10"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-36",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "WebUnPreStudy"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:11"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-37",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "TeacherPrestudySummary"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:12"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-38",
+      "path": "/servlet/controller.appui.alimtalk.AlimtalkServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "AlimtalkList"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:13"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-39",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "PreStudyDownloadList"
+      },
+      "literalQueryKeys": [
+        "reqCmd"
+      ],
+      "observedInBranches": [
+        "CourseMainIndex"
+      ],
+      "observationIds": [
+        "CourseMainIndex:14"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-40",
+      "path": "/servlet/controller.tutor.wb.WorkbookManageServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "Main"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "SmartBookMainIndex"
+      ],
+      "observationIds": [
+        "SmartBookMainIndex:1"
+      ]
+    },
+    {
+      "signatureId": "menu-signature-41",
+      "path": "/servlet/controller.tutor.wb.WbTeachList1Servlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "SmartBookResultMain"
+      },
+      "literalQueryKeys": [
+        "p_process"
+      ],
+      "observedInBranches": [
+        "SmartBookMainIndex"
+      ],
+      "observationIds": [
+        "SmartBookMainIndex:2"
+      ]
+    }
+  ],
+  "handlerOnlyDeclarations": [
+    {
+      "branch": "SmartBookMainIndex",
+      "sourceAnchor": "https://dc.gang-a.kr/servlet/controller.tutor.TutorMenuIndexServlet?p_process=SmartBookMainIndex",
+      "linkLabel": null,
+      "handler": "createWorkBookWizard",
+      "destinationEstablished": false,
+      "evidenceLevel": "rendered_dom_javascript_href",
+      "invoked": false,
+      "executionDisposition": "excluded_creation_workflow"
+    }
+  ],
+  "commonMenuForm": {
+    "name": "userForm",
+    "declaredMethod": "POST",
+    "explicitAction": null,
+    "fieldNames": [
+      "p_process",
+      "p_prino",
+      "p_groupno",
+      "p_url",
+      "fran_no",
+      "pri_no",
+      "mem_type"
+    ],
+    "valuesPersisted": false,
+    "operationalFilterFormFound": false
+  },
+  "commonInlineSourceCandidates": [
+    {
+      "nearestNamedFunction": "openLcadLevelCut",
+      "path": "/servlet/controller.lcad.LCADServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "getLcadLevelCut"
+      }
+    },
+    {
+      "nearestNamedFunction": "openCertfication",
+      "path": "/servlet/controller.admin.college.usermng.UserSearchServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "getCertUserInfoList"
+      }
+    },
+    {
+      "nearestNamedFunction": "openLandingInfo",
+      "path": "/servlet/controller.landing.LandingServlet",
+      "selector": {
+        "key": "reqCmd",
+        "literal": "getLandingInfoList"
+      }
+    },
+    {
+      "nearestNamedFunction": "playLecture",
+      "path": "/servlet/controller.first.RegAppCommandServlet",
+      "selector": null
+    },
+    {
+      "nearestNamedFunction": "setChangeLectureStatusSkip",
+      "path": "/servlet/controller.first.RegAppServlet",
+      "selector": null
+    }
+  ],
+  "inlineSourceInterpretation": {
+    "evidenceLevel": "static_inline_dom_source_literal",
+    "newBranchSpecificChildDestinationBeyondRenderedLinks": false,
+    "networkObserved": false,
+    "executed": false,
+    "authenticationAndAccountUtilitiesOmitted": true,
+    "sharedSourceCandidatesExcludedFromMenuCounts": true
+  },
+  "teacherScopeObservations": [
+    {
+      "sourceAnchor": "https://dc.gang-a.kr/servlet/controller.cct.tutor.CourseScheduleServlet?p_process=Main",
+      "evidenceLevel": "same_page_dom_boolean_comparison",
+      "instructorField": "form1.tutor_pri_no",
+      "instructorPresent": true,
+      "instructorNonempty": true,
+      "principalFormPresent": true,
+      "comparisons": [
+        {
+          "field": "userForm.pri_no",
+          "present": true,
+          "nonempty": true,
+          "equalsInstructor": true
+        },
+        {
+          "field": "userForm.p_prino",
+          "present": true,
+          "nonempty": false,
+          "equalsInstructor": null
+        }
+      ],
+      "valuesPersisted": false,
+      "serverAuthorizationVerified": false,
+      "meaning": "Same-page hidden teacher field equals a principal-candidate field; not proof of server isolation"
+    },
+    {
+      "sourceAnchor": "https://dc.gang-a.kr/servlet/controller.cct.tutor.DayRecordServlet?p_process=Main",
+      "evidenceLevel": "dom_field_presence",
+      "instructorField": "form1.teacher_pri_no",
+      "instructorPresent": true,
+      "instructorNonempty": true,
+      "principalFormPresent": false,
+      "principalFieldNamesChecked": [
+        "userForm.p_prino",
+        "userForm.pri_no"
+      ],
+      "equalsPrincipal": null,
+      "teacherSelectorPresent": false,
+      "valuesPersisted": false,
+      "serverAuthorizationVerified": false
+    },
+    {
+      "sourceAnchor": "https://dc.gang-a.kr/servlet/controller.cct.tutor.DayRecordServlet?p_process=DaysMain",
+      "evidenceLevel": "dom_field_presence",
+      "instructorField": "form1.tutor_pri_no",
+      "instructorPresent": true,
+      "instructorNonempty": true,
+      "principalFormPresent": false,
+      "principalFieldNamesChecked": [
+        "userForm.p_prino",
+        "userForm.pri_no"
+      ],
+      "equalsPrincipal": null,
+      "teacherSelectorPresent": false,
+      "valuesPersisted": false,
+      "serverAuthorizationVerified": false
+    }
+  ],
+  "dayRecordSchema": {
+    "main": {
+      "sourceAnchor": "https://dc.gang-a.kr/servlet/controller.cct.tutor.DayRecordServlet?p_process=Main",
+      "evidenceLevel": "current_dom_schema_and_aggregate_counts_only",
+      "dateFieldPresence": [
+        {
+          "name": "std_ymd",
+          "type": "hidden",
+          "nonempty": true
+        },
+        {
+          "name": "std_date",
+          "type": "text",
+          "nonempty": true
+        }
+      ],
+      "dateValuesPersisted": false,
+      "primaryTable": {
+        "directHeaderRows": 2,
+        "directRecordLikeRows": 1,
+        "recordLikeRowDataCells": 13,
+        "nestedLayoutRowsExcluded": true,
+        "headerLabelsObserved": [
+          "이름",
+          "과정",
+          "지속사항",
+          "지난진도",
+          "일괄 발송 / 금일진도",
+          "지난수업일",
+          "진도",
+          "숙제",
+          "메모",
+          "금일출석",
+          "일일테스트"
+        ],
+        "headerLabelNormalization": "Whitespace collapsed; combined dispatch/progress header summarized without cell content",
+        "indexedFieldNamePatterns": [
+          "stu_memo_txt{n}",
+          "attn{n}",
+          "prg_txt{n}",
+          "hw_txt{n}",
+          "memo_txt{n}"
+        ],
+        "otherControlNames": [
+          "h_homework_rate",
+          "h_daily_test"
+        ]
+      },
+      "namedLinkageFieldsPresent": [
+        "course_seq"
+      ],
+      "namedLinkageFieldsAbsent": [
+        "record_seq",
+        "stu_pri_no",
+        "student_pri_no",
+        "std_no",
+        "cm_seq"
+      ],
+      "linkageInterpretation": "course_seq is form-scoped; no explicit named-control proof of row-level course-record-student-occurrence linkage",
+      "rowCountMeaning": "DOM record-like row count only; not complete database, roster, or authorized cohort count"
+    },
+    "daysMain": {
+      "sourceAnchor": "https://dc.gang-a.kr/servlet/controller.cct.tutor.DayRecordServlet?p_process=DaysMain",
+      "evidenceLevel": "current_dom_schema_and_selection_categories_only",
+      "dateFieldPresence": [
+        {
+          "name": "std_ym",
+          "type": "hidden",
+          "nonempty": true
+        },
+        {
+          "name": "std_date",
+          "type": "text",
+          "nonempty": true
+        }
+      ],
+      "dateValuesPersisted": false,
+      "selectStates": [
+        {
+          "field": "grp_seq",
+          "selectedLabelCategory": "choose_placeholder"
+        },
+        {
+          "field": "student_pri_no",
+          "selectedLabelCategory": "choose_placeholder"
+        }
+      ],
+      "primaryTable": {
+        "headers": [
+          "날짜",
+          "진도",
+          "숙제",
+          "메모"
+        ],
+        "directHeaderRows": 1,
+        "directDataRows": 0,
+        "visible": true
+      },
+      "excludedPickerTable": {
+        "directRows": 4,
+        "visible": false,
+        "calendarStructureMarker": true
+      },
+      "absenceMeaning": "Unselected group/student filter state; not evidence of no records for the current month"
+    }
+  },
+  "domainCoverageObserved": [
+    "base_user_and_class_management",
+    "book_order_management",
+    "da_assessment",
+    "fa_assessment",
+    "na_assessment",
+    "diagnostic_assessment",
+    "question_paper_and_history",
+    "daily_zero_tests",
+    "textbook_reporting",
+    "course_progress_and_student_course_management",
+    "prestudy_status_and_downloads",
+    "alimtalk_listing",
+    "smartbook"
+  ],
+  "remainingBoundaries": [
+    "Child candidates were not opened or verified as safe reads",
+    "Teacher-bounded student and group scope is unverified for menu child candidates",
+    "Menu shell success and DOM equality do not prove server-side authorization",
+    "DayRecord row-level course-record-student-occurrence linkage is unresolved",
+    "DaysMain placeholder state cannot establish record absence",
+    "HTTP methods, dynamically appended parameters, request bodies, pagination, and response schemas need exact operation-specific evidence",
+    "No catalog activation or operational Sheet permission is implied"
+  ],
+  "minimalNextEvidence": "Establish a principal-matching teacher-bounded group/student relation, then inspect one bounded read view and exact parameter linkage using an authorized transport; retain only minimized metadata"
+}

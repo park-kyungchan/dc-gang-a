@@ -1,0 +1,520 @@
+{
+  "schemaVersion": 1,
+  "observedAtUtc": "2026-10-01T02:56:00Z",
+  "sourceUrl": "https://dc.gang-a.kr/servlet/controller.coursemanage.CourseManageServlet?reqCmd=GaStudyAnswer",
+  "method": "authenticated_cloud_browser_read_only_DOM; direct button onclick values; table row labels with grade rowspan carried forward",
+  "activeTab": "중등부",
+  "completeness": "current_visible_middle_school_catalog_only",
+  "count": 36,
+  "samples": [
+    {
+      "grade": "중1",
+      "series": "시그마",
+      "filename": "g7_sigma_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g7_sigma_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "sigma:1-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중1",
+      "series": "시그마",
+      "filename": "g7_sigma_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g7_sigma_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "sigma:1-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중1",
+      "series": "가우스",
+      "filename": "g7_gauss_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g7_gauss_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "gauss:1-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "downloaded"
+    },
+    {
+      "grade": "중1",
+      "series": "가우스",
+      "filename": "g7_gauss_sample_1_2.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g7_gauss_sample_1_2.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "gauss:1-1-2",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중1",
+      "series": "가우스",
+      "filename": "g7_gauss_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g7_gauss_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "gauss:1-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "downloaded"
+    },
+    {
+      "grade": "중1",
+      "series": "가우스",
+      "filename": "g7_gauss_sample_2_4.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g7_gauss_sample_2_4.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "gauss:1-2-4",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중1",
+      "series": "다빈치",
+      "filename": "g7_davinci_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g7_davinci_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "davinci:1-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중1",
+      "series": "다빈치",
+      "filename": "g7_davinci_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g7_davinci_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "davinci:1-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중1",
+      "series": "오일러",
+      "filename": "g7_euler_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g7_euler_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "euler:1-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중1",
+      "series": "오일러",
+      "filename": "g7_euler_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g7_euler_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "euler:1-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중1",
+      "series": "파스칼",
+      "filename": "g7_pascal_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g7_pascal_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "pascal:1-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중1",
+      "series": "파스칼",
+      "filename": "g7_pascal_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g7_pascal_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "pascal:1-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중2",
+      "series": "시그마",
+      "filename": "g8_sigma_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g8_sigma_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "sigma:2-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중2",
+      "series": "시그마",
+      "filename": "g8_sigma_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g8_sigma_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "sigma:2-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중2",
+      "series": "가우스",
+      "filename": "g8_gauss_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g8_gauss_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "gauss:2-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중2",
+      "series": "가우스",
+      "filename": "g8_gauss_sample_1_2.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g8_gauss_sample_1_2.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "gauss:2-1-2",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중2",
+      "series": "가우스",
+      "filename": "g8_gauss_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g8_gauss_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "gauss:2-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중2",
+      "series": "가우스",
+      "filename": "g8_gauss_sample_2_4.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g8_gauss_sample_2_4.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "gauss:2-2-4",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중2",
+      "series": "다빈치",
+      "filename": "g8_davinci_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g8_davinci_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "davinci:2-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중2",
+      "series": "다빈치",
+      "filename": "g8_davinci_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g8_davinci_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "davinci:2-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중2",
+      "series": "오일러",
+      "filename": "g8_euler_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g8_euler_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "euler:2-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중2",
+      "series": "오일러",
+      "filename": "g8_euler_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g8_euler_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "euler:2-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중2",
+      "series": "파스칼",
+      "filename": "g8_pascal_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g8_pascal_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "pascal:2-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중2",
+      "series": "파스칼",
+      "filename": "g8_pascal_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g8_pascal_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "pascal:2-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중3",
+      "series": "시그마",
+      "filename": "g9_sigma_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g9_sigma_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "sigma:3-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중3",
+      "series": "시그마",
+      "filename": "g9_sigma_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g9_sigma_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "sigma:3-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중3",
+      "series": "가우스",
+      "filename": "g9_gauss_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g9_gauss_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "gauss:3-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중3",
+      "series": "가우스",
+      "filename": "g9_gauss_sample_1_2.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g9_gauss_sample_1_2.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "gauss:3-1-2",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중3",
+      "series": "가우스",
+      "filename": "g9_gauss_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g9_gauss_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "gauss:3-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중3",
+      "series": "가우스",
+      "filename": "g9_gauss_sample_2_4.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g9_gauss_sample_2_4.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "gauss:3-2-4",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중3",
+      "series": "다빈치",
+      "filename": "g9_davinci_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g9_davinci_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "davinci:3-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중3",
+      "series": "다빈치",
+      "filename": "g9_davinci_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g9_davinci_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "davinci:3-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중3",
+      "series": "오일러",
+      "filename": "g9_euler_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g9_euler_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "euler:3-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중3",
+      "series": "오일러",
+      "filename": "g9_euler_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g9_euler_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "euler:3-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중3",
+      "series": "파스칼",
+      "filename": "g9_pascal_sample_1_1.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g9_pascal_sample_1_1.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "pascal:3-1-1",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    },
+    {
+      "grade": "중3",
+      "series": "파스칼",
+      "filename": "g9_pascal_sample_2_3.pdf",
+      "sourceUrl": "https://storage.studyq.net/data/answer/mi/book/g9_pascal_sample_2_3.pdf",
+      "normalizedBookCode": {
+        "state": "inferred",
+        "value": "pascal:3-2-3",
+        "basis": "filename convention; not an academy book or course identifier"
+      },
+      "academyBookCode": null,
+      "edition": null,
+      "downloadStatus": "not_attempted"
+    }
+  ],
+  "limits": [
+    "Only visible middle-school sample controls were collected; other tabs and answer/workbook downloads are excluded.",
+    "A catalog link is not an assignment or complete textbook inventory.",
+    "No session, credentials, student data, textbook prose, problem text or answers retained in this artifact."
+  ]
+}

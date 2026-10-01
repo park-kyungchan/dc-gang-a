@@ -1,0 +1,491 @@
+{
+  "schemaVersion": 1,
+  "kind": "dayrecord_passive_row_identity_source_evidence",
+  "observedOn": "2026-10-01",
+  "observationTimezone": "Etc/UTC",
+  "observationWindowUtc": {
+    "start": "2026-10-01T00:55:20Z",
+    "end": "2026-10-01T00:59:32Z"
+  },
+  "sourceAnchor": {
+    "url": "https://dc.gang-a.kr/servlet/controller.cct.tutor.DayRecordServlet?p_process=Main",
+    "dom": "first table; direct record-like data row; event attributes and current inline function signatures",
+    "inspectedRecordLikeRows": 1,
+    "coverage": "one_current_rendered_row_not_whole_database_or_all_layout_variants"
+  },
+  "artifactSequence": {
+    "includedInPriorV1ReviewBundle": false,
+    "relationship": "subsequent_bounded_source_evidence_and_synthetic_parser",
+    "priorEvidence": [
+      {
+        "path": "docs/academy-menu-source-evidence.json",
+        "sha256": "053582e60845410cf45974f3c312e61de98a098e6c621a63695861c4db3245c2"
+      },
+      {
+        "path": "docs/academy-dom-source-evidence.json",
+        "sha256": "714b5eb108e5ab47417c37263a8563fb0913499b24cc6c2b57679412cbc914c3"
+      }
+    ]
+  },
+  "collection": {
+    "screenshotDrivenDiscovery": false,
+    "siteHandlerExecution": false,
+    "eventDispatch": false,
+    "formSubmission": false,
+    "filterOrDateChanges": false,
+    "networkCapture": false,
+    "programmaticFetchOrReplay": false,
+    "externalScriptFetch": false,
+    "authCookieTokenPasswordOrStorageInspection": false,
+    "rawScriptPersisted": false,
+    "identifierValuesPersisted": false,
+    "studentNamesOrTextPersisted": false,
+    "lessonDateValuesPersisted": false,
+    "operationalSheetAccess": false
+  },
+  "evidenceLayers": {
+    "dom": "Rendered event-attribute argument positions and literal categories, table column groups, field/date shape metadata",
+    "inlineSource": "Function parameter names and static URL-key-to-parameter associations; no site function invoked",
+    "inPageCorrelation": "Only boolean equality and format/count metadata left the page",
+    "semantic": "A tuple is passive source/DOM identity evidence; ownership, occurrence date, backend row existence, lesson completion and delivery remain separately unverified"
+  },
+  "namedInputGapResolved": {
+    "previousObservation": "Named inputs lacked record/student/membership identifiers",
+    "currentObservation": "Current-row event attributes carry the identifiers; function parameter names assign their source semantics",
+    "formWideCourseSeqNonempty": false,
+    "formWideCourseSeqUsedAsFallback": false,
+    "dataAttributesFound": false
+  },
+  "handlerSignatures": [
+    {
+      "handler": "onAttn",
+      "parameterNames": [
+        "i",
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ]
+    },
+    {
+      "handler": "onFoPrg",
+      "parameterNames": [
+        "i",
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ]
+    },
+    {
+      "handler": "onFoHw",
+      "parameterNames": [
+        "i",
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ]
+    },
+    {
+      "handler": "onFoMm",
+      "parameterNames": [
+        "i",
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ]
+    },
+    {
+      "handler": "onFoStuMemo",
+      "parameterNames": [
+        "i",
+        "stu_pri_no",
+        "course_seq"
+      ]
+    },
+    {
+      "handler": "onOpenDaysMain",
+      "parameterNames": [
+        "student_pri_no"
+      ]
+    },
+    {
+      "handler": "onDailyReport",
+      "parameterNames": [
+        "report_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ]
+    },
+    {
+      "handler": "setDailyTest",
+      "parameterNames": [
+        "record_seq",
+        "cm_seq",
+        "count"
+      ]
+    },
+    {
+      "handler": "openHomeWorkRate",
+      "parameterNames": [
+        "record_seq",
+        "cm_seq",
+        "count"
+      ]
+    }
+  ],
+  "renderedCalls": [
+    {
+      "handler": "onAttn",
+      "event": "onchange",
+      "columnGroup": "current_progress",
+      "argumentTypes": [
+        "quoted_decimal_literal",
+        "quoted_decimal_literal",
+        "quoted_decimal_literal",
+        "quoted_decimal_literal",
+        "quoted_decimal_literal"
+      ]
+    },
+    {
+      "handler": "onFoPrg",
+      "event": "onfocusout",
+      "columnGroup": "current_progress",
+      "argumentTypes": [
+        "quoted_decimal_literal",
+        "quoted_decimal_literal",
+        "quoted_decimal_literal",
+        "quoted_decimal_literal",
+        "quoted_decimal_literal"
+      ]
+    },
+    {
+      "handler": "onFoHw",
+      "event": "onfocusout",
+      "columnGroup": "current_progress",
+      "argumentTypes": [
+        "quoted_decimal_literal",
+        "quoted_decimal_literal",
+        "quoted_decimal_literal",
+        "quoted_decimal_literal",
+        "quoted_decimal_literal"
+      ]
+    },
+    {
+      "handler": "onFoMm",
+      "event": "onfocusout",
+      "columnGroup": "current_progress",
+      "argumentTypes": [
+        "quoted_decimal_literal",
+        "quoted_decimal_literal",
+        "quoted_decimal_literal",
+        "quoted_decimal_literal",
+        "quoted_decimal_literal"
+      ]
+    },
+    {
+      "handler": "onFoStuMemo",
+      "event": "onfocusout",
+      "columnGroup": "identity",
+      "argumentTypes": [
+        "quoted_decimal_literal",
+        "quoted_decimal_literal",
+        "quoted_decimal_literal"
+      ]
+    },
+    {
+      "handler": "onOpenDaysMain",
+      "event": "onclick",
+      "columnGroup": "identity",
+      "argumentTypes": [
+        "bare_decimal_literal"
+      ]
+    },
+    {
+      "handler": "onDailyReport",
+      "event": "onclick",
+      "columnGroup": "current_progress",
+      "argumentTypes": [
+        "bare_decimal_literal",
+        "bare_decimal_literal",
+        "bare_decimal_literal",
+        "bare_decimal_literal"
+      ]
+    },
+    {
+      "handler": "setDailyTest",
+      "event": "onclick",
+      "columnGroup": "current_progress",
+      "argumentTypes": [
+        "bare_decimal_literal",
+        "bare_decimal_literal",
+        "bare_decimal_literal"
+      ]
+    },
+    {
+      "handler": "openHomeWorkRate",
+      "event": "onclick",
+      "columnGroup": "previous_progress",
+      "argumentTypes": [
+        "bare_decimal_literal",
+        "bare_decimal_literal",
+        "bare_decimal_literal"
+      ]
+    }
+  ],
+  "staticQueryParameterBindings": [
+    {
+      "handler": "onAttn",
+      "pairs": [
+        {
+          "queryKey": "course_seq",
+          "parameterName": "course_seq"
+        },
+        {
+          "queryKey": "stu_pri_no",
+          "parameterName": "stu_pri_no"
+        },
+        {
+          "queryKey": "record_seq",
+          "parameterName": "record_seq"
+        },
+        {
+          "queryKey": "cm_seq",
+          "parameterName": "cm_seq"
+        }
+      ]
+    },
+    {
+      "handler": "onFoPrg",
+      "pairs": [
+        {
+          "queryKey": "course_seq",
+          "parameterName": "course_seq"
+        },
+        {
+          "queryKey": "stu_pri_no",
+          "parameterName": "stu_pri_no"
+        },
+        {
+          "queryKey": "record_seq",
+          "parameterName": "record_seq"
+        },
+        {
+          "queryKey": "cm_seq",
+          "parameterName": "cm_seq"
+        }
+      ]
+    },
+    {
+      "handler": "onFoHw",
+      "pairs": [
+        {
+          "queryKey": "course_seq",
+          "parameterName": "course_seq"
+        },
+        {
+          "queryKey": "stu_pri_no",
+          "parameterName": "stu_pri_no"
+        },
+        {
+          "queryKey": "record_seq",
+          "parameterName": "record_seq"
+        },
+        {
+          "queryKey": "cm_seq",
+          "parameterName": "cm_seq"
+        }
+      ]
+    },
+    {
+      "handler": "onFoMm",
+      "pairs": [
+        {
+          "queryKey": "course_seq",
+          "parameterName": "course_seq"
+        },
+        {
+          "queryKey": "stu_pri_no",
+          "parameterName": "stu_pri_no"
+        },
+        {
+          "queryKey": "record_seq",
+          "parameterName": "record_seq"
+        },
+        {
+          "queryKey": "cm_seq",
+          "parameterName": "cm_seq"
+        }
+      ]
+    },
+    {
+      "handler": "onFoStuMemo",
+      "pairs": [
+        {
+          "queryKey": "stu_pri_no",
+          "parameterName": "stu_pri_no"
+        },
+        {
+          "queryKey": "course_seq",
+          "parameterName": "course_seq"
+        }
+      ]
+    },
+    {
+      "handler": "onOpenDaysMain",
+      "pairs": [
+        {
+          "queryKey": "student_pri_no",
+          "parameterName": "student_pri_no"
+        }
+      ]
+    },
+    {
+      "handler": "onDailyReport",
+      "pairs": [
+        {
+          "queryKey": "report_seq",
+          "parameterName": "report_seq"
+        },
+        {
+          "queryKey": "stu_pri_no",
+          "parameterName": "stu_pri_no"
+        },
+        {
+          "queryKey": "record_seq",
+          "parameterName": "record_seq"
+        },
+        {
+          "queryKey": "cm_seq",
+          "parameterName": "cm_seq"
+        }
+      ]
+    },
+    {
+      "handler": "setDailyTest",
+      "pairs": [
+        {
+          "queryKey": "record_seq",
+          "parameterName": "record_seq"
+        }
+      ]
+    },
+    {
+      "handler": "openHomeWorkRate",
+      "pairs": [
+        {
+          "queryKey": "record_seq",
+          "parameterName": "record_seq"
+        }
+      ]
+    }
+  ],
+  "currentRowCorrelations": {
+    "comparisonAnchor": "onAttn",
+    "allFourCoreIdentifierValuesPositiveDecimal": true,
+    "matchingCompleteTupleHandlers": [
+      "onFoPrg",
+      "onFoHw",
+      "onFoMm"
+    ],
+    "completeTupleIncludes": [
+      "i",
+      "course_seq",
+      "stu_pri_no",
+      "record_seq",
+      "cm_seq"
+    ],
+    "studentDetailStudentEqualsCurrent": true,
+    "studentMemoStudentEqualsCurrent": true,
+    "studentMemoCourseEqualsCurrent": true,
+    "reportStudentEqualsCurrent": true,
+    "reportRecordEqualsCurrent": true,
+    "reportMembershipEqualsCurrent": true,
+    "dailyTestRecordEqualsCurrent": true,
+    "dailyTestMembershipEqualsCurrent": true,
+    "reportIdentifierNotConflatedWithRecordIdentifier": true
+  },
+  "previousProgressCorrelations": {
+    "handler": "openHomeWorkRate",
+    "headerGroup": "지난진도",
+    "directDataCellIndex": 5,
+    "currentHeaderGroup": "금일진도",
+    "sameMembershipAsCurrent": true,
+    "sameRecordAsCurrent": false,
+    "interpretation": "Different record belongs to the previous-progress column binding and must not overwrite current occurrence identity; separate occurrence date remains unknown"
+  },
+  "dateMetadata": {
+    "std_ymd": {
+      "present": true,
+      "nonempty": true,
+      "digitCount": 0,
+      "usableAsDate": false
+    },
+    "std_date": {
+      "present": true,
+      "nonempty": true,
+      "digitCount": 8,
+      "separatedYearMonthDayShape": true,
+      "role": "view_date_only"
+    },
+    "digitNormalizedStringsEqual": false,
+    "interpretation": "A non-date hidden value and a date-shaped view field are not two conflicting valid dates; no independent occurrenceDate is established"
+  },
+  "implementation": {
+    "module": "src/lms/dayRecordDomBinding.ts",
+    "sha256": "a12416c5c520b302b79a71603997fd50d3c47acf0c38b878c4c81050a243aa8b",
+    "exports": [
+      "DAY_RECORD_HANDLER_SIGNATURES",
+      "parseDayRecordHandlerAttribute",
+      "bindDayRecordDomRow",
+      "summarizeDayRecordDomView"
+    ],
+    "inputContract": "Caller supplies bounded sanitized event-attribute strings, header-derived column groups, current source-signature parameter names, and separately classified date/instructor/filter metadata",
+    "parserGrammar": "One allowlisted call; optional same-line return and final semicolon; quoted decimal strings or canonical unquoted safe integers only; no escapes, comments, expressions, line break after return, or additional statements",
+    "identifierHandling": "Quoted decimal identifiers preserve exact strings and leading zeros up to the bounded length; unquoted numerals must match 0|[1-9][0-9]* and be lexically at most 9007199254740991. No numeric ID conversion; zero-only core identifiers are unresolved placeholders.",
+    "resolution": "Require onAttn/onFoPrg/onFoHw/onFoMm exactly once with current_progress grouping, matching current source signatures and identical i/course_seq/stu_pri_no/record_seq/cm_seq tuples",
+    "priorProgress": "openHomeWorkRate requires previous_progress grouping and remains a separate record binding even when cm_seq matches",
+    "report": "report_seq is distinct from record_seq; corroborate only shared student/record/cm keys; never infer delivery",
+    "context": "View-date comparison, same-page principal equality and empty placeholders are summarized separately from row identity; none establishes occurrence date, server ownership, record absence or completed lesson",
+    "executionCapabilitiesAdded": [],
+    "catalogOrRegistryChanged": false
+  },
+  "validation": {
+    "runtime": "Bun 1.4.2",
+    "focusedCommand": "bun test --dots tests/lms/dayRecordDomBinding.test.ts",
+    "focusedTests": 59,
+    "focusedPassed": 59,
+    "focusedFailed": 0,
+    "focusedAssertions": 168,
+    "typecheckCommand": "bun run typecheck",
+    "typecheck": "pass",
+    "testPath": "tests/lms/dayRecordDomBinding.test.ts",
+    "testSha256": "a8c3e1b09bd15592ab89613faa999f4cc19af59cde17ededc35837c7b932c7f2",
+    "fixturePolicy": "invented identifiers and dates only",
+    "coverage": [
+      "malicious expressions and quote/escape payloads",
+      "unsupported statements and event/column mismatch",
+      "leading-zero and large identifier preservation",
+      "missing/conflicting/duplicate handlers and source signatures",
+      "current/report/prior-progress identity separation",
+      "non-date hidden metadata versus two conflicting valid dates",
+      "empty placeholders versus selected-but-unproven empty results",
+      "principal equality metadata and invalid input diagnostics",
+      "unquoted legacy-octal and unsafe-integer rejection versus quoted exact-ID preservation",
+      "return automatic-semicolon-insertion line-break rejection"
+    ],
+    "liveTestsRun": false,
+    "networkTestsRun": false,
+    "independentReviewCorrection": "Parent review identified unquoted octal/rounding semantics; parser now rejects ambiguous unquoted forms while preserving quoted opaque IDs."
+  },
+  "limitations": [
+    "Only one current live row layout was inspected; no general deployed-backend completeness claim",
+    "Nondecimal or escaped identifier literals and changed signatures deliberately resolve to unknown rather than being guessed",
+    "Source-signature and column-group metadata must be supplied by an authorized collector; this module does not collect browser state",
+    "A resolved row tuple does not establish teacher ownership, occurrence date, backend existence, course-effective-period validity, lesson completion, attendance correctness or message delivery",
+    "Transport and independent occurrence/ownership proof still require separately authorized evidence"
+  ]
+}

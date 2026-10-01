@@ -13,6 +13,8 @@
   "include": [
     "src/**/*.ts",
     "tests/**/*.ts",
+    "docs/textbook-sample-schema.ts",
+    "docs/textbook-sample-schema.test.ts",
     "data/raw_sessions/**/*.ts"
   ],
   "exclude": ["spt", "lms-automation", "node_modules"]

@@ -20,15 +20,16 @@ const blank = (range: string, kind: CellPlan['kind'], note?: string): CellPlan =
 });
 
 /**
- * The five identities are a dated layout snapshot from `bun run harness roster --json`.
- * Recheck the canonical roster before a production batch; IDs are never inferred from names.
+ * Public layout examples only. Every identity, grade and group here is synthetic.
+ * Actual roster data stays local and requires a fresh, separately reviewed production batch.
+ * Never copy these placeholders into canonical data or a production Sheet.
  */
 export const parkCutoverRoster = [
-  { row: 9, studentId: '1293032', name: '신지우', grade: '초5' },
-  { row: 10, studentId: '1293067', name: '박세은', grade: '초5' },
-  { row: 18, studentId: '1294174', name: '이루한', grade: '중1' },
-  { row: 19, studentId: '1293138', name: '유지연', grade: '중1' },
-  { row: 20, studentId: '1294575', name: '이현승', grade: '중1' },
+  { row: 9, studentId: 'synthetic-layout-student-01', name: 'Synthetic Student 01', grade: 'SYNTHETIC-GRADE-A' },
+  { row: 10, studentId: 'synthetic-layout-student-02', name: 'Synthetic Student 02', grade: 'SYNTHETIC-GRADE-A' },
+  { row: 18, studentId: 'synthetic-layout-student-03', name: 'Synthetic Student 03', grade: 'SYNTHETIC-GRADE-B' },
+  { row: 19, studentId: 'synthetic-layout-student-04', name: 'Synthetic Student 04', grade: 'SYNTHETIC-GRADE-B' },
+  { row: 20, studentId: 'synthetic-layout-student-05', name: 'Synthetic Student 05', grade: 'SYNTHETIC-GRADE-B' },
 ] as const;
 
 const legacyHeaderRow2 = [
@@ -44,6 +45,7 @@ export const parkMainSheetCutoverSpec = {
   schemaVersion: 1,
   asOfKst: '2026-09-29',
   status: 'review_only_no_sheet_write',
+  dataClassification: 'synthetic_student_layout_only',
   target: {
     workbookTitle: '대치강아 학생진도현황',
     tabTitle: '박경찬',
@@ -74,12 +76,14 @@ export const parkMainSheetCutoverSpec = {
     'Review exact conflicts in existing 박경찬!A1:P63, including 110 formulas and 18 validations, and dependent references.',
     'Expand the target grid to at least 110 rows and R; clear only the approved target A1:R110 cells and affected formatting/validations.',
     'Copy 김예원!A1:R47 with PASTE_FORMAT only, subject to verified source protection and merge behavior.',
-    'Write the generic legacy headers, teacher name, grade markers and five canonical Park names below; keep peer values absent.',
+    'Prepare generic legacy headers and a separately reviewed student/grade batch from fresh local canonical data; never write the synthetic examples below.',
     'Apply the reviewed new layout from row 48, native dates/times, validations, protections, and C/D freeze.',
     'Read back the same target cells, formulas, formats, validations, merges, dimensions, freeze settings and preserved DB tabs.',
   ],
   productionGate: {
     approvalRequired: true,
+    freshLocalRosterRequired: true,
+    syntheticExamplesMayBeWritten: false,
     beforeAfterRangesRequired: true,
     recovery: 'Restore the verified pre-cutover whole-tab copy if readback fails; retain original DB tabs.',
     preservedTabs: 'All existing 박경찬_DB_* tabs and their SPT consumers; no schema/header rewrite.',
@@ -95,7 +99,7 @@ export const parkMainSheetCutoverSpec = {
       ...legacyHeaderRow3.map((value, index) => literal(`${String.fromCharCode(69 + index)}3`, value)),
     ],
     teacherCell: literal('A4', '박경찬'),
-    gradeCells: [literal('B9', '초5'), literal('B18', '중1'), blank('B31', 'blank')],
+    gradeCells: [literal('B9', 'SYNTHETIC-GRADE-A'), literal('B18', 'SYNTHETIC-GRADE-B'), blank('B31', 'blank')],
     studentCells: parkCutoverRoster.map(({ row, name }) => literal(`C${row}`, name)),
     studentIdentityKeys: parkCutoverRoster.map(({ row, studentId }) => ({ row, studentId })),
     studentDataClearRange: 'D4:R47',
@@ -136,8 +140,8 @@ export const parkMainSheetCutoverSpec = {
         ...['학생', '학년', '반', '수업 발생키', '이전 숙제 교재/범위', '선행 영상', '문제 풀이', '앱 채점', '오답 영상', '오답 수정', '교사 육안 확인', '근거', '근거 시각', '미확인 사유', '검토', '미정리 입력', '다음 조치', '상태']
           .map((value, index) => literal(`${String.fromCharCode(65 + index)}50`, value)),
         ...[
-          { row: 51, name: '이루한', grade: '중1', group: '수금2부' },
-          { row: 52, name: '이현승', grade: '중1', group: '월수금2부' },
+          { ...parkCutoverRoster[2], row: 51, group: 'SYNTHETIC-GROUP-A' },
+          { ...parkCutoverRoster[4], row: 52, group: 'SYNTHETIC-GROUP-B' },
         ].flatMap(({ row, name, grade, group }) => [
           literal(`A${row}`, name), literal(`B${row}`, grade), literal(`C${row}`, group),
           literal(`N${row}`, '수업 발생키 및 앱 결합 미검증'), literal(`R${row}`, '확인 불가'),
@@ -167,7 +171,7 @@ export const parkMainSheetCutoverSpec = {
         literal('A68', '수업 중 · 전체 학생'),
         ...['학생', '현재 과제', '교재/시험키', '진행 상태', '대기 상태', '대기 중 할 일', '다음 과제', '취소 사유', '검사 상태', '시작 시각', '경과', '원본 이벤트', '근거 시각', '미정리 질문', '담당 교사', '검토', '오류', '상태']
           .map((value, index) => literal(`${String.fromCharCode(65 + index)}69`, value)),
-        literal('A70', '이루한'), literal('A71', '이현승'),
+        literal('A70', parkCutoverRoster[2].name), literal('A71', parkCutoverRoster[4].name),
         literal('A75', '대기 시간 임계값 없음 · 과제 취소는 사유와 별도 이벤트로 기록'),
       ],
     },
@@ -195,7 +199,7 @@ export const parkMainSheetCutoverSpec = {
         literal('A85', '수업 종료 전 · 학생/교재별 숙제'),
         ...['학생', '교재 판본', '현재 진도', '미완료 범위', '다음 수업일', '14:00 초안', '수업 종료 제안', '교사 수정', '승인', '과제 ID', '근거', '근거 시각', '달력 완전성', '쪽 감사', '개별 속도', '정확도 근거', '미확인 사유', '상태']
           .map((value, index) => literal(`${String.fromCharCode(65 + index)}86`, value)),
-        literal('A87', '이루한'), literal('A88', '이현승'),
+        literal('A87', parkCutoverRoster[2].name), literal('A88', parkCutoverRoster[4].name),
       ],
     },
     {

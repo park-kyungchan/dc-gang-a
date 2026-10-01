@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "kind": "codex_runtime_configuration_research",
+  "observedAtUtc": "2026-10-01T06:52:21Z",
+  "scope": "current_cloud_task",
+  "sources": [
+    {
+      "type": "current_onboarding_contract",
+      "uri": "skill://plugin_connector_1p_ed5feb9070a08191b08c81c47947bc16/setup/references/onboarding.md",
+      "read": true
+    },
+    {
+      "type": "official_openai_repository_schema",
+      "url": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/core/config.schema.json",
+      "retrieved": true,
+      "sha256": "53e32c491a4b2e24ff69ce643757e503682dd1b0189eb385f9c5ed8310ced7bf",
+      "scope": "Codex configuration schema; does not prove hosted runtime activation"
+    },
+    {
+      "type": "official_agents_documentation_pointer",
+      "url": "https://raw.githubusercontent.com/openai/codex/main/docs/agents_md.md",
+      "retrieved": true,
+      "sha256": "56f5b6026b15fad40fe8b1f6f8910b9fccdf66da3b39dd943c91877e2299619e"
+    },
+    {
+      "type": "official_cloud_product_documentation",
+      "url": "https://learn.chatgpt.com/docs/environments/cloud-environments",
+      "retrieved": false,
+      "reason": "destination_runtime_access_not_verified"
+    },
+    {
+      "type": "official_native_instruction_documentation",
+      "url": "https://developers.openai.com/codex/guides/agents-md",
+      "retrieved": false,
+      "reason": "CONNECT_403_network_policy"
+    }
+  ],
+  "observations": {
+    "os": "Linux x64",
+    "nativeCliVersion": "0.159.0-alpha.3",
+    "projectConfigWasAbsent": true,
+    "projectConfigReadbackVerified": true,
+    "requiredKeys": {
+      "model_context_window": {
+        "type": "integer",
+        "requested": 1050000
+      },
+      "model_auto_compact_token_limit": {
+        "type": "integer",
+        "requested": 787500
+      }
+    },
+    "draftToolControls": [
+      "install_script",
+      "start_skill",
+      "network",
+      "environment_variables",
+      "secret_requirements"
+    ],
+    "draftToolExposesManagedModelCapacityControl": false
+  },
+  "boundaries": {
+    "currentEffectiveModel": null,
+    "currentEffectiveContextWindow": null,
+    "currentAutoCompactionThreshold": null,
+    "nativePerTurnInjectionVerified": false,
+    "windowsReadOrWritePerformed": false,
+    "windowsWorkCancelled": true
+  },
+  "nextEvidenceNeeded": [
+    "Fetch current official Cloud documentation after supported runtime network configuration is applied.",
+    "Use a supported runtime observation/control interface before claiming effective managed capacity; the saved TOML values alone are insufficient."
+  ]
+}

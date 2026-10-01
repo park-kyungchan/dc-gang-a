@@ -9,6 +9,11 @@
     "feedback_coverage.ts",
     "cloud.ts",
     "cloud_environment.ts",
+    "backend_dependencies.ts",
+    "native_preservation_preview.ts",
+    "workflow_checkpoint.ts",
+    "codex_model_config.ts",
+    "endpoints.ts",
     "tools/verify_evidence.ts",
     "tools/prepush_audit.ts"
   ],

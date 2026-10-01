@@ -1,0 +1,680 @@
+{
+  "schemaVersion": 1,
+  "kind": "lesson_journal_hitl_static_source_contract_candidates",
+  "observedOn": "2026-10-01",
+  "observationTimezone": "Etc/UTC",
+  "observationWindowUtc": {
+    "start": "2026-10-01T01:23:05Z",
+    "end": "2026-10-01T01:34:25Z"
+  },
+  "sourceAnchor": {
+    "url": "https://dc.gang-a.kr/servlet/controller.cct.tutor.DayRecordServlet?p_process=Main",
+    "evidence": "current rendered row event attributes and targeted inline function/source metadata only"
+  },
+  "artifactSequence": {
+    "afterV2Snapshot": true,
+    "includedInV2Snapshot": false,
+    "parserV2Modified": false,
+    "priorEvidencePath": "docs/dayrecord-row-binding-source-evidence.json",
+    "priorEvidenceSha256": "6edf21111864a6b557a5371ec3c8b0f3dc9c9ce097df58eccd9d51a3eec3e056"
+  },
+  "taskScope": {
+    "intentReportedByParent": "Consider academy writes only for the lesson journal; other academy functionality remains read-only; initial journal automation must pass human review.",
+    "fieldListApproval": "pending",
+    "designDiscoveryOnly": true,
+    "actionApprovalGranted": false,
+    "transportImplementationAuthorized": false,
+    "callableEntriesActivated": 0,
+    "recordWritesPerformed": 0
+  },
+  "collection": {
+    "screenshots": false,
+    "handlerInvocation": false,
+    "fieldEdit": false,
+    "filterChange": false,
+    "formSubmission": false,
+    "networkReplay": false,
+    "programmaticFetch": false,
+    "networkCapture": false,
+    "externalScriptSourceFetched": false,
+    "sessionOrCredentialExtraction": false,
+    "actualFieldValuesPersisted": false,
+    "studentNamesOrIdentifiersPersisted": false,
+    "rawScriptsPersisted": false,
+    "operationalSheetAccess": false
+  },
+  "sourceInterpretation": {
+    "methodMeaning": "GET is the source-declared transport method for these mutating operations; it does not make them safe reads.",
+    "effectEvidence": "Mutation intent inferred from update command names, field mapping and autosave trigger wiring; actual server behavior was not exercised.",
+    "parameterCompleteness": "Listed names are literals observed in the target handlers, not a captured request contract or proof of server defaults.",
+    "comments": "Active-call checks excluded JavaScript comments; commented window.open code was not treated as active navigation.",
+    "responseMeaning": "No success/error receipt was obtained; absence of explicit inline callbacks does not establish successful persistence or absence of backend side effects."
+  },
+  "candidates": [
+    {
+      "id": "journal_progress_candidate",
+      "fieldLabel": "진도",
+      "handler": "onFoPrg",
+      "handlerParameterNames": [
+        "i",
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "sourceAnchor": {
+        "domEvent": "onfocusout",
+        "controlIdPattern": "prg_txt{i}",
+        "columnGroup": "current_progress",
+        "inlineFunction": "onFoPrg"
+      },
+      "proposedScope": "lesson_journal_field_candidate_pending_approval",
+      "classification": "write_candidate_not_safe_to_probe",
+      "approvalStatus": "not_approved",
+      "request": {
+        "evidenceLevel": "static_inline_source_declaration",
+        "method": "GET",
+        "path": "/servlet/controller.cct.tutor.DayRecordServlet",
+        "selector": {
+          "key": "reqCmd",
+          "literal": "udtPrg"
+        },
+        "literalQueryParameterNames": [
+          "reqCmd",
+          "prg_txt",
+          "course_seq",
+          "stu_pri_no",
+          "record_seq",
+          "dummy",
+          "cm_seq"
+        ],
+        "asynchronous": true,
+        "requestObjectName": "jsRequest4",
+        "openArguments": {
+          "methodLiteral": "GET",
+          "urlVariable": "url",
+          "asyncLiteral": true
+        },
+        "sendArgument": "null",
+        "captured": false,
+        "submitted": false,
+        "fieldValuesIncluded": false
+      },
+      "fieldMapping": {
+        "domControlIdPrefix": "prg_txt",
+        "domControlSuffixParameter": "i",
+        "domProperty": "value",
+        "queryParameter": "prg_txt",
+        "encoding": "encodeURIComponent call observed; exact complete encoding pipeline not established"
+      },
+      "targetMapping": [
+        {
+          "queryParameter": "course_seq",
+          "handlerParameter": "course_seq",
+          "evidence": "static URL concatenation association"
+        },
+        {
+          "queryParameter": "stu_pri_no",
+          "handlerParameter": "stu_pri_no",
+          "evidence": "static URL concatenation association"
+        },
+        {
+          "queryParameter": "record_seq",
+          "handlerParameter": "record_seq",
+          "evidence": "static URL concatenation association"
+        },
+        {
+          "queryParameter": "cm_seq",
+          "handlerParameter": "cm_seq",
+          "evidence": "static URL concatenation association"
+        }
+      ],
+      "dateAndInstructorParameters": {
+        "explicitLessonDateQueryParameterObserved": false,
+        "explicitInstructorQueryParameterObserved": false,
+        "meaning": "Do not replace independent teacher/occurrence proof with implicit session assumptions or the UI view date"
+      },
+      "trigger": {
+        "event": "onfocusout",
+        "autoSubmitOnEvent": true,
+        "explicitSaveButtonRequiredByObservedHandler": false,
+        "hitlImplication": "Approve exact target and value before editing the live control; leaving focus can submit automatically"
+      },
+      "clientValidation": {
+        "lengthHelper": "reallength",
+        "helperDefinitionFoundInline": false,
+        "comparison": {
+          "operator": ">",
+          "threshold": 400
+        },
+        "windowAlertCallObserved": true,
+        "substringCallObserved": {
+          "start": 0,
+          "length": 200
+        },
+        "explicitReturnAfterLengthGuardObserved": false,
+        "actualTruncationAndEncodingDataFlow": "not_conclusively_established",
+        "doNotInterpretThresholdAsCharacterCount": true
+      },
+      "responseHandling": {
+        "requestFactory": "getNewRequestObject",
+        "factoryDefinitionObservedInline": true,
+        "factoryConstructorNames": [
+          "XMLHttpRequest",
+          "ActiveXObject"
+        ],
+        "explicitOnReadyStateChangeOrLoadOrErrorOrTimeoutAssignmentFound": false,
+        "responseStatusOrBodyInspectionInHandlerFound": false,
+        "inlineTryCatchFound": false,
+        "successReceiptCaptured": false,
+        "readbackPerformed": false,
+        "limitation": "A UI edit or request dispatch cannot establish save success; separate same-target authoritative readback is required"
+      },
+      "secondaryEffects": {
+        "explicitFormSubmitInHandlerFound": false,
+        "explicitNotificationNamedCallInHandlerFound": false,
+        "secondaryRequestFromHandlerObserved": false,
+        "serverNotificationCoupling": "unknown",
+        "externalInterceptionOrGlobalHooks": "not_verified",
+        "absenceOfNotificationNotProven": true
+      }
+    },
+    {
+      "id": "journal_homework_candidate",
+      "fieldLabel": "숙제",
+      "handler": "onFoHw",
+      "handlerParameterNames": [
+        "i",
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "sourceAnchor": {
+        "domEvent": "onfocusout",
+        "controlIdPattern": "hw_txt{i}",
+        "columnGroup": "current_progress",
+        "inlineFunction": "onFoHw"
+      },
+      "proposedScope": "lesson_journal_field_candidate_pending_approval",
+      "classification": "write_candidate_not_safe_to_probe",
+      "approvalStatus": "not_approved",
+      "request": {
+        "evidenceLevel": "static_inline_source_declaration",
+        "method": "GET",
+        "path": "/servlet/controller.cct.tutor.DayRecordServlet",
+        "selector": {
+          "key": "reqCmd",
+          "literal": "udtHw"
+        },
+        "literalQueryParameterNames": [
+          "reqCmd",
+          "hw_txt",
+          "course_seq",
+          "stu_pri_no",
+          "record_seq",
+          "dummy",
+          "cm_seq"
+        ],
+        "asynchronous": true,
+        "requestObjectName": "jsRequest5",
+        "openArguments": {
+          "methodLiteral": "GET",
+          "urlVariable": "url",
+          "asyncLiteral": true
+        },
+        "sendArgument": "null",
+        "captured": false,
+        "submitted": false,
+        "fieldValuesIncluded": false
+      },
+      "fieldMapping": {
+        "domControlIdPrefix": "hw_txt",
+        "domControlSuffixParameter": "i",
+        "domProperty": "value",
+        "queryParameter": "hw_txt",
+        "encoding": "encodeURIComponent call observed; exact complete encoding pipeline not established"
+      },
+      "targetMapping": [
+        {
+          "queryParameter": "course_seq",
+          "handlerParameter": "course_seq",
+          "evidence": "static URL concatenation association"
+        },
+        {
+          "queryParameter": "stu_pri_no",
+          "handlerParameter": "stu_pri_no",
+          "evidence": "static URL concatenation association"
+        },
+        {
+          "queryParameter": "record_seq",
+          "handlerParameter": "record_seq",
+          "evidence": "static URL concatenation association"
+        },
+        {
+          "queryParameter": "cm_seq",
+          "handlerParameter": "cm_seq",
+          "evidence": "static URL concatenation association"
+        }
+      ],
+      "dateAndInstructorParameters": {
+        "explicitLessonDateQueryParameterObserved": false,
+        "explicitInstructorQueryParameterObserved": false,
+        "meaning": "Do not replace independent teacher/occurrence proof with implicit session assumptions or the UI view date"
+      },
+      "trigger": {
+        "event": "onfocusout",
+        "autoSubmitOnEvent": true,
+        "explicitSaveButtonRequiredByObservedHandler": false,
+        "hitlImplication": "Approve exact target and value before editing the live control; leaving focus can submit automatically"
+      },
+      "clientValidation": {
+        "lengthHelper": "reallength",
+        "helperDefinitionFoundInline": false,
+        "comparison": {
+          "operator": ">",
+          "threshold": 400
+        },
+        "windowAlertCallObserved": true,
+        "substringCallObserved": {
+          "start": 0,
+          "length": 200
+        },
+        "explicitReturnAfterLengthGuardObserved": false,
+        "actualTruncationAndEncodingDataFlow": "not_conclusively_established",
+        "doNotInterpretThresholdAsCharacterCount": true
+      },
+      "responseHandling": {
+        "requestFactory": "getNewRequestObject",
+        "factoryDefinitionObservedInline": true,
+        "factoryConstructorNames": [
+          "XMLHttpRequest",
+          "ActiveXObject"
+        ],
+        "explicitOnReadyStateChangeOrLoadOrErrorOrTimeoutAssignmentFound": false,
+        "responseStatusOrBodyInspectionInHandlerFound": false,
+        "inlineTryCatchFound": false,
+        "successReceiptCaptured": false,
+        "readbackPerformed": false,
+        "limitation": "A UI edit or request dispatch cannot establish save success; separate same-target authoritative readback is required"
+      },
+      "secondaryEffects": {
+        "explicitFormSubmitInHandlerFound": false,
+        "explicitNotificationNamedCallInHandlerFound": false,
+        "secondaryRequestFromHandlerObserved": false,
+        "serverNotificationCoupling": "unknown",
+        "externalInterceptionOrGlobalHooks": "not_verified",
+        "absenceOfNotificationNotProven": true
+      }
+    },
+    {
+      "id": "journal_memo_candidate",
+      "fieldLabel": "메모",
+      "handler": "onFoMm",
+      "handlerParameterNames": [
+        "i",
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "sourceAnchor": {
+        "domEvent": "onfocusout",
+        "controlIdPattern": "memo_txt{i}",
+        "columnGroup": "current_progress",
+        "inlineFunction": "onFoMm"
+      },
+      "proposedScope": "lesson_journal_field_candidate_pending_approval",
+      "classification": "write_candidate_not_safe_to_probe",
+      "approvalStatus": "not_approved",
+      "request": {
+        "evidenceLevel": "static_inline_source_declaration",
+        "method": "GET",
+        "path": "/servlet/controller.cct.tutor.DayRecordServlet",
+        "selector": {
+          "key": "reqCmd",
+          "literal": "udtMemo"
+        },
+        "literalQueryParameterNames": [
+          "reqCmd",
+          "memo_txt",
+          "course_seq",
+          "stu_pri_no",
+          "record_seq",
+          "dummy",
+          "cm_seq"
+        ],
+        "asynchronous": true,
+        "requestObjectName": "jsRequest6",
+        "openArguments": {
+          "methodLiteral": "GET",
+          "urlVariable": "url",
+          "asyncLiteral": true
+        },
+        "sendArgument": "null",
+        "captured": false,
+        "submitted": false,
+        "fieldValuesIncluded": false
+      },
+      "fieldMapping": {
+        "domControlIdPrefix": "memo_txt",
+        "domControlSuffixParameter": "i",
+        "domProperty": "value",
+        "queryParameter": "memo_txt",
+        "encoding": "encodeURIComponent call observed; exact complete encoding pipeline not established"
+      },
+      "targetMapping": [
+        {
+          "queryParameter": "course_seq",
+          "handlerParameter": "course_seq",
+          "evidence": "static URL concatenation association"
+        },
+        {
+          "queryParameter": "stu_pri_no",
+          "handlerParameter": "stu_pri_no",
+          "evidence": "static URL concatenation association"
+        },
+        {
+          "queryParameter": "record_seq",
+          "handlerParameter": "record_seq",
+          "evidence": "static URL concatenation association"
+        },
+        {
+          "queryParameter": "cm_seq",
+          "handlerParameter": "cm_seq",
+          "evidence": "static URL concatenation association"
+        }
+      ],
+      "dateAndInstructorParameters": {
+        "explicitLessonDateQueryParameterObserved": false,
+        "explicitInstructorQueryParameterObserved": false,
+        "meaning": "Do not replace independent teacher/occurrence proof with implicit session assumptions or the UI view date"
+      },
+      "trigger": {
+        "event": "onfocusout",
+        "autoSubmitOnEvent": true,
+        "explicitSaveButtonRequiredByObservedHandler": false,
+        "hitlImplication": "Approve exact target and value before editing the live control; leaving focus can submit automatically"
+      },
+      "clientValidation": {
+        "lengthHelper": "reallength",
+        "helperDefinitionFoundInline": false,
+        "comparison": {
+          "operator": ">",
+          "threshold": 400
+        },
+        "windowAlertCallObserved": true,
+        "substringCallObserved": {
+          "start": 0,
+          "length": 200
+        },
+        "explicitReturnAfterLengthGuardObserved": false,
+        "actualTruncationAndEncodingDataFlow": "not_conclusively_established",
+        "doNotInterpretThresholdAsCharacterCount": true
+      },
+      "responseHandling": {
+        "requestFactory": "getNewRequestObject",
+        "factoryDefinitionObservedInline": true,
+        "factoryConstructorNames": [
+          "XMLHttpRequest",
+          "ActiveXObject"
+        ],
+        "explicitOnReadyStateChangeOrLoadOrErrorOrTimeoutAssignmentFound": false,
+        "responseStatusOrBodyInspectionInHandlerFound": false,
+        "inlineTryCatchFound": false,
+        "successReceiptCaptured": false,
+        "readbackPerformed": false,
+        "limitation": "A UI edit or request dispatch cannot establish save success; separate same-target authoritative readback is required"
+      },
+      "secondaryEffects": {
+        "explicitFormSubmitInHandlerFound": false,
+        "explicitNotificationNamedCallInHandlerFound": false,
+        "secondaryRequestFromHandlerObserved": false,
+        "serverNotificationCoupling": "unknown",
+        "externalInterceptionOrGlobalHooks": "not_verified",
+        "absenceOfNotificationNotProven": true
+      }
+    },
+    {
+      "id": "journal_attendance_candidate",
+      "fieldLabel": "금일출석",
+      "handler": "onAttn",
+      "handlerParameterNames": [
+        "i",
+        "course_seq",
+        "stu_pri_no",
+        "record_seq",
+        "cm_seq"
+      ],
+      "sourceAnchor": {
+        "domEvent": "onchange",
+        "controlIdPattern": "attn{i}",
+        "columnGroup": "current_progress",
+        "inlineFunction": "onAttn"
+      },
+      "proposedScope": "lesson_journal_field_candidate_pending_approval",
+      "classification": "write_candidate_not_safe_to_probe",
+      "approvalStatus": "not_approved",
+      "request": {
+        "evidenceLevel": "static_inline_source_declaration",
+        "method": "GET",
+        "path": "/servlet/controller.cct.tutor.DayRecordServlet",
+        "selector": {
+          "key": "reqCmd",
+          "literal": "udtAttn"
+        },
+        "literalQueryParameterNames": [
+          "reqCmd",
+          "attn_yn",
+          "course_seq",
+          "stu_pri_no",
+          "record_seq",
+          "dummy",
+          "cm_seq"
+        ],
+        "asynchronous": true,
+        "requestObjectName": "jsRequest7",
+        "openArguments": {
+          "methodLiteral": "GET",
+          "urlVariable": "url",
+          "asyncLiteral": true
+        },
+        "sendArgument": "null",
+        "captured": false,
+        "submitted": false,
+        "fieldValuesIncluded": false
+      },
+      "fieldMapping": {
+        "domControlIdPrefix": "attn",
+        "domControlSuffixParameter": "i",
+        "domProperty": "value",
+        "queryParameter": "attn_yn",
+        "encoding": "DOM select value; option meanings/allowed domain not extracted"
+      },
+      "targetMapping": [
+        {
+          "queryParameter": "course_seq",
+          "handlerParameter": "course_seq",
+          "evidence": "static URL concatenation association"
+        },
+        {
+          "queryParameter": "stu_pri_no",
+          "handlerParameter": "stu_pri_no",
+          "evidence": "static URL concatenation association"
+        },
+        {
+          "queryParameter": "record_seq",
+          "handlerParameter": "record_seq",
+          "evidence": "static URL concatenation association"
+        },
+        {
+          "queryParameter": "cm_seq",
+          "handlerParameter": "cm_seq",
+          "evidence": "static URL concatenation association"
+        }
+      ],
+      "dateAndInstructorParameters": {
+        "explicitLessonDateQueryParameterObserved": false,
+        "explicitInstructorQueryParameterObserved": false,
+        "meaning": "Do not replace independent teacher/occurrence proof with implicit session assumptions or the UI view date"
+      },
+      "trigger": {
+        "event": "onchange",
+        "autoSubmitOnEvent": true,
+        "explicitSaveButtonRequiredByObservedHandler": false,
+        "hitlImplication": "Approve exact target and attendance value before changing the live selection"
+      },
+      "clientValidation": {
+        "allowedAttendanceValues": "not_collected",
+        "clientValidation": "not_established"
+      },
+      "responseHandling": {
+        "requestFactory": "getNewRequestObject",
+        "factoryDefinitionObservedInline": true,
+        "factoryConstructorNames": [
+          "XMLHttpRequest",
+          "ActiveXObject"
+        ],
+        "explicitOnReadyStateChangeOrLoadOrErrorOrTimeoutAssignmentFound": false,
+        "responseStatusOrBodyInspectionInHandlerFound": false,
+        "inlineTryCatchFound": false,
+        "successReceiptCaptured": false,
+        "readbackPerformed": false,
+        "limitation": "A UI edit or request dispatch cannot establish save success; separate same-target authoritative readback is required"
+      },
+      "secondaryEffects": {
+        "explicitFormSubmitInHandlerFound": false,
+        "explicitNotificationNamedCallInHandlerFound": false,
+        "secondaryRequestFromHandlerObserved": false,
+        "serverNotificationCoupling": "unknown",
+        "externalInterceptionOrGlobalHooks": "not_verified",
+        "absenceOfNotificationNotProven": true
+      }
+    }
+  ],
+  "subsidiaryControlsClassification": [
+    {
+      "handler": "openHomeWorkRate",
+      "event": "onclick",
+      "parameterNames": [
+        "record_seq",
+        "cm_seq",
+        "count"
+      ],
+      "columnGroup": "previous_progress",
+      "uiTargetSelector": "#homework_rate",
+      "observedFunctionBehavior": [
+        "reads hidden instructor field and homework-rate control value",
+        "opens blockUI dialog",
+        "sets radio/check properties"
+      ],
+      "directRequestOpenOrSendInHandlerFound": false,
+      "saveCallbackContract": "not_inspected_or_approved",
+      "scopeStatus": "unapproved_previous_occurrence_subsidiary_control",
+      "identityEvidence": {
+        "sameMembershipAsCurrent": true,
+        "sameRecordAsCurrent": false
+      },
+      "handling": "Keep this previous-progress record separate from current journal identity; do not apply current-row approval to it"
+    },
+    {
+      "handler": "setDailyTest",
+      "event": "onclick",
+      "parameterNames": [
+        "record_seq",
+        "cm_seq",
+        "count"
+      ],
+      "columnGroup": "current_progress",
+      "uiTargetSelector": "#daily_test",
+      "observedFunctionBehavior": [
+        "reads hidden instructor field and daily-test control value",
+        "opens blockUI dialog",
+        "sets radio/check properties"
+      ],
+      "directRequestOpenOrSendInHandlerFound": false,
+      "saveCallbackContract": "not_inspected_or_approved",
+      "scopeStatus": "unapproved_current_occurrence_subsidiary_control",
+      "identityEvidence": {
+        "sameMembershipAsCurrent": true,
+        "sameRecordAsCurrent": true
+      },
+      "handling": "Treat as a separate field/workflow requiring explicit field approval and reviewed save contract"
+    }
+  ],
+  "excludedFromThisWriteContract": {
+    "studentPersistentMemo": "onFoStuMemo is not assumed to be a lesson-occurrence journal field merely because it appears on the page",
+    "notificationsAndDelivery": "No message, notification, or parent-send operation is included",
+    "otherAcademyDomains": "Read-only under the stated design scope",
+    "previousOccurrence": "No implicit reuse of current-record approval for previous-progress controls"
+  },
+  "requiredHitlGates": [
+    "Obtain the exact approved journal field list before designing a write adapter.",
+    "Review teacher ownership and the exact course/student/record/cm tuple plus independently established lesson occurrence; do not infer occurrence from std_date or non-date std_ymd.",
+    "Read the exact target before-state and present before/after values, relevant validation rules and a recovery plan.",
+    "Get explicit approval for the bounded field/record batch before live field edits because focus-out/change can autosave.",
+    "Resolve encoding, allowed attendance values, length semantics, request failure handling and potential notification coupling before transport is implemented.",
+    "After any future approved write, independently read back the same target and exact fields; dispatch or UI state is not success."
+  ],
+  "historyReadPreconditionCheck": {
+    "handler": "onOpenDaysMain",
+    "parameterNames": [
+      "student_pri_no"
+    ],
+    "declaredDestination": {
+      "path": "/servlet/controller.cct.tutor.DayRecordServlet",
+      "selector": {
+        "key": "p_process",
+        "literal": "DaysMain"
+      },
+      "literalQueryKeys": [
+        "std_ym",
+        "grp_seq",
+        "tutor_pri_no",
+        "student_pri_no",
+        "p_process"
+      ]
+    },
+    "activeCallNames": [
+      "val",
+      "split",
+      "MODULE.Commons.showPopUp",
+      "MODULE.Commons.popUpOptions"
+    ],
+    "windowOpenOnlyAppearsInCommentedAlternative": true,
+    "directRequestSendOrFormSubmitFound": false,
+    "popupHelperDefinitionsFoundInline": false,
+    "declaredExternalScriptPath": "/jsutil/module.js",
+    "externalSourceNotFetched": true,
+    "pureNavigationProof": "blocked_on_unreviewed_popup_helpers",
+    "teacherCrossPageComparisonPerformed": false,
+    "rowControlClicked": false,
+    "historyViewOpened": false,
+    "nextRequiredObservation": "Obtain the exact popup-helper source through an authorized supported route that exposes its body; current browser/client failure was not bypassed. Keep teacher comparison and row navigation pending until helpers are reviewed.",
+    "authorizedAssetNavigationAttempt": {
+      "url": "https://dc.gang-a.kr/jsutil/module.js",
+      "method": "supported cloud-browser navigation in a separate tab",
+      "observedOn": "2026-10-01",
+      "observedAtUtc": "2026-10-01T01:34:10Z",
+      "result": "net::ERR_BLOCKED_BY_CLIENT",
+      "classification": "browser_client_navigation_failure_not_site_bot_detection",
+      "sourceBodyExposed": false,
+      "sourceHash": null,
+      "retryPerformed": false,
+      "alternateRetrievalAttempted": false,
+      "helperExecuted": false,
+      "effectMetadata": "Unavailable because asset body was not exposed; pure-navigation prerequisite remains unresolved"
+    }
+  },
+  "unresolved": [
+    "Exact approved journal field set",
+    "Full text encoding and length/truncation semantics",
+    "Attendance value domain",
+    "Independent same-target before/readback contract",
+    "Server-side ownership and occurrence authorization",
+    "Save response/error semantics",
+    "Notification or secondary server-side side effects",
+    "Subsidiary dialog save contracts",
+    "Pure popup-helper navigation proof for bounded history read"
+  ]
+}

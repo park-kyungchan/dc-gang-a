@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-01",
+  "status": "focused_source_cleanup_only_not_a_public_release_clearance",
+  "scope": {
+    "sanitized": ["src/sheets/parkMainSheetCutoverSpec.ts"],
+    "regressionTests": ["tests/sheets/parkMainSheetCutoverSpec.test.ts"],
+    "behaviorPreserved": [
+      "Five preview identities, existing legacy row placement, linked section cells and layout ranges",
+      "Review-only status, exact production approval and recovery requirements"
+    ],
+    "publicFixtureRule": "Use explicit synthetic student, grade, school and group values. Never copy local canonical identities into public examples or seed synthetic identities into local canonical data.",
+    "productionRule": "The layout's sample roster is not production authority. Any actual roster must be obtained from the separately verified local source and reviewed for the exact approved batch."
+  },
+  "residualTrackedCandidates": {
+    "meaning": "These files matched one or more identities from the previously embedded student roster. This is a bounded exposure inventory, not a complete privacy or credential audit. Values are intentionally omitted.",
+    "applicationAndHarness": [
+      "harness/cli.ts",
+      "harness/cli.py",
+      "harness/lead.ts"
+    ],
+    "testsAndRubrics": [
+      "agent-runtime/tests/credential-leak.test.ts",
+      "harness/tests/test_academy.py",
+      "tests/audit/auditTrailEngine.test.ts",
+      "tests/canonical/canonicalEntities.test.ts",
+      "tests/harness/chromeDevtoolsSession.test.ts",
+      "tests/harness/cli.test.ts",
+      "tests/harness/lead.test.ts",
+      "tests/lms/lmsLiveQueryService.test.ts",
+      "tests/rubrics/main_sheet_rubric.md",
+      "tests/rubrics/verify_main_sheet_rubric.py",
+      "tests/rubrics/verify_main_sheet_rubric.ts",
+      "tests/sheets/dualSyncAdapter.test.ts",
+      "workbench_v2/tests/test_canonical_entities.py",
+      "workbench_v2/tests/test_cli.py"
+    ],
+    "documentationAndArchivedEvidence": [
+      ".agents/skills/park-main-sheet/SKILL.md",
+      "KICKOFF_RAW_COLLECTION.md",
+      "docs/LMS_DETERMINISTIC_READ_ARCHITECTURE.md",
+      "docs/LMS_FULL_ROUTE_TREE_MAP.md",
+      "handoffs/2026-09-29-main-sheet-harness.md",
+      "handoffs/2026-09-29-operating-cutover-resume.json",
+      "handoffs/2026-09-29-read-path-resume.json",
+      "handoffs/2026-09-29-restart-kickoff.json",
+      "handoffs/2026-09-30-class-pilot-kickoff.md",
+      "handoffs/2026-09-30-class-scope.json",
+      "harness/README.md",
+      "review/ADVERSARIAL_AUDIT_REPORT.md",
+      "review/main-sheet-operating-batch-preview-2026-09-29.json",
+      "review/page_progress_pilot.md"
+    ],
+    "potentialDataClasses": [
+      "Student names and stable LMS identifiers",
+      "Linked school, grade, class schedule, attendance and assessment fixture data"
+    ]
+  },
+  "unassessed": [
+    "Protected config/ and data/ contents, credentials and unrelated personal records",
+    "Repository history, remote branches, pull requests, build artifacts, caches and copies"
+  ],
+  "remediationBoundary": [
+    "A local working-tree edit does not remove data from a published branch, earlier commits, forks or downloaded copies.",
+    "Operational assertions and archival evidence need a coordinated, reviewed migration rather than blind replacement or deletion.",
+    "Repository visibility changes, publication, history rewriting and destructive remediation require separate explicit authorization."
+  ]
+}

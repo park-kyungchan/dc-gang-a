@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-01",
+  "status": "local_integration_tested_live_source_and_runtime_setup_blocked",
+  "target": {
+    "spreadsheetId": "1R8DoOOo5yg3M1hgHPA0Vuqp3Ng-K5bQgxdiy5dEeXOg",
+    "sheetId": 1754681846,
+    "title": "박경찬",
+    "semanticMap": "docs/main-sheet-live-input-map-2026-10-01.json",
+    "nativeLayout": "133 rows, 18 columns, frozenRows=3, G width=96, no chart/protection",
+    "studentSlots": "C4:R47",
+    "preserve": [
+      "A1:R3 labels/format",
+      "A4:B47 teacher/grade merges",
+      "O4:O47 expected-end-date plans",
+      "R4:R47 expected-end-date plans",
+      "A48:P133 legacy",
+      "Q48:R133 unassigned blank cells"
+    ],
+    "never": [
+      "Restore removed source protection",
+      "Reuse deleted I5/I8 selectors",
+      "Apply historical A1:P160 renderer to current layout",
+      "Infer student identity from name/row position",
+      "Treat empty cells as automatic write permission"
+    ]
+  },
+  "nextRealFlow": [
+    {
+      "step": "manual_source_read",
+      "action": "Finish the pending user sign-in, then read one explicitly scoped teacher/date/student occurrence through the supported read path. Obtain independently corroborated teacher/occurrence and complete requested coverage.",
+      "acceptance": "assessAcademyReadAcceptance returns accepted; unknown field evidence remains unknown",
+      "currentBlocker": "Fresh browser navigation returned a session-error page; authenticated backend transport is not exposed, and no unattended session provider is verified. A visible cached page or a successful sign-in alone is insufficient."
+    },
+    {
+      "step": "bind_current_template",
+      "action": "Review the exact stable student/occurrence to C4:R47 row binding and source-field-to-template-column contract. Start only with source fields actually obtained. The common template has LCAD, course assessment, progress and date columns; lesson attendance/homework/memo must not be inserted under those unrelated headings.",
+      "acceptance": "Explicit source/teacher/preserve cell ownership and semantic evidence refs; O/R stay teacher plans; no legacy writes"
+    },
+    {
+      "step": "preview_manual_refresh",
+      "action": "Call decideRefreshDispatch(manual), durably claim once, then prepareAcceptedDeployedRowRefresh with fresh exact row inventory. Show before/after, unknowns, source age and preserved manual values in a sidebar/dialog or user review surface.",
+      "acceptance": "Non-executable review with complete C:R before-state and only changed source cells"
+    },
+    {
+      "step": "first_approved_refresh",
+      "action": "Obtain exact destination/value/recovery batch approval. A trusted writer authenticates approval, writes and verifies the before-ledger in the approved teacher-only destination, then rechecks target structure/binding/complete row and uses the existing auditedRefresh flow. Update only changed source userEnteredValue cells as literal values. Read back the same row and persist an outcome.",
+      "acceptance": "Approved source changes match same-target readback; teacher values, notes, plans and formats remain unchanged",
+      "limitations": "No live writer, approval verifier or private audit store is implemented here. Google Sheets preflight is not a transaction/CAS guarantee against concurrent human edits. Uncertain outcomes require read-only reconciliation, never blind replay or rollback."
+    },
+    {
+      "step": "daily_refresh_activation",
+      "action": "Only after the manual flow and a supported unattended source session are proven, add the chosen runtime trigger and persistent claim/outcome store. Call the identical source/read/review pipeline. Automatic production source-cell writes require the exact bounded standing scope to be approved; journal writes remain separately reviewed.",
+      "requestedTime": "13:30 Asia/Seoul; user accepted 13:15–13:45",
+      "hostCandidate": "Existing bound Apps Script atHour(13).nearMinute(30).everyDays(1).inTimezone('Asia/Seoul')",
+      "acceptance": "Actual installed trigger owner/ID and observed first run; visible last successful refresh versus latest attempted/failed/late run",
+      "timingLimit": "Requested delivery window is not guaranteed uptime. Late same-day runs are labeled late. Missed dates are recorded as missed rather than replayed into a new day's lesson. Schedule-only acknowledgement is not deployment."
+    },
+    {
+      "step": "journal_hitl",
+      "action": "Use buildLessonJournalReviewBundle to show all six business fields; keep source evidence and teacher drafts separate. Current attendance/progress/homework/memo/daily-test refer to the current occurrence. Previous-homework assessment refers to the separately verified previous occurrence. Select the fields to save and present exact target/before/after/recovery for explicit approval.",
+      "reviewGrouping": "selected_fields by default; student_lesson or whole_lesson are optional presentation modes, not mandatory all-field save rules",
+      "acceptance": "Verified field-specific wire, validation, secondary-effect and readback contracts; authenticated exact-diff approval; independent same-target readback for each actual record",
+      "currentBlocker": "Four core write candidates remain non-executing; two assessment controls have inspected source shapes but no verified writer/readback. Editing live controls can autosave, so approval must precede the edit/radio selection."
+    }
+  ],
+  "runtimeChoice": {
+    "firstCandidate": "Reuse the existing bound Apps Script only after identifying its actual project, installed code and trigger creator. Source-configured SPT web-app URL is not a project identity or proof of current code.",
+    "appsScriptIdentity": "A manual bound-script action runs as the user at the keyboard; an installable clock trigger runs as its creator. Neither automatically uses main-sheet-bot or the dot cloud browser session.",
+    "portability": "The current reusable TypeScript code uses Bun/Node crypto/util and is not an Apps Script bundle. A small reviewed portable wrapper/port or an authenticated existing bridge is required. Do not paste it into Apps Script and claim deployment.",
+    "gcpAlternative": "ganga-daechi-260927-p0723 / main-sheet-bot remains the selected existing GCP identity. Cloud Run plus Scheduler is a possible deliberate keyless runtime choice, not the default. Both projects currently have billing disabled; no billing, API enablement, IAM expansion or service deployment is authorized by this plan.",
+    "privateLedger": "Choose and approve an exact teacher-only durable audit destination before student values are copied there. Hidden tabs, shared workbook properties and private-looking titles do not prove private access. Preserve draft/revision history; no secrets or raw session/media in audit logs.",
+    "state": [
+      "last successful same-target readback",
+      "latest attempt timestamp and trigger",
+      "source freshness/coverage",
+      "blocked/failed/late/missed outcome",
+      "idempotency claim including uncertain attempts",
+      "review/approval/recovery refs without credentials"
+    ]
+  },
+  "remainingDecisionsAndAuthority": [
+    "User completes the pending secure login handoff; independently prove actual source read afterward",
+    "Identify/review the existing bound Apps Script project and its intended trigger owner",
+    "Choose a supported unattended LMS authentication/session provider; do not extract browser cookies or invent an API",
+    "Approve exact top-row identity mapping, source field ownership and data destinations including private audit storage",
+    "Authorize actual trigger installation/OAuth expansion/deployment at the relevant setup step",
+    "If Apps Script cannot use a supported source provider, explicitly choose an alternate host and any cost/security changes"
+  ],
+  "newCode": [
+    "src/sheets/deployedMainRefresh.ts",
+    "src/lms/lessonJournalReviewBundle.ts",
+    "tests/sheets/deployedMainRefresh.test.ts",
+    "tests/lms/lessonJournalReviewBundle.test.ts"
+  ],
+  "existingCodeReused": [
+    "src/lms/academyReadAcceptance.ts",
+    "src/sheets/auditedRefresh.ts",
+    "src/lms/lessonJournalHitl.ts",
+    "src/learning/model.ts"
+  ],
+  "externalReferences": [
+    {
+      "url": "https://developers.google.com/apps-script/reference/script/clock-trigger-builder",
+      "finding": "nearMinute has plus/minus 15-minute timing; inTimezone explicitly selects the zone"
+    },
+    {
+      "url": "https://developers.google.com/apps-script/guides/triggers/installable",
+      "finding": "Installable triggers run as the creator; each account cannot see triggers created by other accounts"
+    },
+    {
+      "url": "https://developers.google.com/apps-script/guides/services/authorization",
+      "finding": "New services/scopes can require explicit new authorization"
+    },
+    {
+      "url": "https://docs.cloud.google.com/scheduler/docs/configuring/cron-job-schedules",
+      "finding": "Cloud Scheduler supports minute cron and explicit time zone"
+    },
+    {
+      "url": "https://docs.cloud.google.com/run/docs/deploying-source-code",
+      "finding": "Cloud Run source deployment has API, build/storage and IAM requirements; it is not implied by existing Sheet bot access"
+    }
+  ],
+  "effectsPerformed": {
+    "productionWrites": 0,
+    "academyWrites": 0,
+    "tokenMints": 0,
+    "grantChanges": 0,
+    "scheduledTasksCreated": 0,
+    "deployments": 0
+  },
+  "validation": {
+    "runtime": "Bun 1.4.2 / TypeScript 7.0.2",
+    "newFocusedTests": 20,
+    "relatedRegression": {
+      "command": "bun test --dots tests/sheets/deployedMainRefresh.test.ts tests/sheets/auditedRefresh.test.ts tests/lms/lessonJournalReviewBundle.test.ts tests/lms/lessonJournalHitl.test.ts tests/lms/dayRecordDomBinding.test.ts tests/lms/academyReadAcceptance.test.ts",
+      "passed": 209,
+      "failed": 0,
+      "assertions": 594
+    },
+    "rootTypecheck": "passed after final code edit",
+    "cloudCheck": {
+      "status": "passed after final code edit",
+      "testExecutions": 591,
+      "sourceIntegrity": {
+        "backendFiles": 13,
+        "canonicalOperations": 54,
+        "importedSourceFiles": 329
+      },
+      "doesNotIncludeNewTests": true
+    },
+    "scope": "synthetic only; no live write, source acceptance, installed trigger, deployment or runtime acceptance implied"
+  }
+}

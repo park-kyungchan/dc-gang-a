@@ -1,0 +1,364 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-01",
+  "status": "proposed_design_and_offline_projection",
+  "layoutVersion": "learning-view-ap-v1",
+  "implementation": {
+    "projection": "src/sheets/learningViewProjection.ts",
+    "ownershipAndDryRun": "src/sheets/mainSheetLearningPreview.ts",
+    "tests": "tests/sheets/learningViewProjection.test.ts",
+    "syntheticFixture": "tests/sheets/learningViewProjection.fixture.ts",
+    "generatedNativePreviewPayload": "docs/main-sheet-preview.synthetic.json",
+    "generatedSyntheticScenarios": "docs/main-sheet-scenarios.synthetic.json",
+    "generatedWeeklySyntheticScenarios": "docs/main-sheet-week-scenarios.synthetic.json"
+  },
+  "currentBoundary": {
+    "operatingMain": "박경찬",
+    "observedMainGrid": {
+      "rows": 160,
+      "columns": 16
+    },
+    "observedMainSelectors": {
+      "student": "I5",
+      "date": "I8"
+    },
+    "existingLayoutAdopted": false,
+    "operatingMainMutationByThisImplementation": false,
+    "modulesContainNetworkOrSheetWriter": false,
+    "productionRequestsEmitted": false,
+    "academyIdentityAndSourceJoins": "Must be independently verified by the source adapter",
+    "nativeDesignPreview": "Development and synthetic previews belong only in a separately verified private Google Drive development workbook. Never create test or preview tabs inside the staff-visible operational workbook. The generated payload is static design data, not permission to publish it.",
+    "mobile": "Paused until backend and operating Sheet contracts are stable",
+    "deploymentGuard": {
+      "productionClassification": "The shared staff-visible workbook is production, including any preview tab inside it.",
+      "developmentDestination": "Separate private Google Drive development files only; verify the exact file and access before uploading or writing.",
+      "finalDeploymentApproval": "User permits verified-item production work through the designated native Sheet worker after private staging, exact review and a backup. This does not authorize synthetic/test content or broad production rewrites; this library still emits no executable write.",
+      "finalTarget": "Unconfirmed for deployment; reconcile the user-cited preview and Main tab identities before selecting a final target. Existing observed IDs are not deployment authority.",
+      "earlierPreview": "The earlier synthetic production preview was removed after explicit cleanup approval and an unchanged-content check. The native Sheet worker verified cleanup; ongoing development is in a separate owner-only private workbook.",
+      "implementation": "These modules remain offline and every dry-run result has executable=false. There is no deployed writer."
+    }
+  },
+  "principles": [
+    "Use verified opaque student, occurrence, edition, page, question and revision identities. Names and labels are display-only.",
+    "Keep regular academy lessons and makeup occurrences separate, retaining makeup origin identity when verified.",
+    "Keep source observations separate from teacher present/future plans. Approval does not turn a teacher plan into a source fact.",
+    "Use local lesson calendar date and explicit time zone, independently of source observation timestamps.",
+    "Never infer no work, no lesson, correctness, correction completion or mastery from missing records.",
+    "Preserve teacher-owned cells, formula cells, annotations, protections, every non-target tab and existing legacy consumers.",
+    "Read source facts and append-only teacher history into a deterministic projection. This code performs no live persistence.",
+    "A source-coverage flag is caller evidence, not proof produced by this library. Overview counts include only students present in supplied entries."
+  ],
+  "api": {
+    "projectLearningView": {
+      "input": [
+        "validated full LearningRevision history",
+        "shared LearningCatalog",
+        "asOfDate and timeZone",
+        "optional month/weekStart/date/time/student/hierarchy filters",
+        "capturedAt",
+        "sourceCoverage Knowledge",
+        "explicit maxSourceAgeMs",
+        "optional display-only student labels"
+      ],
+      "output": [
+        "whole-class supplied-record overview",
+        "sourceFacts",
+        "teacherPlans",
+        "historical/current/future comparison",
+        "unresolved identity/filter queue",
+        "per-question audit evidence",
+        "per-plan reconciliation",
+        "source coverage warnings",
+        "immutable input digest",
+        "weeklyOverview: local week → exact lesson/session lane → textbook edition"
+      ],
+      "notes": [
+        "currentRevisions validates full append-only history before projecting latest entity states",
+        "Month/date/time/student filters are conjunctive. A date outside its selected month is rejected.",
+        "Student and hierarchy detail filters do not hide other supplied students from the same date/time overview.",
+        "Unknown time or hierarchy matches remain in a separate unresolved queue rather than disappearing.",
+        "Unknown exact source bindings stay explicitly unresolved and cannot establish plan completion.",
+        "Stale observations remain visible but are excluded from reconciliation.",
+        "Freshness describes observedAt relative to caller policy, not proof that the original source timestamp is known.",
+        "Hierarchy filters narrow presentation only. Whole-plan reconciliation uses all current fresh verified observations with the same time zone and exact compatible source identities.",
+        "Foreign-time-zone rows remain unresolved before local month/date/time filtering; no guessed conversion or temporal period is assigned.",
+        "weekStart is the Monday date in the explicitly selected time zone. Source timestamps never supply the lesson week.",
+        "Month and week filters intersect across month boundaries. Non-Monday weeks, a date outside its selected week, and nonoverlapping month/week selections are rejected.",
+        "Weekly grouping comes from projectLearningWeeks over validated history. Deeper hierarchy selectors prune display rows consistently; full-plan reconciliation remains based on all compatible fresh verified evidence.",
+        "Foreign-time-zone rows receive no guessed week or temporal period. Their uncertainty remains in the top-level unresolved queue."
+      ]
+    },
+    "renderLearningViewCells": {
+      "input": "LearningView plus optional independent section offsets",
+      "output": "Complete bounded literal-cell projection and total/shown/remaining counts",
+      "safety": [
+        "No formulas generated",
+        "Never writes selector or fixed-input cells",
+        "Clears obsolete auto-owned values by explicit null projection",
+        "Rejects invalid pagination offsets",
+        "No silent truncation: every section exposes remaining records"
+      ]
+    },
+    "buildMainSheetDryRun": {
+      "input": [
+        "exact expected spreadsheet ID, sheet ID and title",
+        "full baseline and observed A1:P160 snapshots",
+        "desired literal cells",
+        "now",
+        "explicit maxSnapshotAgeMs"
+      ],
+      "output": [
+        "non-executable dry-run status",
+        "exact before/after value diff",
+        "before and observed snapshot digests",
+        "preview digest",
+        "issues",
+        "unchanged and preserved cell addresses",
+        "conditional recovery values"
+      ],
+      "blockedBy": [
+        "legacy layout not adopted",
+        "wrong workbook/tab target",
+        "undersized grid",
+        "missing or incomplete cell/formula/protection/manual inventories",
+        "stale or future snapshots",
+        "changed cell contents including teacher inputs",
+        "changed structure/protection/revision metadata",
+        "desired cells outside the exact allowlist",
+        "existing manual/protected/formula/note cells"
+      ],
+      "limitations": [
+        "Snapshot metadata is supplied evidence and must come from a fresh trusted adapter",
+        "A preview-ready result remains executable=false",
+        "No transport or generic batchUpdate object is returned",
+        "Conditional recovery is review data, not an automatic rollback",
+        "Completeness flags must be the boolean true; truthy strings/objects do not establish an inventory."
+      ]
+    },
+    "learningWeekSelectorOptions": {
+      "input": "An unfiltered LearningView with its supplied weeklyOverview",
+      "output": "전체 plus Monday–Sunday display labels and exact weekStart values",
+      "placement": "No fixed cell is assigned or repurposed. Native private-development layout placement must respect the separately reviewed common instructor template.",
+      "persistence": "No selector or production write is performed"
+    }
+  },
+  "layout": {
+    "range": "A1:P160",
+    "frozenRowsProposed": 9,
+    "sections": [
+      {
+        "range": "A1:P2",
+        "purpose": "Title, design-only state and snapshot freshness"
+      },
+      {
+        "range": "A3:P4",
+        "purpose": "Month, date, lesson time, student and textbook-edition selectors",
+        "manualCells": [
+          "B4",
+          "E4",
+          "H4",
+          "K4",
+          "N4"
+        ]
+      },
+      {
+        "range": "A5:P6",
+        "purpose": "Major unit, middle unit, minor unit, printed page and question selectors",
+        "manualCells": [
+          "B6",
+          "E6",
+          "H6",
+          "K6",
+          "N6"
+        ]
+      },
+      {
+        "range": "A8:P9",
+        "purpose": "Supplied-student count, source/plan/unresolved count and source coverage"
+      },
+      {
+        "range": "A11:P31",
+        "purpose": "Whole-class supplied-record overview",
+        "capacity": 20
+      },
+      {
+        "range": "A33:P53",
+        "purpose": "Regular/makeup source observations",
+        "capacity": 20
+      },
+      {
+        "range": "A55:P75",
+        "purpose": "Teacher present/future plans with reconciliation status",
+        "capacity": 20
+      },
+      {
+        "range": "A77:P117",
+        "purpose": "Textbook hierarchy and question audit",
+        "capacity": 40
+      },
+      {
+        "range": "A119:P139",
+        "purpose": "Unresolved identity and filter matches",
+        "capacity": 20
+      },
+      {
+        "range": "A141:P142",
+        "purpose": "Fixed teacher input guidance"
+      },
+      {
+        "range": "A143:P146",
+        "purpose": "Preserved teacher input and raw note area; explicit record action",
+        "manual": true
+      },
+      {
+        "range": "A148:P160",
+        "purpose": "Section pagination and review warnings"
+      }
+    ],
+    "detailColumns": {
+      "A": "Temporal period",
+      "B": "Local lesson date",
+      "C": "Local lesson time",
+      "D": "Display student label with stable identity retained",
+      "E": "Source system/session type or teacher plan horizon",
+      "F": "Textbook edition",
+      "G": "Major unit",
+      "H": "Middle unit",
+      "I": "Minor unit",
+      "J": "Printed page",
+      "K": "Question",
+      "L": "Observation/plan/reconciliation status",
+      "M": "Correctness and correction evidence",
+      "N": "Teacher inspection state",
+      "O": "Observed/recorded timestamp",
+      "P": "Revision reference and unresolved reason"
+    },
+    "styleProposal": {
+      "accent": "teal",
+      "sourceFacts": "muted source area",
+      "teacherControls": "visibly editable warm fill",
+      "unknownAndConflict": "text label plus visible warning fill",
+      "wrap": true,
+      "noColorOnlyMeaning": true
+    },
+    "controlsImplementation": "The generated native preview is static and explicitly labeled design-only. TypeScript implements filtering; no onEdit, formula wiring or teacher-record writer is deployed."
+  },
+  "questionAuditRules": [
+    "Known catalog pages can expand into question rows for display, but page-level evidence never becomes a question grade.",
+    "Direct question evidence retains source system, contract reference, source timestamp knowledge, observation time, entity and revision IDs.",
+    "A scalar grade or correction on multiple questions is not broadcast to each question; per-question states remain unknown.",
+    "App correctness, reported completion, correction checking and teacher inspection are separate fields.",
+    "Teacher-inspected question status requires one exact question, explicit teacher observation, checked correction, verified identity and fresh evidence.",
+    "Unknown occurrence rows are partitioned by entity and never merged solely by student/date.",
+    "No mastery, ability ranking, pace score, time-spent weight or automatic homework assignment is produced.",
+    "A known catalog question path does not supply a missing source edition binding. Unknown source edition keeps per-question evidence identity unresolved and prevents teacher-inspected status."
+  ],
+  "preserveExisting": {
+    "todayPanel": {
+      "date": "C5",
+      "headers": "B9:U9",
+      "sourceOwned": [
+        "B10:D39",
+        "H10:H39",
+        "K10:K39",
+        "Q10:Q39"
+      ],
+      "teacherOwned": [
+        "E10:G39",
+        "I10:J39",
+        "L10:P39",
+        "R10:U39"
+      ]
+    },
+    "supportTabs": [
+      {
+        "title": "DB_원생_SYNC",
+        "header": "A1:G1",
+        "role": "source roster"
+      },
+      {
+        "title": "DB_수업로그_SYNC",
+        "header": "A1:T1",
+        "role": "source records"
+      },
+      {
+        "title": "DB_학생현황_캐시",
+        "header": "A1:K1",
+        "role": "derived cache"
+      },
+      {
+        "title": "DB_강사_피드백",
+        "header": "A1:I1",
+        "role": "teacher-owned"
+      }
+    ],
+    "legacy": "Keep existing 박경찬_DB_* headers, records and SPT consumers unchanged",
+    "otherTabs": "No migration, hiding, deletion, protection or share changes",
+    "privacy": "Hidden tabs and collapsed rows are not confidentiality boundaries"
+  },
+  "operatingCutoverPrerequisites": [
+    "Obtain final deployment approval and verify the exact production workbook/tab; do not treat development or preview approval as permission to write production.",
+    "Refresh native metadata and inventory every affected cell, formula, validation, protection and manual input",
+    "Resolve the conflicting legacy Main layouts and review existing SPT/formula consumers",
+    "Verify exact student, lesson, textbook and app evidence joins with complete source coverage",
+    "Present target, exact before/after values and recovery method for teacher approval",
+    "Persist and verify the pre-change snapshot before any separately approved writer runs",
+    "Reject stale or concurrent changes, preserve teacher edits, and read back the same exact target after the batch"
+  ],
+  "verification": {
+    "command": "bun test tests/sheets/learningViewProjection.test.ts",
+    "scope": "Offline synthetic tests only",
+    "doesNotProve": [
+      "Live source identity",
+      "Operating workbook cutover",
+      "Native filter wiring",
+      "Teacher review acceptance",
+      "Physical iPhone behavior"
+    ]
+  },
+  "weeklyLayer": {
+    "version": 1,
+    "chronology": "week → lesson occurrence/session lane → edition → existing major/middle/minor/page/question identities",
+    "currentWeekMeaning": "Calendar position relative to caller asOfDate, never completion or approval",
+    "sharedDomain": [
+      "src/learning/calendar.ts",
+      "src/learning/weekly.ts"
+    ],
+    "nativePreview": "Finite, code-generated synthetic scenario matrices may be selected in private development. Domain/audit/plan statuses must not be recomputed from filtered Sheet display rows.",
+    "currentLayout": "Existing A:P ownership map remains unchanged. Common instructor A1:R47 is being reviewed separately; do not infer or apply a row offset from this document."
+  },
+  "syntheticScenarioParity": {
+    "original": {
+      "path": "docs/main-sheet-scenarios.synthetic.json",
+      "combinations": 90,
+      "valid": 66,
+      "invalid": 24,
+      "selectorOrder": [
+        "month",
+        "date",
+        "lessonTime",
+        "question"
+      ],
+      "invarianceChecks": 462,
+      "invariantFailures": 0
+    },
+    "weekly": {
+      "path": "docs/main-sheet-week-scenarios.synthetic.json",
+      "selectorOrder": [
+        "month",
+        "weekStart",
+        "date",
+        "lessonTime",
+        "question"
+      ],
+      "generator": "projectLearningView + renderLearningViewCells against the unchanged synthetic fixture",
+      "combinations": 360,
+      "valid": 156,
+      "invalid": 204,
+      "invarianceChecks": 1092,
+      "invariantFailures": 0
+    },
+    "nonKeySelectors": "For this single-student/single-edition fixture only, student, edition, major, middle, minor and page toggles were individually and jointly compared. This is not permission to ignore these filters on real or expanded datasets.",
+    "scope": "Section matrices have 16 columns and no final absolute placement. Unknown filter combinations have explicit error records; they are not successful empty results."
+  }
+}

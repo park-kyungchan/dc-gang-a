@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "kind": "authenticated_dom_inline_source_evidence",
+  "observedOn": "2026-10-01",
+  "origin": "https://dc.gang-a.kr",
+  "collection": {
+    "method": "Structured authenticated page DOM, form attributes and inline JavaScript source inspection",
+    "recordingBasis": "Sanitized observation report from the authenticated browser investigation",
+    "screenshotDrivenDiscovery": false,
+    "browserNavigation": "GET page-shell navigation reported by the observer",
+    "formSubmission": false,
+    "operationReplay": false,
+    "networkCapture": false,
+    "authenticatedTeacherIdentityVerified": false,
+    "hiddenFieldValuesRead": false,
+    "credentialValuesReadOrExported": false,
+    "studentRecordsIncluded": false
+  },
+  "interpretation": {
+    "confidence": "live_dom_source_declaration_only",
+    "declaredMethodMeaning": "Method/action/selector assignments exist in current DOM or inline source; no submitted HTTP request was captured or replayed",
+    "getVsPost": "GET shell navigation and POST form declarations are different observations and are not conflicting transport captures",
+    "selectorScope": "Field names alone do not verify their values, current teacher identity, Park ownership or bounded student scope",
+    "parameterCompleteness": "Listed literal keys may omit dynamically appended parameters; no complete wire contract is claimed",
+    "effectMeaning": "Source-associated write controls are excluded conservatively; no production effect was exercised",
+    "deploymentCoverage": "Six accessible shells only; no exhaustive deployed-backend or native-app coverage claim",
+    "callableEntriesActivated": 0
+  },
+  "shells": [
+    {
+      "id": "course_schedule",
+      "catalogId": "course_schedule",
+      "path": "/servlet/controller.cct.tutor.CourseScheduleServlet",
+      "shellProcess": "Main",
+      "form": { "name": "form1", "declaredMethod": "POST", "actionServlet": "controller.cct.tutor.CourseScheduleServlet", "processField": "p_process", "processLiteral": "Main" },
+      "sourceFunctions": ["onReload", "onPrev", "onToday", "onNext"],
+      "hiddenTeacherFieldName": "tutor_pri_no",
+      "scopeVerified": false,
+      "requestObserved": false
+    },
+    {
+      "id": "course_group",
+      "catalogId": "course_group",
+      "path": "/servlet/controller.cct.tutor.CourseGroupServlet",
+      "shellProcess": "Main",
+      "form": { "name": "form1", "declaredMethod": "POST", "actionServlet": "controller.cct.tutor.CourseGroupServlet", "processField": "p_process", "processLiteral": "Main" },
+      "sourceFunctions": ["onReload"],
+      "hiddenTeacherFieldName": "tutor_pri_no",
+      "scopeVerified": false,
+      "requestObserved": false
+    },
+    {
+      "id": "course_member",
+      "catalogId": "candidate:course_members",
+      "path": "/servlet/controller.cct.tutor.CourseMemberServlet",
+      "shellProcess": "Main",
+      "form": { "name": "form1", "declaredMethod": "POST", "actionServlet": "controller.cct.tutor.CourseMemberServlet", "processField": "p_process", "processLiteral": "Main" },
+      "sourceFunctions": ["onReload"],
+      "hiddenTeacherFieldName": "tutor_pri_no",
+      "scopeVerified": false,
+      "requestObserved": false
+    },
+    {
+      "id": "attendance_history",
+      "catalogId": "attendance_history",
+      "path": "/servlet/controller.cct.tutor.AttendanceServlet",
+      "shellProcess": "Main",
+      "form": { "name": "form1", "declaredMethod": "POST", "actionServlet": "controller.cct.tutor.AttendanceServlet", "processField": "p_process", "processLiteral": "Main" },
+      "sourceFunctions": ["onReload"],
+      "hiddenTeacherFieldName": "tutor_pri_no",
+      "scopeVerified": false,
+      "requestObserved": false
+    },
+    {
+      "id": "day_record_main",
+      "catalogId": "day_record_read",
+      "path": "/servlet/controller.cct.tutor.DayRecordServlet",
+      "shellProcess": "Main",
+      "form": { "name": "form1", "declaredMethod": "POST", "actionServlet": "controller.cct.tutor.DayRecordServlet", "processField": "p_process", "processLiteral": "Main" },
+      "sourceFunctions": ["onReload", "onPrevDay", "onNextDay"],
+      "hiddenTeacherFieldName": "teacher_pri_no",
+      "scopeVerified": false,
+      "requestObserved": false
+    },
+    {
+      "id": "day_record_days",
+      "catalogId": "candidate:day_record_by_date",
+      "path": "/servlet/controller.cct.tutor.DayRecordServlet",
+      "shellProcess": "DaysMain",
+      "form": { "name": "form1", "declaredMethod": "POST", "actionServlet": "controller.cct.tutor.DayRecordServlet", "processField": "p_process", "processLiteral": "DaysMain" },
+      "sourceFunctions": ["onReload", "onPrevDay", "onNextDay"],
+      "hiddenTeacherFieldName": "tutor_pri_no",
+      "scopeVerified": false,
+      "requestObserved": false
+    }
+  ],
+  "additionalOperationCandidates": [
+    {
+      "id": "dom:schedule_select_record",
+      "path": "/servlet/controller.cct.tutor.CourseScheduleServlet",
+      "selector": { "name": "reqCmd", "literal": "SelSglRecord" },
+      "sourceFunction": "onSel",
+      "literalKeyNames": ["reqCmd", "course_seq"],
+      "method": null,
+      "effect": "unverified",
+      "callable": false
+    },
+    {
+      "id": "dom:member_select_course",
+      "path": "/servlet/controller.cct.tutor.CourseMemberServlet",
+      "selector": { "name": "reqCmd", "literal": "SelCmCourse" },
+      "sourceFunction": "onSel",
+      "literalKeyNames": ["reqCmd", "stu_pri_no"],
+      "method": null,
+      "effect": "unverified",
+      "callable": false
+    },
+    {
+      "id": "dom:attendance_student_search",
+      "path": "/servlet/controller.cct.tutor.AttendanceServlet",
+      "selector": { "name": "reqCmd", "literal": "SearchStu" },
+      "sourceFunction": null,
+      "literalKeyNames": ["reqCmd", "name"],
+      "teacherScope": "unverified",
+      "method": null,
+      "effect": "unverified",
+      "callable": false
+    },
+    {
+      "id": "dom:day_record_print",
+      "path": "/servlet/controller.cct.tutor.DayRecordServlet",
+      "operationLiteral": "PrintMain",
+      "selectorName": null,
+      "sourceFunction": "onPrint",
+      "literalKeyNames": [],
+      "method": null,
+      "effect": "unverified",
+      "callable": false
+    },
+    {
+      "id": "dom:day_record_open_days",
+      "path": "/servlet/controller.cct.tutor.DayRecordServlet",
+      "operationLiteral": "DaysMain",
+      "selectorName": null,
+      "sourceFunction": "onOpenDaysMain",
+      "literalKeyNames": [],
+      "method": null,
+      "effect": "unverified",
+      "callable": false
+    },
+    {
+      "id": "dom:common_chart",
+      "path": "/servlet/controller.cct.common.CourseCommonServlet",
+      "selector": { "name": "reqCmd", "literal": "CismChartMain" },
+      "sourceFunction": null,
+      "literalKeyNames": ["reqCmd", "tutor_pri_no"],
+      "method": null,
+      "effect": "unverified",
+      "callable": false
+    },
+    {
+      "id": "dom:common_daily_report",
+      "path": "/servlet/controller.cct.common.CourseCommonServlet",
+      "selector": { "name": "reqCmd", "literal": "DailyReport" },
+      "sourceFunction": null,
+      "literalKeyNames": ["reqCmd", "tutor_pri_no"],
+      "method": null,
+      "effect": "unverified",
+      "callable": false
+    }
+  ],
+  "writeAssociatedExclusions": [
+    { "servlet": "controller.cct.tutor.CourseScheduleServlet", "operations": ["AddRecord", "UdtRecord", "DelRecord", "CheckRecord", "udtTdMemo", "udtTutMemo"], "classification": "write_associated_inline_source", "callable": false },
+    { "servlet": "controller.cct.tutor.CourseGroupServlet", "operations": ["Ins", "UdtYn", "Del", "Udt", "ChkDel"], "classification": "write_associated_inline_source", "callable": false },
+    { "servlet": "controller.cct.tutor.CourseMemberServlet", "operations": ["DelCourse", "UdtCourse", "DelMember", "InsCmCourse"], "classification": "write_associated_inline_source", "callable": false },
+    { "servlet": "controller.cct.tutor.DayRecordServlet", "operations": ["udtStuMemo", "udtPrg", "udtHw", "udtMemo", "udtAttn"], "classification": "write_associated_inline_source", "callable": false },
+    { "servlet": "controller.cct.tutor.CourseServlet", "operations": ["Ins", "Udt"], "classification": "write_associated_inline_source", "callable": false },
+    { "servlet": null, "operations": ["ObjectSelect"], "sourceFunction": "onAddObj", "classification": "write_associated_source_function_destination_unresolved", "callable": false }
+  ],
+  "nextProofNeeded": [
+    "Current authenticated instructor and Park-owned bounded scope, without copying credentials or exposing hidden values",
+    "Complete selector placement, dynamically appended fields and actual request contract from an authorized structured source",
+    "Operation-specific effect review before any form submission or replay",
+    "Student/course/record/curriculum/occurrence binding, pagination and completeness proof",
+    "Explicit approved transport and storage architecture; catalog metadata alone never authorizes a request"
+  ]
+}

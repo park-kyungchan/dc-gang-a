@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded_history_read_prerequisite_observation",
+  "observedOn": "2026-10-01",
+  "observationTimezone": "Etc/UTC",
+  "observationWindowUtc": {
+    "start": "2026-10-01T01:35:42Z",
+    "end": "2026-10-01T01:39:07Z"
+  },
+  "sourceAnchor": {
+    "url": "https://dc.gang-a.kr/servlet/controller.cct.tutor.DayRecordServlet?p_process=Main",
+    "dom": "first direct record-like row; span[onclick] whose handler begins onOpenDaysMain"
+  },
+  "scope": "One independently authorized ordinary history-view read, contingent on private teacher/principal equality and unambiguous current-row/control binding; no write approval",
+  "priorSourceInspection": {
+    "asset": "https://dc.gang-a.kr/jsutil/module.js",
+    "status": "prior_ERR_BLOCKED_BY_CLIENT_no_further_retrieval",
+    "wholeSiteDenialInferred": false,
+    "alternateAssetRetrievalAttempted": false
+  },
+  "sourceNavigationSignal": {
+    "handler": "onOpenDaysMain",
+    "path": "/servlet/controller.cct.tutor.DayRecordServlet",
+    "selector": {
+      "key": "p_process",
+      "literal": "DaysMain"
+    },
+    "literalQueryKeys": [
+      "std_ym",
+      "grp_seq",
+      "tutor_pri_no",
+      "student_pri_no",
+      "p_process"
+    ],
+    "sourceEffectSignal": "read-view URL construction and popup setup; not journal mutation/send",
+    "transitiveSharedHelperProofRequiredAsSoleGate": false
+  },
+  "currentDomObservations": {
+    "passwordInputPresent": false,
+    "hiddenTeacherFieldPresent": true,
+    "recordLikeRows": 1,
+    "historyHandlerControlsInSelectedRow": 1,
+    "controlTag": "SPAN",
+    "controlColumnMeaning": "student_name",
+    "explicitHistoryTextLabelPresent": false,
+    "historyTitlePresent": false,
+    "historyAriaLabelPresent": false,
+    "activeEditableControl": false,
+    "controlLiteralStudentArgumentParsed": true,
+    "controlTrailingActionCategory": "empty_or_semicolon",
+    "onAttnExpectedQuotedDecimalTupleParsed": false,
+    "controlStudentEqualsCurrentRow": null
+  },
+  "prerequisiteStatus": {
+    "teacherToAuthenticatedPrincipalEquality": null,
+    "teacherCrossPageComparisonPerformed": false,
+    "currentRowIdentityReconfirmed": false,
+    "unambiguousHistoryControlEstablished": false
+  },
+  "result": {
+    "status": "not_clicked_prerequisites_unresolved",
+    "historyViewOpened": false,
+    "selectedStudentHistoryReadPerformed": false,
+    "recordOrDateCorroboration": null,
+    "blocker": "Current row tuple could not be reconfirmed under the conservative literal grammar and the visible control had no explicit history label; no click was forced",
+    "unknownMeaning": "A failed bounded parser match is not proof of missing records, wrong ownership, or unsafe navigation"
+  },
+  "privacyAndEffects": {
+    "transientIdentifierMaterialCleared": true,
+    "actualIdentifiersPersisted": false,
+    "studentNamesOrTextPersisted": false,
+    "actualDateValuesPersisted": false,
+    "rawScriptsPersisted": false,
+    "credentialOrSessionInspection": false,
+    "screenshots": false,
+    "fieldEdit": false,
+    "filterChange": false,
+    "handlerInvocation": false,
+    "networkReplay": false,
+    "productionWrite": false,
+    "parserCodeChanged": false,
+    "catalogActivated": false
+  },
+  "nextEvidenceNeeded": "A fresh authorized structural observation that unambiguously identifies the current teacher-owned row/control and a successful private teacher/principal equality check; retain unresolved state until then",
+  "artifactSequence": {
+    "subsequentSourceOnlyEvidence": true,
+    "includedInPriorV1OrV2Bundles": false,
+    "relatedDesignDocument": "docs/lesson-journal-hitl-source-contracts.json"
+  }
+}

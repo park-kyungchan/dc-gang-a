@@ -2,7 +2,7 @@
  * LMS Full Route Tree Map & Endpoint Schema Registry.
  * 
  * Safety & Invariants (AGENTS.md & Phase 2 Harness Optimization Compliance):
- * 1. Single Source of Truth (SSoT): Dynamically loads and validates all 54 canonical
+ * 1. Single Source of Truth (SSoT): Dynamically loads and validates canonical
  *    LMS operations from research/backend-map/route-registry.json.
  * 2. Cwd-Independent Path Resolution: Anchored strictly via resolveModuleDir() / import.meta.dir.
  * 3. HTTP Method Safety Fallacy Guard (TRAP 1): NEVER rely on httpMethod === 'GET' for read safety!
@@ -101,6 +101,32 @@ interface RawRegistryData {
   scope: string;
   evidence_legend?: Record<string, string>;
   entries: RawRegistryEntry[];
+}
+
+/** Validate the entire catalog before populating lookup state. Cardinality is not a schema. */
+export function validateCanonicalRegistry(raw: unknown): RawRegistryData {
+  const value = raw as RawRegistryData | null;
+  if (!value || !Array.isArray(value.entries) || value.entries.length === 0) {
+    throw new Error('invalid_route_registry_entries');
+  }
+  const ids = new Set<string>();
+  const text = (x: unknown): x is string => typeof x === 'string' && x.trim().length > 0;
+  const strings = (x: unknown): x is string[] => Array.isArray(x) && x.every(text);
+  for (const entry of value.entries) {
+    if (!entry || !text(entry.id) || ids.has(entry.id)
+      || !text(entry.operation) || !text(entry.route_template)
+      || !['GET', 'POST', null].includes(entry.http_method)
+      || !['read', 'write', 'send', 'open_send_screen', 'unknown'].includes(entry.semantic_effect)
+      || typeof entry.safe_to_probe !== 'boolean'
+      || (entry.safe_to_probe && entry.semantic_effect !== 'read')
+      || !strings(entry.join_key_names) || !strings(entry.source_refs)
+      || !text(entry.evidence_grade) || !text(entry.evidence_date) || !text(entry.reason)) {
+      // Do not echo raw entries: future source metadata may contain sensitive values.
+      throw new Error('invalid_or_duplicate_route_registry_entry');
+    }
+    ids.add(entry.id);
+  }
+  return structuredClone(value);
 }
 
 /**
@@ -562,7 +588,7 @@ export class LmsRouteRegistry {
   ]);
 
   /**
-   * Initializes the registry by loading and validating all 54 routes from the canonical route registry.
+   * Initializes the registry after validating every canonical operation.
    */
   private static ensureInitialized(): void {
     if (this._initialized) {
@@ -576,7 +602,7 @@ export class LmsRouteRegistry {
     const rawContent = readFileSync(ROUTE_REGISTRY_PATH, 'utf-8');
     let parsed: RawRegistryData;
     try {
-      parsed = JSON.parse(rawContent) as RawRegistryData;
+      parsed = validateCanonicalRegistry(JSON.parse(rawContent));
     } catch (err) {
       throw new Error(
         `[LmsRouteRegistry] Failed to parse route-registry.json at '${ROUTE_REGISTRY_PATH}': ${
@@ -589,10 +615,7 @@ export class LmsRouteRegistry {
       throw new Error(`[LmsRouteRegistry] Invalid route-registry.json format: 'entries' array missing`);
     }
 
-    // RUB-02: Exactly 54 operations loaded and validated against schema
-    if (parsed.entries.length !== 54) {
-      throw new Error(`[LmsRouteRegistry] Schema violation: Expected exactly 54 entries, found ${parsed.entries.length}`);
-    }
+    // The dated baseline contains 54 operations; reviewed additions need no count override.
 
     // Count operations to resolve non-unique names safely
     const opCounts = new Map<string, number>();
@@ -730,8 +753,8 @@ export class LmsRouteRegistry {
   }
 
   /**
-   * Returns all 54 reverse-engineered canonical routes from route-registry.json.
-   * RUB-02 compliant: exactly 54 entries.
+   * Returns every validated canonical operation from route-registry.json.
+   * The original 54-entry evidence remains unchanged; additions require valid metadata.
    */
   public static getAllRoutes(): LmsRouteDefinition[] {
     this.ensureInitialized();
