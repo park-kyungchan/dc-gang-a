@@ -117,5 +117,14 @@
       "learn.chatgpt.com"
     ],
     "runtimeNetworkUpdate": "unverified"
+  },
+  "gitPublication": {
+    "branch": "codex/cloud-harness-continuity-2026-10-01",
+    "sourceImplementationCommit": "fd30f37",
+    "localCommitted": true,
+    "remoteReadVerified": true,
+    "remotePush": "blocked_permission_denied_403",
+    "pullRequest": "not_created",
+    "requiresSupportedRepositoryWriteAccess": true
   }
 }
