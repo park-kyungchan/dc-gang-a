@@ -1,28 +1,35 @@
 ---
 name: codex-cloud-start
-description: Prepare or resume dc-gang-a in current Codex Cloud using pinned Bun, synthetic checks, and the repository checkpoint; use for this project's Cloud setup or continuation.
+description: Start dc-gang-a by request scope; handle Git-only operations directly and recover pinned runtime and scoped context for engineering or product continuation.
 ---
 
-Read root AGENTS.md and harness/cloud-environment.json. Use current Cloud's Install script and Start skill fields. Legacy setup/maintenance-script instructions describe a different product.
+Read root AGENTS.md and classify the current request first. Use the existing `/workspace/dc-gang-a` checkout; create a Git worktree only when explicitly requested. Do not search app projects or unrelated directories when this checkout exists.
 
-Each Cloud task already has an isolated environment. Use its existing checkout; create a Git worktree only when the user explicitly requests one. Activate the retained pinned Bun installation if it is outside PATH.
+## Git-only requests
 
-Apply the requested repository-native model settings with bun run codex:model-config --apply, then verify with bun run codex:model-config --check. The typed policy requests a 1,050,000-token context window and compaction at 787,500 (75%). The helper changes only those two root TOML values in ignored .codex/config.toml, preserving other settings. It does not modify Windows or global host files, or establish effective managed model capacity. Do not invoke the historical full-access configuration installer.
+For pull, fetch, status, log or diff, follow the root Git-only sequence: inspect status, branch/upstream and remotes together; perform the requested operation; verify the resulting commit and worktree state. Pull uses `--ff-only` and the configured upstream, or a verified explicit remote/default branch when no upstream exists. Preserve dirty work; stop on divergence or an overwrite risk. Do not reset, clean or automatically stash.
 
-Use Bun 1.4.2 and TypeScript 7.0.2. During setup run bun run cloud:install, then bun run cloud:check. Review actual results before publishing. On task startup run bun run cloud:start and read handoffs/cloud-current-state.json. No service needs to start for this domain-library workflow.
+Finish without Bun, cloud:start, workflow:context, model configuration, dependency installation, product-document reads, tests or context-recovery subagents. If engineering is also requested, perform its scoped startup after Git synchronization. Re-read changed startup instructions before subsequent engineering work.
 
-Repository refresh preserves dependency caches without rerunning setup. If cloud:start reports a changed lockfile, run cloud:install before checks and republish reusable setup when appropriate.
+## Engineering or product continuation
 
-Run bun run workflow:context and read all required sources in its purpose route on task resumption, after compaction and before subagent dispatch. Use bun run workflow:context interview before interviewing and dependencies, main_sheet, google_integration, academy_local or spt_mobile for those scopes. Always read docs/CODEX_CONTEXT.md and docs/WHOLE_LENS_DECISION.md for durable purpose, then scoped source documents and handoffs/workflow-current-state.json for current decisions. Existing purpose, DB granularity and recorded answers must be recovered before asking the user. Report scope conflicts; a shared date does not make every claim equally current. Cloud does not run the expired local academy resume gate to discover product context.
+1. Reuse Bun 1.4.2. If absent from PATH, prepend `/workspace/.cloud-tools/bun-1.4.2/node_modules/@oven/bun-linux-x64/bin` for the current command and verify its version. Missing PATH is not a missing installation. Use TypeScript 7.0.2; do not install Python for Cloud convenience.
+2. Read `harness/cloud-environment.json` and `handoffs/cloud-current-state.json`, then run `bun run cloud:start` once before dependent development. No service needs to start. Reuse dependencies; run `bun run cloud:install` before dependency-consuming commands only if the lockfile changed or required dependencies are missing.
+3. Run `bun run workflow:context` with the required purpose: continuation, interview, dependencies, main_sheet, google_integration, academy_local or spt_mobile. Read every required source in that selected route, including durable purpose and current confirmed answers, before dependent work, interviews or subagent dispatch. Keep unrelated purpose routes unopened. The command emits routing metadata and hashes, not source contents or proof of understanding.
+4. Reuse the already-read scope on subsequent turns and dispatches. After compaction recover the scoped context; after relevant source changes recover affected guidance. Repeat cloud:start only after relevant Cloud configuration/checkpoint or dependency changes. Do not repeat setup, model writes or full checks merely because a session resumed.
 
-The Lead preserves confirmed interview answers, unresolved questions, ownership and verification evidence in that canonical checkpoint. Git branches, commits and PRs carry source continuity. The CLI checks and hashes selected references; it does not establish the agent read their contents, native per-turn injection, or effective model capacity. In the fixed /workspace/dc-gang-a layout, cloud:install adds a non-overwriting /workspace/AGENTS.md discovery bridge for sessions starting at the parent workspace; outside that layout no parent instruction file is written.
+The Lead gives subagents the recovered scope, explicit ownership and verification contract. Read subtree AGENTS.md before SPT or LMS edits. Preserve confirmed answers and unresolved questions in the canonical engineering checkpoint; interview missing requirements before dependent implementation. Git branches, commits and PRs carry source continuity.
 
-Use TypeScript/Bun and structured .ts/.json for new work products. Markdown is limited to native instruction files such as AGENTS.md and SKILL.md. Recover the current priority order from the engineering context; second-phase continuity and routing precede the selected whole-class preclass outcome. The Lead selects focused checks by changed scope and risk, and runs cloud:check before claiming Cloud readiness. Interview missing requirements after reading relevant recorded answers; never infer an answer or impose a numeric ambiguity threshold.
+## Initial setup and validation
 
-The September 29 checkpoint remains dated evidence. cloud:start validates archival integrity and reports expiry; it never certifies current academy facts. Actual roster, authentication, browser state, and original media stay local. Default tests work without them; test:local-roster is separate.
+During initial environment setup, run `bun run cloud:install`, apply requested repository-native settings with `bun run codex:model-config --apply`, then verify with `bun run codex:model-config --check`. Reapply settings only for an explicit configuration repair. The ignored repository TOML preserves unrelated values; it does not establish the managed model's effective capacity or change Windows/global host settings.
 
-This source-only Cloud workflow does not require browser/computer use. Revalidate product capabilities through current official sources when they are needed. Do not start local Chrome MCPs, copy Windows profiles, or apply the Windows full-access template for source checks. Academy authentication remains in local verified read paths under current project policy.
+Choose focused checks for the changed scope. Run `bun run cloud:check` before claiming full Cloud readiness or preparing reusable setup; a Git update does not require it. Review actual results before authorized Publish/Republish. Use current Cloud's Install script and Start skill fields from `harness/cloud-environment.json`. In the fixed managed layout, cloud:install maintains the generated `/workspace/AGENTS.md` discovery bridge while preserving user-authored guidance; it installs no hooks or per-turn injection.
 
-Use TypeScript/Bun for new work. Preserve Python references and dual-runtime roster/routes/verify compatibility; invoke Python only for an unavoidable existing gate or unique verified reader. Read subtree AGENTS.md before SPT or LMS source work.
+Use TypeScript/Bun and structured .ts/.json for new work products; Markdown is limited to native instruction filenames. Preserve Python references and dual-runtime roster/routes/verify compatibility.
 
-Official sources and copyable prompts are in harness/cloud-environment.json. Production gates remain in root AGENTS.md.
+## Evidence and production boundaries
+
+The September 29 academy checkpoint remains dated evidence. cloud:start validates archival integrity and reports expiry; it never certifies current academy facts. Local academy continuation keeps its fail-closed resume gate. Actual roster, authentication and original media stay local; synthetic tests do not establish live access, deployment or physical-device acceptance.
+
+Preserve unknown joins and original evidence. Exact production effects remain subject to root AGENTS.md and existing session authorization. Do not start local Chrome MCPs, copy Windows profiles or invoke the historical full-access installer for source checks. Revalidate browser capabilities through current official sources only when needed.

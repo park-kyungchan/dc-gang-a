@@ -107,11 +107,11 @@
     "authority": "handoffs/workflow-current-state.json engineeringContext stores current user decisions and pending questions; routing remains a command-selection contract rather than another progress pointer.",
     "ambiguity": "Ask for missing context before dependent implementation. Keep unanswered questions pending and dependent next steps blocked; proceed with independent confirmed setup and checks. Do not invent risk thresholds or promote assumptions automatically.",
     "ownership": "One Lead owns integration. Delegate explicit objectives, file or directory ownership, validation references, and changed-path/evidence outputs through available host collaboration tools. Concurrent editors must own disjoint paths; read-only reviews may overlap.",
-    "nativeContext": "Root AGENTS.md and native skills direct the Lead to workflow:context at task start, after compaction and before interview/dispatch. Follow entryReadPlan to read durable intent and selected scoped contracts; hashes establish source presence, not agent comprehension. No native per-turn injection adapter or hooks are installed.",
+    "nativeContext": "Classify the request through root AGENTS.md first. Git-only operations use its direct Git sequence without runtime setup, product-context loading or tests. Engineering/product continuation uses workflow:context once for the selected purpose before dependent work, interviews or dispatch; recover scoped context after compaction or relevant source changes and reuse it for unchanged turns/dispatches. Follow entryReadPlan to read durable intent and selected scoped contracts; hashes establish source presence, not agent comprehension. No native per-turn injection adapter or hooks are installed.",
     "metrics": "Model family is a user preference. Actual host model and capacity remain unavailable in this project metadata; configured values and inherited model selection are not observations.",
     "commandSelection": [
       {
-        "need": "Task continuity or subagent dispatch",
+        "need": "Engineering/product continuity or new dispatch scope; reuse unchanged context",
         "command": "bun run workflow:context",
         "effects": "fixed_checkpoint_read_only"
       },
