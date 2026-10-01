@@ -9,13 +9,14 @@ export const DEPLOYED_MAIN = immutableCopy({
   rows: 133, columns: 18, frozenRows: 3, timeZone: 'Asia/Seoul',
   studentSlots: 'C4:R47', preservedLegacy: 'A48:P133', unassignedBlank: 'Q48:R133',
   protectionPolicy: 'do_not_restore_removed_protection',
-  requestedRefreshWindow: { start: '13:15', target: '13:30', end: '13:45' },
+  requestedRefreshWindow: { start: '13:15', target: '13:30', end: '14:00' },
+  requestedRefreshWeekdays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
   teacherPlanColumns: ['O', 'R'],
 });
 
 export type RefreshIntent =
   | Readonly<{ trigger: 'manual'; requestId: string; lessonDate: string }>
-  | Readonly<{ trigger: 'daily_1330'; scheduledLessonDate: string }>;
+  | Readonly<{ trigger: 'weekday_preparation' | 'daily_1330'; scheduledLessonDate: string }>;
 
 export type RefreshDispatchDecision =
   | Readonly<{ status: 'not_due' | 'already_claimed' | 'expired_schedule_date' }>
@@ -26,33 +27,39 @@ export type RefreshDispatchDecision =
 /**
  * Host calls this after authenticating the command and before atomic durable claim.
  * claimedKeys includes pending/failed/uncertain attempts, not only successes.
- * The accepted 13:15–13:45 window fits Apps Script nearMinute(30). Delivery and
- * uptime are not guaranteed. A late same-day wake is flagged, not hidden.
- * This function does NOT persist a claim or prove a host fires at exactly 13:30.
+ * Scheduled refresh uses Mon–Fri, 13:15–14:00 Asia/Seoul, including the exact
+ * endpoints. Delivery and uptime are not guaranteed. A late same-day weekday
+ * wake is flagged, not hidden; an old scheduled date is never replayed.
+ * daily_1330 is a compatibility alias with the same weekday/window policy.
+ * This function does NOT persist a claim or install a runtime trigger.
  */
 export function decideRefreshDispatch(
   intent: RefreshIntent, now: string, claimedKeys: readonly string[], scopeIdentity: string,
 ): RefreshDispatchDecision {
   assertInstant(now); requireText(scopeIdentity, 'scope identity');
+  const instant = new Date(now);
   const parts = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
     timeZone: DEPLOYED_MAIN.timeZone, year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
-  }).formatToParts(new Date(now)).map(part => [part.type, part.value]));
+    weekday: 'short', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23',
+  }).formatToParts(instant).map(part => [part.type, part.value]));
   const localDate = `${parts.year}-${parts.month}-${parts.day}`;
   let date: string, identity: string;
   let timing: 'manual' | 'within_requested_window' | 'late' = 'manual';
   if (intent.trigger === 'manual') {
     requireText(intent.requestId, 'request identity'); assertDate(intent.lessonDate);
     date = intent.lessonDate; identity = intent.requestId;
-  } else if (intent.trigger === 'daily_1330') {
+  } else if (intent.trigger === 'weekday_preparation' || intent.trigger === 'daily_1330') {
     assertDate(intent.scheduledLessonDate); date = intent.scheduledLessonDate; identity = date;
     if (date < localDate) return immutableCopy({ status: 'expired_schedule_date' });
-    const localTime = `${parts.hour}:${parts.minute}`;
-    if (date > localDate || localTime < DEPLOYED_MAIN.requestedRefreshWindow.start) return immutableCopy({ status: 'not_due' });
-    timing = localTime > DEPLOYED_MAIN.requestedRefreshWindow.end ? 'late' : 'within_requested_window';
+    const localTime = `${parts.hour}:${parts.minute}:${parts.second}.${String(instant.getUTCMilliseconds()).padStart(3, '0')}`;
+    if (date > localDate || !DEPLOYED_MAIN.requestedRefreshWeekdays.includes(parts.weekday!)
+      || localTime < `${DEPLOYED_MAIN.requestedRefreshWindow.start}:00.000`) return immutableCopy({ status: 'not_due' });
+    timing = localTime > `${DEPLOYED_MAIN.requestedRefreshWindow.end}:00.000` ? 'late' : 'within_requested_window';
   } else throw new Error('invalid_refresh_trigger');
+  // Keep existing durable daily_1330 claims effective across the canonical alias.
+  const claimTrigger = intent.trigger === 'manual' ? 'manual' : 'daily_1330';
   const claimKey = digest({ target: DEPLOYED_MAIN.spreadsheetId, sheetId: DEPLOYED_MAIN.sheetId,
-    scopeIdentity, trigger: intent.trigger, identity, lessonDate: date });
+    scopeIdentity, trigger: claimTrigger, identity, lessonDate: date });
   return claimedKeys.includes(claimKey) ? immutableCopy({ status: 'already_claimed' })
     : immutableCopy({ status: 'prepare_refresh', lessonDate: date, claimKey, trigger: intent.trigger,
         effect: 'read_and_prepare_only', timing });
@@ -154,7 +161,7 @@ export function prepareAcceptedDeployedRowRefresh(
 ) {
   if (receipt.status !== 'accepted') return immutableCopy({ status: 'blocked' as const,
     reason: 'source_read_not_accepted', sourceStatus: receipt.status });
-  if (trigger === 'daily_1330' && receipt.mode !== 'unattended') return immutableCopy({ status: 'blocked' as const,
+  if (trigger !== 'manual' && receipt.mode !== 'unattended') return immutableCopy({ status: 'blocked' as const,
     reason: 'unattended_source_read_not_verified', sourceStatus: receipt.status });
   assertInstant(now); assertInstant(receipt.observedAt);
   const age = Date.parse(now) - Date.parse(receipt.observedAt);

@@ -25,10 +25,46 @@
       "Treat empty cells as automatic write permission"
     ]
   },
+  "confirmedPreparationRefresh": {
+    "source": "phase_two_user_interview_2026-10-01",
+    "userAnswer": "월~금은 기본적으로 13:15 ~ 14:00 사이에 아무때나 진행해주면 되고, 요일 상관없이 필요할 때마다 내가 수동으로도 진행할 수 있어야함.",
+    "timeZone": "Asia/Seoul",
+    "scheduledWeekdays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "requestedWindow": { "startInclusive": "13:15:00", "endInclusive": "14:00:00" },
+    "manual": "Available on demand any day without preparation-window gating; the teacher explicitly selects the lesson date.",
+    "canonicalScheduledTrigger": "weekday_preparation",
+    "compatibilityAlias": {
+      "trigger": "daily_1330",
+      "policy": "Uses the same weekday and updated window policy; both scheduled trigger names share the original daily_1330 durable claim namespace to prevent duplicate execution after migration."
+    },
+    "supersedes": {
+      "source": "previous scoped wiring and dispatch contract",
+      "requestedTime": "13:30 Asia/Seoul within 13:15–13:45; weekdays unspecified",
+      "meaning": "The new user answer widens the end to 14:00 and confirms weekdays. A 13:30 candidate tick remains permitted but is not a newly required exact time."
+    },
+    "runtimeInstalled": false,
+    "productionWriteAuthorizedByThisDecision": false
+  },
+  "requiredDateScopedCoverage": {
+    "source": "phase_two_user_interview_2026-10-01_and_docs/WHOLE_LENS_DECISION.md",
+    "userAnswer": "처음에는 갱신하는 날짜에 등원하는 학생들에 대한 관련한 모든 정보(예습부터 숙제현황 교사가 적은 내용 등등 전부 흐름을 연결시켜주어야하고, UI/UX 시각화 디자인 등등 Main Sheet를 모두 개선해줘야함.",
+    "roster": "Every verified student attending the selected refresh lesson date, including all relevant groups and pages; do not infer membership from a Sheet name or row position.",
+    "flow": [
+      "Verified lesson date, attending roster, student, course and lesson occurrence",
+      "Assigned homework range and matching pre-study upload/evidence",
+      "Problem attempts and authoritative backend grading",
+      "Wrong-answer video/correction status and the teacher's visual review",
+      "Official progress, homework and lesson record",
+      "Teacher notes, prior decisions and append-only corrections/drafts connected to the verified student and occurrence"
+    ],
+    "presentation": "Date-first whole-class preparation in the single 박경찬 Main review surface, followed by selected-student evidence; each source keeps timestamps and provenance, and unknown/incomplete joins remain visible.",
+    "emptyOrAbsentEvidence": "An empty/unverified roster or absent source is unknown coverage, not a successful zero-student refresh or a completed preparation state. Missing app submissions do not prove non-completion.",
+    "implementationBoundary": "The current pure helper prepares one explicitly bound deployed row. It neither obtains a roster nor proves all-student/full-source coverage, performs a UI redesign, or installs a scheduler. Full-flow orchestration and field-to-template contracts remain to be verified."
+  },
   "nextRealFlow": [
     {
       "step": "manual_source_read",
-      "action": "Finish the pending user sign-in, then read one explicitly scoped teacher/date/student occurrence through the supported read path. Obtain independently corroborated teacher/occurrence and complete requested coverage.",
+      "action": "Establish a current authenticated supported read path and prove one explicitly scoped teacher/date/student occurrence first. Then obtain the selected date's complete verified attending roster and all related preparation sources, with independently corroborated teacher/occurrence bindings and coverage. A single-row pilot is not all-student acceptance.",
       "acceptance": "assessAcademyReadAcceptance returns accepted; unknown field evidence remains unknown",
       "currentBlocker": "Fresh browser navigation returned a session-error page; authenticated backend transport is not exposed, and no unattended session provider is verified. A visible cached page or a successful sign-in alone is insufficient."
     },
@@ -49,12 +85,12 @@
       "limitations": "No live writer, approval verifier or private audit store is implemented here. Google Sheets preflight is not a transaction/CAS guarantee against concurrent human edits. Uncertain outcomes require read-only reconciliation, never blind replay or rollback."
     },
     {
-      "step": "daily_refresh_activation",
+      "step": "weekday_preparation_refresh_activation",
       "action": "Only after the manual flow and a supported unattended source session are proven, add the chosen runtime trigger and persistent claim/outcome store. Call the identical source/read/review pipeline. Automatic production source-cell writes require the exact bounded standing scope to be approved; journal writes remain separately reviewed.",
-      "requestedTime": "13:30 Asia/Seoul; user accepted 13:15–13:45",
-      "hostCandidate": "Existing bound Apps Script atHour(13).nearMinute(30).everyDays(1).inTimezone('Asia/Seoul')",
+      "requestedTime": "Monday–Friday, any time 13:15–14:00 Asia/Seoul inclusive; manual refresh any day on demand",
+      "hostCandidate": "Existing bound Apps Script atHour(13).nearMinute(30).everyDays(1).inTimezone('Asia/Seoul') with an explicit Asia/Seoul weekday dispatch guard; the daily host tick is not permission to refresh weekends. Exact host/project/owner and installation remain unverified.",
       "acceptance": "Actual installed trigger owner/ID and observed first run; visible last successful refresh versus latest attempted/failed/late run",
-      "timingLimit": "Requested delivery window is not guaranteed uptime. Late same-day runs are labeled late. Missed dates are recorded as missed rather than replayed into a new day's lesson. Schedule-only acknowledgement is not deployment."
+      "timingLimit": "Requested delivery window is not guaranteed uptime. Same-date scheduled weekend ticks return not_due. Late same-day weekday preparation runs are labeled late. Missed dates are recorded as missed rather than replayed into a new day's lesson. Both scheduled trigger names deduplicate against prior claims. Schedule-only acknowledgement is not deployment."
     },
     {
       "step": "journal_hitl",
@@ -130,6 +166,7 @@
     "deployments": 0
   },
   "validation": {
+    "provenance": "Initial wiring implementation checks below predate the phase-two schedule update; use phaseTwoScheduleUpdate for the updated dispatch evidence and the Lead's integrated checks for final repository readiness.",
     "runtime": "Bun 1.4.2 / TypeScript 7.0.2",
     "newFocusedTests": 20,
     "relatedRegression": {
@@ -148,6 +185,23 @@
         "importedSourceFiles": 329
       },
       "doesNotIncludeNewTests": true
+    },
+    "phaseTwoScheduleUpdate": {
+      "focusedCommand": "bun test tests/sheets/deployedMainRefresh.test.ts",
+      "focusedTests": { "passed": 17, "failed": 0, "assertions": 85 },
+      "relatedCommand": "bun test --dots tests/sheets/deployedMainRefresh.test.ts tests/sheets/auditedRefresh.test.ts tests/lms/lessonJournalReviewBundle.test.ts tests/lms/lessonJournalHitl.test.ts tests/lms/dayRecordDomBinding.test.ts tests/lms/academyReadAcceptance.test.ts",
+      "relatedTests": { "passed": 213, "failed": 0, "assertions": 638 },
+      "covered": [
+        "Exact inclusive 13:15 and 14:00 edges, fractional timestamp and late same-day labels",
+        "Every weekday including Friday and Monday; Saturday/Sunday scheduled rejection and manual availability",
+        "Asia/Seoul day rollover, offset-equivalent timestamps and old-date non-replay",
+        "Legacy scheduled claim hash, cross-alias duplicate claims and date/scope isolation",
+        "Canonical scheduled trigger requires accepted unattended source evidence",
+        "Absent projection is rejected; explicitly unknown source evidence stays unknown"
+      ],
+      "rootTypecheck": "No updated schedule-file diagnostics; final integrated repository check belongs to the Lead.",
+      "runtimeInstalled": false,
+      "productionEffects": 0
     },
     "scope": "synthetic only; no live write, source acceptance, installed trigger, deployment or runtime acceptance implied"
   }

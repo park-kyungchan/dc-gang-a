@@ -42,6 +42,7 @@ describe('deployed Main refresh wiring', () => {
     expect(() => prepareDeployedRowRefresh({ ...snapshot(), grid: { rows: 160, columns: 16, frozenRows: 2 } }, projected(), now, 60000)).toThrow('deployed_target_or_layout_mismatch');
     expect(() => prepareDeployedRowRefresh({ ...snapshot(), cells: snapshot().cells.slice(1) }, projected(), now, 60000)).toThrow('incomplete_row_inventory');
     expect(() => prepareDeployedRowRefresh({ ...snapshot(), bindingEvidenceRef: '' }, projected(), now, 60000)).toThrow();
+    expect(() => prepareDeployedRowRefresh(snapshot(), [], now, 60000)).toThrow('invalid_projection_manifest');
   });
   it('rejects teacher values, formula cells, annotations and a different occurrence', () => {
     expect(() => prepareDeployedRowRefresh(snapshot(), [{ ...projected()[0]!, cell: 'D4' }], now, 60000)).toThrow('projection_not_source_owned');
@@ -86,6 +87,10 @@ describe('deployed Main refresh wiring', () => {
         : { field, state: 'unknown', reason: 'not_read' }), coverage: 'exact_requested_scope' as const };
     expect(prepareAcceptedDeployedRowRefresh(receipt, snapshot(), projected(), 'daily_1330', now, 60000))
       .toMatchObject({ status: 'blocked', reason: 'unattended_source_read_not_verified' });
+    expect(prepareAcceptedDeployedRowRefresh(receipt, snapshot(), projected(), 'weekday_preparation', now, 60000))
+      .toMatchObject({ status: 'blocked', reason: 'unattended_source_read_not_verified' });
+    expect(prepareAcceptedDeployedRowRefresh({ ...receipt, mode: 'unattended' }, snapshot(), projected(), 'weekday_preparation', now, 60000))
+      .toMatchObject({ status: 'review_ready', productionWriteAuthorized: false });
     expect(prepareAcceptedDeployedRowRefresh(receipt, snapshot(), projected(), 'manual', now, 60000))
       .toMatchObject({ status: 'review_ready', productionWriteAuthorized: false });
     expect(prepareAcceptedDeployedRowRefresh({ ...receipt, scope: { ...scope, recordId: 'other' } }, snapshot(), projected(), 'manual', now, 60000))
@@ -93,22 +98,66 @@ describe('deployed Main refresh wiring', () => {
   });
 });
 
-describe('manual and 13:30 Asia/Seoul dispatch share an explicit read-only entry point', () => {
-  const intent = { trigger: 'daily_1330' as const, scheduledLessonDate: '2026-10-01' };
-  it('honors the accepted 13:15–13:45 window and is due at 04:30 UTC', () => {
-    expect(decideRefreshDispatch(intent, '2026-10-01T04:14:59Z', [], 'scope')).toEqual({ status: 'not_due' });
-    expect(decideRefreshDispatch(intent, '2026-10-01T04:15:00Z', [], 'scope').status).toBe('prepare_refresh');
-    expect(decideRefreshDispatch(intent, now, [], 'scope')).toMatchObject({ status: 'prepare_refresh', lessonDate: '2026-10-01', effect: 'read_and_prepare_only', timing: 'within_requested_window' });
+describe('manual and weekday preparation dispatch share an explicit read-only entry point', () => {
+  const intent = { trigger: 'weekday_preparation' as const, scheduledLessonDate: '2026-10-01' };
+  it('honors exact inclusive 13:15–14:00 Asia/Seoul boundaries for both scheduled aliases', () => {
+    for (const trigger of ['weekday_preparation', 'daily_1330'] as const) {
+      const scheduled = { ...intent, trigger };
+      expect(decideRefreshDispatch(scheduled, '2026-10-01T04:14:59.999Z', [], 'scope')).toEqual({ status: 'not_due' });
+      for (const instant of ['2026-10-01T04:15:00Z', now, '2026-10-01T05:00:00Z']) {
+        expect(decideRefreshDispatch(scheduled, instant, [], 'scope')).toMatchObject({ status: 'prepare_refresh',
+          lessonDate: '2026-10-01', effect: 'read_and_prepare_only', timing: 'within_requested_window', trigger });
+      }
+      expect(decideRefreshDispatch(scheduled, '2026-10-01T05:00:00.001Z', [], 'scope'))
+        .toMatchObject({ status: 'prepare_refresh', timing: 'late' });
+      expect(decideRefreshDispatch(scheduled, '2026-10-01T05:00:01Z', [], 'scope'))
+        .toMatchObject({ status: 'prepare_refresh', timing: 'late' });
+    }
+  });
+  it('permits every weekday including Friday and Monday and skips Saturday and Sunday', () => {
+    for (const trigger of ['weekday_preparation', 'daily_1330'] as const) {
+      for (const date of ['2026-10-01', '2026-10-02', '2026-10-05', '2026-10-06', '2026-10-07']) {
+        expect(decideRefreshDispatch({ trigger, scheduledLessonDate: date }, `${date}T04:30:00Z`, [], 'scope'))
+          .toMatchObject({ status: 'prepare_refresh', lessonDate: date, timing: 'within_requested_window' });
+      }
+      for (const date of ['2026-10-03', '2026-10-04']) {
+        for (const time of ['04:30:00', '14:59:59']) {
+          expect(decideRefreshDispatch({ trigger, scheduledLessonDate: date }, `${date}T${time}Z`, [], 'scope'))
+            .toEqual({ status: 'not_due' });
+        }
+      }
+    }
   });
   it('keeps delayed same-day ticks due and never replays an old date the next Seoul day', () => {
     expect(decideRefreshDispatch(intent, '2026-10-01T14:59:59Z', [], 'scope')).toMatchObject({ status: 'prepare_refresh', timing: 'late' });
     expect(decideRefreshDispatch(intent, '2026-10-01T15:00:00Z', [], 'scope').status).toBe('expired_schedule_date');
+  });
+  it('uses the Seoul date at UTC day rollover and does not treat Sunday UTC as a scheduled weekend', () => {
+    const monday = { ...intent, scheduledLessonDate: '2026-10-05' };
+    expect(decideRefreshDispatch(monday, '2026-10-04T14:59:59Z', [], 'scope')).toEqual({ status: 'not_due' });
+    expect(decideRefreshDispatch(monday, '2026-10-04T15:00:00Z', [], 'scope')).toEqual({ status: 'not_due' });
+    expect(decideRefreshDispatch({ ...intent, scheduledLessonDate: '2026-10-04' }, '2026-10-04T15:00:00Z', [], 'scope'))
+      .toEqual({ status: 'expired_schedule_date' });
+    expect(decideRefreshDispatch(monday, '2026-10-05T04:15:00Z', [], 'scope'))
+      .toMatchObject({ status: 'prepare_refresh', lessonDate: '2026-10-05' });
+    expect(decideRefreshDispatch(monday, '2026-10-05T13:15:00+09:00', [], 'scope'))
+      .toEqual(decideRefreshDispatch(monday, '2026-10-05T04:15:00Z', [], 'scope'));
+  });
+  it('retains old daily_1330 claim hashes and deduplicates in both alias directions', () => {
+    const legacy = { ...intent, trigger: 'daily_1330' as const };
+    const oldClaimKey = '43dfbe6cc4783bba72c13ca34dea713f0852673bf52df59d940a591a83390660';
+    expect(decideRefreshDispatch(legacy, now, [], 'scope')).toMatchObject({ claimKey: oldClaimKey });
+    expect(decideRefreshDispatch(intent, now, [], 'scope')).toMatchObject({ claimKey: oldClaimKey });
+    expect(decideRefreshDispatch(legacy, now, [oldClaimKey], 'scope')).toEqual({ status: 'already_claimed' });
+    expect(decideRefreshDispatch(intent, now, [oldClaimKey], 'scope')).toEqual({ status: 'already_claimed' });
   });
   it('deduplicates pending/uncertain claims and binds both scope and date', () => {
     const first = decideRefreshDispatch(intent, now, [], 'scope');
     if (first.status !== 'prepare_refresh') throw new Error('fixture');
     expect(decideRefreshDispatch(intent, now, [first.claimKey], 'scope').status).toBe('already_claimed');
     expect(decideRefreshDispatch(intent, now, [first.claimKey], 'other-scope').status).toBe('prepare_refresh');
+    expect(decideRefreshDispatch({ ...intent, scheduledLessonDate: '2026-10-02' }, '2026-10-02T04:30:00Z', [first.claimKey], 'scope').status)
+      .toBe('prepare_refresh');
   });
   it('manual refresh preserves explicitly selected historical date and repeat-click identity', () => {
     const request = { trigger: 'manual' as const, requestId: 'synthetic-click', lessonDate: '2026-09-30' };
@@ -116,5 +165,13 @@ describe('manual and 13:30 Asia/Seoul dispatch share an explicit read-only entry
     expect(first).toMatchObject({ status: 'prepare_refresh', lessonDate: '2026-09-30' });
     if (first.status !== 'prepare_refresh') throw new Error('fixture');
     expect(decideRefreshDispatch(request, now, [first.claimKey], 'scope').status).toBe('already_claimed');
+  });
+  it('allows manual refresh on Saturday and Sunday outside the preparation window', () => {
+    for (const date of ['2026-10-03', '2026-10-04']) {
+      for (const time of ['00:00:00', '14:59:59']) {
+        expect(decideRefreshDispatch({ trigger: 'manual', requestId: `${date}-${time}`, lessonDate: date }, `${date}T${time}Z`, [], 'scope'))
+          .toMatchObject({ status: 'prepare_refresh', lessonDate: date, timing: 'manual', effect: 'read_and_prepare_only' });
+      }
+    }
   });
 });

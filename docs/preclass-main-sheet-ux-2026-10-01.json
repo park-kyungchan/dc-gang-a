@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-01",
+  "status": "synthetic_reviewable_proposal_not_native_or_source_acceptance",
+  "objective": "선택 날짜에 등원 예정인 전체 학생의 직전 숙제 → 예습 → 풀이 → 앱 채점 → 오답 영상·수정 → 교사 눈 확인과 메모·수업 계획을 하나의 Main 작업 흐름으로 연결한다.",
+  "artifacts": {
+    "generator": "harness/preclass_preview.ts",
+    "plan": "docs/preclass-main-sheet-ux-2026-10-01.json",
+    "preview": "docs/preclass-main-sheet-preview.synthetic.html",
+    "regenerate": "bun run harness/preclass_preview.ts",
+    "dependencies": "Bun 1.4.2 built-ins only; no libraries, remote fonts, images, scripts, source reads or network calls"
+  },
+  "decisionProvenance": [
+    {
+      "id": "preclass_first",
+      "authority": "current_user_answer",
+      "decision": "수업 전 준비: 전체 학생의 숙제·사전학습·채점·오답 상태 검토"
+    },
+    {
+      "id": "refresh_window",
+      "authority": "current_user_answer",
+      "decision": "월–금 13:15–14:00 Asia/Seoul 중 갱신, 요일과 관계없이 교사의 수동 갱신 가능",
+      "supersedesOnly": "기존 wiring의 13:15–13:45 시간 창; host·인증·배포·실행 보장은 미결"
+    },
+    {
+      "id": "all_context",
+      "authority": "current_user_answer",
+      "decision": "갱신 날짜에 등원하는 학생의 예습·숙제·교사 기록 등 관련 흐름을 전부 연결하고 Main Sheet UI/UX 개선"
+    },
+    {
+      "id": "one_main",
+      "authority": "current_user_answer_and_lead_observation",
+      "decision": "교사 운영 탭은 기존 박경찬 Main 하나; Lead가 박경찬 관련 보조 탭 숨김 처리를 확인했다고 전달함",
+      "limitation": "이 미리보기는 탭 숨김을 수행·독립 검증하지 않음. 숨김은 접근 통제나 DB 무결성을 뜻하지 않음."
+    },
+    {
+      "id": "granularity",
+      "authority": "existing_domain_contract",
+      "decision": "학생 → 서울 날짜의 주 → 정확한 정규/보강 회차 → 교재 판본 → 단원 → 쪽 → 문제; 관찰·메모·계획·수정 이력 분리",
+      "references": [
+        "src/learning/model.ts",
+        "docs/main-sheet-design.json"
+      ]
+    }
+  ],
+  "operationBaseline": {
+    "authority": "docs/main-sheet-live-input-map-2026-10-01.json",
+    "observedAtUtc": "2026-10-01T05:24:00Z",
+    "target": {
+      "spreadsheetId": "1R8DoOOo5yg3M1hgHPA0Vuqp3Ng-K5bQgxdiy5dEeXOg",
+      "sheetId": 1754681846,
+      "title": "박경찬"
+    },
+    "grid": {
+      "rows": 133,
+      "columns": 18,
+      "frozenRows": 3
+    },
+    "currentStudentSlots": "C4:R47",
+    "currentTopMeaning": "기존 공통 강사 평가·현재 진도 표. 예습·숙제·채점·교사 메모 전용 열이 없음.",
+    "existingNativeControls": "관찰 당시 수식·검증·셀 노트·자동 소유 범위 없음. 기존 I5/I8 선택자는 삭제되어 현재 위치로 사용할 수 없음.",
+    "freshMetadataRequiredBeforeNativeAction": true,
+    "nativeCurrentOperationNotProvedByPrototype": true
+  },
+  "preservation": [
+    {
+      "target": "A1:R3",
+      "keep": "현재 공통 제목·서식·머지와 3행 고정",
+      "proposedEffect": "none"
+    },
+    {
+      "target": "A4:B47",
+      "keep": "박경찬 강사·학년 그룹 머지",
+      "proposedEffect": "none"
+    },
+    {
+      "target": "C4:R47",
+      "keep": "평가·진도 의미, 기존 교사 값, 검증 전 학생 매핑",
+      "proposedEffect": "정확한 학생·회차 매핑 및 열별 출처·소유권 리뷰 전 갱신 금지"
+    },
+    {
+      "target": "O4:O47 and R4:R47",
+      "keep": "예상 종료일은 교사의 계획",
+      "proposedEffect": "관찰 사실로 재분류하거나 자동으로 덮어쓰지 않음"
+    },
+    {
+      "target": "A48:P133",
+      "keep": "보존된 legacy 값·메타데이터·기존 소비자",
+      "proposedEffect": "none; 메모·계획 쓰기 공간으로 추정 금지"
+    },
+    {
+      "target": "Q48:R133",
+      "keep": "현재 미배정 빈 셀",
+      "proposedEffect": "none; 빈 셀이 자동 소유권을 뜻하지 않음"
+    },
+    {
+      "target": "other instructor/shared/support/recovery tabs",
+      "keep": "다른 교사·공유 탭 및 숨겨진 관련 기록·복구 원본",
+      "proposedEffect": "이 작업에서 추가 변경·삭제·새 DB 탭 생성 없음"
+    }
+  ],
+  "prototype": {
+    "data": "두 날짜에만 명시적으로 만든 가상 교재·학생·회차·근거. 2099-01-14 6명, 2099-01-15 2명; 현재 학원 명부가 아님.",
+    "controls": [
+      "날짜 선택 및 가상 날짜 바로가기",
+      "전체 학생을 유지하는 학생 상세 선택",
+      "준비 체크리스트",
+      "가상 원본 위치 대화상자",
+      "교사 눈 확인과 메모·계획의 메모리 내 추가 이력",
+      "실제 데이터를 읽지 않는 수동 갱신 시뮬레이션"
+    ],
+    "refreshTruth": "시뮬레이션은 시안 시도 횟수·실제 브라우저 클릭 시각만 표시. 출처 값·출처 시각·전체 조회 상태를 갱신하지 않는다.",
+    "persistence": "브라우저 메모리에만 존재. 재실행 또는 페이지 새로고침 시 초기화; LMS/Sheet/DB 저장 없음.",
+    "noFixtureDate": "학생 목록 확인 불가. 명부가 없는 날짜를 0명·결석·미완료로 판정하지 않음.",
+    "detailQuestionRows": "현재 범위의 일부 가상 문제 예시이며 전체 문제 목록이 아님. 페이지·범위 수준 기록을 개별 문제의 채점으로 복제하지 않음.",
+    "selectionInvariant": "상세 선택과 검토 기록은 전체 학생 목록을 줄이지 않음. 선택 날짜의 학생·회차에만 기록; 정규·보강이나 다른 날짜로 기록을 복사하지 않음.",
+    "accessibility": "native buttons/forms/dialog/details, Korean labels, visible focus, status text in addition to color, keyboard selection, responsive whole-class/detail flow"
+  },
+  "nativeProposal": {
+    "immediateReviewSurface": "이 self-contained HTML은 제품 흐름의 로컬 검토물이며 Google Sheet에 배포된 UI가 아님.",
+    "firstCandidate": "기존 박경찬 Main을 열어 쓰는 교사에게 날짜·전체 학생·선택 상세를 제공하는 bound sidebar/dialog. 기존 평가·진도 표 의미를 보존하되 넓은 전체 학생 화면의 실제 사용성을 검토한다.",
+    "alternateAfterTeacherReview": "사용자가 Sheet 셀 안의 전체 준비표를 선호하면 기존 운영값·소비자와 충돌하지 않는 정확한 추가 영역 및 행 증설을 별도 레이아웃 diff로 제시한다. 현재 133행 뒤나 빈 셀에 대한 소유권은 아직 부여되지 않음.",
+    "staging": [
+      {
+        "order": 1,
+        "deliverable": "이 가상 화면에서 읽기 순서·전체 학생 범위·메모/계획 구분을 교사 검토",
+        "state": "reviewable_synthetic"
+      },
+      {
+        "order": 2,
+        "deliverable": "교사·날짜·등원 명부·직전 확정 숙제와 app 제출/채점/수정의 정확한 읽기 계약 및 전체 조회 확인",
+        "state": "pending_verified_sources"
+      },
+      {
+        "order": 3,
+        "deliverable": "Main native 표면, 정확한 위치·소유권·보존값과 authenticated runtime 검토",
+        "state": "proposal_not_layout_approval"
+      },
+      {
+        "order": 4,
+        "deliverable": "완전한 최신 inventory로 수동 갱신의 before/after/recovery 및 출처 시각·미확인 상태 제시",
+        "state": "pending_non_executable_native_diff"
+      },
+      {
+        "order": 5,
+        "deliverable": "정확히 승인된 batch의 같은 대상 readback 및 교사 메모·계획 보존 확인",
+        "state": "pending_explicit_native_batch"
+      },
+      {
+        "order": 6,
+        "deliverable": "지원되는 unattended source 인증·영속 claim/outcome 저장소와 월–금13:15–14:00 실행/실패/누락 표시",
+        "state": "pending_runtime_and_actual_first_run"
+      }
+    ],
+    "journalWrites": "교사 준비 확인·메모·계획은 official LMS 필드가 아님. LMS closeout의 exact target/value/wire/secondary effect/readback은 별도 승인 흐름."
+  },
+  "sourcePresentation": {
+    "eachFieldShows": [
+      "출처 시스템",
+      "원본 갱신 시각 또는 미확인",
+      "읽은 시각",
+      "전체 조회 범위",
+      "학생·회차·교재·문제 관계의 확인/미확인",
+      "원본 참조 위치"
+    ],
+    "unknownPolicy": "관계 또는 전체 조회가 미확인이면 확인 불가. 누락·오래됨·판본 불일치를 미제출·오답·결석으로 바꾸지 않음.",
+    "knownMissingPolicy": "대상·관계·전체 조회가 모두 확인된 범위에서만 대응 기록 없음을 사실로 표시하며 학생 태도·능력·출결로 일반화하지 않음.",
+    "timestampPolicy": "출처 시각과 읽은 시각, 최근 시도와 성공을 분리. 새로고침 버튼 클릭으로 출처 시각을 새로 만들지 않음. 유저가 지정하지 않은 대기/신선도 기준을 만들지 않음.",
+    "teacherPolicy": "교사 눈 확인·보완·보류, append-only 메모·계획을 출처 사실과 별도 저장/표시. 교사 판정만으로 앱 관계 미확인을 해소하거나 채점·수정 상태를 바꾸지 않음."
+  },
+  "pendingAcceptance": [
+    "전체 학생 화면과 선택 상세의 실제 Main 배치 및 교사 사용성 리뷰",
+    "등원 일정·휴원·결석·보강과 직전 유효 수업 숙제/교사 추가 배정의 현재 연결",
+    "앱 학생·수업·교재 판본·범위·시도·채점·수정·영상 계약과 전체 조회",
+    "자동 실행 source 인증과 host, Free Tier 실사용 조건, 영속 private DB/audit destination",
+    "정확한 Sheet 레이아웃/값 diff와 복구 경로; 이 artifact는 승인 또는 배포가 아님"
+  ],
+  "externalEffects": {
+    "sourceReads": 0,
+    "productionWrites": 0,
+    "deployments": 0,
+    "installedTriggers": 0,
+    "remoteMessages": 0
+  },
+  "references": [
+    "AGENTS.md",
+    "docs/CODEX_CONTEXT.md",
+    "docs/WHOLE_LENS_DECISION.md",
+    "docs/main-sheet-design.json",
+    "docs/main-sheet-live-input-map-2026-10-01.json",
+    "docs/main-sheet-live-refresh-wiring.json",
+    "src/preclass/preclassScanner.ts",
+    "src/learning/model.ts"
+  ]
+}

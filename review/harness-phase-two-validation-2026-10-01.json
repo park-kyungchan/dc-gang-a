@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "kind": "phase_two_checkpoint_validation",
+  "validatedAtUtc": "2026-10-01T07:45:00Z",
+  "aggregateCommand": "bun run cloud:check",
+  "exitCode": 0,
+  "typeChecks": 3,
+  "testExecutions": {
+    "passed": 721,
+    "failed": 0,
+    "skipped": 0,
+    "uniqueCount": false,
+    "suites": [
+      250,
+      103,
+      111,
+      19,
+      69,
+      43,
+      12,
+      89,
+      14,
+      11
+    ]
+  },
+  "sourceIntegrity": {
+    "backendFiles": 13,
+    "canonicalOperations": 54,
+    "importedSourceFiles": 329,
+    "localLinks": 34
+  },
+  "focusedEvidence": {
+    "sqliteTests": 14,
+    "purposeAndWorkspaceRouting": "Included in 89-test workflow suite; actual interview context CLI passed",
+    "previewGenerator": "Generated standalone synthetic HTML; typecheck/syntax/escaping/regeneration verified by owning agent; native visual acceptance not performed",
+    "nativeBridge": "Created then read back; current on repeat",
+    "modelConfig": "Requested repository TOML values verified; effective managed capacity unverified"
+  },
+  "liveEffects": {
+    "parkAuxiliaryTabsHidden": 2,
+    "tabMetadataReadbackVerified": true,
+    "liveStudentCellsRead": 0,
+    "liveStudentCellsWritten": 0,
+    "lmsBackendRequests": 0,
+    "ontologyProvisioning": 0,
+    "scheduledTriggersInstalled": 0,
+    "billingChanges": 0
+  },
+  "checkpoint": "handoffs/harness-phase-two-checkpoint-2026-10-01.json",
+  "sourceContinuity": {
+    "branch": "codex/cloud-harness-continuity-2026-10-01",
+    "gitPushDryRun": "403_permission_denied",
+    "remoteMainAtRead": "992d6c4e8b379bed38e13d76cc960e84645eac09",
+    "connectorPermissions": {
+      "pull": true,
+      "push": true,
+      "admin": true
+    },
+    "remotePublication": "not_performed",
+    "reason": "User requested checkpoint and new-session interviews; no credential extraction, permissions change or alternative remote publication was attempted.",
+    "commitMessage": "Checkpoint phase-two routing and student ontology interviews"
+  },
+  "remaining": [
+    "Interview Ontology acceptance queries/atomic concepts and compare PostgreSQL/graph/hybrid carefully in a new session.",
+    "Verify official academy source access and independently joined parent delivery receipt before promoting the user-reported example.",
+    "Selected storage provider and actual database/runtime deployment remain unresolved.",
+    "Resolve supported repository Git-write authentication before relying on a fresh remote-main task to include this checkpoint."
+  ]
+}

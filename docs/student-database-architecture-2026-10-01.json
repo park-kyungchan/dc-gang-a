@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 1,
+  "asOfDateKst": "2026-10-01",
+  "status": "synthetic_revision_prototype_preserved_knowledge_graph_and_hosted_store_decision_deferred",
+  "objective": "One date-first Park Main Sheet review surface connecting every attending student's preparation evidence and teacher history, with future individual mathematics knowledge graphs and a shared ontology spanning academy backend evidence and those graphs. Hosted storage and ontology architecture remain a deliberate next-session decision.",
+  "confirmedUserDirection": {
+    "firstOutcome": "Before-class review of all attending students' homework, pre-study, grading and corrections, connected with teacher-authored material.",
+    "refresh": "Monday through Friday at any time from 13:15 to 14:00 Asia/Seoul, plus teacher-selected-date manual refresh on any day.",
+    "sheet": "Operate the existing 박경찬 Main tab only; hide verified Park-owned auxiliary tabs while preserving other teachers and shared resources.",
+    "development": "Recommend and proceed with reversible TypeScript/Bun database development; actual hosted migration requires verified resource identity, access, destinations and exact data changes.",
+    "futureKnowledgeGraphPurpose": "Build individual students' mathematics Knowledge Graphs and audit atomic prerequisite concepts before a target topic, for example before prime factorization. The intended ontology spans academy backend entities and personal learning graphs at an AIP/Foundry-level of conceptual integration; no vendor integration, license, deployment or complete implementation is established.",
+    "postgresQuestion": "The user asks whether PostgreSQL is suitable for this expanded purpose. It is a promising storage foundation to compare deliberately with graph-oriented alternatives; an ontology layer is a separate architecture concern and is not provided merely by choosing PostgreSQL.",
+    "checkpointDirection": "Save the clarified purpose and unresolved architecture decision only. Continue PostgreSQL/ontology versus graph storage comparison and the associated interview in a new session; do not settle the hosted solution or extend implementation in this checkpoint.",
+    "cost": "Current work stays within Free Tier; future maintainability and scalability take precedence over cost-driven architecture shortcuts. Current provider/account quota feasibility is unverified.",
+    "interviewPolicy": "Read existing intent and domain contracts before interviewing. Existing student granularity is established; do not ask the user to reconstruct it. Interview remaining concrete product decisions after presenting the existing contract."
+  },
+  "establishedStudentGranularity": {
+    "hierarchy": [
+      "opaque student identity",
+      "timezone-qualified local calendar week, Monday start",
+      "exact lesson occurrence, regular lesson or makeup lane",
+      "shared textbook edition and version",
+      "major unit",
+      "middle unit",
+      "minor unit",
+      "printed page",
+      "individual question"
+    ],
+    "catalogReuse": "Edition/unit/page/question catalogs are shared entities; effective-dated student book assignments and student histories link to them. Do not duplicate entire catalogs per student or per week.",
+    "studentPartitioning": "Individual student databases means logical student-keyed records in shared tables with verified owner/student/lesson keys. It does not mean one SQLite/D1/Postgres database, one schema or one Sheet tab per student. The shared edition catalog and entity/revision references remain common across those records.",
+    "identity": "Keep verified opaque source keys as strings, preserving leading zeros and exact occurrence/attempt/revision IDs. Names, titles, row positions and printed labels are display values, never identity joins. Existing stableId uses canonical tuples and namespaces.",
+    "printedPages": "Printed page labels are distinct from one-based PDF file pages and may be nonnumeric. A sample PDF does not establish complete question inventory or student assignment.",
+    "evidence": [
+      "Source observation, source record identity, contract reference and source/observation timestamps",
+      "Assigned work versus actual attempts, reported completion and explicit teacher inspection",
+      "Per-question grading and wrong-item/correction-review evidence when an exact item contract exists",
+      "Teacher present/future plans, approvals, cancellation and evidence basis",
+      "Teacher notes, model drafts, reviews and corrections with append-only revisions",
+      "Original media links and original SPT event/capture/import/chunk/receipt identities"
+    ],
+    "unknowns": "Knowledge values retain evidence references or an explicit unknown reason. Unknown occurrence, app identity, edition, page, question, grade or teacher inspection is never filled by approximation. A scalar grade on a multi-question scope cannot be copied to each question.",
+    "history": "Preserve full payload snapshots, actor, recordedAt, reason, entity sequence, previous revision/digest and retry key. Reverting a value appends a compensating revision; it does not erase history.",
+    "retention": "Existing user intent keeps instructor notes, model drafts and review/correction history without a fixed time limit. Raw academy exports, authentication and original audio have separate boundaries; this is not unlimited raw-data retention permission.",
+    "requiresGranularityInterview": false,
+    "sourceRefs": [
+      "docs/learning/domain-design.json",
+      "docs/learning/weekly-audit.json",
+      "src/learning/model.ts",
+      "src/learning/revisions.ts",
+      "src/sheets/learningViewProjection.ts",
+      "src/assessment/studentAssessmentLedger.ts",
+      "docs/textbook-sample-schema.ts",
+      "docs/CODEX_CONTEXT.md",
+      "docs/WHOLE_LENS_DECISION.md",
+      "spt/db/schema.ts"
+    ]
+  },
+  "recommendation": {
+    "now": "Use built-in bun:sqlite for the synthetic repository/test persistence adapter. It adds no package, service, credential or billing dependency and exercises the existing learning contract durably across file reopen.",
+    "hostedDecision": "Deferred to the next session because the clarified scope includes atomic mathematical prerequisite knowledge graphs and an ontology spanning academy backend and personal graph evidence. Compare PostgreSQL plus an explicit ontology/graph layer, graph databases and hybrid options against that actual purpose before selecting a provider. selectedHostedProvider remains null.",
+    "priorD1Recommendation": "The earlier D1-first recommendation was based on the existing SPT SQLite/D1/R2 architecture and learning-revision scope. It is now provisional and is not the default for the expanded Knowledge Graph/ontology purpose. Preserve existing SPT D1/R2 authority without blindly reusing production tables. No per-student physical databases are proposed.",
+    "postgresCandidate": "PostgreSQL is a promising base for transactional identities, learning evidence, revisions, relational joins and ontology-associated records. Its suitability for versioned concepts, prerequisite traversal and personal knowledge graphs must be compared deliberately with graph-oriented storage and a separate ontology layer; no provider or implementation direction is settled here.",
+    "sheetsTransition": "Keep hidden Park auxiliary tabs as a compatibility source until all exact consumers have migrated and readbacks/recovery are verified. Hiding is a UI operation and does not improve database transactions or erase existing formulas/consumers. Do not delete tabs or move records simply to claim one-sheet operation.",
+    "efficiencyEvidence": "No live latency, volume or concurrency measurement was taken. The reason to develop a database is explicit hierarchical joins, atomic revision/idempotency invariants and maintainable history, not an unmeasured claim that hiding itself is inefficient.",
+    "notProductionStorage": "Codex Cloud task files and a published development-environment snapshot are not a durable shared production database or always-running scheduled-refresh host. A synthetic SQLite file in this workspace can be lost with task/environment replacement and must never become the sole copy of student records.",
+    "selectedHostedProvider": null,
+    "productionDeployment": false
+  },
+  "candidateComparison": [
+    {
+      "candidate": "Bun built-in SQLite",
+      "role": "Synthetic local development and migration rehearsal now",
+      "advantages": ["No external package", "Existing Bun runtime", "Atomic local writer transaction", "Shared SQLite dialect with D1"],
+      "limits": ["Task-local file is not shared production persistence", "Local writer locking is not D1 transaction behavior", "No hosted auth, backup, scheduler or multi-tenant access control"],
+      "newDependenciesNow": [],
+      "currentFreeTierFeasibility": "No paid provider is invoked by this prototype"
+    },
+    {
+      "candidate": "Separate Whole-Lens D1 database using existing Cloudflare architecture; existing SPT/R2 authority preserved",
+      "role": "Provisional option deferred after the Knowledge Graph/ontology clarification; not the default",
+      "advantages": ["SPT source already declares D1/R2", "SQLite schema and TypeScript Worker conventions already exist", "Avoid adding a second hosted data provider before evidence requires it"],
+      "limits": ["Source import is not proof of a live binding or owner access", "D1 batch/session/transaction semantics must be independently adapted and tested", "Per-database limits, storage/query charges, account tier and backup/restore behavior need current verification"],
+      "newDependenciesBeforeSelection": ["Verified existing Cloudflare account/database ownership", "Explicit protected teacher data partition and authentication", "Reviewed D1 adapter and migration", "Measured quotas and recovery evidence"],
+      "currentFreeTierFeasibility": "Unverified; no quota or zero-cost guarantee"
+    },
+    {
+      "candidate": "Managed PostgreSQL, optionally Supabase",
+      "role": "Deliberate next-session candidate for the expanded Knowledge Graph/ontology purpose",
+      "advantages": ["Mature relational constraints and transactions", "Broader SQL analytics and concurrency options", "Potential access-policy tooling depending on the chosen service"],
+      "limits": ["Introduces another account, access model, backup/operations and provider dependency", "Free tier availability, pauses, retention, connection limits and production fit require current verification", "PostgreSQL alone does not define an ontology, atomic prerequisite concept model or student mastery semantics; graph traversal and ontology-layer alternatives need comparison"],
+      "newDependenciesNow": [],
+      "currentFreeTierFeasibility": "Unverified; do not create an account, enable billing or install a driver merely for comparison"
+    }
+  ],
+  "knowledgeGraphAndOntologyCheckpoint": {
+    "source": "current_user_clarification_reported_by_Lead_2026-10-01",
+    "purpose": "Connect academy backend records and each student's mathematics knowledge graph so a teacher can audit atomic prerequisite concepts before teaching a target topic such as prime factorization.",
+    "newSemanticNeeds": [
+      "Versioned atomic mathematical concepts and reviewed prerequisite relationships",
+      "Exact question/content-to-concept mappings with evidence, including unresolved mappings",
+      "Student concept-level evidence connected to original attempts, grading, correction and teacher inspection",
+      "Temporal provenance distinguishing lesson time, evidence observation time, recording time and later corrections",
+      "An ontology describing entity types, relations, source authority and meaningful teacher actions across academy and personal graphs"
+    ],
+    "preservedBoundaries": [
+      "Existing student/occurrence/edition/page/question identity and source-versus-teacher authority remain necessary",
+      "A grade, observed attempt or completed worksheet does not automatically establish conceptual mastery",
+      "Unknown concepts, prerequisite mappings and student evidence remain unknown rather than inferred from names or labels",
+      "Teacher review, correction and provenance histories remain append-only",
+      "Shared concept/catalog definitions and student-keyed evidence do not require a physical database per student"
+    ],
+    "notYetDecided": [
+      "Concept taxonomy, atomicity and prerequisite edge semantics",
+      "How evidence supports, contradicts or leaves a concept claim unknown",
+      "Teacher inspection and prerequisite-audit presentation/actions",
+      "Ontology editing, versioning and alignment with verified academy entities",
+      "PostgreSQL with ontology/graph layer versus graph database or hybrid persistence",
+      "Exact hosting provider, access model, migration and current Free Tier feasibility"
+    ],
+    "prototypeGap": "The implemented Bun SQLite adapter persists the existing synthetic LearningRecord revision union only. It has no concept graph, prerequisite edges, knowledge claims, ontology engine or complete teacher-note/assessment/media integration and is not a Knowledge Graph implementation.",
+    "nextSessionComparisonCriteria": [
+      "Preserve exact student/source identities, transactional revision CAS and retry idempotency",
+      "Represent shared versioned concepts, prerequisites and individual temporal evidence without conflating source facts with judgments",
+      "Support prerequisite traversal and explainable evidence queries for teacher preparation",
+      "Define the ontology layer independently of database vendor, including types, relations, actions and provenance",
+      "Maintain reviewed ontology changes and unresolved mappings without destructive history rewrites",
+      "Assess TypeScript/Bun developer ergonomics, migration/backup/restore, access control and operating burden",
+      "Verify current account/provider quotas and costs while preserving future maintainability and scalability"
+    ],
+    "currentDecision": "comparison_and_interview_deferred_to_new_session",
+    "selectedOntologyLayer": null,
+    "selectedGraphStorage": null
+  },
+  "proposedLogicalSchema": [
+    {
+      "area": "verified_identity_bindings",
+      "keys": ["owner", "opaque LMS student key", "SPT student key", "app student key", "effective period", "verified contract/evidence refs"],
+      "rule": "Unknown mappings remain unresolved. Sheet workbook/tab/row is a versioned presentation binding, not a student's primary key.",
+      "implementation": "Existing identity/context types; hosted binding table not implemented"
+    },
+    {
+      "area": "shared_learning_catalog",
+      "keys": ["edition/version", "major/middle/minor unit", "printed page", "question"],
+      "rule": "Use the validated shared LearningCatalog and separate effective-dated StudentBookAssignment edges; do not infer catalog completeness from sample PDF metadata.",
+      "implementation": "Pure types and validators exist; durable catalog tables not implemented"
+    },
+    {
+      "area": "learning_revision_history",
+      "keys": ["namespace/owner", "entityId", "revisionId", "entity sequence", "idempotency key"],
+      "rule": "Atomic reload/validation/CAS/append. Source observations, teacher plans and book assignments retain their existing payload contracts and lanes.",
+      "implementation": "Synthetic local SQLite adapter implemented for the existing LearningRecord union"
+    },
+    {
+      "area": "teacher_text_and_review_revisions",
+      "keys": ["owner", "student", "exact occurrence or explicit unresolved scope", "entity/revision", "author", "source/evidence basis"],
+      "rule": "Separate teacher notes, model drafts and reviewed/corrected text from official LMS facts and plans. Preserve original text and every revision; project only reviewed intended text into shared Sheet cells.",
+      "implementation": "Intent exists and assessment/SPT have separate text fields; LearningRecord does not contain a typed free-text/draft/media record. New typed adapter and schema remain required before claiming full-flow persistence."
+    },
+    {
+      "area": "assessment_attempts_item_outcomes_and_correction_reviews",
+      "keys": ["student", "source record", "source attempt", "paper key", "item identity", "teacher review event"],
+      "rule": "Retain source attempt/time/verification and itemized results. Append teacher correction review separately; unknown grades are not zero. Existing StudentAssessmentLedgerEngine is in-memory and is not yet persisted by the new learning store.",
+      "implementation": "Existing assessment domain only; durable adapter not implemented"
+    },
+    {
+      "area": "evidence_link_and_classroom_authorities",
+      "keys": ["source system", "original source record/media ID", "student/occurrence binding", "event/capture/import/chunk/receipt IDs"],
+      "rule": "Link originals instead of copying media into Sheet, Git or Cloud artifacts. SPT D1/R2 stays authoritative for classroom events/audio; a learning observation points to it without pretending to become that authority.",
+      "implementation": "Existing provenance and SPT source contracts; cross-system hosted adapter not implemented"
+    },
+    {
+      "area": "refresh_claims_outcomes_and_reviewed_sheet_diff",
+      "keys": ["selected local lesson date", "trigger scope", "durable request/claim", "attempt", "approved exact diff", "same-target readback"],
+      "rule": "Record last successful readback separately from last attempt, incomplete coverage, late/missed/failed state and uncertain writes. Scheduled/manual refresh shares one verified pipeline; calendar dispatch alone does not prove source coverage.",
+      "implementation": "Existing pure refresh/audit ports; hosted private audit destination, production writer and unattended session provider remain unverified"
+    }
+  ],
+  "syntheticPrototype": {
+    "source": "src/storage/syntheticLearningSqlite.ts",
+    "test": "tests/storage/syntheticLearningSqlite.test.ts",
+    "tables": ["synthetic_learning_meta", "synthetic_learning_revisions"],
+    "scope": "Only invented data in :memory: or explicit .synthetic.sqlite development files, with synthetic: namespace markers. Markers document purpose; they cannot detect private content or provide access control.",
+    "noExternalPackages": true,
+    "atomicWrite": "BEGIN IMMEDIATE holds the local SQLite writer boundary while reloading full namespace history, validating it, recomputing preview/CAS, appending and reading back. Failures roll back. Busy/uncertain failures do not mint a new retry key.",
+    "appendOnly": "SQLite triggers reject UPDATE/DELETE on revision rows. Corrections and compensations append new records. Full history validates domain hash chains and duplicate indexed identities before projection.",
+    "isolation": "All store queries and uniqueness constraints include an explicit namespace. This is logical test partitioning, not authenticated production tenant isolation.",
+    "portability": "Logical schemaVersion=1 exports preserve exact revision envelopes and full cross-entity append order, counts and a canonical digest; import requires an empty matching namespace and verifies readback in the same transaction. SQLite rowids are excluded.",
+    "upgradePolicy": "Refuse an unrelated nonempty database or unsupported user_version; no implicit upgrade, merge, deletion or mapping rewrite.",
+    "integrityLimits": "Unkeyed digests and local triggers detect ordinary inconsistency; they do not authenticate a writer or detect an attacker who rewrites schema/digests or truncates history. Production needs independent trusted heads/receipts, authorization and backup policy. The prototype validates the whole partition and is not a measured large-scale indexed-query implementation.",
+    "notImplemented": ["Hosted D1/Postgres adapter", "Live source ingestion", "Durable shared teacher database", "Teacher text/assessment/media schema consolidation", "Production writer or migration", "Scheduler or unattended authentication", "Access control, signed audit or production backup service"]
+  },
+  "existingConsumerMap": [
+    {
+      "source": "spt/integrations/tracker/Tracker.gs",
+      "consumer": "PK_OPS legacy screens and session/attendance/learning/makeup/audit tabs; PT_CONFIG book/unit/assignment/tracker tables",
+      "migrationImpact": "Hidden tabs remain named lookup/append targets. Review actual bound script and installed trigger code before changing those targets; a source edit is not deployment."
+    },
+    {
+      "source": "spt/integrations/tracker/SPTBridge.gs",
+      "consumer": "Park profile A14:U113, named catalog/event/attendance tables and unbounded nonempty Main column-C rows after row3",
+      "migrationImpact": "Replace or bound legacy snapshot logic only after verified current deployed Main C4:R47 binding; preserve request IDs, original events and same-target receipts. Generic sample tabs are not listed by these exact source consumers."
+    },
+    {
+      "source": "spt/lib/sheet-bridge.ts",
+      "consumer": "D1-confirmed profileRow/mainRow mappings, source hashes, sync lease, snapshot history and closeout receipts",
+      "migrationImpact": "Do not reinterpret existing persisted mappings by numeric offsets. Reconfirm identity with fresh bounded snapshots and the actual deployed owner/service."
+    },
+    {
+      "source": "spt/lib/roster.ts; spt/app/api/sheet/route.ts",
+      "consumer": "Roster revisions and provenance containing Main row/profile row",
+      "migrationImpact": "Maintain verified SPT-to-LMS/app identity lookup and effective roster revision; source metadata alone is not current enrollment or complete date coverage."
+    },
+    {
+      "source": "spt/db/schema.ts; spt/drizzle/0000_far_tarot.sql; spt/drizzle/0003_tiny_thunderball.sql; spt/backend/wrangler.json",
+      "consumer": "Existing D1 classroom/Sheet/roster tables and R2 audio bindings",
+      "migrationImpact": "Review a separate Whole-Lens database and additive shared learning schema; do not blindly reuse production tables or replace classroom authority, auth settings, existing database or original audio records. Bindings are source declarations, not observed live resource access."
+    },
+    {
+      "source": "src/sheets/oneTabMigrationPlan.ts; src/sheets/oneTabGroupedLayout.ts; scripts/sync_row_grouped_main_sheet.ts",
+      "consumer": "Historical fifteen-block one-tab dry-run plans and fail-closed legacy runner",
+      "migrationImpact": "Do not execute old copy/group designs over the current deployed template. They remain historical compatibility evidence, not the active DB migration."
+    },
+    {
+      "source": "docs/main-sheet-live-input-map-2026-10-01.json; docs/main-sheet-live-refresh-wiring.json",
+      "consumer": "Current Main semantic map and next real refresh gates",
+      "migrationImpact": "Current student slots C4:R47, O/R expected-end-date plan lanes, preserved A48:P133. I5/I8 selectors were removed. No auto-owned student/source cells are currently established by that map."
+    },
+    {
+      "source": "research/backend-map/sheet-topology.json",
+      "consumer": "Dated workbook structural inventory including generic sample tabs",
+      "migrationImpact": "Refresh metadata before effects. Inventory alone does not prove generic sample/SPIKE ownership or authorize hiding shared resources. Hidden/collapsed areas do not provide confidentiality."
+    }
+  ],
+  "stagedProductionMigration": [
+    {"step": 1, "action": "Keep the one visible Park Main UI and hidden verified Park-owned auxiliary compatibility tabs; preserve shared/other teacher tabs.", "state": "Visibility effects and receipts are owned by the Lead; this storage task made no external changes."},
+    {"step": 2, "action": "In the next session compare PostgreSQL plus an ontology/graph layer, graph databases and hybrid options against atomic prerequisite auditing. Only after a deliberate selection confirm exact hosted resource/owner, access model, current free-tier quotas, backup/restore and protected teacher data destination. Existing SPT/D1 remains a separate authority to verify.", "state": "deferred_architecture_decision_no_hosted_default"},
+    {"step": 3, "action": "Complete typed teacher-note/draft, assessment and media-link adapters plus exact LMS/SPT/app/lesson bindings; exercise synthetic exports/imports and hosted transaction/idempotency semantics.", "state": "learning-only local persistence implemented; full-flow adapters pending"},
+    {"step": 4, "action": "Review a minimized bounded migration manifest with exact source/destination identities, unresolved queue, record/history counts and digests, before/after consumer map and recovery; migrate only the approved batch through verified source reads.", "state": "no production data copied or migration executed"},
+    {"step": 5, "action": "Read back exact histories and run parity on a complete selected-date roster, including unknown/incomplete sources and teacher notes. Rebind actual Sheet/SPT consumers and compare approved projection diffs.", "state": "pending live acceptance"},
+    {"step": 6, "action": "Use the same manual verified flow for the requested weekday preparation trigger only after unattended source session, private audit store, exact write scope and runtime installation are proven.", "state": "schedule requirement recorded; no scheduler deployed"},
+    {"step": 7, "action": "Retire a compatibility DB tab only after all consumers are migrated and independently reviewed recovery exists.", "state": "no deletion authorized or performed by this proposal"}
+  ],
+  "remainingQuestions": [
+    {"id": "atomic_concept_and_prerequisite_audit", "kind": "next_session_product_interview", "question": "For a target such as prime factorization, what atomic prerequisite concepts should the teacher inspect, and which existing evidence and reviewed actions should the audit connect?", "dependentWork": "concept_ontology_and_audit_contract", "answer": null, "state": "deferred_not_asked_in_checkpoint"},
+    {"id": "ontology_scope_and_storage_comparison", "kind": "next_session_architecture_comparison", "question": "Which academy entities, individual knowledge claims and teacher actions must the ontology connect, and what query/edit/temporal requirements should decide PostgreSQL plus ontology versus graph database or hybrid storage?", "dependentWork": "deliberate_hosted_storage_and_ontology_selection", "answer": null, "state": "deferred_not_asked_in_checkpoint"},
+    {"id": "hosted_spt_resource_and_owner", "kind": "capability_verification", "question": "Which exact existing SPT service/account/database is currently operated, and can its owner provide verified access and restore evidence?", "dependentWork": "hosted_adapter_and_migration", "answer": null},
+    {"id": "teacher_note_edit_review_flow", "kind": "product_interview_after_repo_review", "question": "After showing the current Main field map and preserved notes, which connected teacher notes/drafts should be editable and reviewed in the one Main surface, and where should selected-student detail appear?", "dependentWork": "full_flow_note_ui_and_schema_adapter", "answer": null},
+    {"id": "protected_storage_destination", "kind": "exact_resource_review", "question": "What exact teacher-only hosted data destination and access scope will hold retained notes/drafts/history and refresh audit evidence?", "dependentWork": "real_student_persistence", "answer": null}
+  ],
+  "externalDocumentation": [
+    {"url": "https://developers.cloudflare.com/d1/platform/pricing/", "attemptedOnKst": "2026-10-01", "result": "HTTP403 from current runtime", "verifiedCurrentPriceOrQuota": false},
+    {"url": "https://developers.cloudflare.com/d1/platform/limits/", "attemptedOnKst": "2026-10-01", "result": "HTTP403 from current runtime", "verifiedCurrentLimits": false},
+    {"url": "https://bun.com/docs/api/sqlite", "attemptedOnKst": "2026-10-01", "result": "HTTP403 from current runtime", "runtimeEvidence": "Bun1.4.2 built-in SQLite implementation exercised by focused tests"},
+    {"url": "https://supabase.com/pricing", "result": "reference_only_not_fetched", "verifiedCurrentPriceOrQuota": false}
+  ],
+  "verification": {
+    "runtime": "Bun1.4.2 and repository TypeScript7.0.2",
+    "focusedCommand": "bun test --dots tests/storage/syntheticLearningSqlite.test.ts",
+    "focusedResult": {"passed": 14, "failed": 0, "assertions": 63},
+    "relatedCommand": "bun test --dots tests/storage/syntheticLearningSqlite.test.ts tests/learning/learningCore.test.ts tests/learning/weeklyLearning.test.ts",
+    "relatedResult": {"passed": 83, "failed": 0, "assertions": 278},
+    "covered": ["true file close/reopen", "string IDs and unknown fidelity", "namespace isolation", "cross-connection stale-preview CAS", "replay after later revisions and changed-key conflict", "append-only correction/compensation", "source correction and dependent-plan migration order", "UPDATE/DELETE rejection", "append/import transaction rollback", "export version/count/digest/namespace checks", "unrelated database refusal", "unsupported schema refusal"],
+    "rootTypecheck": "passed after final prototype edit",
+    "defaultCloudGateIncludesThisNewTest": false,
+    "liveDatabaseAcceptance": "not attempted",
+    "productionEffects": {"studentDataCopies": 0, "hostedDatabaseChanges": 0, "deployedServices": 0, "billingChanges": 0, "installedPackages": 0}
+  }
+}

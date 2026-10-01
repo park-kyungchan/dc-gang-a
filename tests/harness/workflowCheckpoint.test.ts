@@ -130,6 +130,39 @@ function withEngineering(): any {
 }
 
 describe('Lead continuity context', () => {
+  test('accepts changed unique priority orders without rewriting historical decisions', () => {
+    const value = withEngineering();
+    value.engineeringContext.priorityOrder = ['continuity_lead_governance', 'development_test_feedback', 'google_api_integration'];
+    const before = structuredClone(value.engineeringContext.confirmedDecisions);
+    const context = workflowContext(validateWorkflowCheckpoint(value));
+    expect(context.engineeringContext?.priorityOrder).toEqual(value.engineeringContext.priorityOrder);
+    expect(context.engineeringContext?.confirmedDecisions).toEqual(before);
+    for (const order of [
+      ['continuity_lead_governance', 'continuity_lead_governance', 'google_api_integration'],
+      ['development_test_feedback', 'google_api_integration'],
+      ['development_test_feedback', 'continuity_lead_governance', 'invented_priority'],
+    ]) {
+      value.engineeringContext.priorityOrder = order;
+      expect(() => validateWorkflowCheckpoint(value)).toThrow('invalid_workflow_checkpoint');
+    }
+  });
+
+  test('retains up to 24 decisions and explicit historical source references without dropping evidence', () => {
+    const value = withEngineering();
+    for (let index = 1; index < 24; index++) value.engineeringContext.confirmedDecisions.push({
+      id: 'decision_' + index, statement: 'Synthetic confirmed decision ' + index + '.', source: 'user_interview',
+    });
+    value.engineeringContext.historicalDecisionReferences = ['docs/CODEX_CONTEXT.md'];
+    const context = workflowContext(validateWorkflowCheckpoint(value));
+    expect(context.engineeringContext?.confirmedDecisions).toHaveLength(24);
+    expect(context.engineeringContext?.historicalDecisionReferences).toEqual(['docs/CODEX_CONTEXT.md']);
+    value.engineeringContext.confirmedDecisions.push({ id: 'decision_overflow', statement: 'Synthetic overflow.', source: 'user_interview' });
+    expect(() => validateWorkflowCheckpoint(value)).toThrow('invalid_workflow_checkpoint');
+    value.engineeringContext.confirmedDecisions.pop();
+    value.engineeringContext.historicalDecisionReferences = ['../untrusted.json'];
+    expect(() => validateWorkflowCheckpoint(value)).toThrow('invalid_workflow_checkpoint');
+  });
+
   test('preserves backward compatibility and dated operational evidence', () => {
     const base = fixture();
     expect(workflowContext(validateWorkflowCheckpoint(base)).engineeringContextPresent).toBe(false);

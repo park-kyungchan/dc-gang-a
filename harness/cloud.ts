@@ -6,6 +6,7 @@ import { resolve } from 'node:path';
 import { safeProjectPath, validateCloudEnvironment, validateCloudStartSkill } from './cloud_environment';
 import { validateCurrentState } from './resume';
 import { validateWorkflowCheckpoint } from './workflow_checkpoint';
+import { applyWorkspaceEntry } from './workspace_entry';
 const root = resolve(import.meta.dir, '..');
 const stamp = (base: string) => resolve(base, 'scratch/cloud-install-lock.sha256');
 const lockHash = (base: string) => createHash('sha256').update(readFileSync(resolve(base, 'bun.lock'))).digest('hex');
@@ -59,7 +60,7 @@ export function cloudReadiness(base = root, today = new Date().toLocaleDateStrin
 export type InstallRunner = (args: string[], extraEnv?: Record<string,string>) => void;
 export const cloudCheckScripts = [
   'typecheck', 'typecheck:harness', 'typecheck:agent-runtime', 'test:bun', 'test:synthetic', 'test:agent-runtime',
-  'test:endpoint-catalog', 'test:learning', 'test:learning-projection', 'test:backend', 'test:workflow', 'test:model-config', 'verify:evidence',
+  'test:endpoint-catalog', 'test:learning', 'test:learning-projection', 'test:backend', 'test:workflow', 'test:storage', 'test:model-config', 'verify:evidence',
 ] as const;
 export function runCloudChecks(runCheck: InstallRunner): void {
   for (const script of cloudCheckScripts) runCheck(['run', script]);
@@ -87,7 +88,9 @@ async function main() {
     const freshCacheRetryUsed = installPinnedDependencies(root, run, () =>
       Bun.spawnSync({ cmd: [process.execPath, 'node_modules/typescript/bin/tsc', '--version'], cwd: root, stdout: 'pipe', stderr: 'pipe' }).exitCode === 0);
     await Bun.write(stamp(root), lockHash(root) + '\n');
-    console.log(JSON.stringify({ ok: true, action, bun: Bun.version, browserDownloaded: false, pythonInstalled: false, freshCacheRetryUsed }));
+    const workspaceEntry = applyWorkspaceEntry(root);
+    if (!workspaceEntry.ok) throw new Error(workspaceEntry.reason ?? 'workspace_entry_failed');
+    console.log(JSON.stringify({ ok: true, action, bun: Bun.version, browserDownloaded: false, pythonInstalled: false, freshCacheRetryUsed, workspaceEntry }));
     return;
   }
   console.log(JSON.stringify(cloudReadiness(), null, 2));

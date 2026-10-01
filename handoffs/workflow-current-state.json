@@ -143,11 +143,11 @@
   ],
   "engineeringContext": {
     "schemaVersion": 1,
-    "updatedAtUtc": "2026-10-01T07:01:05Z",
-    "objective": "Phase one harness engineering is complete and locally committed. Remote push returned permission-denied 403. Resume in a reloaded or new Cloud session, verify requested native settings, and use the typed Whole-Lens API proposal for the next interviews.",
+    "updatedAtUtc": "2026-10-01T07:40:46Z",
+    "objective": "Checkpoint saved at user request; pause new implementation and resume interviews in a new session. The decisive goal is personal mathematics Knowledge Graphs with atomic prerequisite tracing and an AIP/Foundry-level Ontology spanning academy data and teacher/student evidence. PostgreSQL is a candidate foundation, not a selected solution; D1-first recommendation is provisional. Read handoffs/harness-phase-two-checkpoint-2026-10-01.json before continuing.",
     "priorityOrder": [
-      "development_test_feedback",
       "continuity_lead_governance",
+      "development_test_feedback",
       "google_api_integration"
     ],
     "ambiguityPolicy": "interview_before_dependent_implementation",
@@ -169,7 +169,7 @@
     "confirmedDecisions": [
       {
         "id": "priority_order",
-        "statement": "Improve feature development and test feedback first, Lead continuity second, and Google API integration third.",
+        "statement": "Second-phase user prioritizes continuity and purpose routing first, followed by the complete preclass user outcome and useful development/test feedback, then Google integration dependencies.",
         "source": "user_interview"
       },
       {
@@ -223,51 +223,91 @@
         "source": "user_interview"
       },
       {
-        "id": "phase_one_completion",
-        "statement": "Finish initial harness engineering now and continue after session reload or in a new session with the requested model settings. Do not expand implementation or continue interviews in this turn.",
+        "id": "phase_two_purpose_routing",
+        "statement": "Read existing repository product purpose, current scoped source contracts and confirmed answers before interviewing. Optimize agent routing so a new session does not ask the user to restate recorded intent.",
         "source": "user_interview"
+      },
+      {
+        "id": "preparation_refresh_schedule",
+        "statement": "Automatic preparation refresh Monday-Friday between 13:15 and14:00 Asia/Seoul; manual refresh any day on demand. This latest user answer supersedes the earlier13:15-13:45 window; it does not prove an installed scheduler.",
+        "source": "user_interview"
+      },
+      {
+        "id": "preclass_source_coverage",
+        "statement": "First real user outcome: connect all related information for every student attending the refreshed date, including prestudy, homework, problem grading/corrections and teacher notes, and improve the complete Main Sheet UI/UX.",
+        "source": "user_interview"
+      },
+      {
+        "id": "single_main_visibility",
+        "statement": "The user authorizes hiding Park Main related auxiliary Sheets so Park operates one visible Main. Two visible Park companions were hidden and re-read; all Park-related tabs except Main are now hidden. Shared and other instructor tabs are outside the recorded Park-only scope.",
+        "source": "current_user_request"
+      },
+      {
+        "id": "student_database_direction",
+        "statement": "Investigate existing student DB granularity before reinterviewing. Recommend and proceed with maintainable scalable TypeScript/Bun storage rather than expanding hidden Sheets as a database. Shared keyed records preserve student/week/occurrence/edition/unit/page/question history; actual hosted provisioning still needs a verified target and access path.",
+        "source": "current_user_request"
+      },
+      {
+        "id": "student_knowledge_graph_ontology",
+        "statement": "Future student DB must support individual mathematics Knowledge Graphs and atomic prerequisite auditing/tracing, with an Ontology Layer comparable in purpose to Palantir AIP/Foundry across academy backend and student knowledge. Choose the solution carefully; PostgreSQL is a candidate to assess and D1 is no longer the default.",
+        "source": "user_interview"
+      },
+      {
+        "id": "preclass_cohort_presentation",
+        "statement": "Display all students scheduled for the selected lesson date and label absence and makeup status; preserve the complete date-first class before selected-student detail.",
+        "source": "user_interview"
+      },
+      {
+        "id": "phase_two_checkpoint_pause",
+        "statement": "Save a checkpoint first and prepare the KG/Ontology interview for a new session due to imminent auto-compaction. Stop new implementation and new interviews in this session.",
+        "source": "current_user_request"
       }
     ],
     "assumptions": [],
     "pendingInterview": [
       {
-        "id": "preparation_refresh_schedule",
-        "question": "Which actual preparation schedule and verified source coverage should the scheduled/manual refresh use?",
-        "dependentWork": "scheduled_google_refresh",
-        "state": "not_asked"
-      },
-      {
         "id": "secondary_google_project_role",
         "question": "What operational role should the existing secondary dc-gang-a project have relative to the preserved baseline project?",
         "dependentWork": "google_project_architecture",
+        "state": "not_asked"
+      },
+      {
+        "id": "ontology_acceptance_queries",
+        "question": "Which atomic prerequisite audits, student-evidence explanations and teacher decisions must the ontology answer in the prime-factorization example?",
+        "dependentWork": "student_ontology_architecture",
+        "state": "not_asked"
+      },
+      {
+        "id": "ontology_provider_selection",
+        "question": "Which relational/graph/semantic approach and hosted provider best meet the confirmed ontology, temporal audit, access, scale and cost requirements?",
+        "dependentWork": "hosted_student_database",
         "state": "not_asked"
       }
     ],
     "dispatch": [],
     "nextSteps": [
       {
-        "id": "resume_and_verify_native_settings",
+        "id": "resume_phase_two_checkpoint",
         "owner": "lead",
         "action": "validate_confirmed_changes",
         "referencePaths": [
-          "harness/codex-model-policy.json",
-          "harness/codex_model_config.ts",
-          "review/cloud-optimization-2026-10-01.json",
-          "review/codex-runtime-research-2026-10-01.json"
+          "handoffs/harness-phase-two-checkpoint-2026-10-01.json",
+          "docs/student-database-architecture-2026-10-01.json",
+          "review/harness-phase-two-runtime-2026-10-01.json"
         ],
         "dependsOnQuestionIds": []
       },
       {
-        "id": "review_whole_lens_api_proposal",
+        "id": "resolve_ontology_continuation",
         "owner": "lead",
-        "action": "plan_google_api_scope",
+        "action": "resolve_continuation_source",
         "referencePaths": [
-          "docs/google-api-enablement-proposal-2026-10-01.json",
-          "docs/workflow-integration-registry.json"
+          "handoffs/harness-phase-two-checkpoint-2026-10-01.json",
+          "docs/learning/domain-design.json"
         ],
         "dependsOnQuestionIds": [
-          "preparation_refresh_schedule",
-          "secondary_google_project_role"
+          "ontology_acceptance_queries",
+          "ontology_provider_selection"
         ]
       }
     ],
@@ -278,14 +318,9 @@
       "executesNextStep": false,
       "changesManagedRuntime": false
     },
-    "blockedActions": [
-      {
-        "id": "cloud_runtime_documentation",
-        "action": "research_cloud_runtime",
-        "prerequisite": "runtime_network_update",
-        "reason": "Official Cloud documentation domain requests returned egress 403. Network draft additions are saved, but the running instance update has not been observed. Revalidate official documentation after the runtime network change.",
-        "state": "blocked"
-      }
+    "historicalDecisionReferences": [
+      "review/cloud-optimization-2026-10-01.json",
+      "docs/google-api-enablement-proposal-2026-10-01.json"
     ]
   }
 }

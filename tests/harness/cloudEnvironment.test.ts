@@ -55,7 +55,7 @@ test('the aggregate executes all eight restored source-only test files through e
   const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { scripts: Record<string, string> };
   const requiredSuites = {
     'test:backend': ['tests/backend/googleReadAdapter.test.ts', 'tests/backend/pdfExtraction.test.ts', 'tests/backend/dependencyDoctor.test.ts'],
-    'test:workflow': ['tests/harness/workflowCheckpoint.test.ts', 'tests/lms/academyReadAcceptance.test.ts',
+    'test:workflow': ['tests/harness/workflowCheckpoint.test.ts', 'tests/harness/contextRouting.test.ts', 'tests/harness/workspaceEntry.test.ts', 'tests/lms/academyReadAcceptance.test.ts',
       'tests/lms/lessonJournalReviewBundle.test.ts', 'tests/sheets/deployedMainRefresh.test.ts', 'tests/sheets/nativePreservationPreview.test.ts'],
   };
   for (const [name, files] of Object.entries(requiredSuites)) {
@@ -64,6 +64,8 @@ test('the aggregate executes all eight restored source-only test files through e
   }
   expect(executed).not.toContain('test:local-roster');
   expect(executed).not.toContain('test:python');
+  expect(executed).toContain('test:storage');
+  expect(pkg.scripts['test:storage']).toBe('bun test --dots tests/storage/syntheticLearningSqlite.test.ts');
 });
 test('a backend validation failure stops the aggregate before later workflow gates and success reporting', () => {
   const executed: string[] = [];

@@ -5,7 +5,9 @@ description: Design or edit this project's Park teacher Main Sheet, including na
 
 # Park Main Sheet
 
-Use this skill when creating a Main Sheet sample, changing its workbook schema, or connecting teacher input and source facts. Start with `bun run harness/resume.ts --json` and `handoffs/current-state.json`, then read `AGENTS.md` and `review/main_sheet_v3_architecture.md`. For the Antigravity kickoff's dated assumptions, read `review/main_sheet_kickoff_reconciliation.md`. The source authority and current phase remain in `docs/WHOLE_LENS_DECISION.md` and the current-state index. Do not promote historical Markdown kickoff text above the current teacher-confirmed scope.
+Use this skill when creating a Main Sheet sample, changing its workbook schema, or connecting teacher input and source facts. Read `AGENTS.md`, run `bun run workflow:context main_sheet`, and read its required purpose and scoped sources before interviewing or editing. In Cloud run `cloud:start`; only local live academy continuation uses `bun run harness/resume.ts --json` and its dated `handoffs/current-state.json` gate. Read `review/main_sheet_v3_architecture.md` as product/schema evidence and `review/main_sheet_kickoff_reconciliation.md` for historical assumptions. Durable purpose belongs to `docs/CODEX_CONTEXT.md` and `docs/WHOLE_LENS_DECISION.md`; current layout/refresh scope belongs to the explicit live input map and refresh wiring. Do not promote historical coordinates, kickoff text or a dated pointer above current task-specific evidence.
+
+The second-phase user selected the full preclass flow for every student attending the refreshed date. Scheduled refresh is Monday-Friday between 13:15 and 14:00 Asia/Seoul; manual refresh is available any day. Student DB granularity is already documented in `docs/learning/domain-design.json`: student, local week, exact regular/makeup lesson, shared edition, unit, page and question, with source evidence separate from teacher notes/plans and append-only corrections. Ask only a remaining requirement, not the project mission or this known granularity.
 
 ## Build the working view
 

@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { backendDependencyDoctor } from './backend_dependencies';
 import { scanPublicationText } from './tools/prepush_audit';
+import { contextPurposes, entryReadPlan, isContextPurpose } from './context_routing';
 
 export const workflowActions = [
   'verify_scoped_resource_access', 'request_metadata_token_approval', 'await_metadata_token_approval', 'read_current_sheet_metadata',
@@ -15,16 +16,19 @@ export const workflowActions = [
 export type WorkflowAction = typeof workflowActions[number];
 type Stage = 'substrate' | 'live_access' | 'user_outcome';
 type EvidenceState = 'verified' | 'reported_verified' | 'in_progress' | 'awaiting_approval' | 'unknown' | 'not_started';
+export const engineeringPriorities = ['development_test_feedback', 'continuity_lead_governance', 'google_api_integration'] as const;
+export type EngineeringPriority = typeof engineeringPriorities[number];
 export interface EngineeringContext {
   schemaVersion: 1;
   updatedAtUtc: string;
   objective: string;
-  priorityOrder: ['development_test_feedback', 'continuity_lead_governance', 'google_api_integration'];
+  priorityOrder: EngineeringPriority[];
   ambiguityPolicy: 'interview_before_dependent_implementation';
   modelPreference: { preferredFamilies: ['gpt-6.1', 'gpt-6']; selection: 'inherit_host_supported'; activeModel: null; activeContextCapacity: null;
     configurationRequest?: { contextWindow: number; autoCompactionRatio: number; autoCompactTokenLimit: number;
       application: 'unverified_by_project_metadata' | 'repo_file_verified_effective_runtime_unverified' } };
   confirmedDecisions: Array<{ id: string; statement: string; source: 'current_user_request' | 'user_interview' }>;
+  historicalDecisionReferences?: string[];
   assumptions: Array<{ id: string; statement: string; needsInterview: true }>;
   pendingInterview: Array<{ id: string; question: string; dependentWork: string; state: 'not_asked' | 'awaiting_answer' }>;
   dispatch: Array<{ id: string; owner: string; mode: 'read_only' | 'edit'; ownedPaths: string[];
@@ -80,9 +84,12 @@ function validateEngineeringContext(value: unknown): EngineeringContext {
   const keys = ['schemaVersion', 'updatedAtUtc', 'objective', 'priorityOrder', 'ambiguityPolicy',
     'modelPreference', 'confirmedDecisions', 'assumptions', 'pendingInterview', 'dispatch', 'nextSteps', 'runtimeBoundary'];
   if (object(value) && Object.hasOwn(value, 'blockedActions')) keys.push('blockedActions');
+  if (object(value) && Object.hasOwn(value, 'historicalDecisionReferences')) keys.push('historicalDecisionReferences');
   if (!object(value) || !exactKeys(value, keys)
     || value.schemaVersion !== 1 || !timestamp(value.updatedAtUtc) || !text(value.objective)
-    || JSON.stringify(value.priorityOrder) !== JSON.stringify(['development_test_feedback', 'continuity_lead_governance', 'google_api_integration'])
+    || !Array.isArray(value.priorityOrder) || value.priorityOrder.length !== engineeringPriorities.length
+    || new Set(value.priorityOrder).size !== engineeringPriorities.length
+    || !value.priorityOrder.every(priority => engineeringPriorities.includes(priority as EngineeringPriority))
     || value.ambiguityPolicy !== 'interview_before_dependent_implementation') fail();
   const model = value.modelPreference, runtime = value.runtimeBoundary;
   const modelKeys = ['preferredFamilies', 'selection', 'activeModel', 'activeContextCapacity'];
@@ -111,10 +118,11 @@ function validateEngineeringContext(value: unknown): EngineeringContext {
     }
     return items as Record<string, unknown>[];
   };
-  const facts = records(value.confirmedDecisions, ['id', 'statement', 'source'], 12);
+  const facts = records(value.confirmedDecisions, ['id', 'statement', 'source'], 24);
   for (const fact of facts) {
     if (!text(fact.statement) || !['current_user_request', 'user_interview'].includes(String(fact.source))) fail();
   }
+  if (Object.hasOwn(value, 'historicalDecisionReferences') && !references(value.historicalDecisionReferences)) fail();
   for (const assumption of records(value.assumptions, ['id', 'statement', 'needsInterview'], 6)) {
     if (!text(assumption.statement) || assumption.needsInterview !== true) fail();
   }
@@ -254,7 +262,7 @@ export function workflowSummary(checkpoint: WorkflowCheckpoint, now = new Date()
 }
 
 /** A Lead briefing, not automatic prompt injection, agent dispatch or an approval. */
-export function workflowContext(checkpoint: WorkflowCheckpoint, now = new Date()) {
+export function workflowContext(checkpoint: WorkflowCheckpoint, now = new Date(), readPlan?: ReturnType<typeof entryReadPlan>) {
   const validated = validateWorkflowCheckpoint(checkpoint);
   const engineering = validated.engineeringContext ? structuredClone(validated.engineeringContext) : null;
   const pending = new Set(engineering?.pendingInterview.map(question => question.id));
@@ -267,20 +275,27 @@ export function workflowContext(checkpoint: WorkflowCheckpoint, now = new Date()
     unresolvedAssumptionsAuthorizeImplementation: false,
     nativeHooksInstalled: false, automaticPerTurnInjectionInstalled: false,
     executesNextStep: false, authorizesProductionEffects: false,
+    ...(readPlan ? { entryReadPlan: structuredClone(readPlan) } : {}),
   };
 }
 
 if (import.meta.main) {
   try {
     const command = process.argv[2] ?? 'status';
-    if (process.argv.length > 3 || !['status', 'doctor', 'context'].includes(command)) throw new Error('invalid_command');
+    if (!['status', 'doctor', 'context'].includes(command)
+      || process.argv.length > (command === 'context' ? 4 : 3)) throw new Error('invalid_command');
+    const purpose = process.argv[3] ?? 'continuation';
+    if (command === 'context' && !isContextPurpose(purpose)) throw new Error('invalid_context_purpose');
     const base = resolve(import.meta.dir, '..');
     const checkpoint = validateWorkflowCheckpoint(JSON.parse(readFileSync(resolve(base, 'handoffs/workflow-current-state.json'), 'utf8')));
     const summary = workflowSummary(checkpoint);
     if (command === 'context') {
-      const context = workflowContext(checkpoint);
+      const routingDocument = JSON.parse(readFileSync(resolve(base, 'docs/workflow-routing.json'), 'utf8')) as { contextReadRouting?: unknown };
+      const plan = entryReadPlan(base, routingDocument.contextReadRouting, purpose as typeof contextPurposes[number],
+        ['engineering_checkpoint', 'routing_contract']);
+      const context = workflowContext(checkpoint, new Date(), plan);
       console.log(JSON.stringify(context, null, 2));
-      process.exitCode = context.freshness === 'future_dated' || context.engineeringFreshness === 'future_dated' ? 1 : 0;
+      process.exitCode = !plan.ok || context.freshness === 'future_dated' || context.engineeringFreshness === 'future_dated' ? 1 : 0;
     } else if (command === 'status') {
       console.log(JSON.stringify(summary, null, 2));
       process.exitCode = summary.freshness === 'future_dated' ? 1 : 0;
@@ -296,7 +311,7 @@ if (import.meta.main) {
   } catch {
     // Do not echo malformed source content or exception bodies into logs.
     console.error(JSON.stringify({ metadataValid: false, reason: 'workflow_check_failed',
-      acceptedCommands: ['status', 'doctor', 'context'], rawContentEmitted: false }));
+      acceptedCommands: ['status', 'doctor', 'context'], acceptedContextPurposes: [...contextPurposes], rawContentEmitted: false }));
     process.exitCode = 1;
   }
 }
