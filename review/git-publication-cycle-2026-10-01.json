@@ -4,7 +4,7 @@
   "observedAtUtc": "2026-10-01T07:52:48.421Z",
   "repository": "park-kyungchan/dc-gang-a",
   "userAuthorization": "Publish all phase-one and phase-two harness work through PR, merge and cleanup; request user action when needed",
-  "status": "blocked_on_github_integration_write_authorization",
+  "status": "write_restored_ready_for_pr_and_ci",
   "source": {
     "branch": "codex/cloud-harness-continuity-2026-10-01",
     "head": "8cf7c8352114414d9293f8cc12a6007a22b79512",
@@ -31,10 +31,12 @@
     "repositorySelection": "all",
     "installationSettings": "https://github.com/settings/installations/104508836",
     "installationPermissions": "not_returned_by_available_installation_metadata",
-    "interpretation": "Actual Git and API writes denied despite account-level metadata. Check installation Contents/Pull requests write grants and pending permission updates; precise missing grant not yet independently visible.",
+    "interpretation": "Installation suspension was the confirmed operational cause; earlier missing-grant hypothesis was not established",
     "networkPolicy": "enforced_restricted",
     "credentialContentsRead": false,
-    "credentialsModified": false
+    "credentialsModified": false,
+    "rootCause": "User reported ChatGPT Codex Connector installation suspended since 2026-07-22, despite read/write grants and all-repository selection",
+    "resolution": "User unsuspended installation; actual CLI git push succeeded without credential or network changes"
   },
   "verification": {
     "cloudCheck": {
@@ -70,10 +72,17 @@
     "Only after verified merge, fast-forward local main, switch to it and delete the merged feature branches; preserve unrelated branches, worktrees and caches."
   ],
   "userAction": {
-    "requested": true,
+    "requested": false,
     "action": "Review installation access and approve pending Contents/Pull requests write permission updates, then confirm completion",
     "tokenInChatRequested": false
   },
-  "remotePublication": "not_performed",
-  "merged": false
+  "remotePublication": "branch_pushed_pr_pending",
+  "merged": false,
+  "recoveryObservedAtUtc": "2026-10-01T07:57:37.829Z",
+  "recovery": {
+    "gitPush": "success",
+    "remoteBranch": "codex/cloud-harness-continuity-2026-10-01",
+    "pushedHead": "baf3ca9da484d3c6a4f826980e46a798129dac95",
+    "userActionComplete": true
+  }
 }
