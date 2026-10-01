@@ -1,8 +1,14 @@
-import { expect, test } from 'bun:test';
+import { afterEach, expect, test } from 'bun:test';
+import { linkSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { resolve } from 'node:path';
 import {
   applyWorkspaceEntry, checkWorkspaceEntry, managedRepositoryPath, managedWorkspaceEntryPath,
-  workspaceEntryContent, type WorkspaceEntryIO,
+  legacyWorkspaceEntryContent, replaceWorkspaceEntryIfUnchanged, workspaceEntryContent, type WorkspaceEntryIO,
 } from '../../harness/workspace_entry';
+
+const roots: string[] = [];
+afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true }); });
 
 function memoryIO(initial: string | null = null) {
   const files = new Map<string, string>();
@@ -22,6 +28,12 @@ function memoryIO(initial: string | null = null) {
       writes.push(path);
       if (files.has(path)) throw Object.assign(new Error('exists'), { code: 'EEXIST' });
       files.set(path, content);
+    },
+    replaceIfUnchanged(path, expected, content) {
+      if (files.get(path) !== expected) return false;
+      writes.push(path);
+      files.set(path, content);
+      return true;
     },
   };
   return { io, files, reads, writes, inspections };
@@ -55,8 +67,30 @@ test('managed install creates only the exact fixed bridge and repeat install is 
   expect(fixture.writes).toEqual([managedWorkspaceEntryPath]);
 });
 
+test('read-only check identifies an exact legacy bridge and apply migrates it once', () => {
+  const fixture = memoryIO(legacyWorkspaceEntryContent);
+  const checked = checkWorkspaceEntry(managedRepositoryPath, fixture.io);
+  expect(checked.status).toBe('outdated');
+  expect(checked.reason).toBe('generated_parent_entry_outdated');
+  expect(checked.ok).toBe(false);
+  expect(checked.changed).toBe(false);
+  expect(fixture.writes).toEqual([]);
+  const updated = applyWorkspaceEntry(managedRepositoryPath, fixture.io);
+  expect(updated.status).toBe('updated');
+  expect(updated.ok).toBe(true);
+  expect(updated.changed).toBe(true);
+  expect(updated.effectivePromptLoaded).toBe('unverified');
+  expect(updated.hooksInstalled).toBe(false);
+  expect(updated.automaticPerTurnInjectionInstalled).toBe(false);
+  expect(fixture.files.get(managedWorkspaceEntryPath)).toBe(workspaceEntryContent);
+  expect(checkWorkspaceEntry(managedRepositoryPath, fixture.io).status).toBe('current');
+  expect(applyWorkspaceEntry(managedRepositoryPath, fixture.io).changed).toBe(false);
+  expect(fixture.writes).toEqual([managedWorkspaceEntryPath]);
+});
+
 test('existing user-authored or edited generated parent guidance is preserved exactly', () => {
-  for (const guidance of ['# Existing user guidance\nKeep my rules.\n', workspaceEntryContent + '\nUser additions.\n', '']) {
+  for (const guidance of ['# Existing user guidance\nKeep my rules.\n', workspaceEntryContent + '\nUser additions.\n',
+    legacyWorkspaceEntryContent + '\nUser additions.\n', legacyWorkspaceEntryContent.replace('Bun 1.4.2', 'Bun 1.4.3'), '']) {
     const fixture = memoryIO(guidance);
     for (const entry of [checkWorkspaceEntry(managedRepositoryPath, fixture.io),
       applyWorkspaceEntry(managedRepositoryPath, fixture.io)]) {
@@ -68,6 +102,56 @@ test('existing user-authored or edited generated parent guidance is preserved ex
     expect(fixture.files.get(managedWorkspaceEntryPath)).toBe(guidance);
     expect(fixture.writes).toEqual([]);
   }
+});
+
+test('a legacy bridge changed before replacement is preserved without retry overwrite', () => {
+  const fixture = memoryIO(legacyWorkspaceEntryContent);
+  const originalReplace = fixture.io.replaceIfUnchanged;
+  fixture.io.replaceIfUnchanged = (path, expected, content) => {
+    expect(expected).toBe(legacyWorkspaceEntryContent);
+    fixture.files.set(path, '# Concurrent user guidance\n');
+    return originalReplace(path, expected, content);
+  };
+  const entry = applyWorkspaceEntry(managedRepositoryPath, fixture.io);
+  expect(entry.status).toBe('conflict');
+  expect(entry.reason).toBe('managed_entry_update_conflict');
+  expect(entry.changed).toBe(false);
+  expect(fixture.files.get(managedWorkspaceEntryPath)).toBe('# Concurrent user guidance\n');
+  expect(fixture.writes).toEqual([]);
+});
+
+test('legacy migration requires successful current-content readback and sanitizes write failures', () => {
+  const unreadback = memoryIO(legacyWorkspaceEntryContent);
+  unreadback.io.replaceIfUnchanged = () => true;
+  const failed = applyWorkspaceEntry(managedRepositoryPath, unreadback.io);
+  expect(failed.status).toBe('conflict');
+  expect(failed.reason).toBe('managed_entry_readback_failed');
+  expect(failed.ok).toBe(false);
+  const unwriteable = memoryIO(legacyWorkspaceEntryContent);
+  unwriteable.io.replaceIfUnchanged = () => { throw new Error('sensitive failure detail'); };
+  expect(applyWorkspaceEntry(managedRepositoryPath, unwriteable.io).reason).toBe('managed_entry_update_failed');
+  expect(unwriteable.files.get(managedWorkspaceEntryPath)).toBe(legacyWorkspaceEntryContent);
+  expect(unwriteable.writes).toEqual([]);
+});
+
+test('disk replacement checks exact bytes and preserves symlinks and hard-linked guidance', () => {
+  const root = mkdtempSync(resolve(tmpdir(), 'dc-gang-a-workspace-entry-'));
+  roots.push(root);
+  const target = resolve(root, 'AGENTS.md');
+  writeFileSync(target, legacyWorkspaceEntryContent);
+  expect(replaceWorkspaceEntryIfUnchanged(target, legacyWorkspaceEntryContent, workspaceEntryContent)).toBe(true);
+  expect(readFileSync(target, 'utf8')).toBe(workspaceEntryContent);
+  writeFileSync(target, legacyWorkspaceEntryContent + '\nUser additions.\n');
+  expect(replaceWorkspaceEntryIfUnchanged(target, legacyWorkspaceEntryContent, workspaceEntryContent)).toBe(false);
+  expect(readFileSync(target, 'utf8')).toBe(legacyWorkspaceEntryContent + '\nUser additions.\n');
+  writeFileSync(target, legacyWorkspaceEntryContent);
+  const symlink = resolve(root, 'symlink.md');
+  symlinkSync(target, symlink);
+  expect(replaceWorkspaceEntryIfUnchanged(symlink, legacyWorkspaceEntryContent, workspaceEntryContent)).toBe(false);
+  const hardlink = resolve(root, 'hardlink.md');
+  linkSync(target, hardlink);
+  expect(replaceWorkspaceEntryIfUnchanged(target, legacyWorkspaceEntryContent, workspaceEntryContent)).toBe(false);
+  expect(readFileSync(hardlink, 'utf8')).toBe(legacyWorkspaceEntryContent);
 });
 
 test('portable and unrelated parent paths are not applicable with no filesystem access', () => {
