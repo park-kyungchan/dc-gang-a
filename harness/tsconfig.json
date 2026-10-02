@@ -17,6 +17,7 @@
     "preclass_preview.ts",
     "codex_model_config.ts",
     "endpoints.ts",
+    "assessment_read.ts",
     "tools/verify_evidence.ts",
     "tools/prepush_audit.ts"
   ],
