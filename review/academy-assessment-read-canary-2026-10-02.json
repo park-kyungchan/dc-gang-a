@@ -62,20 +62,63 @@
   },
   "implementation": [
     "src/lms/assessmentReadProtocol.ts",
+    "src/lms/printedPaperCode.ts",
     "harness/assessment_read.ts",
     "docs/academy-assessment-manual-read-contract.ts"
   ],
   "verification": {
     "focusedCommand": "bun run test:assessment-read",
     "focusedStatus": "passed",
-    "focusedPass": 16,
+    "focusedPass": 21,
     "focusedFail": 0,
-    "focusedAssertions": 43,
+    "focusedAssertions": 77,
     "portableCommand": "bun run cloud:check",
     "portableStatus": "passed_with_one_existing_optional_dependency_skip",
     "review": "Lead self-review; no independent worker dispatched",
     "productionOrTeacherAcceptance": "not_established_for_full_p2"
   },
+  "subsequentVerification": [
+    {
+      "observedAtUtc": "2026-10-02T09:28:52.822Z",
+      "kind": "printed_paper_code_and_image_reference_review",
+      "previousFocusedPass": 16,
+      "paperCodeProtocol": {
+        "source": "Captured academy /jsutil/module.js: MODULE.Util.codeToKey/keyToCode, D32ToD10/D10ToD32",
+        "prefix": "#",
+        "alphabet": "23456789ABCDEFGHJKLMNPQRSTUVWXYZ",
+        "base": 32,
+        "rule": "A display representation of a paper key, not an independent student/attempt/lesson identity. Validate before lookup; refuse trimming, case folding, invalid-character skipping, leading zero digits and unsafe numeric values.",
+        "suppliedLiteralRoundTripMatched": true,
+        "decodedKeyMatchedCapturedPaperKey": true,
+        "decodedKeyMatchedCurrentStudentAttemptRead": true,
+        "actualLiteralAndKeys": "excluded_private_student_evidence"
+      },
+      "liveCanary": {
+        "requestedTargets": 2,
+        "observedTargets": 2,
+        "blockedTargets": 0,
+        "readerNowReturnsDerivedPaperCode": true,
+        "unsupportedPaperRepresentation": "Original paper key is preserved with paperCode=null rather than repaired.",
+        "durationsMs": [614.3999999761581, 643.8000000715256]
+      },
+      "imageEvidence": {
+        "suppliedImages": 5,
+        "processedImages": 5,
+        "distinctObservedHeaderGroups": 6,
+        "visibleItemAdjacentReferences": 12,
+        "locallyDecodedQrReferencesMatched": 9,
+        "qrLinksFollowed": false,
+        "interpretation": "Header combinations and item-adjacent references only; not a certified count of unique physical/generated clinics, complete question inventory or teacher inspection. Original images and minimized image observations remain private and are not committed."
+      },
+      "scopedHistoryProbe": {
+        "operation": "DtResultSearch",
+        "periodField": "sort_date=11 (recent one month)",
+        "exactSubjectRowsObserved": 7,
+        "photographedGaussDavinciClinicSourceBindings": "not_verified",
+        "interpretation": "Only observed exact-subject rows. No absence/completeness claim or clinic creation; the missing source family/join remains unresolved."
+      }
+    }
+  ],
   "remainingGates": [
     "Browser-independent unattended secure authentication/renewal interface is not available through this adapter; native vault remains manual invocation.",
     "Exact LMS occurrence/date, complete roster/pagination, homework/prestudy/application joins and full classroom-cycle trace remain separate work.",

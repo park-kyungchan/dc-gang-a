@@ -28,7 +28,7 @@ export const manualAssessmentReadContract = {
       command: 'getStudyResultSingleTestingSingleUser', bodyFields: ['p_process', 'condition'], semanticEffect: 'existing_score_rendering' },
   ],
   renderingFlags: { score: 1, incorrect: 0, similar: 0, advance: 0, report: 0 },
-  implementation: ['src/lms/assessmentReadProtocol.ts', 'harness/assessment_read.ts'],
+  implementation: ['src/lms/assessmentReadProtocol.ts', 'src/lms/printedPaperCode.ts', 'harness/assessment_read.ts'],
   runbook: [
     'Use current task admission and user-supplied captures or an independently verified exact target. Raw HAR remains private; never load headers/cookies into output, copy captured requests or commit real student evidence.',
     'Run bun run academy:read-prepare --har <PRIVATE_CAPTURE.har> [--har <SECOND_PRIVATE_CAPTURE.har>] --teacher <AUTHORIZED_TEACHER_LABEL> --admit-score-view --output <ACTIVE_HERMES_HOME>/cache/scratch/<UNIQUE_SCRIPT.js>. The CLI performs no network requests and refuses overwriting an existing script.',
@@ -37,6 +37,7 @@ export const manualAssessmentReadContract = {
     'Evaluate the owned prepared expression with native js immediately after authentication; this sends allowlisted same-origin POSTs using browser-managed credentials and never extracts or exports cookies. Print only minimized requested facts and blocked states, never keys, original bodies, answers or media.',
     'The adapter searches recent one week (sort_date=1), requires one exact student+attempt+name match and reads only that score view. It never invokes the site native Print/WebSocket command, a clinic/report renderer, grade save or messaging action.',
     'Numeric JSON student/attempt wire keys are required by the observed renderer. The adapter rejects noncanonical, leading-zero or unsafe keys instead of silently changing identity. Search/detail score disagreement, duplicate items or unknown O/X enums fail closed.',
+    'Use decodePaperCode/encodePaperCode for the reviewed # paper-key display representation. The site module.js codeToKey/keyToCode delegates to a custom 32-digit alphabet, not RFC base32 or base36. Validate the entire literal token before looking up its decoded source key; do not trim, uppercase, skip invalid characters or collapse leading zero digits. A mathematical conversion is not student/attempt/lesson join proof. The current reader derives paperCode only from representable exact paper keys and otherwise preserves the original key with paperCode=null.',
     'Reuse prepareAssessmentRead/readAssessmentBatch for admitted continuations. No new HAR is inherently required for every read when a protected verified identity source is available; such a source is not installed by this change.',
   ],
   verification: {
@@ -54,6 +55,7 @@ export const manualAssessmentReadContract = {
     'A transient live HTTP failure occurred before a later successful read. Automatic retries are disabled; successful targets remain visible when another target is blocked. No synthetic fallback substitutes for a failed read.',
     'Server score is preserved literally and is not recomputed from a simple correct-item percentage. Actual conceptual understanding and app-input correctness still require teacher inspection.',
     'Global endpointCatalog and legacy live services remain fail-closed. This narrow manual reader does not activate all historical routes, prestudy inspections/comments or clinic generation.',
+    'Photographed clinic headers, item-adjacent numbers/QR payloads and original assessment paper codes have different grains. Decoding a paper code does not identify a generated clinic, prove all photographed pages or establish teacher inspection. A bounded recent-month search did not supply the photographed Gauss/Davinci clinic source bindings; that missing join remains unresolved, not absent.',
   ],
   recovery: [
     'On authentication failure stop and use the native vault/2FA workflow; never expose credentials or extract a session.',

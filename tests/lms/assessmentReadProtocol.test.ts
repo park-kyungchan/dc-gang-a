@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import { buildBrowserAssessmentRead, inspectAssessmentCapture, parseAssessmentSearch, prepareAssessmentRead, readAssessmentBatch } from '../../src/lms/assessmentReadProtocol';
+import { encodePaperCode } from '../../src/lms/printedPaperCode';
 
 function capture() {
   const condition = { testing_no: 8101, pri_no: 9101, student_name: 'Invented Student',
@@ -38,7 +39,7 @@ describe('assessment read protocol', () => {
     const result = await readAssessmentBatch([{ studentKey: '9101', attemptKey: '8101', studentName: 'Invented Student' }],
       { origin: 'https://dc.gang-a.kr', authenticatedTeacherVisible: true, scoreViewAdmission: true, fetcher });
     expect(result).toHaveLength(1);
-    expect(result[0]).toMatchObject({ status: 'observed', score: 73, itemCount: 2, correctCount: 1, wrongCount: 1,
+    expect(result[0]).toMatchObject({ status: 'observed', paperCode: encodePaperCode('7101'), score: 73, itemCount: 2, correctCount: 1, wrongCount: 1,
       sourceTimestamp: null, lessonOccurrence: 'unverified', authenticationMode: 'browser_managed_manual' });
     expect(calls).toHaveLength(2);
     expect(calls[0]!.url).toBe('/servlet/controller.dailyzerotest.DailyZeroTestServlet?reqCmd=DtResultSearch');
@@ -150,5 +151,15 @@ describe('assessment read protocol', () => {
     expect(prepared.summary).toEqual({ sourceCaptureCount: 2, capturedViewCount: 2, targetCount: 1, requestsExecuted: 0 });
     expect(JSON.stringify(prepared.summary)).not.toContain('Invented Student');
     expect(prepared.expression).not.toContain('DO_NOT_EMIT_SYNTHETIC_SECRET');
+  });
+
+  it('keeps a noncanonical paper key without inventing a normalized print code', async () => {
+    let calls = 0;
+    const fetcher = async () => new Response(++calls === 1
+      ? `<script>EXTERN_DIALOG={testResultList:JSON.parse('[{"pNo":"0071","score":73,"testingNo":8101,"priNo":9101,"userName":"Invented Student"}]')}</script>`
+      : capture().log.entries[0]!.response.content.text);
+    const result = await readAssessmentBatch([{ studentKey: '9101', attemptKey: '8101', studentName: 'Invented Student' }], {
+      origin: 'https://dc.gang-a.kr', authenticatedTeacherVisible: true, scoreViewAdmission: true, fetcher });
+    expect(result[0]).toMatchObject({ status: 'observed', paperKey: '0071', paperCode: null });
   });
 });
