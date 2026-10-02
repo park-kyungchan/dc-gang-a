@@ -1,4 +1,5 @@
 /** Credential-free capture analysis and explicitly admitted manual same-origin result reads. */
+import { encodePaperCode, PAPER_CODE_ALPHABET } from './printedPaperCode';
 const ORIGIN = 'https://dc.gang-a.kr';
 const DETAIL_PATH = '/servlet/controller.common.TestpageSelectExServlet';
 const DETAIL_COMMAND = 'getStudyResultSingleTestingSingleUser';
@@ -35,6 +36,8 @@ export function buildBrowserAssessmentRead(targets: AssessmentReadTarget[], teac
     const ORIGIN = ${JSON.stringify(ORIGIN)};
     const DETAIL_PATH = ${JSON.stringify(DETAIL_PATH)};
     const DETAIL_COMMAND = ${JSON.stringify(DETAIL_COMMAND)};
+    const PAPER_CODE_ALPHABET = ${JSON.stringify(PAPER_CODE_ALPHABET)};
+    ${encodePaperCode.toString()}
     ${object.toString()}
     ${sourceKey.toString()}
     ${renderKey.toString()}
@@ -63,6 +66,8 @@ export interface AssessmentReadEnvironment {
 export interface AssessmentObservation extends AssessmentReadTarget {
   status: 'observed';
   paperKey: string;
+  /** Derived display representation; null preserves unsupported source representations without repair. */
+  paperCode: string | null;
   score: number;
   itemCount: number;
   correctCount: number;
@@ -118,7 +123,9 @@ export async function readAssessmentBatch(
       const detailText = await post(DETAIL_PATH, { p_process: DETAIL_COMMAND, condition: JSON.stringify(condition) });
       const detail = parseScoreView(JSON.parse(detailText), target);
       if (detail.score !== row.score) throw new Error('search_detail_score_conflict');
-      return { ...target, ...detail, status: 'observed', paperKey: row.paperKey,
+      const paperCode = /^[1-9][0-9]{0,15}$/.test(row.paperKey) && BigInt(row.paperKey) <= BigInt(Number.MAX_SAFE_INTEGER)
+        ? encodePaperCode(row.paperKey) : null;
+      return { ...target, ...detail, status: 'observed', paperKey: row.paperKey, paperCode,
         observedAt: new Date().toISOString(), durationMs: performance.now() - start,
         sourceTimestamp: null, lessonOccurrence: 'unverified', authenticationMode: 'browser_managed_manual' };
     } catch (error) {
