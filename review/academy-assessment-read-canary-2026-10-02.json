@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "kind": "sanitized_bounded_live_assessment_canary",
+  "dateKst": "2026-10-02",
+  "status": "two_manual_targets_observed_not_full_p2_acceptance",
+  "admissionSource": "current_user_task_and_teacher_confirmation_of_existing_score_results_view",
+  "origin": "https://dc.gang-a.kr",
+  "privateEvidence": "Two user-provided HAR captures retained only in the active profile attachments; names, opaque keys, grades, answers, media and raw headers/bodies are excluded from this receipt.",
+  "captureAnalysis": {
+    "captureCount": 2,
+    "observedScoreViewResponses": 5,
+    "uniqueStudentAttemptTargets": 2,
+    "overlap": "Second capture includes the earlier target's responses; deduplicated by exact student and attempt keys, not filename or display name.",
+    "teacherReportAgreement": true
+  },
+  "manualAuthentication": {
+    "channel": "native_browser_and_profile_vault",
+    "teacherLogoutMarkerObserved": true,
+    "passwordOrCookieExported": false,
+    "genericSubmitPreviouslyInsufficient": true,
+    "workingHandler": ".webSend click -> formCheck(web) -> LoginServlet p_process=c_login",
+    "browserInactivityCleanupObserved": true,
+    "unattendedSessionProvider": "not_verified"
+  },
+  "liveRead": {
+    "observedAtUtc": "2026-10-02T08:14:56.432Z",
+    "requestedTargets": 2,
+    "observedTargets": 2,
+    "blockedTargets": 0,
+    "currentSearchToCaptureKeyAgreement": true,
+    "currentSearchToScoreViewAgreement": true,
+    "currentItemTotalsToTeacherReportAgreement": true,
+    "requestsPerTarget": 2,
+    "durationsMs": [663.9000000953674, 640.5999999046326],
+    "durationMeaning": "One manual two-target sample with parallel target acquisition, excluding authentication and offline preparation; not an SLA or a measured improvement over a competing design.",
+    "sourceGradeTimestamp": "not_returned",
+    "exactLessonOccurrence": "unverified"
+  },
+  "wireFindings": [
+    "DtResultSearch is the teacher-used POST search with sort_date and stu_name. sort_date=1 means recent one week, not today's date.",
+    "The observed result list has pNo, score, testingNo, priNo, _id and userName. Match exact source student/attempt keys and name; do not certify from a name-only row.",
+    "getStudyResultSingleTestingSingleUser accepts score-view condition with numeric testing_no and pri_no. A probe using textual keys returned HTTP 200 HTML; the numeric-key probe returned OK JSON. HTTP 200 alone is insufficient.",
+    "The score-view condition explicitly sets score.create=1 and incorrect/similar/advance/report.create=0. The teacher confirmed this view shows already-graded results. No grading-save payload was used.",
+    "Returned print_list is consumed by module.js for a native Print command. The reader consumes JSON only and never invokes native Print/WebSocket or clinic/report generation.",
+    "Source score is preserved literally; correct-item fraction is not used to rewrite it."
+  ],
+  "failuresRetained": [
+    "Historical local resume gate returned stale_index; expiry was not overridden.",
+    "Idle native browser cleanup removed the tab/authentication between engineering steps; secure sign-in was repeated without changing engine/configuration or extracting sessions.",
+    "The initial reader sent textual JSON keys and received non-JSON HTML from the renderer. The numeric wire contract was confirmed with a controlled comparison and a red-green regression test.",
+    "A separate live batch returned assessment_transport_failed before a later successful read; exact status/root cause was not captured in that attempt. Partial-result preservation was added and tested; no automatic retry or synthetic fallback was enabled."
+  ],
+  "effects": {
+    "actualGradeSaveInvoked": false,
+    "clinicGenerationInvoked": false,
+    "nativePrintInvoked": false,
+    "prestudyInspectionInvoked": false,
+    "sheetOrDayRecordWriteInvoked": false,
+    "parentSendingInvoked": false,
+    "servicesSchedulesProvisioningOrDatabaseMigration": false,
+    "directServerImplementationOrDbTrace": "not_available"
+  },
+  "implementation": [
+    "src/lms/assessmentReadProtocol.ts",
+    "harness/assessment_read.ts",
+    "docs/academy-assessment-manual-read-contract.ts"
+  ],
+  "verification": {
+    "focusedCommand": "bun run test:assessment-read",
+    "focusedStatus": "passed",
+    "focusedPass": 16,
+    "focusedFail": 0,
+    "focusedAssertions": 43,
+    "portableCommand": "bun run cloud:check",
+    "portableStatus": "passed_with_one_existing_optional_dependency_skip",
+    "review": "Lead self-review; no independent worker dispatched",
+    "productionOrTeacherAcceptance": "not_established_for_full_p2"
+  },
+  "remainingGates": [
+    "Browser-independent unattended secure authentication/renewal interface is not available through this adapter; native vault remains manual invocation.",
+    "Exact LMS occurrence/date, complete roster/pagination, homework/prestudy/application joins and full classroom-cycle trace remain separate work.",
+    "No approved protected production history store or migration has been selected.",
+    "Reverse engineering of prestudy inspection transitions and clinic selection remains incomplete; do not expand the score-view contract by analogy."
+  ]
+}

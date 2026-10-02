@@ -149,7 +149,7 @@
   ],
   "engineeringContext": {
     "schemaVersion": 1,
-    "updatedAtUtc": "2026-10-01T10:52:21Z",
+    "updatedAtUtc": "2026-10-02T08:19:28Z",
     "objective": "On the Hermes Linux Backend, P0 setup and P1 PR 7 are complete; preserve PR 6. P2 date-first all-student review is the first product Ontology consumer: academy DayRecord evidence plus attributable Main/profile supplements. Main is the frontend; retained history needs a separately selected protected Backend store. Verify current reads and all five trailing visible tabs before migration. Product Ontology starts now; expanded personal mathematics KG and provider comparison follow stable P2/Main operation. Academy access, complete live sources and production migration remain unverified.",
     "priorityOrder": [
       "continuity_lead_governance",
@@ -280,7 +280,7 @@
       },
       {
         "id": "backend_autonomous_goals",
-        "statement": "Use autonomous completion of each approved goal, intervening only for consequential decisions, authority change or an actual blocker. Operating schedules must be separately verified before activation; no unbounded background development or new worker/job admission follows.",
+        "statement": "Use autonomous completion of each approved goal, intervening only for consequential decisions, authority change or an actual blocker. Operating schedules must be separately verified before activation; no unbounded background development or new worker/job admission follows. The user assigned the current classroom raw-data session to implement the separate read-only assessment automation work and carry results to the active P2 session. The teacher identified the captured score-view button as displaying already-graded results, not saving grades. No clinic generation, official record mutation, scheduler or production storage follows.",
         "source": "user_interview"
       },
       {
@@ -323,6 +323,18 @@
     ],
     "dispatch": [],
     "nextSteps": [
+      {
+        "id": "manual_assessment_read_continuation",
+        "owner": "lead",
+        "action": "validate_confirmed_changes",
+        "referencePaths": [
+          "docs/academy-assessment-manual-read-contract.ts",
+          "review/academy-assessment-read-canary-2026-10-02.json",
+          "src/lms/assessmentReadProtocol.ts",
+          "harness/assessment_read.ts"
+        ],
+        "dependsOnQuestionIds": []
+      },
       {
         "id": "verify_p2_source_and_sheet_contracts",
         "owner": "lead",
