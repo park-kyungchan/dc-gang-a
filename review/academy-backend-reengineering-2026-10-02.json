@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded_backend_reengineering_source_and_query_result",
+  "status": "source_unit_verified_full_backend_and_p2_acceptance_unresolved",
+  "scope": "Academy-wide teacher-accessible interface inventory; current fixed-document source observations and deterministic query integration. No physical server/database or native-app-only completeness claim.",
+  "implementation": [
+    "src/lms/backendSourceEvidence.ts",
+    "src/lms/endpointCatalog.ts",
+    "harness/endpoints.ts",
+    "tests/lms/backendCoverage.test.ts",
+    "docs/academy-backend-reengineering-contract.ts"
+  ],
+  "evidence": {
+    "path": "docs/academy-backend-source-survey-2026-10-02.json",
+    "sha256": "3c216a95585f498d42d9a4b96c744b786cc2835c259ebd30d03cbbb8639637d2",
+    "staticCatalogEntries": 95,
+    "canonicalEntries": 54,
+    "sourceCandidateEntries": 41,
+    "catalogFamilies": 17,
+    "fixedDocumentsObserved": 18,
+    "fixedDocumentsRequested": 18,
+    "publicScriptAssetsObserved": 3,
+    "uniqueSelectorTokens": 71,
+    "sourceDeclarationOccurrences": 175,
+    "sharedExactTraceGroups": 6,
+    "lineMeaning": "One-based lines in the collector's concatenated inline script source, not deployed Java file or database locations.",
+    "notEstablished": [
+      "Every source declaration is a unique, live, safely callable backend operation.",
+      "A complete row/field/pagination or same-student lesson/course/attempt relation.",
+      "Native-app-only endpoint corpus, physical production DB schema or server implementation.",
+      "Current immutable grading time, conceptual mastery, correction completion or parent delivery receipt."
+    ]
+  },
+  "sourceFindings": [
+    "Current StudentGetList declaration in StudySchedule/onChangeClass points to controller.admin.college.usermng.UserSearchServlet; it is not joined to every CourseManageServlet path on the same page.",
+    "Several form action attributes are absent and are assigned by JavaScript handlers. A DOMParser-reflected form.action inherited from the analysis context is not an observed wire destination.",
+    "AjaxUpdateDate/State/Score/CourseState, schedule/group modifications, cancellation and clinic creation are source-visible but were not invoked.",
+    "Page-level read classification never becomes the effect of an internal selector declaration; declaration query rows remain unknown/blocked.",
+    "The merged manual assessment and strict printed-paper-code work remains separately preserved under PR 10. The new source query does not activate its variants or any legacy live pipeline."
+  ],
+  "publicQueriesExercised": [
+    "bun run endpoint:query --projection coverage",
+    "bun run endpoint:query --operation StudentGetList --projection declarations",
+    "Exact endpoint full projection through endpointCli and source-binding/refusal tests"
+  ],
+  "validation": {
+    "portableCommand": "bun --no-env-file run cloud:check",
+    "portableExitCode": 0,
+    "passedTestExecutions": 753,
+    "failedTestExecutions": 0,
+    "skippedTestExecutions": 1,
+    "skipMeaning": "Existing optional Poppler-dependent case; not hidden live acceptance.",
+    "typechecks": "Root, harness and agent-runtime portable typechecks passed.",
+    "review": "Lead self-review and executed synthetic/source-integrity gates; no independent reviewer dispatched.",
+    "preservedFailures": [
+      "Initial expected login/origin checks refused an idle-cleaned document.",
+      "Default native CDP IPC wait timed out after 5 seconds; supported per-call wait was used without an engine/configuration edit.",
+      "Initial complete JSON display was clipped; the retained full tool output was parsed locally, separating the native CWD trailer before derivative publication.",
+      "A 643-character checkpoint objective failed the existing 640-character metadata limit; the objective was shortened, not the validator weakened.",
+      "RED cases caught missing coverage/source/declaration features, unvalidated shared source membership, inherited page effect and wrong destination enrichment."
+    ]
+  },
+  "effects": {
+    "authenticatedSourceDocumentReads": "Reviewed fixed GET views with teacher-binding preflight; source-only extraction, no form replay.",
+    "credentialsExported": false,
+    "studentValuesPersistedInPublicArtifact": false,
+    "discoveredOperationsInvoked": false,
+    "gradeOrOfficialRecordWrites": false,
+    "nativePrintOrPaperClinicGeneration": false,
+    "sheetWriteOrParentSend": false,
+    "runtimeConfigurationOrInstalledEngineChanges": false,
+    "newWorkersServicesSchedulesAccountsOrProductionDatabases": false
+  },
+  "remainingBoundaries": [
+    "Private canonical roster remains unavailable; no invented canonical student or all-class completion claim.",
+    "Complete operation-specific wire/response fields, side effects, callback chains and pagination remain open where source-only.",
+    "App-origin/native-device protocol evidence and physical DB/server evidence require their exact authorized source; teacher-site shells cannot substitute.",
+    "Actual protected student-history destination, live P2 cohort acceptance, Main projection/write envelope and independent delivery remain pending."
+  ],
+  "recovery": "Revert only owned source changes after source/consumer review. Preserve frozen canonical evidence, PR 6, completed prior work and private teacher originals. An authentication failure stops only that live lane, not independent source work."
+}

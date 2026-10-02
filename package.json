@@ -12,7 +12,7 @@
     "test:assessment-read": "bun test --dots tests/lms/assessmentReadProtocol.test.ts tests/harness/assessmentReadCli.test.ts tests/lms/printedPaperCode.test.ts",
     "test:learning": "bun test --dots tests/learning/learningCore.test.ts tests/learning/weeklyLearning.test.ts",
     "test:learning-projection": "bun test --dots tests/sheets/learningViewProjection.test.ts",
-    "test:endpoint-catalog": "bun test --dots tests/lms/endpointCatalog.test.ts",
+    "test:endpoint-catalog": "bun test --dots tests/lms/endpointCatalog.test.ts tests/lms/backendCoverage.test.ts",
     "test:backend": "bun test --dots tests/backend/googleReadAdapter.test.ts tests/backend/pdfExtraction.test.ts tests/backend/dependencyDoctor.test.ts",
     "test:workflow": "bun test --dots tests/harness/workflowCheckpoint.test.ts tests/harness/contextRouting.test.ts tests/harness/workspaceEntry.test.ts tests/harness/hermesBackendProfile.test.ts tests/lms/academyReadAcceptance.test.ts tests/lms/lessonJournalReviewBundle.test.ts tests/sheets/deployedMainRefresh.test.ts tests/sheets/nativePreservationPreview.test.ts",
     "test:storage": "bun test --dots tests/storage/syntheticLearningSqlite.test.ts",

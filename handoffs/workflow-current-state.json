@@ -145,12 +145,18 @@
       "location": "project_docs",
       "sha256": "dedc291f2fd4c2e3ee51121a3af8268854169965a7fde310dbdb85960e2115fe",
       "kind": "derived_preservation_preview"
+    },
+    {
+      "fileName": "academy-backend-source-survey-2026-10-02.json",
+      "location": "project_docs",
+      "sha256": "3c216a95585f498d42d9a4b96c744b786cc2835c259ebd30d03cbbb8639637d2",
+      "kind": "sanitized_live_metadata_receipt"
     }
   ],
   "engineeringContext": {
     "schemaVersion": 1,
-    "updatedAtUtc": "2026-10-02T08:19:28Z",
-    "objective": "On the Hermes Linux Backend, P0 setup and P1 PR 7 are complete; preserve PR 6. P2 date-first all-student review is the first product Ontology consumer: academy DayRecord evidence plus attributable Main/profile supplements. Main is the frontend; retained history needs a separately selected protected Backend store. Verify current reads and all five trailing visible tabs before migration. Product Ontology starts now; expanded personal mathematics KG and provider comparison follow stable P2/Main operation. Academy access, complete live sources and production migration remain unverified.",
+    "updatedAtUtc": "2026-10-02T10:47:08Z",
+    "objective": "On the Hermes Linux Backend, retain completed P0/P1 and PR 8/10; preserve PR 6. Resume academy-wide Backend interface reverse engineering as the P2 evidence foundation. The static catalog covers 95 entries in 17 families; 18 fixed documents and three public scripts have fresh source observations, not complete data/effect proof. Use endpoint:query coverage/declarations rather than rediscovery. Current roster/lesson/app joins, native-app protocols and physical DB internals remain unresolved. P2 product Ontology and single-Main review remain the consumer; no broader platform/runtime, worker, migration or production write follows.",
     "priorityOrder": [
       "continuity_lead_governance",
       "development_test_feedback",
@@ -235,7 +241,7 @@
       },
       {
         "id": "preclass_source_coverage",
-        "statement": "Use academy DayRecord records as the official homework basis; combine attributable additions entered in Park Main or dc-gang-a-dev sessions for regular-lesson preparation without rewriting source facts. Show every scheduled occurrence, homework range, matching prestudy, attempts/backend grading, correction/video and teacher notes. The user reports entering/finalizing DayRecord and sending parents; actual delivery receipts remain independently unverified.",
+        "statement": "Use academy DayRecord as the official homework basis and attributable Main/session supplements separately. A clear teacher instruction with exact subject, lesson date and content is approval evidence for a supplement; discussions or ambiguous scope stay draft. Show all scheduled occurrences, homework/prestudy/attempts/backend grading/correction/video and notes. Teacher solution inspection determines correction completion without app answer re-entry; preserve the initial app grade separately. Official finalization and parent sending remain human-owned; delivery receipts are unverified.",
         "source": "user_interview"
       },
       {
@@ -245,7 +251,7 @@
       },
       {
         "id": "student_database_direction",
-        "statement": "Existing student/week/occurrence/edition/unit/page/question granularity is settled. Main is the frontend, not the canonical revision database. Classify retained teacher/source/review histories for a protected Hermes Backend store without copying raw sessions or creating per-student tabs. Production storage architecture, resource identity, access and restore policy remain unselected and require consequential interview before provisioning or data migration. Current synthetic SQLite is not production storage.",
+        "statement": "Student/week/occurrence/edition/unit/page/question granularity is settled. Main is the frontend, not the revision DB. Future student evidence, notes and approval/correction histories are teacher-only plus agents separately admitted to that task. Shared/common Profiles and Leads receive minimized contracts/verification, not student raw material. Do not bulk-copy sessions or create per-student tabs. Actual protected resource, retention for raw academy snapshots, access and restore remain unselected; no provisioning or migration is admitted. Synthetic SQLite is not production storage.",
         "source": "current_user_request"
       },
       {
@@ -285,7 +291,7 @@
       },
       {
         "id": "backend_ontology_reuse",
-        "statement": "Reuse the Ontology workstream’s already verified continuity procedures and shared foundation instead of rebuilding them. The Lead helps prioritize incomplete requests through Whole-Lens decisions; knowledge reuse is not proof of automatic cross-profile synchronization.",
+        "statement": "Focus common Ontology reuse inside the P2 consumer; defer broader platform expansion. Shared knowledge, executed code reuse and product acceptance are separate claims. The accepted CTX02 public CLI/artifact schema is default/Backend-Project-bound and must not be impersonated or bypassed. Only qualified pure functions/owner-approved portable seams can be reused; request exact common-owner gaps rather than editing another Profile. No automatic cross-profile synchronization or state mirror is admitted.",
         "source": "user_interview"
       },
       {
@@ -316,13 +322,27 @@
       },
       {
         "id": "protected_history_storage_boundary",
-        "question": "Before copying actual student/source history, what teacher-only audience and retention boundary should govern official-source snapshots, session/Main supplements, approvals and later corrections? The Lead will propose a resource, architecture and restore path rather than ask the teacher to design plumbing.",
+        "question": "Teacher-only plus separately admitted task agents is confirmed. Before real history retention, the Lead must propose the exact protected destination, raw academy snapshot retention, source selection, access and restore evidence; existing note/review retention intent remains. No actual data copying or provisioning follows from audience agreement.",
         "dependentWork": "production_history_storage",
         "state": "not_asked"
       }
     ],
     "dispatch": [],
     "nextSteps": [
+      {
+        "id": "backend_interface_contract_continuation",
+        "owner": "lead",
+        "action": "validate_confirmed_changes",
+        "referencePaths": [
+          "docs/academy-backend-reengineering-contract.ts",
+          "docs/academy-backend-source-survey-2026-10-02.json",
+          "src/lms/backendSourceEvidence.ts",
+          "src/lms/endpointCatalog.ts",
+          "tests/lms/backendCoverage.test.ts",
+          "review/academy-backend-reengineering-2026-10-02.json"
+        ],
+        "dependsOnQuestionIds": []
+      },
       {
         "id": "manual_assessment_read_continuation",
         "owner": "lead",
