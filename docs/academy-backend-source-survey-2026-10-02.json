@@ -1,0 +1,3243 @@
+{
+  "schemaVersion": 1,
+  "kind": "sanitized_deployed_backend_source_survey",
+  "origin": "https://dc.gang-a.kr",
+  "observedOnKst": "2026-10-02",
+  "summary": {
+    "requestedFixedDocuments": 18,
+    "observedFixedDocuments": 18,
+    "uniqueSelectorTokens": 71,
+    "sourceDeclarationOccurrences": 175,
+    "publicScriptAssets": 3,
+    "sharedDeclarationGroups": 6
+  },
+  "collection": {
+    "mode": "backend_http_and_inert_document_source",
+    "teacherBindingVerifiedBeforeFixedReads": true,
+    "credentials": "native_browser_managed_never_exported",
+    "formsSubmitted": false,
+    "discoveredOperationsInvoked": false,
+    "rawBodiesPersisted": false,
+    "studentValuesPersisted": false,
+    "sharedChromeDeduplication": "Exact equal trace metadata only; not semantic or route aliasing"
+  },
+  "documents": [
+    {
+      "id": "alimtalk_history",
+      "path": "/servlet/controller.appui.alimtalk.AlimtalkServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:40.195Z",
+      "bytes": 48589,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        }
+      ],
+      "inputNames": [
+        "fran_no",
+        "lecture_key",
+        "mem_type",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "send_month",
+        "student_name",
+        "template_code"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "AlimtalkList",
+        "Main",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "cancelAlimtalk",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.appui.alimtalk.AlimtalkServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "onReload",
+          "line": 804,
+          "selectorTokens": [
+            "AlimtalkList"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.appui.alimtalk.AlimtalkServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onCancel",
+          "line": 825,
+          "selectorTokens": [
+            "cancelAlimtalk"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.appui.alimtalk.AlimtalkServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 1,
+      "rowCount": 4,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "attendance_history",
+      "path": "/servlet/controller.cct.tutor.AttendanceServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:31.476Z",
+      "bytes": 49933,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        },
+        {
+          "name": null,
+          "id": "form1",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "grp_seq",
+            "name",
+            "p_process",
+            "sdate",
+            "stu_obj",
+            "tutor_pri_no",
+            "ym"
+          ]
+        }
+      ],
+      "inputNames": [
+        "fran_no",
+        "grp_seq",
+        "lecture_key",
+        "mem_type",
+        "name",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "sdate",
+        "stu_obj",
+        "tutor_pri_no",
+        "ym"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "Main",
+        "PasswordMain",
+        "SearchStu",
+        "SessionChangeLectureStatusSkip",
+        "Udt",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.cct.tutor.AttendanceServlet",
+        "/servlet/controller.cct.tutor.CourseGroupServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "onUdt",
+          "line": 887,
+          "selectorTokens": [
+            "Udt"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseGroupServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onSearchStu",
+          "line": 896,
+          "selectorTokens": [
+            "SearchStu"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.AttendanceServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onReload",
+          "line": 995,
+          "selectorTokens": [
+            "Main"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.AttendanceServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 1,
+      "rowCount": 1,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "course_group",
+      "path": "/servlet/controller.cct.tutor.CourseGroupServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:30.963Z",
+      "bytes": 50687,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        },
+        {
+          "name": "form1",
+          "id": "form1",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "grp_nm_1",
+            "grp_nm_2",
+            "grp_nm_3",
+            "grp_nm_4",
+            "grp_nm_5",
+            "grp_nm_i1",
+            "grp_seq",
+            "grp_seq_1",
+            "grp_seq_2",
+            "grp_seq_3",
+            "grp_seq_4",
+            "grp_seq_5",
+            "grp_seq_i1",
+            "p_process",
+            "sort_no_1",
+            "sort_no_2",
+            "sort_no_3",
+            "sort_no_4",
+            "sort_no_5",
+            "sort_no_i1",
+            "tutor_pri_no"
+          ]
+        }
+      ],
+      "inputNames": [
+        "fran_no",
+        "grp_nm_1",
+        "grp_nm_2",
+        "grp_nm_3",
+        "grp_nm_4",
+        "grp_nm_5",
+        "grp_nm_i1",
+        "grp_seq",
+        "grp_seq_1",
+        "grp_seq_2",
+        "grp_seq_3",
+        "grp_seq_4",
+        "grp_seq_5",
+        "grp_seq_i1",
+        "lecture_key",
+        "mem_type",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "sort_no_1",
+        "sort_no_2",
+        "sort_no_3",
+        "sort_no_4",
+        "sort_no_5",
+        "sort_no_i1",
+        "tutor_pri_no"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "ChkDel",
+        "Del",
+        "Ins",
+        "Main",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "Udt",
+        "UdtYn",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.cct.tutor.CourseGroupServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "onIns",
+          "line": 808,
+          "selectorTokens": [
+            "Ins"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseGroupServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onDel",
+          "line": 833,
+          "selectorTokens": [
+            "ChkDel"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseGroupServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "chkDelCallback",
+          "line": 851,
+          "selectorTokens": [
+            "Del",
+            "UdtYn"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseGroupServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onUdt",
+          "line": 886,
+          "selectorTokens": [
+            "Udt"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseGroupServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onReload",
+          "line": 901,
+          "selectorTokens": [
+            "Main"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseGroupServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 1,
+      "rowCount": 7,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "course_schedule",
+      "path": "/servlet/controller.cct.tutor.CourseScheduleServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:30.433Z",
+      "bytes": 81436,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        },
+        {
+          "name": "form1",
+          "id": "form1",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "attdn",
+            "chn_grp",
+            "cm_seq",
+            "course_nm",
+            "course_seq",
+            "fdate",
+            "fymd",
+            "grp_seq",
+            "p_process",
+            "record_seq",
+            "sel_grp_seq",
+            "status",
+            "stu_memo",
+            "stu_nm",
+            "stu_pri_no",
+            "tdate",
+            "todo_memo",
+            "tut_memo",
+            "tutor_pri_no",
+            "tymd",
+            "week"
+          ]
+        }
+      ],
+      "inputNames": [
+        "attdn",
+        "chn_grp",
+        "cm_seq",
+        "course_nm",
+        "course_seq",
+        "fdate",
+        "fran_no",
+        "fymd",
+        "grp_seq",
+        "lecture_key",
+        "mem_type",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "record_seq",
+        "sel_grp_seq",
+        "status",
+        "stu_memo",
+        "stu_nm",
+        "stu_pri_no",
+        "tdate",
+        "todo_memo",
+        "tut_memo",
+        "tutor_pri_no",
+        "tymd",
+        "week"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "AddRecord",
+        "CheckRecord",
+        "DelRecord",
+        "Main",
+        "PasswordMain",
+        "SelSglRecord",
+        "SessionChangeLectureStatusSkip",
+        "UdtRecord",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getVideoLecture",
+        "logout",
+        "udtTdMemo",
+        "udtTutMemo"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.cct.tutor.CourseScheduleServlet",
+        "/servlet/controller.cct.tutor.DayRecordServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "onReload",
+          "line": 814,
+          "selectorTokens": [
+            "Main"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseScheduleServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onPrev",
+          "line": 821,
+          "selectorTokens": [
+            "Main"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseScheduleServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onToday",
+          "line": 831,
+          "selectorTokens": [
+            "Main"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseScheduleServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onNext",
+          "line": 841,
+          "selectorTokens": [
+            "Main"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseScheduleServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onDc",
+          "line": 851,
+          "selectorTokens": [
+            "Main"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.DayRecordServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": true,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onSel",
+          "line": 870,
+          "selectorTokens": [
+            "SelSglRecord"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseScheduleServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onAdd",
+          "line": 955,
+          "selectorTokens": [
+            "AddRecord",
+            "CheckRecord"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseScheduleServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onUdt",
+          "line": 1018,
+          "selectorTokens": [
+            "CheckRecord",
+            "UdtRecord"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseScheduleServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onDel",
+          "line": 1080,
+          "selectorTokens": [
+            "DelRecord"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseScheduleServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "saveTodo",
+          "line": 1095,
+          "selectorTokens": [
+            "udtTdMemo"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseScheduleServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "saveTut",
+          "line": 1111,
+          "selectorTokens": [
+            "udtTutMemo"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.cct.tutor.CourseScheduleServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 26,
+      "rowCount": 65,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "dtzt_result",
+      "path": "/servlet/controller.dailyzerotest.DailyZeroTestServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:36.779Z",
+      "bytes": 205732,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        },
+        {
+          "name": "searchform",
+          "id": "searchform",
+          "method": "POST",
+          "actionPath": "/servlet/controller.dailyzerotest.DailyZeroTestServlet",
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "sort_date",
+            "stu_name"
+          ]
+        }
+      ],
+      "inputNames": [
+        "cmode_create_advance",
+        "cmode_create_similar",
+        "dmode_advance_exam_count",
+        "dmode_create_advance",
+        "dmode_create_similar",
+        "dmode_similar_exam_count",
+        "fran_no",
+        "lecture_key",
+        "mem_type",
+        "mmode_create_advance",
+        "mmode_create_similar",
+        "mmode_similar_exam_count",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "sort_date",
+        "stu_name"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "CheckOMRMunHang",
+        "CheckTestPage",
+        "CourseExamInit",
+        "GetClinicCountByPatDifficulty",
+        "GetLectureCode",
+        "Main",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "ShowTestPage",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getTestOption",
+        "getVideoLecture",
+        "logout",
+        "testInfo",
+        "updateTestOption"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.admin.system.testpage.TestPageRegServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.common.TestPageShowServlet",
+        "/servlet/controller.common.TestpageSelectExServlet",
+        "/servlet/controller.common.TestpageSelectServlet",
+        "/servlet/controller.coursemanage.CourseDManageServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet",
+        "/servlet/controller.tutor.da.TestPageListOurclgServlet",
+        "/servlet/controller.tutor.fa.TestHangServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "onClickInitApply",
+          "line": 848,
+          "selectorTokens": [
+            "CourseExamInit"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseDManageServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 7,
+      "rowCount": 13,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "prestudy_completed",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:35.654Z",
+      "bytes": 60877,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        },
+        {
+          "name": "form1",
+          "id": "form1",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "g_clg_no",
+            "g_mem_type",
+            "g_pri_no",
+            "reqCmd",
+            "student_name"
+          ]
+        }
+      ],
+      "inputNames": [
+        "fran_no",
+        "g_clg_no",
+        "g_mem_type",
+        "g_pri_no",
+        "lecture_key",
+        "mem_type",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "reqCmd",
+        "student_name"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "Main",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "WebPreStudy",
+        "WebUnPreStudy",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.coursemanage.CourseManageServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "prestudy_main",
+          "line": 817,
+          "selectorTokens": [
+            "WebPreStudy"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "page_move",
+          "line": 828,
+          "selectorTokens": [
+            "WebUnPreStudy"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onSearch",
+          "line": 835,
+          "selectorTokens": [],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 1,
+      "rowCount": 42,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "prestudy_summary",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:36.173Z",
+      "bytes": 66772,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        }
+      ],
+      "inputNames": [
+        "end_date",
+        "fran_no",
+        "lecture_key",
+        "mem_type",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "start_date",
+        "view_type"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "Main",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "TeacherPrestudySummary",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getTokenUrl",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.coursemanage.CourseManageServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "onReload",
+          "line": 891,
+          "selectorTokens": [
+            "TeacherPrestudySummary"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "goPage",
+          "line": 903,
+          "selectorTokens": [
+            "TeacherPrestudySummary"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 2,
+      "rowCount": 12,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "prestudy_waiting",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:35.155Z",
+      "bytes": 48044,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        },
+        {
+          "name": "form1",
+          "id": "form1",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "g_clg_no",
+            "g_mem_type",
+            "g_pri_no",
+            "reqCmd",
+            "student_name"
+          ]
+        }
+      ],
+      "inputNames": [
+        "fran_no",
+        "g_clg_no",
+        "g_mem_type",
+        "g_pri_no",
+        "lecture_key",
+        "mem_type",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "reqCmd",
+        "student_name"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "Main",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "WebCtPreStudy",
+        "WebPreStudy",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.coursemanage.CourseManageServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "prestudy_main",
+          "line": 803,
+          "selectorTokens": [
+            "WebPreStudy"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "page_move",
+          "line": 810,
+          "selectorTokens": [
+            "WebCtPreStudy"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onSearch",
+          "line": 816,
+          "selectorTokens": [],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 1,
+      "rowCount": 10,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "smartbook_menu",
+      "path": "/servlet/controller.tutor.TutorMenuIndexServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:37.271Z",
+      "bytes": 44911,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        }
+      ],
+      "inputNames": [
+        "fran_no",
+        "lecture_key",
+        "mem_type",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "Main",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getTokenUrl",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "playLecture",
+          "line": 633,
+          "selectorTokens": [
+            "getVideoLecture"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.first.RegAppCommandServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "setChangeLectureStatusSkip",
+          "line": 711,
+          "selectorTokens": [
+            "SessionChangeLectureStatusSkip"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.first.RegAppServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "openLcadLevelCut",
+          "line": 735,
+          "selectorTokens": [
+            "getLcadLevelCut"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.lcad.LCADServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": true,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "openCertfication",
+          "line": 753,
+          "selectorTokens": [
+            "getCertUserInfoList"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.admin.college.usermng.UserSearchServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": true,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "openLandingInfo",
+          "line": 761,
+          "selectorTokens": [
+            "getLandingInfoList"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.landing.LandingServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": true,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 0,
+      "rowCount": 0,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "smartbook_result",
+      "path": "/servlet/controller.tutor.wb.WbTeachList1Servlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:38.697Z",
+      "bytes": 224849,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        },
+        {
+          "name": "search",
+          "id": "search",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "book_code",
+            "cl1",
+            "clg_no",
+            "cls_no",
+            "search_mode",
+            "sort_date",
+            "stu_name",
+            "stu_no",
+            "wb_list"
+          ]
+        }
+      ],
+      "inputNames": [
+        "all_check",
+        "book_code",
+        "cl1",
+        "clg_no",
+        "cls_no",
+        "cmode_create_advance",
+        "cmode_create_similar",
+        "dmode_advance_exam_count",
+        "dmode_create_advance",
+        "dmode_create_similar",
+        "dmode_similar_exam_count",
+        "fran_no",
+        "lecture_key",
+        "mem_type",
+        "mmode_create_advance",
+        "mmode_create_similar",
+        "mmode_similar_exam_count",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "search_mode",
+        "sort_date",
+        "stu_name",
+        "stu_no",
+        "wb_list"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "CheckOMRMunHang",
+        "CheckTestPage",
+        "Class",
+        "ClassMem",
+        "GetClinicCountByPatDifficulty",
+        "GetLectureCode",
+        "JsonWorkBookDetailInfo",
+        "Main",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "ShowTestPage",
+        "SmartBookResultSearch",
+        "SmartBookResultSearchByName",
+        "category",
+        "getCertUserInfoList",
+        "getClinicResult",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getTestOption",
+        "getVideoLecture",
+        "logout",
+        "testInfo",
+        "updateTestOption"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.admin.system.testpage.TestPageRegServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.common.TestPageShowServlet",
+        "/servlet/controller.common.TestpageSelectExServlet",
+        "/servlet/controller.common.TestpageSelectServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet",
+        "/servlet/controller.tutor.da.TestPageListOurclgServlet",
+        "/servlet/controller.tutor.fa.TestHangServlet",
+        "/servlet/controller.tutor.wb.WbTeachList1Servlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "onSelChange",
+          "line": 822,
+          "selectorTokens": [
+            "Class",
+            "ClassMem",
+            "category"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.admin.system.testpage.TestPageRegServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onSearch",
+          "line": 969,
+          "selectorTokens": [
+            "SmartBookResultSearch",
+            "SmartBookResultSearchByName"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.tutor.wb.WbTeachList1Servlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onWbChange",
+          "line": 997,
+          "selectorTokens": [
+            "SmartBookResultSearch",
+            "SmartBookResultSearchByName"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.tutor.wb.WbTeachList1Servlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onCreateClinicOXPaper",
+          "line": 1355,
+          "selectorTokens": [
+            "getClinicResult"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.common.TestpageSelectExServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 8,
+      "rowCount": 14,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "study_course",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:34.611Z",
+      "bytes": 51929,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        },
+        {
+          "name": "form1",
+          "id": "form1",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "cls_no",
+            "g_clg_no",
+            "g_mem_type",
+            "g_pri_no",
+            "grade_no",
+            "reqCmd",
+            "student_name"
+          ]
+        }
+      ],
+      "inputNames": [
+        "cls_no",
+        "fran_no",
+        "g_clg_no",
+        "g_mem_type",
+        "g_pri_no",
+        "grade_no",
+        "lecture_key",
+        "mem_type",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "reqCmd",
+        "student_name"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "AjaxUpdateCourseState",
+        "CoursePrint",
+        "GradeChange",
+        "Main",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "StudyCourse",
+        "cleanCourseStudyResult",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.admin.system.testpage.TestPageRegServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.coursemanage.CourseManageServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "onSearch",
+          "line": 815,
+          "selectorTokens": [
+            "StudyCourse"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "print_page",
+          "line": 861,
+          "selectorTokens": [
+            "CoursePrint"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": true,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onChangeGrade",
+          "line": 894,
+          "selectorTokens": [
+            "GradeChange"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.admin.college.usermng.UserSearchServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onChangeStatus",
+          "line": 957,
+          "selectorTokens": [
+            "AjaxUpdateCourseState"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onResetCourse",
+          "line": 980,
+          "selectorTokens": [
+            "cleanCourseStudyResult"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.admin.system.testpage.TestPageRegServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 0,
+      "rowCount": 0,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "study_menu",
+      "path": "/servlet/controller.tutor.TutorMenuIndexServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:31.949Z",
+      "bytes": 47467,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        }
+      ],
+      "inputNames": [
+        "fran_no",
+        "lecture_key",
+        "mem_type",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "Main",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getTokenUrl",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [],
+      "tableCount": 0,
+      "rowCount": 0,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "study_overview",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:32.447Z",
+      "bytes": 59254,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        },
+        {
+          "name": "form1",
+          "id": "form1",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "g_clg_no",
+            "g_end_date",
+            "g_mem_type",
+            "g_pri_no",
+            "g_send_type",
+            "g_start_date",
+            "make_time1",
+            "make_time2",
+            "make_time3",
+            "make_time4",
+            "reqCmd",
+            "student_no"
+          ]
+        }
+      ],
+      "inputNames": [
+        "fran_no",
+        "g_clg_no",
+        "g_end_date",
+        "g_mem_type",
+        "g_pri_no",
+        "g_send_type",
+        "g_start_date",
+        "lecture_key",
+        "make_time1",
+        "make_time2",
+        "make_time3",
+        "make_time4",
+        "mem_type",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "reqCmd",
+        "student_no"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "GetDayOfStudentList",
+        "Main",
+        "MainExcel",
+        "MainPrint",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "StudyMainSearch",
+        "StudyPro",
+        "StudySchedule",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.coursemanage.CourseManageServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "onSearch",
+          "line": 878,
+          "selectorTokens": [
+            "StudyMainSearch"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "print_page",
+          "line": 973,
+          "selectorTokens": [
+            "MainPrint"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": true,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "excel_save",
+          "line": 1073,
+          "selectorTokens": [
+            "MainExcel"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "GetStudent",
+          "line": 1198,
+          "selectorTokens": [
+            "GetDayOfStudentList"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "go_proPage",
+          "line": 1277,
+          "selectorTokens": [
+            "StudyPro"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "go_schedulePage",
+          "line": 1311,
+          "selectorTokens": [
+            "StudySchedule"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 0,
+      "rowCount": 0,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "study_progress",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:32.949Z",
+      "bytes": 55004,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        },
+        {
+          "name": "form1",
+          "id": "form1",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "course_key",
+            "g_clg_no",
+            "g_course_key",
+            "g_mem_type",
+            "g_pri_no",
+            "grade_no",
+            "p_course_name",
+            "reqCmd"
+          ]
+        }
+      ],
+      "inputNames": [
+        "course_key",
+        "fran_no",
+        "g_clg_no",
+        "g_course_key",
+        "g_mem_type",
+        "g_pri_no",
+        "grade_no",
+        "lecture_key",
+        "mem_type",
+        "p_course_name",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "reqCmd"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "AjaxUpdateDate",
+        "Main",
+        "PasswordMain",
+        "ProCourseGetList",
+        "ProExcel",
+        "ProPrint",
+        "SessionChangeLectureStatusSkip",
+        "StudyPro",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.coursemanage.CourseManageServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "onSearch",
+          "line": 803,
+          "selectorTokens": [
+            "StudyPro"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onChangeGrade",
+          "line": 849,
+          "selectorTokens": [
+            "ProCourseGetList"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "editDate",
+          "line": 925,
+          "selectorTokens": [
+            "AjaxUpdateDate"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "print_page",
+          "line": 1018,
+          "selectorTokens": [
+            "ProPrint"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": true,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "excel_save",
+          "line": 1070,
+          "selectorTokens": [
+            "ProExcel"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 0,
+      "rowCount": 0,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "study_schedule",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:33.785Z",
+      "bytes": 63308,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        },
+        {
+          "name": "form1",
+          "id": "form1",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "cls_no",
+            "course",
+            "editId",
+            "grade_no",
+            "p_student_name",
+            "p_user_course_key",
+            "reqCmd",
+            "sendUrl",
+            "student_no"
+          ]
+        }
+      ],
+      "inputNames": [
+        "cls_no",
+        "course",
+        "editId",
+        "fran_no",
+        "grade_no",
+        "lecture_key",
+        "mem_type",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_student_name",
+        "p_url",
+        "p_user_course_key",
+        "pri_no",
+        "reqCmd",
+        "score_text",
+        "sendUrl",
+        "student_no"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "AjaxUpdateDate",
+        "AjaxUpdateScore",
+        "AjaxUpdateState",
+        "CourseGetList",
+        "GradeChange",
+        "Main",
+        "PasswordMain",
+        "ScheduleExcel",
+        "SchedulePrint",
+        "SessionChangeLectureStatusSkip",
+        "StudentGetList",
+        "UserSearch",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.coursemanage.CourseManageServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "onSearch",
+          "line": 896,
+          "selectorTokens": [
+            "UserSearch"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "print_page",
+          "line": 938,
+          "selectorTokens": [
+            "SchedulePrint"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": true,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "excel_save",
+          "line": 989,
+          "selectorTokens": [
+            "ScheduleExcel"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onChangeGrade",
+          "line": 1071,
+          "selectorTokens": [
+            "GradeChange"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.admin.college.usermng.UserSearchServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onChangeClass",
+          "line": 1155,
+          "selectorTokens": [
+            "StudentGetList"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.admin.college.usermng.UserSearchServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onChangeStudent",
+          "line": 1234,
+          "selectorTokens": [
+            "CourseGetList"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "editDate",
+          "line": 1319,
+          "selectorTokens": [
+            "AjaxUpdateDate"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "editState",
+          "line": 1394,
+          "selectorTokens": [
+            "AjaxUpdateState"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "updateScore",
+          "line": 1452,
+          "selectorTokens": [
+            "AjaxUpdateScore"
+          ],
+          "servletDeclarations": [],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 0,
+      "rowCount": 0,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "textbook_answer_catalog",
+      "path": "/servlet/controller.coursemanage.CourseManageServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:39.184Z",
+      "bytes": 76976,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        }
+      ],
+      "inputNames": [
+        "fran_no",
+        "lecture_key",
+        "mem_type",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "GaStudyAnswer",
+        "Main",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.coursemanage.CourseManageServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "go_page",
+          "line": 803,
+          "selectorTokens": [
+            "GaStudyAnswer"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.CourseManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 2,
+      "rowCount": 32,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "textbook_main",
+      "path": "/servlet/controller.coursemanage.TextBookManageServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:39.674Z",
+      "bytes": 208236,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        },
+        {
+          "name": "search",
+          "id": "search",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "student_name"
+          ]
+        }
+      ],
+      "inputNames": [
+        "cmode_create_advance",
+        "cmode_create_similar",
+        "dmode_advance_exam_count",
+        "dmode_create_advance",
+        "dmode_create_similar",
+        "dmode_similar_exam_count",
+        "fran_no",
+        "lecture_key",
+        "mem_type",
+        "mmode_create_advance",
+        "mmode_create_similar",
+        "mmode_similar_exam_count",
+        "p_groupno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "student_name"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "CheckOMRMunHang",
+        "CheckTestPage",
+        "GetClinicCountByPatDifficulty",
+        "GetLectureCode",
+        "Main",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "ShowTestPage",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getTestOption",
+        "getTextBookProgress",
+        "getVideoLecture",
+        "getWrongAnswerNoteResult",
+        "logout",
+        "testInfo",
+        "updateTestOption"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.admin.system.testpage.TestPageRegServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.common.TestPageShowServlet",
+        "/servlet/controller.common.TestpageSelectExServlet",
+        "/servlet/controller.common.TestpageSelectServlet",
+        "/servlet/controller.coursemanage.TextBookManageServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet",
+        "/servlet/controller.tutor.da.TestPageListOurclgServlet",
+        "/servlet/controller.tutor.fa.TestHangServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "onSearch",
+          "line": 804,
+          "selectorTokens": [
+            "getTextBookProgress"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.coursemanage.TextBookManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "createBookIncorrectPapers",
+          "line": 853,
+          "selectorTokens": [
+            "getWrongAnswerNoteResult"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.common.TestpageSelectExServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 7,
+      "rowCount": 13,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    },
+    {
+      "id": "workbook_catalog",
+      "path": "/servlet/controller.tutor.wb.WorkbookManageServlet",
+      "status": 200,
+      "state": "source_structure_only",
+      "observedAt": "2026-10-02T10:22:38.086Z",
+      "bytes": 62909,
+      "forms": [
+        {
+          "name": "userForm",
+          "id": "userForm",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "fran_no",
+            "mem_type",
+            "p_groupno",
+            "p_prino",
+            "p_process",
+            "p_url",
+            "pri_no"
+          ]
+        },
+        {
+          "name": "form1",
+          "id": "form1",
+          "method": "POST",
+          "actionPath": null,
+          "actionMeaning": "literal_attribute_only_not_runtime_handler_destination",
+          "fieldNames": [
+            "p_pageno",
+            "p_process",
+            "search_book_code",
+            "search_grade",
+            "search_ismaster",
+            "search_leveltype",
+            "search_status",
+            "search_title",
+            "workbook_no"
+          ]
+        }
+      ],
+      "inputNames": [
+        "fran_no",
+        "lecture_key",
+        "mem_type",
+        "p_groupno",
+        "p_pageno",
+        "p_prino",
+        "p_process",
+        "p_url",
+        "pri_no",
+        "search_book_code",
+        "search_grade",
+        "search_ismaster",
+        "search_leveltype",
+        "search_status",
+        "search_title",
+        "workbook_no"
+      ],
+      "selectorLiteralTokens": [
+        "AccountData",
+        "Copy",
+        "Del",
+        "GradeChange",
+        "Main",
+        "PasswordMain",
+        "SessionChangeLectureStatusSkip",
+        "getCertUserInfoList",
+        "getLandingInfoList",
+        "getLcadLevelCut",
+        "getVideoLecture",
+        "logout"
+      ],
+      "servletPaths": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet",
+        "/servlet/controller.common.GroupChangeServlet",
+        "/servlet/controller.first.RegAdminServlet",
+        "/servlet/controller.first.RegAppCommandServlet",
+        "/servlet/controller.first.RegAppServlet",
+        "/servlet/controller.first.RegPupilServlet",
+        "/servlet/controller.first.RegTutorServlet",
+        "/servlet/controller.landing.LandingServlet",
+        "/servlet/controller.lcad.LCADServlet",
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet",
+        "/servlet/controller.tutor.wb.WorkbookInfoServlet",
+        "/servlet/controller.tutor.wb.WorkbookManageServlet"
+      ],
+      "requestDeclarations": [
+        {
+          "functionName": "playLecture",
+          "line": 639,
+          "selectorTokens": [
+            "getVideoLecture"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.first.RegAppCommandServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "setChangeLectureStatusSkip",
+          "line": 717,
+          "selectorTokens": [
+            "SessionChangeLectureStatusSkip"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.first.RegAppServlet"
+          ],
+          "methodDeclarations": [
+            "POST"
+          ],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "openLcadLevelCut",
+          "line": 741,
+          "selectorTokens": [
+            "getLcadLevelCut"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.lcad.LCADServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": true,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "openCertfication",
+          "line": 759,
+          "selectorTokens": [
+            "getCertUserInfoList"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.admin.college.usermng.UserSearchServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": true,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "openLandingInfo",
+          "line": 767,
+          "selectorTokens": [
+            "getLandingInfoList"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.landing.LandingServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": true,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onSearch",
+          "line": 882,
+          "selectorTokens": [
+            "Main"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.tutor.wb.WorkbookManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onView",
+          "line": 890,
+          "selectorTokens": [
+            "Main"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.tutor.wb.WorkbookInfoServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onCopy",
+          "line": 899,
+          "selectorTokens": [
+            "Copy"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.tutor.wb.WorkbookManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onDel",
+          "line": 942,
+          "selectorTokens": [
+            "Del"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.tutor.wb.WorkbookManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": true,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        },
+        {
+          "functionName": "onChangeGrade",
+          "line": 993,
+          "selectorTokens": [
+            "GradeChange"
+          ],
+          "servletDeclarations": [
+            "/servlet/controller.tutor.wb.WorkbookManageServlet"
+          ],
+          "methodDeclarations": [],
+          "formSubmitted": false,
+          "windowOpened": false,
+          "invoked": false,
+          "semanticEffectVerified": false
+        }
+      ],
+      "tableCount": 5,
+      "rowCount": 13,
+      "recordScopeVerified": false,
+      "paginationComplete": false,
+      "requestDeclarationsNotReplay": true,
+      "rawValuesEmitted": false,
+      "rawBodyPersisted": false
+    }
+  ],
+  "publicScripts": [
+    {
+      "sourcePath": "/jsutil/module.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "bytes": 175529,
+      "sha256": "b0e0a011fa82b672886e20f84cc8846b76c663297226b058aeb672c8598594d3",
+      "syntacticallyParseableJs": true,
+      "observedAt": "2026-10-02T09:42:51.700Z",
+      "servletPaths": [
+        "/servlet/controller.common.TestpageSelectExServlet",
+        "/servlet/controller.tutor.base.TestPageListServlet"
+      ],
+      "selectorLiteralTokens": [
+        "getTestExamList"
+      ],
+      "functionDeclarationCount": 5,
+      "sourceEvidenceOnly": true,
+      "rawSourcePersisted": false,
+      "credentialOrStudentValuesEmitted": false
+    },
+    {
+      "sourcePath": "/js/common.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "bytes": 115119,
+      "sha256": "7b4343bdcdcb59fc699f3bd3af5c1304ae9ce1a37eacddd908700a08b59ecd6b",
+      "syntacticallyParseableJs": true,
+      "observedAt": "2026-10-02T09:42:51.814Z",
+      "servletPaths": [],
+      "selectorLiteralTokens": [],
+      "functionDeclarationCount": 137,
+      "sourceEvidenceOnly": true,
+      "rawSourcePersisted": false,
+      "credentialOrStudentValuesEmitted": false
+    },
+    {
+      "sourcePath": "/js/common_function.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "bytes": 29651,
+      "sha256": "2fd309a20143adbbec2982af27e20f4c9121501d5b845bf81741a0484a920f2e",
+      "syntacticallyParseableJs": true,
+      "observedAt": "2026-10-02T09:42:51.921Z",
+      "servletPaths": [],
+      "selectorLiteralTokens": [],
+      "functionDeclarationCount": 91,
+      "sourceEvidenceOnly": true,
+      "rawSourcePersisted": false,
+      "credentialOrStudentValuesEmitted": false
+    }
+  ],
+  "limits": [
+    "All observations describe source structure, not complete student/lesson data or server-side effects.",
+    "Literal form action attributes can be absent; JavaScript handler destinations remain separate declarations.",
+    "The bounded lexical function trace is not a complete JavaScript AST, control-flow or callback audit.",
+    "A selector token is not bound to every servlet on its page; ambiguous declarations remain uncallable.",
+    "No direct server implementation, physical DB schema or native-app-only protocol was accessed.",
+    "Fixed default views do not establish selected-date roster completeness, pagination, grading time, mastery or delivery."
+  ],
+  "failuresPreserved": [
+    {
+      "kind": "inactive_browser_document",
+      "result": "expected login/origin refused; no credential or operation replay"
+    },
+    {
+      "kind": "native_ipc_wait",
+      "result": "default Runtime.evaluate wait timed out after 5 seconds; fixed by supported per-call cdp response timeout without engine/config changes"
+    },
+    {
+      "kind": "form_action_projection",
+      "result": "Initial reflected form.action was context-relative; successor keeps literal action attribute null rather than inventing a destination"
+    }
+  ],
+  "fullBackendAcceptance": false,
+  "productionEffectsAuthorized": false,
+  "sharedRequestDeclarations": [
+    {
+      "functionName": "setLogOut",
+      "line": 160,
+      "selectorTokens": [
+        "logout"
+      ],
+      "servletDeclarations": [
+        "/servlet/controller.login.LoginServlet",
+        "/servlet/controller.sso.SongMathServlet"
+      ],
+      "methodDeclarations": [],
+      "formSubmitted": true,
+      "windowOpened": false,
+      "invoked": false,
+      "semanticEffectVerified": false,
+      "documentIds": [
+        "alimtalk_history",
+        "attendance_history",
+        "course_group",
+        "course_schedule",
+        "dtzt_result",
+        "prestudy_completed",
+        "prestudy_summary",
+        "prestudy_waiting",
+        "smartbook_menu",
+        "smartbook_result",
+        "study_course",
+        "study_menu",
+        "study_overview",
+        "study_progress",
+        "study_schedule",
+        "textbook_answer_catalog",
+        "textbook_main",
+        "workbook_catalog"
+      ]
+    },
+    {
+      "functionName": "playLecture",
+      "line": 575,
+      "selectorTokens": [
+        "getVideoLecture"
+      ],
+      "servletDeclarations": [
+        "/servlet/controller.first.RegAppCommandServlet"
+      ],
+      "methodDeclarations": [
+        "POST"
+      ],
+      "formSubmitted": false,
+      "windowOpened": false,
+      "invoked": false,
+      "semanticEffectVerified": false,
+      "documentIds": [
+        "alimtalk_history",
+        "attendance_history",
+        "course_group",
+        "course_schedule",
+        "dtzt_result",
+        "prestudy_completed",
+        "prestudy_summary",
+        "prestudy_waiting",
+        "smartbook_result",
+        "study_course",
+        "study_menu",
+        "study_overview",
+        "study_progress",
+        "study_schedule",
+        "textbook_answer_catalog",
+        "textbook_main"
+      ]
+    },
+    {
+      "functionName": "setChangeLectureStatusSkip",
+      "line": 653,
+      "selectorTokens": [
+        "SessionChangeLectureStatusSkip"
+      ],
+      "servletDeclarations": [
+        "/servlet/controller.first.RegAppServlet"
+      ],
+      "methodDeclarations": [
+        "POST"
+      ],
+      "formSubmitted": false,
+      "windowOpened": false,
+      "invoked": false,
+      "semanticEffectVerified": false,
+      "documentIds": [
+        "alimtalk_history",
+        "attendance_history",
+        "course_group",
+        "course_schedule",
+        "dtzt_result",
+        "prestudy_completed",
+        "prestudy_summary",
+        "prestudy_waiting",
+        "smartbook_result",
+        "study_course",
+        "study_menu",
+        "study_overview",
+        "study_progress",
+        "study_schedule",
+        "textbook_answer_catalog",
+        "textbook_main"
+      ]
+    },
+    {
+      "functionName": "openLcadLevelCut",
+      "line": 677,
+      "selectorTokens": [
+        "getLcadLevelCut"
+      ],
+      "servletDeclarations": [
+        "/servlet/controller.lcad.LCADServlet"
+      ],
+      "methodDeclarations": [],
+      "formSubmitted": false,
+      "windowOpened": true,
+      "invoked": false,
+      "semanticEffectVerified": false,
+      "documentIds": [
+        "alimtalk_history",
+        "attendance_history",
+        "course_group",
+        "course_schedule",
+        "dtzt_result",
+        "prestudy_completed",
+        "prestudy_summary",
+        "prestudy_waiting",
+        "smartbook_result",
+        "study_course",
+        "study_menu",
+        "study_overview",
+        "study_progress",
+        "study_schedule",
+        "textbook_answer_catalog",
+        "textbook_main"
+      ]
+    },
+    {
+      "functionName": "openCertfication",
+      "line": 695,
+      "selectorTokens": [
+        "getCertUserInfoList"
+      ],
+      "servletDeclarations": [
+        "/servlet/controller.admin.college.usermng.UserSearchServlet"
+      ],
+      "methodDeclarations": [],
+      "formSubmitted": false,
+      "windowOpened": true,
+      "invoked": false,
+      "semanticEffectVerified": false,
+      "documentIds": [
+        "alimtalk_history",
+        "attendance_history",
+        "course_group",
+        "course_schedule",
+        "dtzt_result",
+        "prestudy_completed",
+        "prestudy_summary",
+        "prestudy_waiting",
+        "smartbook_result",
+        "study_course",
+        "study_menu",
+        "study_overview",
+        "study_progress",
+        "study_schedule",
+        "textbook_answer_catalog",
+        "textbook_main"
+      ]
+    },
+    {
+      "functionName": "openLandingInfo",
+      "line": 703,
+      "selectorTokens": [
+        "getLandingInfoList"
+      ],
+      "servletDeclarations": [
+        "/servlet/controller.landing.LandingServlet"
+      ],
+      "methodDeclarations": [],
+      "formSubmitted": false,
+      "windowOpened": true,
+      "invoked": false,
+      "semanticEffectVerified": false,
+      "documentIds": [
+        "alimtalk_history",
+        "attendance_history",
+        "course_group",
+        "course_schedule",
+        "dtzt_result",
+        "prestudy_completed",
+        "prestudy_summary",
+        "prestudy_waiting",
+        "smartbook_result",
+        "study_course",
+        "study_menu",
+        "study_overview",
+        "study_progress",
+        "study_schedule",
+        "textbook_answer_catalog",
+        "textbook_main"
+      ]
+    }
+  ]
+}

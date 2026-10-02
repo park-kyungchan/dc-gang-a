@@ -1,6 +1,7 @@
 /** Deterministic, metadata-only endpoint discovery. This module has no network executor. */
 import { getAllRoutes, type LmsRouteDefinition } from './lmsRouteRegistry';
 import { sourceEndpointCandidates, type SourceEndpointCandidate } from './endpointCandidates';
+import { loadBackendSourceEvidence, type BackendSourceStructure } from './backendSourceEvidence';
 
 export type EndpointOrigin = 'canonical' | 'source_candidate';
 export type RequestGate = 'blocked_effect' | 'unreviewed_candidate' | 'reviewed_adapter_and_scope_required';
@@ -25,6 +26,8 @@ export interface EndpointCatalogEntry {
   };
   callable: false;
   requestGate: RequestGate;
+  /** Current document declarations only; never a replacement for the operation's binding or effect proof. */
+  sourceStructure?: BackendSourceStructure;
 }
 
 function gate(effect: EndpointCatalogEntry['semanticEffect'], origin: EndpointOrigin): RequestGate {
@@ -62,6 +65,15 @@ export function buildEndpointCatalog(
   canonical = getAllRoutes(), candidates = sourceEndpointCandidates(),
 ): EndpointCatalogEntry[] {
   const entries = [...canonical.map(canonicalEntry), ...candidates.map(candidateEntry)];
+  const sources = loadBackendSourceEvidence();
+  for (const entry of entries) {
+    const source = sources.get(entry.id);
+    if (source) {
+      const destination = new URL(entry.routeTemplate, 'https://dc.gang-a.kr');
+      if (destination.origin === 'https://dc.gang-a.kr' && destination.pathname === source.documentPath)
+        entry.sourceStructure = structuredClone(source);
+    }
+  }
   const ids = new Set<string>();
   for (const entry of entries) {
     if (!entry.id.trim() || ids.has(entry.id)) throw new Error('duplicate_catalog_id');
@@ -72,11 +84,12 @@ export function buildEndpointCatalog(
 
 export interface EndpointQuery {
   id?: string;
+  operation?: string;
   family?: string;
   origin?: EndpointOrigin;
   effect?: EndpointCatalogEntry['semanticEffect'];
   callableOnly?: boolean;
-  projection?: 'compact' | 'full' | 'summary';
+  projection?: 'compact' | 'full' | 'summary' | 'coverage' | 'declarations';
   limit?: number;
 }
 
@@ -91,15 +104,51 @@ export interface CompactEndpoint {
 export function queryEndpoints(query: EndpointQuery = {}, entries = buildEndpointCatalog()) {
   if (query.origin && !['canonical', 'source_candidate'].includes(query.origin)) throw new Error('invalid_origin');
   if (query.effect && !['read', 'write', 'send', 'open_send_screen', 'unknown'].includes(query.effect)) throw new Error('invalid_effect');
-  if (query.projection && !['compact', 'full', 'summary'].includes(query.projection)) throw new Error('invalid_projection');
+  if (query.projection && !['compact', 'full', 'summary', 'coverage', 'declarations'].includes(query.projection)) throw new Error('invalid_projection');
+  if (query.operation !== undefined && !/^[A-Za-z][A-Za-z0-9_]{0,95}$/.test(query.operation)) throw new Error('invalid_operation');
   if (query.limit !== undefined && (!Number.isSafeInteger(query.limit) || query.limit < 1 || query.limit > 500)) throw new Error('invalid_limit');
   if (query.id && !entries.some(e => e.id === query.id)) throw new Error('unknown_endpoint_id');
   const sorted = [...entries].sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
   const matched = sorted.filter(e => (!query.id || e.id === query.id)
     && (!query.family || e.family === query.family) && (!query.origin || e.origin === query.origin)
-    && (!query.effect || e.semanticEffect === query.effect) && (!query.callableOnly || e.callable));
+    && (!query.effect || e.semanticEffect === query.effect) && (!query.callableOnly || e.callable)
+    && (!query.operation || e.operation === query.operation
+      || e.sourceStructure?.requestDeclarations.some(declaration => declaration.selectorTokens.includes(query.operation!))));
   const projection = query.projection ?? 'compact';
   const selected = matched.slice(0, query.limit ?? 500);
+  if (projection === 'declarations') {
+    const declarations = matched.flatMap(entry => (entry.sourceStructure?.requestDeclarations ?? []).flatMap(declaration =>
+      declaration.selectorTokens.filter(operation => !query.operation || operation === query.operation).map(operation => ({
+        id: `${entry.id}#${declaration.functionName}:${operation}`, family: entry.family, origin: entry.origin,
+        effect: 'unknown' as const, gate: 'blocked_effect' as const, catalogId: entry.id,
+        containingEndpointEffect: entry.semanticEffect,
+        sourceRef: entry.sourceStructure!.sourceRef, observedAt: entry.sourceStructure!.observedAt,
+        operation, ...structuredClone(declaration),
+        bindingMeaning: 'co_located_source_declaration_not_wire_effect_or_record_proof' as const,
+      }))));
+    const rows = declarations.slice(0, query.limit ?? 500);
+    return { schemaVersion: 1 as const, scope: 'accessible_static_sources_not_deployed_backend_completeness',
+      projection, totalCatalog: entries.length, matched: matched.length, declarationMatches: declarations.length,
+      shown: rows.length, truncated: rows.length < declarations.length, callable: 0, rows };
+  }
+  if (projection === 'coverage') return {
+    schemaVersion: 1 as const, scope: 'accessible_static_sources_not_deployed_backend_completeness',
+    projection, totalCatalog: entries.length, matched: matched.length, shown: 0,
+    truncated: false, callable: 0, rows: [] as Array<CompactEndpoint | EndpointCatalogEntry>,
+    coverage: {
+      executionEnabled: false, physicalBackendCompletenessEstablished: false, nativeAppCompletenessEstablished: false,
+      families: [...new Set(matched.map(entry => entry.family))].sort().map(family => {
+        const familyEntries = matched.filter(entry => entry.family === family);
+        return { family, operations: familyEntries.length,
+          canonical: familyEntries.filter(entry => entry.origin === 'canonical').length,
+          sourceCandidates: familyEntries.filter(entry => entry.origin === 'source_candidate').length,
+          observedDocumentStructures: familyEntries.filter(entry => entry.sourceStructure).length,
+          byEffect: Object.fromEntries(['read', 'write', 'send', 'open_send_screen', 'unknown'].map(effect =>
+            [effect, familyEntries.filter(entry => entry.semanticEffect === effect).length])),
+          callable: 0, ownership: 'unverified', occurrence: 'unverified', pagination: 'unverified' };
+      }),
+    },
+  };
   const rows: Array<CompactEndpoint | EndpointCatalogEntry> = projection === 'summary' ? []
     : projection === 'full' ? structuredClone(selected) : selected.map(e => ({
       id: e.id, family: e.family, origin: e.origin, effect: e.semanticEffect, gate: e.requestGate,

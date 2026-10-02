@@ -6,7 +6,7 @@ export function endpointCli(args: string[]): unknown {
   const query: EndpointQuery = {};
   const seen = new Set<string>();
   let metrics = false;
-  const valued = ['--id', '--family', '--origin', '--effect', '--projection', '--limit'];
+  const valued = ['--id', '--operation', '--family', '--origin', '--effect', '--projection', '--limit'];
   for (let i = 0; i < args.length; i++) {
     const arg = args[i]!;
     if (seen.has(arg)) throw new Error('duplicate_flag');
@@ -17,6 +17,7 @@ export function endpointCli(args: string[]): unknown {
     const value = args[++i];
     if (!value || value.startsWith('--')) throw new Error('missing_flag_value');
     if (arg === '--id') query.id = value;
+    if (arg === '--operation') query.operation = value;
     if (arg === '--family') query.family = value;
     if (arg === '--origin') query.origin = value as EndpointQuery['origin'];
     if (arg === '--effect') query.effect = value as EndpointQuery['effect'];
